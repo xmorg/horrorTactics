@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="50" tilewidth="250" tileheight="129" nextobjectid="1">
+ <tileset firstgid="1" name="tiles" tilewidth="250" tileheight="129" tilecount="16" columns="8">
+  <image source="tiles250x129.png" width="2000" height="258"/>
+ </tileset>
+ <tileset firstgid="17" name="walls" tilewidth="250" tileheight="512" tilecount="16" columns="8">
+  <image source="walls250x512.png" width="2000" height="1024"/>
+ </tileset>
+ <layer name="background" width="50" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3P0QmAMBBAsbPQ/Vd2BBFEXiEfGSBrZhb8YH/Mw8PDw8PDw8PDw8PDwwNOd0V5tHi0eLR4tHi0eLR4tHi0vH0AwJMbQQierRAnAAA=
+  </data>
+ </layer>
+ <layer name="walls" width="50" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2Waw6EIAyEG4+A7nr/m+oPSdim5VHKQnbnSxoNVWSkDAQiCnfsSQRjm5b/VkhIY6rNl96Nz5x3bA6R0zEaruPNrrn71XR4zMVsHS82lpb5OOlzLsPT3wwOsv9/vq7C098MeF21zscqddXjV1Jd1ego+bXF20f4VU3slN/jeJ4/U9LR61c19NaepsPTd63jaGEVHak3xxrSxivlNB2jz1ac1Jtj7UtoOWmPsp5FtfNpDb11NXqPmrk+PPlnHV7r3BOLDss6X1GH13ckv7S2zTojAgAAAAAAAAAAAAAAAAC/xgUHDXvJECcAAA==
+  </data>
+ </layer>
+</map>
