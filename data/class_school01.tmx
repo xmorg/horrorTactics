@@ -16,4 +16,9 @@
    H4sIAAAAAAAAA+VWbQ6AIAhlHYG+7n/T/KGbMVBETLfexmphxgt4iACAwfbM0PhM8n9lHLiYtP7au2nNHWxzsBKP0aA8LnIt3a/GwyMXs3mcJJaWfNzwziXG/WbgAPv/p32Fcb8ZoHXVmo9V6qpHr7i60vCo6bVF20folcZ2KM846qdrajx69UqD3tqTeHjqrjWOFqzCI9fmVENSvJxP4jH6bEWRa3OqfQ6Sj5tR1rOodD7VoLeuRs+omf3hiT/z8OpzT1h4WPp8RR6Wb3xhD+y3u12gDwAA
   </data>
  </layer>
+ <layer name="fog" width="50" height="20" opacity="0.35">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3DQQ0AAAwDobNR/0YnYx9IWDVVVVX19QGSHsr9oA8AAA==
+  </data>
+ </layer>
 </map>

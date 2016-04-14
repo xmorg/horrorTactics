@@ -11,6 +11,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SpriteSheet;
@@ -54,15 +55,20 @@ public class HorrorTactics extends BasicGame {
             //map.tactics_in_distress01 = new Image("data/tactics_in_distress01.png");
             map.tilesheet = new SpriteSheet(map.tiles250x129, 250,129);
             map.wallsheet = new SpriteSheet(map.walls250x512, 250,512);
-            //map.sg1sheet = new SpriteSheet(map.tactics_in_distress00, 218,313); //fixme! 200x300 is fine?
+            draw_x = map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY())*-1;
+            draw_y = map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY())*-1;
         }
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
-            //keys?
-            
             Input input = gc.getInput();
             mouse_x = input.getMouseX();
             mouse_y = input.getMouseY();
+            
+            //tiled update?
+            map.setTileId(map.player.getTileX(), 
+                    map.player.getTileY(), 2, 
+                    0);
+            
             if (input.isKeyPressed(Input.KEY_ESCAPE)) 
             {
                 game_state = "exit";
@@ -92,14 +98,31 @@ public class HorrorTactics extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
             g.scale(scale_x, scale_x); //scale the same
-            //map.render(0+draw_x, 0+draw_y); //render tild map
+            //g.setColor(Color.black);
+            
             int tdraw_x = map.getIsoXToScreen(player_x-2,player_y-2);
             int tdraw_y = map.getIsoYToScreen(player_x-2,player_y-2);
-            map.render(tdraw_x+draw_x, tdraw_y+draw_y, player_x-3, player_y-3, 6, 6, 0, false);
-            map.render(tdraw_x+draw_x, tdraw_y+draw_y, player_x-3, player_y-3, 6, 6, 1, true);
-            map.sg1sheet.getSpriteframe().draw(
-                map.sg1sheet.getDrawX(), //getIsoXToScreen(player_x,player_y)+draw_x+40, 
-                map.sg1sheet.getDrawY());//getIsoYToScreen(player_x,player_y)+draw_y-210);
+            map.render(tdraw_x+draw_x, tdraw_y+draw_y, 
+                    0, 
+                    0, 
+                    map.getTileWidth(), 
+                    map.getTileHeight(), 
+                    0, false);
+            map.render(tdraw_x+draw_x, tdraw_y+draw_y, 
+                    0, 
+                    0, 
+                    map.getTileWidth(), 
+                    map.getTileHeight(), 
+                    1, true);
+            map.render(tdraw_x+draw_x, tdraw_y+draw_y, 
+                    0, 
+                    0, 
+                    map.getTileWidth(), 
+                    map.getTileHeight(), 
+                    2, true);
+            //map.sg1sheet.getSpriteframe().draw(
+            //    map.sg1sheet.getDrawX(), //getIsoXToScreen(player_x,player_y)+draw_x+40, 
+            //    map.sg1sheet.getDrawY());//getIsoYToScreen(player_x,player_y)+draw_y-210);
             g.drawString(mouse_x + "x" + mouse_y, 100, 10);
             g.drawString(map.getScreenToIsoX(mouse_x-draw_x, mouse_y-draw_y)+
                     "x"+

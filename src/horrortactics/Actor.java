@@ -57,13 +57,20 @@ public class Actor {
         draw_x = x;
         draw_y = y;
     }
-    public int getDrawX() //get what pixel to draw
+    public void setTileX(int x)
     {
-        return this.getIsoXToScreen(this.tilex,this.tiley)+draw_x+40;
-        //map.getIsoYToScreen(player_x,player_y)+draw_y-210);
+        tilex = x;
     }
-    public int getDrawY()
+    public void setTileY(int y)
     {
-        return this.getIsoYToScreen(this.tilex,this.tiley)+draw_y-210;
+        tiley = y;
+    }
+    public int getTileX()
+    {
+        return tilex;
+    }
+    public int getTileY()
+    {
+        return tiley;
     }
 }
