@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
- <tileset firstgid="1" name="tiles" tilewidth="250" tileheight="129" tilecount="16" columns="8">
+ <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="16" columns="8">
   <image source="tiles250x129.png" width="2000" height="258"/>
  </tileset>
- <tileset firstgid="17" name="walls" tilewidth="250" tileheight="512" tilecount="16" columns="8">
+ <tileset firstgid="17" name="walls_image" tilewidth="250" tileheight="512" tilecount="16" columns="8">
   <image source="walls250x512.png" width="2000" height="1024"/>
  </tileset>
- <layer name="background" width="50" height="20">
+ <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+  <image source="actor_grid.png" width="872" height="1248"/>
+  <tile id="0">
+   <properties>
+    <property name="actor_name" value="player"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="actor_name" value="pear monster"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background_layer" width="50" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAA+3DwQkAAAwDoSP7D90x+lFw1VRVVdXXB1xG2b6gDwAA
   </data>
  </layer>
- <layer name="walls" width="50" height="20">
+ <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+VWbQ6AIAhlHYG+7n/T/KGbMVBETLfexmphxgt4iACAwfbM0PhM8n9lHLiYtP7au2nNHWxzsBKP0aA8LnIt3a/GwyMXs3mcJJaWfNzwziXG/WbgAPv/p32Fcb8ZoHXVmo9V6qpHr7i60vCo6bVF20folcZ2KM846qdrajx69UqD3tqTeHjqrjWOFqzCI9fmVENSvJxP4jH6bEWRa3OqfQ6Sj5tR1rOodD7VoLeuRs+omf3hiT/z8OpzT1h4WPp8RR6Wb3xhD+y3u12gDwAA
+   H4sIAAAAAAAAA+VWWw7EIAjkDHS7/dr7X3P3x8SdgIogNukkpK3o2AkPZSLinx2V8eSY5s8yxEf5pxotf29tmXMJ4zPQdGQAdbzh2XqXuHbqiOTapeOEb0s8LvqPJQt8WXg51mJdsZPPA8wDazyQ6y51boGUVyM6ev16prev6FcjdlD7jEM/zunp8MASD+8+0ZzI9SQddW8uOaTxST5Nx+r7FaLuzSX3JWg+6YwauXda7qcZebX6jNpZH5F4so6oOo/EjI6ZOs/SEdHTIvbw2Bf5sL8doA8AAA==
   </data>
  </layer>
- <layer name="fog" width="50" height="20" opacity="0.35">
+ <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DQQ0AAAwDobNR/0YnYx9IWDVVVVX19QGSHsr9oA8AAA==
+   H4sIAAAAAAAAA+3VMREAQAgDQaxQ4t/ga/gGGGZXwVVJBFfVdACr5HQAwCI+EuCP3ezxALhsAcagDwAA
   </data>
  </layer>
 </map>
