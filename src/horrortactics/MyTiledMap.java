@@ -94,7 +94,7 @@ public class MyTiledMap extends TiledMap {
     public void onMoveActor(GameContainer gc, Actor a, int delta) {
         /* map.player.getActorMoving() == true*/
         a.speed_wait++;
-        if (a.speed_wait >= gc.getFPS()) {
+        //if (a.speed_wait >= delta*2) {
             if (a.getActorMoving() == true && a.tiley > this.selected_tile_y) {
                 this.onMoveNorth(gc, a, delta);
             } else if (a.getActorMoving() == true && a.tiley < this.selected_tile_y) {
@@ -111,8 +111,8 @@ public class MyTiledMap extends TiledMap {
             //else if (getPassableTile(a.tilex, a.tiley) == false ) {
             //    a.setActorMoving(false);
             //}
-            a.speed_wait = 0;
-        }
+            //a.speed_wait = 0;
+        //}
     }
 
             

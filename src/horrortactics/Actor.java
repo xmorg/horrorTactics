@@ -52,7 +52,7 @@ public class Actor {
         hasturn = true;
         action_points = 6; max_action_points = 6;
         move_action = false;
-        speed = 0.5f;
+        speed = 0.05f;
         speed_wait = 0;
         //spriteImage.set
     }
