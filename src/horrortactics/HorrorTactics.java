@@ -16,7 +16,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 //import org.newdawn.slick.SpriteSheet;
 //import org.newdawn.slick.tiled.TiledMap;
-//import org.newdawn.slick.Color;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -38,12 +38,16 @@ public class HorrorTactics extends BasicGame {
     /* where on the screen?*/
     int mouse_x, mouse_y = 0;
     int mouse_tile_x, mouse_tile_y = 0;
-    int fps = 0; int delta;
+    int fps = 0;
+    int delta;
     long currentTime, lastTime;
     float scale_x = 1;
     int screen_width = 0;
     int screen_height = 0;
     long lastframe;
+    int turn_count;
+    //int tileflash = 1;
+    Color myfilter, myfiltert, myfilterd;
 
     String game_state = "running";
 
@@ -59,7 +63,9 @@ public class HorrorTactics extends BasicGame {
         //input = new Input(gc.getHeight());
         map.getActorLocationFromTMX();
         fps = gc.getFPS();
-        this.lastTime = 0; this.lastframe = 0;
+        this.lastTime = 0;
+        this.lastframe = 0;
+        this.turn_count = 0;
         this.currentTime = gc.getTime();
         map.tiles250x129 = new Image("data/tiles250x129.png");
         screen_height = gc.getScreenHeight();
@@ -67,6 +73,9 @@ public class HorrorTactics extends BasicGame {
         draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
         draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
         this.lastframe = gc.getTime();
+        myfilter = new Color(1f, 1f, 1f, 1f);
+        myfiltert = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        myfilterd = new Color(0.2f, 0.2f, 0.2f, 0.8f); //for darkness/fog
     }
 
     @Override
@@ -74,33 +83,28 @@ public class HorrorTactics extends BasicGame {
         Input input = gc.getInput();
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
-        //lastTime = currentTime;
-        //currentTime = gc.getTime();
-        //this.delta = this.getMyDelta(gc);
         msa.mouseWasClicked(input, map, this); //Do mouse actions
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
-        
-        if(map.turn_order == "player") {
+        if (map.turn_order == "player") {
             for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
                 for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
-                    //if player turn, if monster turn
                     map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
-                    //map.monster[0].set_draw_xy(0, 0);
                 }
             }
-        } else
-        if(map.turn_order == "monster") {
-            for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
-                for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
-                    //if player turn, if monster turn
-                    //map.onMoveActor(map.player, delta);//this.getMyDelta(gc));
-                    map.monster[0].set_draw_xy(0, 0);
+        } else {
+            if (map.turn_order == "monster") {
+                for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
+                    for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
+                        //if player turn, if monster turn
+                        //map.onMoveActor(map.player, delta);//this.getMyDelta(gc));
+                        map.monster[0].set_draw_xy(0, 0);
+                    }
                 }
             }
         }
     }
-    
+
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         g.scale(scale_x, scale_x); //scale the same
@@ -112,8 +116,17 @@ public class HorrorTactics extends BasicGame {
                 //check to thissee if mouse is inside screen_x/screen_y rect.
                 //asign the selected tile.
                 if (x >= 0 && y >= 0 && x <= map.getWidth() && y <= map.getHeight()) {
-                    map.getTileImage(x, y, background_layer).draw(
-                            screen_x + draw_x, screen_y + draw_y, scale_x);
+                    if (x < map.player.tilex - 2
+                            || x > map.player.tilex + 2
+                            || y < map.player.tiley - 2
+                            || y > map.player.tiley + 2) {
+                        map.getTileImage(x, y, background_layer).draw(
+                                screen_x + draw_x, screen_y + draw_y, scale_x, this.myfilterd);
+                    } else {
+                        map.getTileImage(x, y, background_layer).draw(
+                                screen_x + draw_x, screen_y + draw_y, scale_x);
+                    }
+
                     mouse_x = gc.getInput().getMouseX();
                     mouse_y = gc.getInput().getMouseY();
                     int sx = screen_x + draw_x + 30;
@@ -141,19 +154,27 @@ public class HorrorTactics extends BasicGame {
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
                     int walls_layer = map.getLayerIndex("walls_layer");
-
                     map.player.drawPlayer(this, map, x, y);
                     map.monster[0].drawActor(this, map, x, y);
 
                     if (map.getTileImage(x, y, walls_layer) != null) {
-                        //if(this.wall_intersect_player(x, y, screen_x, screen_y) == true) {
-                            //map.getTileImage(0, 0, walls_layer).draw(
-                            //    screen_x + draw_x, screen_y + draw_y - 382, scale_x);
-                        //}
-                        //else {
+
+                        if (this.wall_intersect_player(x, y, screen_x, screen_y) == true) {
                             map.getTileImage(x, y, walls_layer).draw(
-                                screen_x + draw_x, screen_y + draw_y - 382, scale_x);
-                        //}
+                                    screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
+                        } else //inside cannot be dark
+                        if (x < map.player.tilex - 2
+                                || x > map.player.tilex + 2
+                                || y < map.player.tiley - 2
+                                || y > map.player.tiley + 2) {
+                            map.getTileImage(x, y, walls_layer).draw(
+                                    //Its Dark in y
+                                    
+                                    screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd);
+                        } else {
+                            map.getTileImage(x, y, walls_layer).draw(
+                                    screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
+                        }
                     }
                 }
             }
@@ -164,29 +185,42 @@ public class HorrorTactics extends BasicGame {
                 + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y,
                 200, 10);
     }
-    
-    public boolean wall_intersect_player(int x, int y, int screen_x, int screen_y)
-    {
+
+    public boolean wall_intersect_player(int x, int y, int screen_x, int screen_y) {
         //int x = map.player.tilex - 4; x < map.player.tilex + 4; x++
-        if(map.player.draw_x+this.screen_x+this.draw_x+100 == screen_x+draw_x+100 &&
-                map.player.draw_y+this.draw_y+this.screen_y-382 == screen_y+draw_y-382) {
+        for (int ly = 0; ly < 4; ly++) {
+            for (int lx = 0; lx < 4; lx++) {
+                if (x == map.player.tilex + lx && y == map.player.tiley + ly) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        /*if(
+                (x == map.player.tilex+1 && y == map.player.tiley+1) ||
+                (x == map.player.tilex && y == map.player.tiley+1) ||
+                (x == map.player.tilex+1 && y == map.player.tiley) ||
+                (x == map.player.tilex+2 && y == map.player.tiley+1)
+                ) {
             return true;}
-        else {return false;}
+        else {return false;}*/
         //if screen_x+draw_x+100, screen_y+draw_y-382 intersects with player.
         //show the transperant wall.
         //else ->
         //if this.screen_x
         //return false;
     }
-    
-    public int getMyDelta(GameContainer gc)
-    {
+
+    public int getMyDelta(GameContainer gc) {
         long time = gc.getTime();
         int delta = (int) (time - this.lastframe);
         this.lastframe = time;
-        if(delta == 0) {return 1;}
+        if (delta == 0) {
+            return 1;
+        }
         return delta;
     }
+
     public static void main(String[] args) {
         try {
             AppGameContainer appgc;
@@ -212,8 +246,8 @@ public class HorrorTactics extends BasicGame {
     public void setGameState(String state) {
         game_state = state;
     }
-    public MyTiledMap getCurrentMap()
-    {
+
+    public MyTiledMap getCurrentMap() {
         return this.map;
     }
 }

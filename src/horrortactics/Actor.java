@@ -33,6 +33,8 @@ public class Actor {
     private boolean hasturn;
     private boolean visible;
     float speed;
+    int facing_x = 0;
+    int facing_y = 0;
     int speed_wait;
 
     public Actor(String s, int sx, int sy) throws SlickException {
@@ -52,6 +54,8 @@ public class Actor {
         hasturn = true;
         action_points = 6; max_action_points = 6;
         move_action = false;
+        facing_x = 0;
+        facing_y = 0;
         speed = 0.05f;
         speed_wait = 0;
         //spriteImage.set
@@ -69,9 +73,21 @@ public class Actor {
         return i;
     }
 
+    public void setfacingloc(int x, int y)
+    {
+        this.facing_x = x;
+        this.facing_y = y;
+    }
     public void setActiorDirection(MyTiledMap m, int d) {
         //if(m.player.tilex > m.selected_tile_x)
-        this.direction = d;
+        this.direction = d;     
+        switch(this.direction) {
+            case 0: this.setfacingloc(1, 0); break;  //east
+            case 1: this.setfacingloc(0, 1); break;  //south
+            case 2: this.setfacingloc(0, -1); break; //north
+            case 3: this.setfacingloc(-1, 0); break; //west
+            default: this.setfacingloc(1, 0); break;
+        }
     }
 
     public int getAnimationFrame() {
@@ -83,14 +99,14 @@ public class Actor {
     }
 
     public void onWalkAnimation(GameContainer gc) { //called by MyTiledMap.onMoveDir
-        int timer_max = gc.getFPS() / 12;
+        int timer_max = gc.getFPS() / 6;
         if (this.animate_frame == 0 && this.getActorMoving() == true) {
             this.animation_timer++;
             if(this.animation_timer >= timer_max) {
                 this.animate_frame = 1;
                 this.animation_timer = 0;
             }
-        }
+        } else
         if (this.animate_frame == 1 && this.getActorMoving() == true) {
             this.animation_timer++;
             if(this.animation_timer >= timer_max) {

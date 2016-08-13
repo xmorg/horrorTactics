@@ -94,7 +94,8 @@ public class MyTiledMap extends TiledMap {
     public void onMoveActor(GameContainer gc, Actor a, int delta) {
         /* map.player.getActorMoving() == true*/
         a.speed_wait++;
-        //if (a.speed_wait >= delta*2) {
+        
+        if (a.speed_wait >= delta*2) {
             if (a.getActorMoving() == true && a.tiley > this.selected_tile_y) {
                 this.onMoveNorth(gc, a, delta);
             } else if (a.getActorMoving() == true && a.tiley < this.selected_tile_y) {
@@ -108,18 +109,25 @@ public class MyTiledMap extends TiledMap {
             if (a.tilex == this.selected_tile_x && a.tiley == this.selected_tile_y) {
                 a.setActorMoving(false);
             }
-            //else if (getPassableTile(a.tilex, a.tiley) == false ) {
-            //    a.setActorMoving(false);
-            //}
-            //a.speed_wait = 0;
-        //}
+            if (getPassableTile(a.tilex+a.facing_x, a.tiley+a.facing_y) == false ) {
+                a.setActorMoving(false);
+            }
+            a.speed_wait = 0;
+        }
     }
 
-            
+    public void setMonsterDirectives() 
+    { //loop through your monsters and set a path for them to follow
+      //what is the turn count? is the player visible?
+      //can the player see me?
+      //this.player.tilex; this.player.tiley;
+      //this.monster[0].setActorDestination(width, width);
+        
+    }
     public void onMoveWest(GameContainer gc, Actor a, int delta) {
         a.setActiorDirection(this, 3);
-        a.draw_x -= a.speed * delta * 2; //a.speed;//delta * a.speed;
-        a.draw_y -= a.speed * delta;
+        a.draw_x -= 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
+        a.draw_y -= 1;//(a.speed * delta);
         a.set_draw_xy(a.draw_x, a.draw_y);
         a.onWalkAnimation(gc);
         if (Math.abs(a.draw_x) >= this.TILE_WIDTH_HALF) {
@@ -132,8 +140,8 @@ public class MyTiledMap extends TiledMap {
 
     public void onMoveEast(GameContainer gc, Actor a, int delta) {
         a.setActiorDirection(this, 0);
-        a.draw_x += a.speed * delta * 2; //a.speed;//delta * a.speed;
-        a.draw_y += a.speed * delta;
+        a.draw_x += 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
+        a.draw_y += 1;//(a.speed * delta);
         a.set_draw_xy(a.draw_x, a.draw_y);
         a.onWalkAnimation(gc);
         if (a.draw_x >= this.TILE_WIDTH_HALF) {
@@ -146,8 +154,8 @@ public class MyTiledMap extends TiledMap {
 
     public void onMoveSouth(GameContainer gc, Actor a, int delta) {
         a.setActiorDirection(this, 1);
-        a.draw_y += a.speed * delta; //a.speed;
-        a.draw_x -= a.speed * delta * 2;
+        a.draw_y += 1;//(a.speed * delta); //a.speed;
+        a.draw_x -= 2;//(a.speed * delta) * 2;
         a.set_draw_xy(a.draw_x, a.draw_y);
         a.onWalkAnimation(gc);
         if (a.draw_y >= Math.abs(this.TILE_HEIGHT_HALF)) {
@@ -160,8 +168,8 @@ public class MyTiledMap extends TiledMap {
 
     public void onMoveNorth(GameContainer gc, Actor a, int delta) {
         a.setActiorDirection(this, 2);
-        a.draw_y -= a.speed * delta;//a.speed;
-        a.draw_x += a.speed * delta * 2;//a.speed*2;
+        a.draw_y -= 1;//(a.speed * delta);//a.speed;
+        a.draw_x += 2;//(a.speed * delta) * 2;//a.speed*2;
         System.out.println("delta: "+ delta + "," + a.draw_x + "," + a.draw_y);
         a.set_draw_xy(a.draw_x, a.draw_y);
         a.onWalkAnimation(gc);
