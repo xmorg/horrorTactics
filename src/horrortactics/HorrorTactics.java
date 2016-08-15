@@ -48,6 +48,7 @@ public class HorrorTactics extends BasicGame {
     int turn_count;
     //int tileflash = 1;
     Color myfilter, myfiltert, myfilterd;
+    Image button_endturn;
 
     String game_state = "running";
 
@@ -73,6 +74,7 @@ public class HorrorTactics extends BasicGame {
         draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
         draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
         this.lastframe = gc.getTime();
+        button_endturn = new Image("data/button_endturn.png");
         myfilter = new Color(1f, 1f, 1f, 1f);
         myfiltert = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         myfilterd = new Color(0.2f, 0.2f, 0.2f, 0.8f); //for darkness/fog
@@ -92,7 +94,17 @@ public class HorrorTactics extends BasicGame {
                     map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
                 }
             }
-        } else {
+        }
+        else if (map.turn_order == "start player") {
+            map.player.action_points = 6;
+            //give followers action points.
+            map.turn_order = "player";
+        }
+        else if (map.turn_order == "start monster") {
+            map.monster[0].action_points = 6; //loop through the monster
+            map.turn_order = "monster";
+        }
+        else {
             if (map.turn_order == "monster") {
                 for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
                     for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
@@ -101,6 +113,8 @@ public class HorrorTactics extends BasicGame {
                         map.monster[0].set_draw_xy(0, 0);
                     }
                 }
+                //DEBUG: nothing, give it back to the player
+                map.turn_order = "start player";
             }
         }
     }
@@ -180,9 +194,14 @@ public class HorrorTactics extends BasicGame {
             }
         }
         map.player.iconImage.draw(5, 50);
-        map.monster[0].iconImage.draw(5, 200);
+        g.setColor(myfilterd);
+        g.fillOval(5, 50+75, 12, 14);
+        g.setColor(myfilter);
+        g.drawString(Integer.toString(map.player.action_points) , 5, 50+75);
+        //map.monster[0].iconImage.draw(5, 200);
+        button_endturn.draw(10, gc.getScreenHeight()-64-10);
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
-                + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y,
+                + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + "Turn: "+map.turn_order,
                 200, 10);
     }
 

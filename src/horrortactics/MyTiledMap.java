@@ -19,7 +19,8 @@ import java.lang.Math.*;
  * @author tcooper
  */
 public class MyTiledMap extends TiledMap {
-
+    int monster_max = 10;
+    int follower_max = 4;
     public Image tiles250x129, walls250x512 = null;
     public SpriteSheet tilesheet, wallsheet = null;
     int TILE_WIDTH_HALF = this.tileWidth / 2;
@@ -33,8 +34,8 @@ public class MyTiledMap extends TiledMap {
     String turn_order = null;
 
     Actor player = null;
-    Actor[] follower = new Actor[4];
-    Actor[] monster = new Actor[10];
+    Actor[] follower = new Actor[follower_max];
+    Actor[] monster = new Actor[monster_max];
     private int m_draw_x, m_draw_y; //map draw x
 
     public int getDrawX() {
@@ -69,6 +70,21 @@ public class MyTiledMap extends TiledMap {
         int monster_loop = 0;
         int follower_loop = 0;
         int actor_layer = this.getLayerIndex("actors_layer");
+        
+        for(int i = 0; i < this.monster_max; i++) {
+            try {
+                monster[i] = new Actor("data/monster00", 218, 313);
+                
+            } catch (SlickException e) {  }
+                        
+        }
+        for(int i = 0; i < this.follower_max; i++) {
+            try {
+                follower[i] = new Actor("data/tactics_in_distress00", 218, 313);                
+            } catch (SlickException e) {  }
+        }
+        
+        
         for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
                 int gid = this.getTileId(x, y, actor_layer);
@@ -78,14 +94,14 @@ public class MyTiledMap extends TiledMap {
                         this.player.tilex = x;
                         this.player.tiley = y;
                     } else if (this.getTileProperty(gid, "actor_name", "pear monster").equals("pear monster")) {
-                        try {
-                            monster[monster_loop] = new Actor("data/monster00", 218, 313);
-                            monster[monster_loop].tilex = x;
-                            monster[monster_loop].tiley = y;
-                            monster_loop++;
-                        } catch (SlickException e) {
-                        }
-                    }
+                        try{
+                            monster[monster_loop].changeActorSpritesheet("data/monster00.png", 218, 313);
+                        } catch (SlickException e) {  }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster_loop++;
+                    } // add more monsters here;
                 }
             }
         }
@@ -134,7 +150,8 @@ public class MyTiledMap extends TiledMap {
             a.tilex--; //westr.
             a.set_draw_xy(0, 0);
             a.setAnimationFrame(0);
-            a.setActionPoints(a.action_points--);
+            //a.setActionPoints(a.action_points--);
+            a.action_points--;
         }
     }
 
@@ -148,7 +165,7 @@ public class MyTiledMap extends TiledMap {
             a.tilex++; //westr.
             a.set_draw_xy(0, 0);
             a.setAnimationFrame(0);
-            a.setActionPoints(a.action_points--);
+            a.action_points--;
         }
     }
 
@@ -162,7 +179,7 @@ public class MyTiledMap extends TiledMap {
             a.tiley++; //south.
             a.set_draw_xy(0, 0);
             a.setAnimationFrame(0);
-            a.setActionPoints(a.action_points--);
+            a.action_points--;
         }
     }
 
@@ -177,7 +194,7 @@ public class MyTiledMap extends TiledMap {
             a.tiley--; //north.
             a.set_draw_xy(0, 0);
             a.setAnimationFrame(0);
-            a.setActionPoints(a.action_points--);
+            a.action_points--;
         }
     }
 
@@ -224,5 +241,25 @@ public class MyTiledMap extends TiledMap {
         //int posX = ( x - y) * 250;
         int posY = (x + y) * 129 / 2;
         return posY;
+    }
+    public boolean getAnyActorMoving() //is anyone moving? return true
+    {
+        boolean m = false;
+        if(this.player.getActorMoving() == true) {
+            return true;
+        }
+        else {
+            m = false;
+        }
+        for(int i=0; i< monster_max; i++) {
+            if(this.monster[i].getActorMoving() == true) {return true;}
+            else {m = false;}
+        }
+        for(int i=0; i<follower_max; i++) {
+            if(this.follower[i].getActorMoving() == true) {return true;}
+            else {m = false;}
+        }
+        
+        return m;
     }
 }

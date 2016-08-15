@@ -25,6 +25,14 @@ public class MouseActions {
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
         if (input.isMousePressed(0) == true) {
+            //button_endturn.draw(10, gc.getScreenHeight()-64-10);
+            if (mouse_x >= 10 && mouse_y >= ht.screen_height-64-10 &&
+                    mouse_x <= 10+164 && mouse_y <= ht.screen_height-10) { //press end turn button.
+                if(map.getAnyActorMoving() == false) {// &&
+                        //map.player.getActorMoving() == false) {//be sure we didnt click when monster is moving
+                    map.turn_order = "start monster";
+                }
+            }
             if (playerWasSelected(map) == true) {
                 onPlayerSelection(map); //select or unselect actor
             } else if (map.player.isSelected() == true) {

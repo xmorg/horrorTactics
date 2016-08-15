@@ -47,12 +47,14 @@ public class KeyActions {
         }else if (input.isKeyPressed(Input.KEY_SPACE)) {
             //advance turn order
             if(ht.getCurrentMap().turn_order.equals("player")) {
-                ht.getCurrentMap().turn_order = "monster";
+                ht.getCurrentMap().turn_order = "start monster";
                 ht.turn_count++;
+                //give monsters action points!
                 //set monster directives!
                 ht.getCurrentMap().setMonsterDirectives();
             } else if(ht.getCurrentMap().turn_order.equals("monster")) {
                 ht.getCurrentMap().turn_order = "player";
+                ht.getCurrentMap().player.action_points = 6; //new action points.
                 ht.turn_count++;
                 //resetActorActionPoints();
                 ht.getCurrentMap().player.resetActorActionPoints();
