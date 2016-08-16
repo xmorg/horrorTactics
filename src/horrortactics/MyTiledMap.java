@@ -74,13 +74,15 @@ public class MyTiledMap extends TiledMap {
         for(int i = 0; i < this.monster_max; i++) {
             try {
                 monster[i] = new Actor("data/monster00", 218, 313);
+                monster[i].visible = false; //default
                 
             } catch (SlickException e) {  }
                         
         }
         for(int i = 0; i < this.follower_max; i++) {
             try {
-                follower[i] = new Actor("data/tactics_in_distress00", 218, 313);                
+                follower[i] = new Actor("data/tactics_in_distress00", 218, 313);
+                follower[i].visible = false;
             } catch (SlickException e) {  }
         }
         
@@ -100,6 +102,7 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].tilex = x;
                         monster[monster_loop].tiley = y;
                         monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
                         monster_loop++;
                     } // add more monsters here;
                 }
@@ -138,7 +141,24 @@ public class MyTiledMap extends TiledMap {
       //can the player see me?
       //this.player.tilex; this.player.tiley;
       //this.monster[0].setActorDestination(width, width);
-        
+      //directive types: random,randomuntilspotted,beeline
+      int proposed_x, proposed_y, negpos;
+      for(int i = 0; i < this.monster_max; i++) {
+          if(monster[i].visible == true) { //there was a monster here.
+              monster[i].action_points = 6; //update action points
+              if(monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
+                  for(int count=0; count < 6; count++){
+                      proposed_y = (int) Math.floor(Math.random() - (int) Math.floor(Math.random()) );
+                      proposed_x = (int) Math.floor(Math.random() - (int) Math.floor(Math.random()) );
+                      if(this.getPassableTile(monster[i].tilex+proposed_x,
+                              monster[i].tiley+proposed_y) == true ) {
+                          monster[i].setActorDestination(monster[i].tilex+proposed_x,
+                                  monster[i].tiley+proposed_y); 
+                      }
+                  }                  
+              }
+          }
+      }
     }
     public void onMoveWest(GameContainer gc, Actor a, int delta) {
         a.setActiorDirection(this, 3);

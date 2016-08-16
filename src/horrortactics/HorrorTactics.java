@@ -88,32 +88,42 @@ public class HorrorTactics extends BasicGame {
         msa.mouseWasClicked(input, map, this); //Do mouse actions
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
-        if (map.turn_order == "player") {
+        if (map.turn_order.equalsIgnoreCase("player")) {
             for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
                 for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
                     map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
                 }
             }
         }
-        else if (map.turn_order == "start player") {
+        else if (map.turn_order.equalsIgnoreCase("start player")) {
             map.player.action_points = 6;
             //give followers action points.
             map.turn_order = "player";
         }
-        else if (map.turn_order == "start monster") {
-            map.monster[0].action_points = 6; //loop through the monster
+        else if (map.turn_order.equalsIgnoreCase("start monster")) {
+            this.map.setMonsterDirectives();
             map.turn_order = "monster";
         }
         else {
-            if (map.turn_order == "monster") {
-                for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
-                    for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
-                        //if player turn, if monster turn
-                        //map.onMoveActor(map.player, delta);//this.getMyDelta(gc));
-                        map.monster[0].set_draw_xy(0, 0);
+            if (map.turn_order.equalsIgnoreCase("monster")) {
+                for(int i = 0; i < map.monster_max; i++) {
+                    if(map.monster[i].visible == true) {
+                        map.onMoveActor(gc, map.monster[i], delta);
                     }
                 }
+                //for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
+                //    for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
+                        //if player turn, if monster turn
+                        //map.onMoveActor(map.player, delta);//this.getMyDelta(gc));
+                        //map.monster[0].set_draw_xy(0, 0);
+                //    }
+                //}
                 //DEBUG: nothing, give it back to the player
+                //Make sure all actions points are 0, if one is not stay on monster.
+                for(int j = 0; j < map.monster_max; j++)
+                {
+                    if(map.monster[j].action_points > 0) {break;}
+                }
                 map.turn_order = "start player";
             }
         }

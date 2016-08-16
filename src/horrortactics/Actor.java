@@ -31,7 +31,8 @@ public class Actor {
     private boolean move_action;
     int action_points, max_action_points;
     private boolean hasturn;
-    private boolean visible;
+    boolean visible;
+    String directive_type;
     float speed;
     int facing_x = 0;
     int facing_y = 0;
@@ -45,6 +46,7 @@ public class Actor {
         tiley = 0; //our tile position in Y
         tiledestx = 0; //What tile are we traveling to when moving.
         tiledesty = 0;
+        directive_type = "random"; //random, beeline, randomuntilspotted
         draw_x = 0; //Where the spite is drawn in X
         draw_y = 0; //Where the sprite is drawn in y
         animate_frame = 0;
@@ -52,7 +54,7 @@ public class Actor {
         animation_timer = 0;
         visible = true; //actor is visible.
         hasturn = true;
-        action_points = 6; max_action_points = 6;
+        action_points = 0; max_action_points = 6;
         move_action = false;
         facing_x = 0;
         facing_y = 0;
