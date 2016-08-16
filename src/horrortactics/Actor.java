@@ -19,7 +19,7 @@ public class Actor {
 
     int tilex;
     int tiley; //the tile we are at (aprox)
-    private int tiledestx, tiledesty; //where we are going
+    int tiledestx, tiledesty; //where we are going
     private int animate_frame;
     int animation_timer, move_timer;
     private int direction;
@@ -46,7 +46,7 @@ public class Actor {
         tiley = 0; //our tile position in Y
         tiledestx = 0; //What tile are we traveling to when moving.
         tiledesty = 0;
-        directive_type = "random"; //random, beeline, randomuntilspotted
+        directive_type = "beeline"; //random, beeline, randomuntilspotted
         draw_x = 0; //Where the spite is drawn in X
         draw_y = 0; //Where the sprite is drawn in y
         animate_frame = 0;
@@ -54,7 +54,8 @@ public class Actor {
         animation_timer = 0;
         visible = true; //actor is visible.
         hasturn = true;
-        action_points = 0; max_action_points = 6;
+        action_points = 0;
+        max_action_points = 6;
         move_action = false;
         facing_x = 0;
         facing_y = 0;
@@ -75,20 +76,30 @@ public class Actor {
         return i;
     }
 
-    public void setfacingloc(int x, int y)
-    {
+    public void setfacingloc(int x, int y) {
         this.facing_x = x;
         this.facing_y = y;
     }
+
     public void setActiorDirection(MyTiledMap m, int d) {
         //if(m.player.tilex > m.selected_tile_x)
-        this.direction = d;     
-        switch(this.direction) {
-            case 0: this.setfacingloc(1, 0); break;  //east
-            case 1: this.setfacingloc(0, 1); break;  //south
-            case 2: this.setfacingloc(0, -1); break; //north
-            case 3: this.setfacingloc(-1, 0); break; //west
-            default: this.setfacingloc(1, 0); break;
+        this.direction = d;
+        switch (this.direction) {
+            case 0:
+                this.setfacingloc(1, 0);
+                break;  //east
+            case 1:
+                this.setfacingloc(0, 1);
+                break;  //south
+            case 2:
+                this.setfacingloc(0, -1);
+                break; //north
+            case 3:
+                this.setfacingloc(-1, 0);
+                break; //west
+            default:
+                this.setfacingloc(1, 0);
+                break;
         }
     }
 
@@ -104,23 +115,32 @@ public class Actor {
         int timer_max = gc.getFPS() / 6;
         if (this.animate_frame == 0 && this.getActorMoving() == true) {
             this.animation_timer++;
-            if(this.animation_timer >= timer_max) {
+            if (this.animation_timer >= timer_max) {
                 this.animate_frame = 1;
                 this.animation_timer = 0;
             }
-        } else
-        if (this.animate_frame == 1 && this.getActorMoving() == true) {
-            this.animation_timer++;
-            if(this.animation_timer >= timer_max) {
-                this.animate_frame = 2;
-                this.animation_timer = 0;
-            }
         } else {
-            this.animation_timer++;
-            if(this.animation_timer >= timer_max) {
-                this.animate_frame = 0;
-                this.animation_timer = 0;
-            }            
+            if (this.animate_frame == 1 && this.getActorMoving() == true) {
+                this.animation_timer++;
+                if (this.animation_timer >= timer_max) {
+                    this.animate_frame = 2;
+                    this.animation_timer = 0;
+                }
+            } 
+            else if (this.animate_frame == 2 && this.getActorMoving() == true){
+                this.animation_timer++;
+                if (this.animation_timer >= timer_max) {
+                    this.animate_frame = 1;
+                    this.animation_timer = 0;
+                }
+            } 
+            else {
+                this.animation_timer++;
+                if (this.animation_timer >= timer_max) {
+                    //this.animate_frame = 0;
+                    this.animation_timer = 0;
+                }
+            }
         }
     }
 
@@ -195,7 +215,7 @@ public class Actor {
     }
 
     public boolean getActorMoving() {
-        if(this.action_points <= 0) {
+        if (this.action_points <= 0) {
             this.move_action = false;
         }
         return this.move_action;
@@ -220,12 +240,14 @@ public class Actor {
         }
         this.drawActor(h, m, x, y);
     }
+
     public void setActorActionPoints(int ap) {
         action_points = ap;
-        if(action_points <= 0) {
-            setActorMoving(false); 
+        if (action_points <= 0) {
+            setActorMoving(false);
         }
     }
+
     public void resetActorActionPoints() {
         action_points = max_action_points;
     }

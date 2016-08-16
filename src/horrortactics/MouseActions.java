@@ -41,8 +41,8 @@ public class MouseActions {
                         map.player.onSelectActor(false);
                         map.selected_tile_x = map.mouse_over_tile_x;
                         map.selected_tile_y = map.mouse_over_tile_y;
-                        //map.player.tilex = map.selected_tile_x;
-                        //map.player.tiley = map.selected_tile_y;
+                        map.player.tiledestx = map.selected_tile_x;
+                        map.player.tiledesty = map.selected_tile_y;
                         map.player.setActorMoving(true);
                         //onSetTileSelection(ht, map, map.selected_tile_x, 
                         //        map.selected_tile_y);
