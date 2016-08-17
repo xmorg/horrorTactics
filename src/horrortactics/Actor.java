@@ -9,6 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 
 /**
  * Actor class is to encap the actor methods and data
@@ -32,11 +33,14 @@ public class Actor {
     int action_points, max_action_points;
     private boolean hasturn;
     boolean visible;
+    boolean dead;
     String directive_type;
     float speed;
     int facing_x = 0;
     int facing_y = 0;
     int speed_wait;
+    int action_msg_timer; //max800
+    String action_msg;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -50,6 +54,7 @@ public class Actor {
         draw_x = 0; //Where the spite is drawn in X
         draw_y = 0; //Where the sprite is drawn in y
         animate_frame = 0;
+        dead = false;
         direction = 0;
         animation_timer = 0;
         visible = true; //actor is visible.
@@ -61,6 +66,8 @@ public class Actor {
         facing_y = 0;
         speed = 0.05f;
         speed_wait = 0;
+        action_msg_timer = 0;
+        action_msg = "";
         //spriteImage.set
     }
 
@@ -75,6 +82,11 @@ public class Actor {
         Image i = sprites.getSubImage(animate_frame, direction);
         return i;
     }
+    public Image getDeadSpriteframe() {
+        Image i = sprites.getSubImage(3, direction);
+        return i;
+    }
+            
 
     public void setfacingloc(int x, int y) {
         this.facing_x = x;
@@ -228,7 +240,12 @@ public class Actor {
             //this.set_draw_xy(pdx, pdy);
             //map.getTileImage(x, y, background_layer).draw(
             //screen_x + draw_x, screen_y + draw_y, scale_x);
-            this.getSpriteframe().draw(pdx, pdy, h.scale_x);
+            if(this.dead == false) {
+                this.getSpriteframe().draw(pdx, pdy, h.scale_x);
+            }
+            else {
+                this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
+            }
         }
     }
 

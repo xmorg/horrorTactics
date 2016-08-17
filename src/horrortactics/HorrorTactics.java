@@ -19,6 +19,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 
+
+
 /**
  *
  * @author tcooper
@@ -93,7 +95,7 @@ public class HorrorTactics extends BasicGame {
         if (map.turn_order.equalsIgnoreCase("player")) {
             //for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
             //    for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
-                    map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
+            map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
             //    }
             //}
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
@@ -108,49 +110,15 @@ public class HorrorTactics extends BasicGame {
             for (int i = 0; i < map.monster_max; i++) {
                 if (map.monster[i].visible == true) {
                     activemonsters++;
-                }
-                else {
-                    activemonsters = i;                    
-                    break;                    
+                } else {
+                    activemonsters = i;
+                    break;
                 }
             }
             //move your monster
-            for (int j = this.map.current_monster_moving; j < activemonsters; j++) {
-                if (map.monster[this.map.current_monster_moving].action_points > 0
-                        && map.monster[this.map.current_monster_moving].getActorMoving() == true) {
-                    //System.out.println("if (map.monster[j].action_points > 0) {");
-                    map.onMoveActor(gc, map.monster[this.map.current_monster_moving], delta);
-                    //assuming we have stopped, have me met a player/follower? ATTACK!
-                    //if we have > 2 action points attack.
-                    //System.out.println("move monster:"
-                    //        +Integer.toString(this.map.current_monster_moving));
-                    allmonstersmoved = false;
-                }
-                else if(map.monster[this.map.current_monster_moving].action_points > 0
-                        && map.monster[this.map.current_monster_moving].getActorMoving() == false) {
-                        //Why?
-                        if(map.monster[this.map.current_monster_moving].action_points >= 2) {
-                            //Do we see the player?
-                            //ATTACK!
-                            map.monster[this.map.current_monster_moving].action_points = 0;
-                        }
-                        else {//you stopped and cant do anything anyways
-                            map.monster[this.map.current_monster_moving].action_points = 0;
-                        }
-                        allmonstersmoved = false;
-                }
-                else{ //go to the next monster.
-                    System.out.println("else ap.monster[j].action_points < 0");
-                    this.map.current_monster_moving++;
-                    if(this.map.current_monster_moving >= activemonsters){
-                        allmonstersmoved = true;                        
-                    }   
-                }
-            }
-            if(allmonstersmoved == true) {
-                map.turn_order = "start player";
-            }
+            map.onMonsterMoving(gc, this, activemonsters, delta);
         }
+        map.onUpdateActorActionText();
     }
 
     @Override
@@ -161,17 +129,17 @@ public class HorrorTactics extends BasicGame {
             this.render_background_layer(gc, g); //render floor
             this.render_walls_layer(gc, g);      //render walls (and actors!)
             this.render_game_ui(gc, g);
-        }
-        else if(game_state.equalsIgnoreCase("conversation")) {
+        } else if (game_state.equalsIgnoreCase("conversation")) {
             g.scale(scale_x, scale_x); //scale the same
             this.render_background_layer(gc, g); //render floor
             this.render_walls_layer(gc, g);      //render walls (and actors!)
             this.render_game_ui(gc, g);
             this.render_character_busts(gc, g); //bring up the busts, and talk
-        }else if(game_state.equalsIgnoreCase("cutscene")) {
+        } else if (game_state.equalsIgnoreCase("cutscene")) {
             this.render_cutscene(gc, g); //animations?
-        }else if(game_state.equalsIgnoreCase("title")) {
+        } else if (game_state.equalsIgnoreCase("title")) {
             this.render_title(gc, g);
+            
         }
     }
 
@@ -225,6 +193,10 @@ public class HorrorTactics extends BasicGame {
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
                     int walls_layer = map.getLayerIndex("walls_layer");
                     map.player.drawPlayer(this, map, x, y);
+                    if( map.player.action_msg_timer > 0 && x==map.player.tilex && y==map.player.tiley) {
+                        g.drawString(map.player.action_msg, screen_x + draw_x, 
+                                screen_y + draw_y - 200);
+                    }
                     map.monster[0].drawActor(this, map, x, y);
 
                     if (map.getTileImage(x, y, walls_layer) != null) {
@@ -233,8 +205,7 @@ public class HorrorTactics extends BasicGame {
                             map.getTileImage(x, y, walls_layer).draw(
                                     screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
                         } else //inside cannot be dark
-                        {
-                            if (x < map.player.tilex - 2
+                         if (x < map.player.tilex - 2
                                     || x > map.player.tilex + 2
                                     || y < map.player.tiley - 2
                                     || y > map.player.tiley + 2) {
@@ -246,7 +217,6 @@ public class HorrorTactics extends BasicGame {
                                 map.getTileImage(x, y, walls_layer).draw(
                                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                             }
-                        }
                     }
                 }
             }
@@ -262,10 +232,10 @@ public class HorrorTactics extends BasicGame {
         //map.monster[0].iconImage.draw(5, 200);
         button_endturn.draw(10, gc.getScreenHeight() - 64 - 10);
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
-                + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: " 
-                + map.turn_order + " mm: "+map.current_monster_moving+"/"
+                + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
+                + map.turn_order + " mm: " + map.current_monster_moving + "/"
                 + map.monster[map.current_monster_moving].action_points + " dst:"
-                + map.monster[map.current_monster_moving].tiledestx+","
+                + map.monster[map.current_monster_moving].tiledestx + ","
                 + map.monster[map.current_monster_moving].tiledesty,
                 200, 10);
     }
@@ -281,6 +251,7 @@ public class HorrorTactics extends BasicGame {
     public void render_cutscene(GameContainer gc, Graphics g) {
         //render cutscenes
     }
+
     public void render_title(GameContainer gc, Graphics g) {
         //render title menu
     }
