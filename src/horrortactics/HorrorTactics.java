@@ -19,8 +19,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 
-
-
 /**
  *
  * @author tcooper
@@ -51,6 +49,7 @@ public class HorrorTactics extends BasicGame {
     //int tileflash = 1;
     Color myfilter, myfiltert, myfilterd;
     Image button_endturn;
+    Image effect_biff, effect_wiff, effect_shrack;
 
     String game_state = "tactical"; //title, tactical,conversation,cutscene
 
@@ -77,6 +76,9 @@ public class HorrorTactics extends BasicGame {
         draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
         this.lastframe = gc.getTime();
         button_endturn = new Image("data/button_endturn.png");
+        effect_biff = new Image("data/soundeffects/biff.png");
+        effect_wiff = new Image("data/soundeffects/wiff.png");
+        effect_shrack = new Image("data/soundeffects/shrack.png");
         myfilter = new Color(1f, 1f, 1f, 1f);
         myfiltert = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         myfilterd = new Color(0.2f, 0.2f, 0.2f, 0.8f); //for darkness/fog
@@ -139,7 +141,7 @@ public class HorrorTactics extends BasicGame {
             this.render_cutscene(gc, g); //animations?
         } else if (game_state.equalsIgnoreCase("title")) {
             this.render_title(gc, g);
-            
+
         }
     }
 
@@ -193,9 +195,12 @@ public class HorrorTactics extends BasicGame {
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
                     int walls_layer = map.getLayerIndex("walls_layer");
                     map.player.drawPlayer(this, map, x, y);
-                    if( map.player.action_msg_timer > 0 && x==map.player.tilex && y==map.player.tiley) {
-                        g.drawString(map.player.action_msg, screen_x + draw_x, 
+                    if (map.player.action_msg_timer > 0 && x == map.player.tilex && y == map.player.tiley) {
+                        //g.drawString(map.player.action_msg, screen_x + draw_x,
+                        //        screen_y + draw_y - 200);
+                        this.getComicActionStrImage(map.player.action_msg).draw(screen_x + draw_x,
                                 screen_y + draw_y - 200);
+                        
                     }
                     map.monster[0].drawActor(this, map, x, y);
 
@@ -205,7 +210,8 @@ public class HorrorTactics extends BasicGame {
                             map.getTileImage(x, y, walls_layer).draw(
                                     screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
                         } else //inside cannot be dark
-                         if (x < map.player.tilex - 2
+                        {
+                            if (x < map.player.tilex - 2
                                     || x > map.player.tilex + 2
                                     || y < map.player.tiley - 2
                                     || y > map.player.tiley + 2) {
@@ -217,6 +223,7 @@ public class HorrorTactics extends BasicGame {
                                 map.getTileImage(x, y, walls_layer).draw(
                                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                             }
+                        }
                     }
                 }
             }
@@ -306,5 +313,15 @@ public class HorrorTactics extends BasicGame {
 
     public MyTiledMap getCurrentMap() {
         return this.map;
+    }
+    public Image getComicActionStrImage(String a) {
+        if(a.equalsIgnoreCase("Dodge")) {
+            return this.effect_wiff;
+        }
+        else if(a.equalsIgnoreCase("Dead")) {
+            return this.effect_shrack;
+            //return this.effect_biff;
+        }
+        else {return this.effect_wiff;}
     }
 }

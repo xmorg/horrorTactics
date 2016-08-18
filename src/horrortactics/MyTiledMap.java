@@ -412,6 +412,8 @@ public class MyTiledMap extends TiledMap {
                             int player_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6+1);
                             int player_saveroll = ThreadLocalRandom.current().nextInt(1, 6+1);
                             int player_parryroll = ThreadLocalRandom.current().nextInt(1, 6+1);
+                            int player_counterroll = ThreadLocalRandom.current().nextInt(1, 6+1);
+                            int monster_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6+1);
                             System.out.println("MonsterRoll:"+Integer.toString(monster_attackroll)
                                     +" Dodge Roll:"+Integer.toString(player_dodgeroll)                            
                             );
@@ -419,11 +421,21 @@ public class MyTiledMap extends TiledMap {
                             if(monster_attackroll > player_dodgeroll) {
                                 this.getAllPlayersAtXy(dx, dy).dead = true;
                                 this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
-                                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 800;
+                                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
                             }
                             else {
                                 this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
-                                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 800;
+                                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+                                //Counter Attack.
+                                if(player_counterroll > monster_cdodgeroll) {
+                                    monster[this.current_monster_moving].dead = true;
+                                    monster[this.current_monster_moving].action_msg = "Dead";
+                                    monster[this.current_monster_moving].action_msg_timer = 400;
+                                }
+                                else {
+                                    monster[this.current_monster_moving].action_msg = "Dodge";
+                                    monster[this.current_monster_moving].action_msg_timer = 400;
+                                }
                             }
                         }
                         else{
