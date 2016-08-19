@@ -28,25 +28,25 @@ intro:12:train.jpg:player_confused.png:null.png:Ah, you too?
 
 intro:13:blank.jpg:null:null:null:Day 1
 
-intro:14:classroom.jpg:teacher1.png:null:null:[Teacher] Class dismissed!
+intro:15:classroom.jpg:teacher1.png:null:null:[Teacher] Class dismissed!
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:And then she said I would be haunted by nightmares!
+intro:16:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:And then she said I would be haunted by nightmares!
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Wow, what a weirdo.
+intro:17:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Wow, what a weirdo.
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Lana] What if she put a curse on you?
+intro:18:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Lana] What if she put a curse on you?
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:Thats not funny!
+intro:19:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:Thats not funny!
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Theres no such thing!
+intro:20:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Theres no such thing!
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:My Phone! I forgot my phone in my locker.
+intro:21:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:My Phone! I forgot my phone in my locker.
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Lana] Its ok, just get it tomorrow.
+intro:22:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Lana] Its ok, just get it tomorrow.
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:I need it tonight! He might text me!
+intro:23:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:I need it tonight! He might text me!
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Oh!!!
+intro:24:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Oh!!!
 
-intro:14:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Ill go with you.
+intro:25:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Ill go with you.
 
