@@ -1,0 +1,25 @@
+#String[] matches = myString.split(";"); #This is a comment
+
+intro:1:train.jpg:player_tired.png:null:I'm so tired.  Why do they keep me so late?
+
+intro:2:train.jpg:player_tired.png:null:I feel like I have a mountain of homework before bed.
+
+intro:3:train.jpg:player_tired.png:crone.png:All I want do do is sleep, oh I better give up my seat.
+
+intro:4:train.jpg:player_tired.png:crone.png:[Old Lady] Children today are so rude!
+
+intro:5:train.jpg:player_tired.png:crone.png:[Old Lady] You should learn to respect your elders.
+
+intro:6:train.jpg:player_tired.png:crone.png:But I was going to...
+
+intro:7:train.jpg:player_tired.png:crone.png:[Old Lady] Backtalk! such disrespect!
+
+intro:8:train.jpg:player_tired.png:crone.png:[Old Lady] You will learn true respect, you will learn fear!
+
+intro:9:train.jpg:player_tired.png:crone.png:[Old Lady] Your nightmares will haunt you! You will know fear.
+
+intro:10:train.jpg:player_tired.png:crone.png:[Old Lady] All of your friends, anyone who tries to help you, will DIE!
+
+intro:11:train.jpg:player_tired.png:crone.png:[Old Lady] And if your not quick, you will die to! (laughs)
+
+intro:12:train.jpg:player_tired.png:crone.png:[Old Lady] Oh! thats my stop, have a nice day dear.
