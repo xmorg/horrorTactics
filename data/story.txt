@@ -64,4 +64,4 @@ stage1:1:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:[Mel] Um
 
 stage1:1:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:What?
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png
+stage1:1:schoolyard1.jpg:player_walking.png:boys1.png:
