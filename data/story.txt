@@ -50,3 +50,4 @@ intro:24:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] O
 
 intro:25:homewalk.jpg:player_walking.png:mel_walking.png:mia_walking.png:[Mel] Ill go with you.
 
+stage1:1:schoolyard1.jpg:
