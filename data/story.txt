@@ -52,16 +52,23 @@ intro:25:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] 
 
 stage1:1:schoolyard1.jpg:janator.png:null:null:[Old Man] The school is closed, the lights are off.
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png:null:I really need to get in! I forgot something.
+stage1:2:schoolyard1.jpg:janator.png:player_walking.png:null:I really need to get in! I forgot something.
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] I cant let you in!
+stage1:3:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] I cant let you in!
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png:null:Please...
+stage1:4:schoolyard1.jpg:janator.png:player_walking.png:null:Please...
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] Alright, but I wont be responsibile!
+stage1:5:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] Alright, but I wont be responsibile!
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:[Mel] Um, Im afraid of the dark, ill just wait for you here.
+stage1:6:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:[Mel] Um, Im afraid of the dark, ill just wait for you here.
 
-stage1:1:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:What?
+stage1:7:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:What?
 
-stage1:1:schoolyard1.jpg:player_walking.png:boys1.png:
+stage1:8:schoolyard1.jpg:player_walking.png:boys1.png:null:[Tedd] Did someone say dark? We'll take respsibility!
+
+stage1:9:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:[Mel] Pssst! Dont take them! They are bullies! There is no telling...
+
+stage1:10:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:[Tedd] Dont listen to that, you need our protection!
+
+stage1:11:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:Will you take Tedd and his gang? (Y)es (N)o
+
