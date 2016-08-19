@@ -6,7 +6,7 @@ intro:2:train.jpg:player_tired.png:null:I feel like I have a mountain of homewor
 
 intro:3:train.jpg:player_tired.png:crone.png:All I want do do is sleep, oh I better give up my seat.
 
-intro:4:train.jpg:player_tired.png:crone.png:[Old Lady] Children today are so rude!
+intro:4:train.jpg:player_tired.png:crone.png:[Old Lady] Children today are so rude! Not giving up your seat for an old lady.
 
 intro:5:train.jpg:player_tired.png:crone.png:[Old Lady] You should learn to respect your elders.
 
@@ -23,3 +23,10 @@ intro:10:train.jpg:player_tired.png:crone.png:[Old Lady] All of your friends, an
 intro:11:train.jpg:player_tired.png:crone.png:[Old Lady] And if your not quick, you will die to! (laughs)
 
 intro:12:train.jpg:player_tired.png:crone.png:[Old Lady] Oh! thats my stop, have a nice day dear.
+
+intro:12:train.jpg:player_confused.png:null.png:Ah, you too?
+
+intro:13:blank.jpg:null:null:null:Day 1
+
+intro:14:classroom.jpg:teacher1.png:null:null:[Teacher] Class dismissed!
+
