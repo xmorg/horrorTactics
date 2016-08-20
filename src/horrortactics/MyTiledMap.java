@@ -41,6 +41,7 @@ public class MyTiledMap extends TiledMap {
     Actor[] monster = new Actor[monster_max];
     private int m_draw_x, m_draw_y; //map draw x
     int current_monster_moving = 0; //debug
+    int current_follower_moving = 0;
 
     public int getDrawX() {
         return m_draw_x;
@@ -56,7 +57,6 @@ public class MyTiledMap extends TiledMap {
         m_draw_y = draw_y;
         selected_tile_x = -1;
         selected_tile_y = -1;
-
         player = new Actor("data/tactics_in_distress00", 218, 313);
         turn_order = "start player";
     }
@@ -148,11 +148,35 @@ public class MyTiledMap extends TiledMap {
         //}
     }
 
+    public void setFollowerDirectives() {
+        //loop through your monsters and set a path for them to follow
+        //if they are controllable, they shall already have destinations.
+        this.current_follower_moving = 0;
+        for (int i = 0; i < this.follower_max; i++) {
+            if (follower[i].visible == true) {
+                follower[i].action_points = 6;
+                follower[i].setActorMoving(true);
+                follower[i].setActorDestination(follower[i].tiledestx,
+                        follower[i].tiledesty);
+            }
+        }
+    }
+
+    public void drawMonsters(HorrorTactics ht, int x, int y) {
+        //map.monster[0].drawActor(this, map, x, y);
+        for (int i = 0; i < this.monster_max; i++) {
+            if (this.monster[i].visible == true) { //just to be sure
+                this.monster[i].drawActor(ht, this, x, y);
+            }
+        }
+    }
+
+    //map.monster[0].drawActor(this, map, x, y);
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
         //directive types: random,randomuntilspotted,beeline
         int proposed_x, proposed_y;
-        this.current_monster_moving = 0;
+        this.current_follower_moving = 0;
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true) { //there was a monster here.
                 monster[i].action_points = 6; //update action points
@@ -162,6 +186,7 @@ public class MyTiledMap extends TiledMap {
         }
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true) { //there was a monster here.
+                monster[i].action_points = 6; //update action points
                 if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
                     for (int count = 0; count < 6; count++) {
                         proposed_y = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
@@ -177,7 +202,7 @@ public class MyTiledMap extends TiledMap {
                 } else if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
                     monster[i].tiledestx = player.tilex;
                     monster[i].tiledesty = player.tiley;
-                    monster[i].action_points = 6; //update action points
+
                     monster[i].setActorMoving(true);
                 }
             }
@@ -332,28 +357,29 @@ public class MyTiledMap extends TiledMap {
 
         return m;
     }
-    
+
     public boolean isActorTouchingActor(Actor a, Actor b, int x, int y) {
         //a=monster, b=player
-        if (a.tilex-1 == b.tilex && a.tiley == b.tiley) {
+        if (a.tilex - 1 == b.tilex && a.tiley == b.tiley) {
             a.tiledestx = b.tilex;
             a.tiledesty = b.tiley;
             return true;
-        } else if (a.tilex+1 == b.tilex && a.tiley == b.tiley) {
+        } else if (a.tilex + 1 == b.tilex && a.tiley == b.tiley) {
             a.tiledestx = b.tilex;
             a.tiledesty = b.tiley;
             return true;
-        } else if (a.tilex == b.tilex && a.tiley-1 == b.tiley) {
+        } else if (a.tilex == b.tilex && a.tiley - 1 == b.tiley) {
             a.tiledestx = b.tilex;
             a.tiledesty = b.tiley;
             return true;
-        } else if (a.tilex == b.tilex && a.tiley+1 == b.tiley) {
+        } else if (a.tilex == b.tilex && a.tiley + 1 == b.tiley) {
             a.tiledestx = b.tilex;
             a.tiledesty = b.tiley;
             return true; //you are touching the player.
         }
         return false;
     }
+
     public boolean isMonsterTouchingYou(Actor a) {
         //given tilex, tiley, return true if any items in grid are touching you.
         if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {//you are touching the player.
@@ -366,106 +392,111 @@ public class MyTiledMap extends TiledMap {
         }
         return false; //nobody touching monster, 
     }
-    
+
     public boolean getActorAtXy(Actor a, int x, int y) {
-        if(a.tilex == x && a.tiley == y) {
+        if (a.tilex == x && a.tiley == y) {
             return true;
         } else {
             return false;
         }
     }
+
     Actor getAllPlayersAtXy(int x, int y) {
-        if(this.getActorAtXy(player, x, y)) {
+        if (this.getActorAtXy(player, x, y)) {
             return player;
         }
-        for(int i=0; i < this.follower_max; i++) {
-            if(this.getActorAtXy(follower[i], x, y)) {
+        for (int i = 0; i < this.follower_max; i++) {
+            if (this.getActorAtXy(follower[i], x, y)) {
                 return this.follower[i];
             }
         }
         return null; //found nothing
     }
-    
+
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int activemonsters, int delta) { //taken from update.
-        boolean allmonstersmoved = false;       
+        boolean allmonstersmoved = false;
         for (int j = this.current_monster_moving; j < activemonsters; j++) {
-                if (this.monster[this.current_monster_moving].action_points > 0
-                        && this.monster[this.current_monster_moving].getActorMoving() == true) {
-                    //System.out.println("if (map.monster[j].action_points > 0) {");
-                    this.onMoveActor(gc, this.monster[this.current_monster_moving], delta);
-                    //assuming we have stopped, have me met a player/follower? ATTACK!
-                    //if we have > 2 action points attack.
-                    //System.out.println("move monster:"
-                    //        +Integer.toString(this.map.current_monster_moving));
-                    allmonstersmoved = false;
-                } else if (this.monster[this.current_monster_moving].action_points > 0
-                        && this.monster[this.current_monster_moving].getActorMoving() == false) {
-                    //Why?
-                    System.out.println("Monster stopped wtih enough AP to attack");
-                    if (this.monster[this.current_monster_moving].action_points >= 2) {
-                        //Do we see the player?
-                        if(this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
+            if (this.monster[this.current_monster_moving].action_points > 0
+                    && this.monster[this.current_monster_moving].getActorMoving() == true) {
+                //System.out.println("if (map.monster[j].action_points > 0) {");
+                this.onMoveActor(gc, this.monster[this.current_monster_moving], delta);
+                //assuming we have stopped, have me met a player/follower? ATTACK!
+                //if we have > 2 action points attack.
+                //System.out.println("move monster:"
+                //        +Integer.toString(this.map.current_monster_moving));
+                allmonstersmoved = false;
+            } else if (this.monster[this.current_monster_moving].action_points > 0
+                    && this.monster[this.current_monster_moving].getActorMoving() == false) {
+                //Why?
+                System.out.println("Monster stopped wtih enough AP to attack");
+                if (this.monster[this.current_monster_moving].action_points >= 2) {
+                    //Do we see the player?
+                    if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
                         //ATTACK! (monster at tiledestx, tiledesty
-                            int dx = monster[this.current_monster_moving].tiledestx;
-                            int dy = monster[this.current_monster_moving].tiledesty;
-                            int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6+1);
-                            int player_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6+1);
-                            int player_saveroll = ThreadLocalRandom.current().nextInt(1, 6+1);
-                            int player_parryroll = ThreadLocalRandom.current().nextInt(1, 6+1);
-                            int player_counterroll = ThreadLocalRandom.current().nextInt(1, 6+1);
-                            int monster_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6+1);
-                            System.out.println("MonsterRoll:"+Integer.toString(monster_attackroll)
-                                    +" Dodge Roll:"+Integer.toString(player_dodgeroll)                            
-                            );
-                            //player at the monster destination is not null
-                            if(monster_attackroll > player_dodgeroll) {
-                                this.getAllPlayersAtXy(dx, dy).dead = true;
-                                this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
-                                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-                            }
-                            else {
-                                this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
-                                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-                                //Counter Attack.
-                                if(player_counterroll > monster_cdodgeroll) {
-                                    monster[this.current_monster_moving].dead = true;
-                                    monster[this.current_monster_moving].action_msg = "Dead";
-                                    monster[this.current_monster_moving].action_msg_timer = 400;
-                                }
-                                else {
-                                    monster[this.current_monster_moving].action_msg = "Dodge";
-                                    monster[this.current_monster_moving].action_msg_timer = 400;
-                                }
+                        int dx = monster[this.current_monster_moving].tiledestx;
+                        int dy = monster[this.current_monster_moving].tiledesty;
+                        int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                        int player_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                        int player_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                        int player_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                        int player_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                        int monster_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+                        System.out.println("MonsterRoll:" + Integer.toString(monster_attackroll)
+                                + " Dodge Roll:" + Integer.toString(player_dodgeroll)
+                        );
+                        //player at the monster destination is not null
+                        if (monster_attackroll > player_dodgeroll) {
+                            this.getAllPlayersAtXy(dx, dy).dead = true;
+                            this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
+                            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+                        } else {
+                            this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
+                            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+                            //Counter Attack.
+                            if (player_counterroll > monster_cdodgeroll) {
+                                monster[this.current_monster_moving].dead = true;
+                                monster[this.current_monster_moving].action_msg = "Dead";
+                                monster[this.current_monster_moving].action_msg_timer = 400;
+                            } else {
+                                monster[this.current_monster_moving].action_msg = "Dodge";
+                                monster[this.current_monster_moving].action_msg_timer = 400;
                             }
                         }
-                        else{
-                            System.out.println("Monster "+this.current_monster_moving+" found nobody there?");
-                        }//nobody was there.
-                        this.monster[this.current_monster_moving].action_points = 0;
-                    } else {//you stopped and cant do anything anyways
-                        System.out.println("Monster had not enough points to attack");
-                        this.monster[this.current_monster_moving].action_points = 0;
-                    }
-                    allmonstersmoved = false;
-                } else { //go to the next monster.
-                    //System.out.println("else ap.monster[j].action_points < 0");
-                    this.current_monster_moving++;
-                    if (this.current_monster_moving >= activemonsters) {
-                        allmonstersmoved = true;
-                    }
+                    } else {
+                        System.out.println("Monster " + this.current_monster_moving + " found nobody there?");
+                    }//nobody was there.
+                    this.monster[this.current_monster_moving].action_points = 0;
+                } else {//you stopped and cant do anything anyways
+                    System.out.println("Monster had not enough points to attack");
+                    this.monster[this.current_monster_moving].action_points = 0;
+                }
+                allmonstersmoved = false;
+            } else { //go to the next monster.
+                //System.out.println("else ap.monster[j].action_points < 0");
+                this.current_monster_moving++;
+                if (this.current_monster_moving >= activemonsters) {
+                    allmonstersmoved = true;
                 }
             }
-            if (allmonstersmoved == true) {
-                this.turn_order = "start player";
-            }
-    }
-    void onUpdateActorActionText() {
-        if(player.action_msg_timer > 0){player.action_msg_timer--;}
-        for(int i=0;i<this.follower_max;i++) {
-            if(follower[i].action_msg_timer > 0){follower[i].action_msg_timer--;}
         }
-        for(int i=0;i<this.monster_max;i++) {
-            if(monster[i].action_msg_timer > 0){monster[i].action_msg_timer--;}
+        if (allmonstersmoved == true) {
+            this.turn_order = "start player";
+        }
+    }
+
+    void onUpdateActorActionText() {
+        if (player.action_msg_timer > 0) {
+            player.action_msg_timer--;
+        }
+        for (int i = 0; i < this.follower_max; i++) {
+            if (follower[i].action_msg_timer > 0) {
+                follower[i].action_msg_timer--;
+            }
+        }
+        for (int i = 0; i < this.monster_max; i++) {
+            if (monster[i].action_msg_timer > 0) {
+                monster[i].action_msg_timer--;
+            }
         }
     }
 }

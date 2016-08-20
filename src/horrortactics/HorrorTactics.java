@@ -86,7 +86,7 @@ public class HorrorTactics extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        boolean allmonstersmoved = false;
+        //boolean allmonstersmoved = false;
         int activemonsters = 0;
         Input input = gc.getInput();
         mouse_x = input.getMouseX();
@@ -95,11 +95,13 @@ public class HorrorTactics extends BasicGame {
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
         if (map.turn_order.equalsIgnoreCase("player")) {
-            //for (int y = map.player.tiley - 3; y < map.player.tiley + 3; y++) {
-            //    for (int x = map.player.tilex - 3; x < map.player.tilex + 3; x++) {
             map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
-            //    }
-            //}
+            
+        } else if(map.turn_order.equalsIgnoreCase("start follower")) { //
+            this.map.setFollowerDirectives();
+            map.turn_order = "follower";
+        } else if(map.turn_order.equalsIgnoreCase("follower")) { 
+        
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
             map.player.action_points = 6;
             //give followers action points.
@@ -110,7 +112,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("monster")) {
             //find out who can move
             for (int i = 0; i < map.monster_max; i++) {
-                if (map.monster[i].visible == true) {
+                if (map.monster[i].visible == true && map.monster[i].dead == false) {
                     activemonsters++;
                 } else {
                     activemonsters = i;
@@ -202,7 +204,8 @@ public class HorrorTactics extends BasicGame {
                                 screen_y + draw_y - 200);
                         
                     }
-                    map.monster[0].drawActor(this, map, x, y);
+                    //map.monster[0].drawActor(this, map, x, y);
+                    map.drawMonsters(this, x, y);
 
                     if (map.getTileImage(x, y, walls_layer) != null) {
 
@@ -277,12 +280,12 @@ public class HorrorTactics extends BasicGame {
 
     public int getMyDelta(GameContainer gc) {
         long time = gc.getTime();
-        int delta = (int) (time - this.lastframe);
+        int tdelta = (int) (time - this.lastframe);
         this.lastframe = time;
-        if (delta == 0) {
+        if (tdelta == 0) {
             return 1;
         }
-        return delta;
+        return tdelta;
     }
 
     public static void main(String[] args) {

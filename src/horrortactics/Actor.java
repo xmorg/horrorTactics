@@ -31,7 +31,7 @@ public class Actor {
     private boolean selected; //if the actor is selected.
     private boolean move_action;
     int action_points, max_action_points;
-    private boolean hasturn;
+    //private boolean hasturn;
     boolean visible;
     boolean dead;
     String directive_type;
@@ -58,7 +58,7 @@ public class Actor {
         direction = 0;
         animation_timer = 0;
         visible = true; //actor is visible.
-        hasturn = true;
+        //hasturn = true;
         action_points = 0;
         max_action_points = 6;
         move_action = false;
@@ -194,13 +194,9 @@ public class Actor {
         return this.selected;
     }
 
-    public boolean isHasTurn() {
-        return hasturn;
-    }
-
-    public int getActionPoints() {
-        return this.action_points;
-    }
+    //public int getActionPoints() {
+    //    return this.action_points;
+    //}
 
     public void setActionPoints(int t) {
         this.action_points = t;
