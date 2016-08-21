@@ -176,7 +176,7 @@ public class MyTiledMap extends TiledMap {
         //loop through your monsters and set a path for them to follow
         //directive types: random,randomuntilspotted,beeline
         int proposed_x, proposed_y;
-        this.current_follower_moving = 0;
+        this.current_monster_moving = 0;
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true) { //there was a monster here.
                 monster[i].action_points = 6; //update action points
@@ -466,9 +466,11 @@ public class MyTiledMap extends TiledMap {
                         System.out.println("Monster " + this.current_monster_moving + " found nobody there?");
                     }//nobody was there.
                     this.monster[this.current_monster_moving].action_points = 0;
+                    this.current_monster_moving++;
                 } else {//you stopped and cant do anything anyways
                     System.out.println("Monster had not enough points to attack");
                     this.monster[this.current_monster_moving].action_points = 0;
+                    this.current_monster_moving++;
                 }
                 allmonstersmoved = false;
             } else { //go to the next monster.
