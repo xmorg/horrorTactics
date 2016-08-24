@@ -35,7 +35,7 @@ public class MouseActions {
             }
             if (playerWasSelected(map) == true) {
                 onPlayerSelection(map); //select or unselect actor
-            } else if (map.player.isSelected() == true) {
+            } else if (map.player.isSelected() == true && map.turn_order.equalsIgnoreCase("player")) { //added limits so you cant set location when a monster is moving
                 if (getClickedOnPlayerAction(ht, map) == true) {
                     //map.player.onSelectActor(false); //dont automatically deslect player, she may want to move more.
                     map.selected_tile_x = map.mouse_over_tile_x;
