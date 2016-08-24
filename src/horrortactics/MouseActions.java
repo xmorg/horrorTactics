@@ -37,14 +37,13 @@ public class MouseActions {
                 onPlayerSelection(map); //select or unselect actor
             } else if (map.player.isSelected() == true) {
                 if (getClickedOnPlayerAction(ht, map) == true) {
-                    map.player.onSelectActor(false);
+                    //map.player.onSelectActor(false); //dont automatically deslect player, she may want to move more.
                     map.selected_tile_x = map.mouse_over_tile_x;
                     map.selected_tile_y = map.mouse_over_tile_y;
                     map.player.tiledestx = map.selected_tile_x;
                     map.player.tiledesty = map.selected_tile_y;
                     map.player.setActorMoving(true);
                 }
-                //}
             } else { //does not have turn
 
             }
