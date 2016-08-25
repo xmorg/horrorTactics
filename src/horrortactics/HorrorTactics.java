@@ -50,6 +50,7 @@ public class HorrorTactics extends BasicGame {
     Color myfilter, myfiltert, myfilterd;
     Image button_endturn;
     Image effect_biff, effect_wiff, effect_shrack;
+    Image enemy_moving_message;
 
     String game_state = "tactical"; //title, tactical,conversation,cutscene
 
@@ -79,6 +80,7 @@ public class HorrorTactics extends BasicGame {
         effect_biff = new Image("data/soundeffects/biff.png");
         effect_wiff = new Image("data/soundeffects/wiff.png");
         effect_shrack = new Image("data/soundeffects/shrack.png");
+        enemy_moving_message = new Image("data/enemy_moving.png");
         myfilter = new Color(1f, 1f, 1f, 1f);
         myfiltert = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         myfilterd = new Color(0.2f, 0.2f, 0.2f, 0.8f); //for darkness/fog
@@ -248,6 +250,9 @@ public class HorrorTactics extends BasicGame {
                 + map.monster[map.current_monster_moving].tiledestx + ","
                 + map.monster[map.current_monster_moving].tiledesty,
                 200, 10);
+        if(this.map.turn_order.equalsIgnoreCase("monster")) {
+            this.enemy_moving_message.draw(gc.getWidth()/2-200, gc.getHeight()/2);
+        }
     }
 
     public void render_character_busts(GameContainer gc, Graphics g) {
