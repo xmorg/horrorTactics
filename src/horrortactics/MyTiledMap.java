@@ -188,7 +188,13 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true) { //there was a monster here.
                 monster[i].action_points = 6; //update action points
-                if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
+
+                if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
+
+                    monster[i].tiledestx = player.tilex;
+                    monster[i].tiledesty = player.tiley;
+                    //monster[i].setActorMoving(true);
+                } else if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
                     for (int count = 0; count < 6; count++) {
                         proposed_y = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
                         proposed_x = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
@@ -200,11 +206,6 @@ public class MyTiledMap extends TiledMap {
                                     monster[i].tiley + proposed_y);
                         }
                     }
-                } else if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
-                    monster[i].tiledestx = player.tilex;
-                    monster[i].tiledesty = player.tiley;
-
-                    monster[i].setActorMoving(true);
                 }
             }
         }
@@ -414,75 +415,80 @@ public class MyTiledMap extends TiledMap {
         return null; //found nothing
     }
 
-    public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int activemonsters, int delta) { //taken from update.
-        boolean allmonstersmoved = false;
-        for (int j = this.current_monster_moving; j < activemonsters; j++) {
-            if (this.monster[this.current_monster_moving].action_points > 0
-                    && this.monster[this.current_monster_moving].getActorMoving() == true) {
-                //System.out.println("if (map.monster[j].action_points > 0) {");
-                this.onMoveActor(gc, this.monster[this.current_monster_moving], delta);
-                //assuming we have stopped, have me met a player/follower? ATTACK!
-                //if we have > 2 action points attack.
-                //System.out.println("move monster:"
-                //        +Integer.toString(this.map.current_monster_moving));
-                allmonstersmoved = false;
-            } else if (this.monster[this.current_monster_moving].action_points > 0
-                    && this.monster[this.current_monster_moving].getActorMoving() == false) {
-                //Why?
-                System.out.println("Monster stopped wtih enough AP to attack");
-                if (this.monster[this.current_monster_moving].action_points >= 2) {
-                    //Do we see the player?
-                    if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
-                        //ATTACK! (monster at tiledestx, tiledesty
-                        int dx = monster[this.current_monster_moving].tiledestx;
-                        int dy = monster[this.current_monster_moving].tiledesty;
-                        int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                        int player_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                        int player_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                        int player_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                        int player_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                        int monster_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-                        System.out.println("MonsterRoll:" + Integer.toString(monster_attackroll)
-                                + " Dodge Roll:" + Integer.toString(player_dodgeroll)
-                        );
-                        //player at the monster destination is not null
-                        if (monster_attackroll > player_dodgeroll) {
-                            this.getAllPlayersAtXy(dx, dy).dead = true;
-                            this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
-                            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-                        } else {
-                            this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
-                            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-                            //Counter Attack.
-                            if (player_counterroll > monster_cdodgeroll) {
-                                monster[this.current_monster_moving].dead = true;
-                                monster[this.current_monster_moving].action_msg = "Dead";
-                                monster[this.current_monster_moving].action_msg_timer = 400;
-                            } else {
-                                monster[this.current_monster_moving].action_msg = "Dodge";
-                                monster[this.current_monster_moving].action_msg_timer = 400;
-                            }
-                        }
-                    } else {
-                        System.out.println("Monster " + this.current_monster_moving + " found nobody there?");
-                    }//nobody was there.
-                    this.monster[this.current_monster_moving].action_points = 0;
-                    this.current_monster_moving++;
-                } else {//you stopped and cant do anything anyways
-                    System.out.println("Monster had not enough points to attack");
-                    this.monster[this.current_monster_moving].action_points = 0;
-                    this.current_monster_moving++;
-                }
-                allmonstersmoved = false;
-            } else { //go to the next monster.
-                //System.out.println("else ap.monster[j].action_points < 0");
-                this.current_monster_moving++;
-                if (this.current_monster_moving >= activemonsters) {
-                    allmonstersmoved = true;
+    public boolean getMonsterIsMoving(int i) {
+        if (this.monster[i].action_points > 0
+                && this.monster[i].visible == true
+                && this.monster[i].dead == false
+                && this.monster[i].getActorMoving() == true) {
+            return true;
+        }
+        return false;
+    }
+
+    public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
+        if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
+            //ATTACK! (monster at tiledestx, tiledesty
+            int dx = monster[this.current_monster_moving].tiledestx;
+            int dy = monster[this.current_monster_moving].tiledesty;
+            int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            int player_dodgeroll = 100;//ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            int player_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            int player_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            int player_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            int monster_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            System.out.println("MonsterRoll:" + Integer.toString(monster_attackroll)
+                    + " Dodge Roll:" + Integer.toString(player_dodgeroll)
+            );
+            //player at the monster destination is not null
+            if (monster_attackroll > player_dodgeroll) {
+                this.getAllPlayersAtXy(dx, dy).dead = true;
+                this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
+                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+            } else {
+                this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
+                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+                //Counter Attack.
+                if (player_counterroll > monster_cdodgeroll) {
+                    monster[this.current_monster_moving].dead = true;
+                    monster[this.current_monster_moving].action_msg = "Dead";
+                    monster[this.current_monster_moving].action_msg_timer = 400;
+                } else {
+                    monster[this.current_monster_moving].action_msg = "Dodge";
+                    monster[this.current_monster_moving].action_msg_timer = 400;
                 }
             }
+        } else {
+            System.out.println("Monster " + this.current_monster_moving + " found nobody there?");
+        }//nobody was there.
+    }
+
+    public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht) {
+        System.out.println("Monster stopped with remaining AP");
+        if (this.monster[this.current_monster_moving].action_points >= 2) {
+            this.onMonsterCanAttack(gc, ht); //Do we see the player?
+            this.monster[this.current_monster_moving].action_points = 0;
+            //this.current_monster_moving++;
+        } else {//you stopped and cant do anything anyways
+            System.out.println("Monster had not enough points to attack");
+            this.monster[this.current_monster_moving].action_points = 0;
+            //this.current_monster_moving++;
         }
-        if (allmonstersmoved == true) {
+        //allmonstersmoved = false;
+    }
+
+    public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
+        //boolean allmonstersmoved = false;
+        //loop through all monsters. if a monster is visible, increment
+        for (int j = 0; j < this.monster_max; j++) {
+            if (this.getMonsterIsMoving(j)) {//alive, has action points,and moving
+                this.current_monster_moving = j;
+            }
+            this.onMoveActor(gc, this.monster[this.current_monster_moving], delta);
+            if (this.monster[this.current_monster_moving].getActorMoving() == false) {
+                this.whyDidMonsterStop(gc, ht);
+            }
+        }
+        if (this.current_monster_moving >= this.monster_max) {
             this.turn_order = "start player";
         }
     }
