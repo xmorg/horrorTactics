@@ -112,7 +112,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 6;
+            map.player.action_points = 100; //6; //DEBUG
             //give followers action points.
             map.turn_order = "player";
         } else if (map.turn_order.equalsIgnoreCase("start monster")) {
@@ -126,7 +126,6 @@ public class HorrorTactics extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        //String game_state = "tactical"; //title, tactical,conversation,cutscene
         if (game_state.equalsIgnoreCase("tactical")) {
             g.scale(scale_x, scale_x); //scale the same
             this.render_background_layer(gc, g); //render floor
@@ -243,9 +242,9 @@ public class HorrorTactics extends BasicGame {
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
                 + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
                 + map.turn_order + " mm: " + map.current_monster_moving + "/"
-                + map.monster[map.current_monster_moving].action_points + " dst:"
-                + map.monster[map.current_monster_moving].tiledestx + ","
-                + map.monster[map.current_monster_moving].tiledesty,
+                + map.monster[map.getCurrentMonsterMoving()].action_points + " dst:"
+                + map.monster[map.getCurrentMonsterMoving()].tiledestx + ","
+                + map.monster[map.getCurrentMonsterMoving()].tiledesty,
                 200, 10);
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);

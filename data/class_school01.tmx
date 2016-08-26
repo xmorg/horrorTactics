@@ -26,12 +26,12 @@
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+VWWw7EIAjkDHS7/dr7X3P3x8SdgIogNukkpK3o2AkPZSLinx2V8eSY5s8yxEf5pxotf29tmXMJ4zPQdGQAdbzh2XqXuHbqiOTapeOEb0s8LvqPJQt8WXg51mJdsZPPA8wDazyQ6y51boGUVyM6ev16prev6FcjdlD7jEM/zunp8MASD+8+0ZzI9SQddW8uOaTxST5Nx+r7FaLuzSX3JWg+6YwauXda7qcZebX6jNpZH5F4so6oOo/EjI6ZOs/SEdHTIvbw2Bf5sL8doA8AAA==
+   H4sIAAAAAAAAA+WW3Q6AIAiFeQb7u+r9X7O6cLMTaCJoW2djNTH0m0AGIgqnTYkF5Zjk72WoXdhTqpy/9G2cszHjGkkcPYQcKzxz71yskRyWsUZxoGrOY6P7WV4Mi9O+PIV1dXHMIzZCzzyoPQ+M9ZU6rxGXV284Sv1a09s9+tUbmyj/j0M/zilxtKjmPFrXsY6Jsf7EkfbmmENSPM4ncXjfr1Bpb465zynnkzis7qc98spbI+vDUn/msKpzS2k4NHXei8Oip1ms0WIHdvojVqAPAAA=
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VMREAQAgDQaxQ4t/ga/gGGGZXwVVJBFfVdACr5HQAwCI+EuCP3ezxALhsAcagDwAA
+   H4sIAAAAAAAAA+3VSREAMAwDsVDJM/wJlkWOjoRgX3YEv6rpAFbJ6QCARbo/0icD19mxHg/oyHm1oA8AAA==
   </data>
  </layer>
 </map>

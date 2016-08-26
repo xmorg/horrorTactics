@@ -415,15 +415,7 @@ public class MyTiledMap extends TiledMap {
         return null; //found nothing
     }
 
-    public boolean getMonsterIsMoving(int i) {
-        if (this.monster[i].action_points > 0
-                && this.monster[i].visible == true
-                && this.monster[i].dead == false
-                && this.monster[i].getActorMoving() == true) {
-            return true;
-        }
-        return false;
-    }
+    
 
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
         if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
@@ -461,34 +453,64 @@ public class MyTiledMap extends TiledMap {
             System.out.println("Monster " + this.current_monster_moving + " found nobody there?");
         }//nobody was there.
     }
+    
+    public boolean getMonsterIsMoving(int i) {
+        if (this.monster[i].action_points <= 0 ) { 
+            this.current_monster_moving++;
+            return false; 
+        }
+        if (this.monster[i].visible == false) { 
+            this.current_monster_moving++;
+            return false; 
+        }
+        if (this.monster[i].dead == true) { 
+            this.current_monster_moving++;
+            return false; 
+        }
+        //if (this.monster[i].getActorMoving() == false) { 
+        //    this.current_monster_moving++;
+        //    return false; 
+        //}
+        return true; //all conditions are good.
+    }
 
     public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht) {
         System.out.println("Monster stopped with remaining AP");
         if (this.monster[this.current_monster_moving].action_points >= 2) {
             this.onMonsterCanAttack(gc, ht); //Do we see the player?
             this.monster[this.current_monster_moving].action_points = 0;
-            //this.current_monster_moving++;
+            this.current_monster_moving++;
         } else {//you stopped and cant do anything anyways
             System.out.println("Monster had not enough points to attack");
             this.monster[this.current_monster_moving].action_points = 0;
-            //this.current_monster_moving++;
+            this.current_monster_moving++;
         }
         //allmonstersmoved = false;
     }
-
-    public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
-        //boolean allmonstersmoved = false;
-        //loop through all monsters. if a monster is visible, increment
-        for (int j = 0; j < this.monster_max; j++) {
-            if (this.getMonsterIsMoving(j)) {//alive, has action points,and moving
-                this.current_monster_moving = j;
+    public int getCurrentMonsterMoving() { //wrapper to avoid out of bounds
+        int active_monster = 0;
+        for(int i =0; i < this.monster_max; i++) {
+            if(this.monster[i].visible == true) {
+                active_monster++;
             }
+        }
+        if(this.current_monster_moving < active_monster) {
+            return this.current_monster_moving;
+        } else {
+            return active_monster;
+        }
+    }
+    public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
+
+        if(this.getMonsterIsMoving(this.current_monster_moving)) {
             this.onMoveActor(gc, this.monster[this.current_monster_moving], delta);
             if (this.monster[this.current_monster_moving].getActorMoving() == false) {
                 this.whyDidMonsterStop(gc, ht);
             }
         }
+
         if (this.current_monster_moving >= this.monster_max) {
+            this.current_monster_moving = 0;
             this.turn_order = "start player";
         }
     }
