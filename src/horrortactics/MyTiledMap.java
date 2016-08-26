@@ -35,6 +35,8 @@ public class MyTiledMap extends TiledMap {
     int pixel_dest_x = -1;
     int pixel_dest_y = -1;
     String turn_order = null;
+    
+    Trigger active_trigger = null;
 
     Actor player = null;
     Actor[] follower = new Actor[follower_max];
@@ -117,6 +119,27 @@ public class MyTiledMap extends TiledMap {
         }
     }
 
+    public void onSteppedOnTrigger(int x, int y)
+    {
+        int actors_layer = this.getLayerIndex("actors_layer");
+        int gid = this.getTileId(x,y, actors_layer);        
+        //long list of triggers!
+        if(this.getTileProperty(gid, "audio_trigger", "trapped girl").equals("trapped girl")) {            
+            //now we have stopped in it.
+            try {
+                this.active_trigger = new Trigger("audio_trigger", "trapped girl");
+                this.active_trigger.onSetSoundToBePlayed("trappedgirl.ogg");
+            } catch (SlickException n) {
+                this.active_trigger = null;
+            }
+        }
+        /*for (int y = 0; y < this.getHeight(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+                int gid = this.getTileId(x, y, actor_layer);
+                if (gid > 0) {
+                    System.out.println(this.getTileId(x, y, actor_layer));
+                    if (this.getTileProperty(gid, "actor_name", "player").equals("player")) {*/
+    }
     public void onMoveActor(GameContainer gc, Actor a, int delta) {
         /* map.player.getActorMoving() == true*/
         //a.speed_wait++;
@@ -135,6 +158,8 @@ public class MyTiledMap extends TiledMap {
             a.setActorMoving(false);
             a.setAnimationFrame(0);
         }
+        //are we standing on a trigger?
+        //if (a.)
         if (a.action_points <= 0) {
             a.action_points = 0;
             a.setActorMoving(false);

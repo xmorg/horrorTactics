@@ -13,9 +13,24 @@
     <property name="actor_name" value="player"/>
    </properties>
   </tile>
+  <tile id="1">
+   <properties>
+    <property name="actor_name" value="Yukari"/>
+   </properties>
+  </tile>
   <tile id="8">
    <properties>
     <property name="actor_name" value="pear monster"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="audio_trigger" value="trapped_girl"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="activate_trigger" value="release yukari"/>
    </properties>
   </tile>
  </tileset>
@@ -31,7 +46,7 @@
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VSREAMAwDsVDJM/wJlkWOjoRgX3YEv6rpAFbJ6QCARbo/0icD19mxHg/oyHm1oA8AAA==
+   H4sIAAAAAAAAA2NgGAVDBegCsR4QKxGpXpOGbqEE6ELxUAdDzR+KOMSHmj9GwSgYBaOAGmCw1pGjYBSMglEwWMFouUkfAACbyv7EoA8AAA==
   </data>
  </layer>
 </map>

@@ -105,6 +105,14 @@ public class HorrorTactics extends BasicGame {
             this.game_state = "game over";
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
+            int actor_layer = map.getLayerIndex("actors_layer");
+            if (map.getTileImage(map.player.tilex, map.player.tiley, actor_layer) == null) {
+                //^^-dont check for events every time.
+                this.map.active_trigger = null; //null out trigger
+            } else if (this.map.active_trigger == null) { //not already stepped in it
+                /*if (this.getTileProperty(gid, "actor_name", "player").equals("player")) {*/
+                map.onSteppedOnTrigger(this.map.player.tilex, this.map.player.tiley);
+            }
 
         } else if (map.turn_order.equalsIgnoreCase("start follower")) { //
             this.map.setFollowerDirectives();
@@ -213,7 +221,8 @@ public class HorrorTactics extends BasicGame {
                             map.getTileImage(x, y, walls_layer).draw(
                                     screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
                         } else //inside cannot be dark
-                         if (x < map.player.tilex - 2
+                        {
+                            if (x < map.player.tilex - 2
                                     || x > map.player.tilex + 2
                                     || y < map.player.tiley - 2
                                     || y > map.player.tiley + 2) {
@@ -225,6 +234,7 @@ public class HorrorTactics extends BasicGame {
                                 map.getTileImage(x, y, walls_layer).draw(
                                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                             }
+                        }
                     }
                 }
             }
@@ -270,10 +280,10 @@ public class HorrorTactics extends BasicGame {
     public void render_game_over(GameContainer gc, Graphics g) {//yoo dyied!
         //g.clear(); //fade to black
         g.scale(scale_x, scale_x); //scale the same
-            this.render_background_layer(gc, g); //render floor
-            this.render_walls_layer(gc, g);      //render walls (and actors!)
-            this.render_game_ui(gc, g);
-            this.render_character_busts(gc, g); //bring up the busts, and talk
+        this.render_background_layer(gc, g); //render floor
+        this.render_walls_layer(gc, g);      //render walls (and actors!)
+        this.render_game_ui(gc, g);
+        this.render_character_busts(gc, g); //bring up the busts, and talk
         g.drawString("Game Over", gc.getScreenWidth() - 100, gc.getScreenHeight() - 12);
     }
 
