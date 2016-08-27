@@ -100,10 +100,10 @@ public class MyTiledMap extends TiledMap {
                 int gid = this.getTileId(x, y, actor_layer);
                 if (gid > 0) {
                     System.out.println(this.getTileId(x, y, actor_layer));
-                    if (this.getTileProperty(gid, "actor_name", "player").equals("player")) {
+                    if (this.getTileProperty(gid, "actor_name", "none").equals("player")) {
                         this.player.tilex = x;
                         this.player.tiley = y;
-                    } else if (this.getTileProperty(gid, "actor_name", "pear monster").equals("pear monster")) {
+                    } else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster00.png", 218, 313);
                         } catch (SlickException e) {
@@ -124,7 +124,7 @@ public class MyTiledMap extends TiledMap {
         int actors_layer = this.getLayerIndex("actors_layer");
         int gid = this.getTileId(x,y, actors_layer);        
         //long list of triggers!
-        if(this.getTileProperty(gid, "audio_trigger", "trapped girl").equals("trapped girl")) {            
+        if(this.getTileProperty(gid, "audio_trigger", "none").equals("trapped girl")) {            
             //now we have stopped in it.
             try {
                 this.active_trigger = new Trigger("audio_trigger", "trapped girl");
