@@ -41,6 +41,7 @@ public class HorrorTactics extends BasicGame {
     int mouse_tile_x, mouse_tile_y = 0;
     int fps = 0;
     int delta;
+    int actor_move_timer;
     long currentTime, lastTime;
     float scale_x = 1;
     int screen_width = 0;
@@ -67,6 +68,7 @@ public class HorrorTactics extends BasicGame {
         //input = new Input(gc.getHeight());
         map.getActorLocationFromTMX();
         fps = gc.getFPS();
+        actor_move_timer = 0;
         this.lastTime = 0;
         this.lastframe = 0;
         this.turn_count = 0;
@@ -98,13 +100,17 @@ public class HorrorTactics extends BasicGame {
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
 
+        actor_move_timer++;
+        if(actor_move_timer >= this.fps) {this.actor_move_timer = 0;}
         if (map.player.dead == true) {
             map.turn_order = "game over";
         }
         if (map.turn_order.equalsIgnoreCase("game over")) {
             this.game_state = "game over";
         } else if (map.turn_order.equalsIgnoreCase("player")) {
-            map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
+            if(this.actor_move_timer == 0) {
+                map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
+            }
             int actor_layer = map.getLayerIndex("actors_layer");
             if (map.getTileImage(map.player.tilex, map.player.tiley, actor_layer) == null) {
                 //^^-dont check for events every time.
@@ -127,7 +133,9 @@ public class HorrorTactics extends BasicGame {
             this.map.setMonsterDirectives();
             map.turn_order = "monster";
         } else if (map.turn_order.equalsIgnoreCase("monster")) {
-            map.onMonsterMoving(gc, this, delta);
+            if (this.actor_move_timer == 0) {
+                map.onMonsterMoving(gc, this, delta);
+            }
         }
         map.onUpdateActorActionText();
     }
