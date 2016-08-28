@@ -41,7 +41,7 @@
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+WW3Q6AIAiFeQb7u+r9X7O6cLMTaCJoW2djNTH0m0AGIgqnTYkF5Zjk72WoXdhTqpy/9G2cszHjGkkcPYQcKzxz71yskRyWsUZxoGrOY6P7WV4Mi9O+PIV1dXHMIzZCzzyoPQ+M9ZU6rxGXV284Sv1a09s9+tUbmyj/j0M/zilxtKjmPFrXsY6Jsf7EkfbmmENSPM4ncXjfr1Bpb465zynnkzis7qc98spbI+vDUn/msKpzS2k4NHXei8Oip1ms0WIHdvojVqAPAAA=
+   H4sIAAAAAAAAA+WWSQ6AIAxFewacVt7/muqCBL8tSG3B6E8aDdXKSwcJRBR2GxILyjXJ38pQq7CnVDl/6d34zMKsayRxtBByzHDN3XOxenJYxurFgarJx0LnXB4Mk9O+PIV9dXCMPTZC1zqozQfGekuf14irqzscpXmtme0e8+qODZT/x6EfnylxPFFNPp5+xzomxvoTRzqbYw1J8TifxOF9vkKlsznWPqecT+KwOp+2qCtv9ewPS/2Zw6rPLaXh0PR5K44v2AZ2tKHcoA8AAA==
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">
