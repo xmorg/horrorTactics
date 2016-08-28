@@ -247,7 +247,7 @@ public class Actor {
 
     public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y) {
         if (isSelected() == true
-                && m.getTileImage(x, y, m.getLayerIndex("walls_layer")) == null) {
+                && m.getTileImage(x, y, m.getLayerIndex("walls_layer")) == null) { //java.lang.ArrayIndexOutOfBoundsException: 20 (went going to sw edge of map
             m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
                     h.screen_x + h.draw_x, h.screen_y + h.draw_y);
         }
