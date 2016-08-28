@@ -99,7 +99,6 @@ public class HorrorTactics extends BasicGame {
         msa.mouseWasClicked(input, map, this); //Do mouse actions
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
-
         actor_move_timer++;
         if(actor_move_timer >= this.fps) {this.actor_move_timer = 0;}
         if (map.player.dead == true) {
@@ -119,7 +118,6 @@ public class HorrorTactics extends BasicGame {
                 /*if (this.getTileProperty(gid, "actor_name", "player").equals("player")) {*/
                 map.onSteppedOnTrigger(this.map.player.tilex, this.map.player.tiley);
             }
-
         } else if (map.turn_order.equalsIgnoreCase("start follower")) { //
             this.map.setFollowerDirectives();
             map.turn_order = "follower";
@@ -182,7 +180,6 @@ public class HorrorTactics extends BasicGame {
                         map.getTileImage(x, y, background_layer).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
-
                     mouse_x = gc.getInput().getMouseX();
                     mouse_y = gc.getInput().getMouseY();
                     int sx = screen_x + draw_x + 30;
