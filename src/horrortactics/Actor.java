@@ -9,7 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+//import org.newdawn.slick.Graphics;
 
 /**
  * Actor class is to encap the actor methods and data
@@ -82,11 +82,11 @@ public class Actor {
         Image i = sprites.getSubImage(animate_frame, direction);
         return i;
     }
+
     public Image getDeadSpriteframe() {
         Image i = sprites.getSubImage(3, direction);
         return i;
     }
-            
 
     public void setfacingloc(int x, int y) {
         this.facing_x = x;
@@ -131,27 +131,23 @@ public class Actor {
                 this.animate_frame = 1;
                 this.animation_timer = 0;
             }
+        } else if (this.animate_frame == 1 && this.getActorMoving() == true) {
+            this.animation_timer++;
+            if (this.animation_timer >= timer_max) {
+                this.animate_frame = 2;
+                this.animation_timer = 0;
+            }
+        } else if (this.animate_frame == 2 && this.getActorMoving() == true) {
+            this.animation_timer++;
+            if (this.animation_timer >= timer_max) {
+                this.animate_frame = 1;
+                this.animation_timer = 0;
+            }
         } else {
-            if (this.animate_frame == 1 && this.getActorMoving() == true) {
-                this.animation_timer++;
-                if (this.animation_timer >= timer_max) {
-                    this.animate_frame = 2;
-                    this.animation_timer = 0;
-                }
-            } 
-            else if (this.animate_frame == 2 && this.getActorMoving() == true){
-                this.animation_timer++;
-                if (this.animation_timer >= timer_max) {
-                    this.animate_frame = 1;
-                    this.animation_timer = 0;
-                }
-            } 
-            else {
-                this.animation_timer++;
-                if (this.animation_timer >= timer_max) {
-                    //this.animate_frame = 0;
-                    this.animation_timer = 0;
-                }
+            this.animation_timer++;
+            if (this.animation_timer >= timer_max) {
+                //this.animate_frame = 0;
+                this.animation_timer = 0;
             }
         }
     }
@@ -197,7 +193,6 @@ public class Actor {
     //public int getActionPoints() {
     //    return this.action_points;
     //}
-
     public void setActionPoints(int t) {
         this.action_points = t;
     }
@@ -236,21 +231,21 @@ public class Actor {
             //this.set_draw_xy(pdx, pdy);
             //map.getTileImage(x, y, background_layer).draw(
             //screen_x + draw_x, screen_y + draw_y, scale_x);
-            if(this.dead == false) {
+            if (this.dead == false) {
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
-            }
-            else {
+            } else {
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
             }
         }
     }
 
     public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y) {
-        if (isSelected() == true
-                && m.getTileImage(x, y, m.getLayerIndex("walls_layer")) == null
-                && h.getTileToBeRendered(x, y)) { //java.lang.ArrayIndexOutOfBoundsException: 20 (went going to sw edge of map
-            m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                    h.screen_x + h.draw_x, h.screen_y + h.draw_y);
+        if (h.getTileToBeRendered(x, y)) {
+            if (isSelected() == true
+                    && m.getTileImage(x, y, m.getLayerIndex("walls_layer")) == null) { //java.lang.ArrayIndexOutOfBoundsException: 20 (went going to sw edge of map
+                m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                        h.screen_x + h.draw_x, h.screen_y + h.draw_y);
+            }
         }
         this.drawActor(h, m, x, y);
     }
