@@ -172,9 +172,12 @@ public class HorrorTactics extends BasicGame {
                 if (this.getTileToBeRendered(x, y)) {
                     if (this.getTileToBeFiltered(x, y)) {//if its outside 2 steps
                         //java.lang.ArrayIndexOutOfBoundsException: 20 
-                        Image xi = map.getTileImage(x, y, background_layer);
-                        //map.getTileImage(x, y, background_layer).draw(
-                        xi.draw(screen_x + draw_x, screen_y + draw_y, scale_x, this.myfilterd);
+                        try {
+                            Image xi = map.getTileImage(x, y, background_layer);
+                            //map.getTileImage(x, y, background_layer).draw(
+                            xi.draw(screen_x + draw_x, screen_y + draw_y, scale_x, this.myfilterd);
+                        } catch (ArrayIndexOutOfBoundsException a) {
+                        }
                     } else { //draw normal
                         map.getTileImage(x, y, background_layer).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
@@ -201,13 +204,38 @@ public class HorrorTactics extends BasicGame {
         }
     }
 
+    public void render_wall_by_wall(GameContainer gc, Graphics g, int x, int y) {
+        int walls_layer = map.getLayerIndex("walls_layer");
+        try {
+            if (map.getTileImage(x, y, walls_layer) == null) {
+            } else if (this.wall_intersect_player(x, y, screen_x, screen_y) == true) {
+                map.getTileImage(x, y, walls_layer).draw(
+                        screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
+            } else //inside cannot be dark
+            {
+                if (x < map.player.tilex - 2
+                        || x > map.player.tilex + 2
+                        || y < map.player.tiley - 2
+                        || y > map.player.tiley + 2) {
+                    if(this.getTileToBeRendered(x, y)) {
+                        map.getTileImage(x, y, walls_layer).draw(
+                            screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd);
+                    }
+                } else {
+                    map.getTileImage(x, y, walls_layer).draw(
+                            screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+    }
+
     public void render_walls_layer(GameContainer gc, Graphics g) {
         for (int y = map.player.tiley - 4; y < map.player.tiley + 4; y++) {
             for (int x = map.player.tilex - 4; x < map.player.tilex + 4; x++) {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
-                    int walls_layer = map.getLayerIndex("walls_layer");
                     map.player.drawPlayer(this, map, x, y);
                     if (map.player.action_msg_timer > 0 && x == map.player.tilex && y == map.player.tiley) {
                         //g.drawString(map.player.action_msg, screen_x + draw_x,
@@ -218,31 +246,13 @@ public class HorrorTactics extends BasicGame {
                     //map.monster[0].drawActor(this, map, x, y);
                     map.drawMonsters(this, x, y);
                     if (this.getTileToBeRendered(x, y)) {
-                        if (map.getTileImage(x, y, walls_layer) != null) {
-                            if (this.wall_intersect_player(x, y, screen_x, screen_y) == true) {
-                                map.getTileImage(x, y, walls_layer).draw(
-                                        screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
-                            } else //inside cannot be dark
-                             if (x < map.player.tilex - 2
-                                        || x > map.player.tilex + 2
-                                        || y < map.player.tiley - 2
-                                        || y > map.player.tiley + 2) {
-                                    map.getTileImage(x, y, walls_layer).draw(
-                                            //Its Dark in y
-
-                                            screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd);
-                                } else {
-                                    map.getTileImage(x, y, walls_layer).draw(
-                                            screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
-                                }
-                        }
+                        //ArrayIndexOutOfBoundsException
+                        render_wall_by_wall(gc, g, x, y);
                     }
                 }
             }
         }
     }
-
-    
 
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);

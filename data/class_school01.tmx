@@ -41,12 +41,12 @@
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+WWSQ6AIAxFewacVt7/muqCBL8tSG3B6E8aDdXKSwcJRBR2GxILyjXJ38pQq7CnVDl/6d34zMKsayRxtBByzHDN3XOxenJYxurFgarJx0LnXB4Mk9O+PIV9dXCMPTZC1zqozQfGekuf14irqzscpXmtme0e8+qODZT/x6EfnylxPFFNPp5+xzomxvoTRzqbYw1J8TifxOF9vkKlsznWPqecT+KwOp+2qCtv9ewPS/2Zw6rPLaXh0PR5K44v2AZ2tKHcoA8AAA==
+   H4sIAAAAAAAAA+1W7Q7DIAjkGey2/tr7v+bWHybuBigUdEl3CWkj9uqFLwsRlbdtjRXnmuSfZYincKYWmr/3bd2zM+seSDpmAHU84Km9c1wrdURyrdKBsMRjp89YHhruSefKBNbVoeO24iD0nQfWeCDXr9S5BVxejejo9WtPb8/oVyO2kT7j0I97ejrOwBKPs/+J5kSuK+loe3PNIYmP80k6su9XiLY319znoPkkHVH30xl5lQlLPDLqIwpX1xFV5154ZrA2D62+v43ZCxtpVaKgDwAA
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAVDBegCsR4QKxGpXpOGbqEE6ELxUAdDzR+KOMSHmj9GwSgYBaOAGmCw1pGjYBSMglEwWMFouUkfAACbyv7EoA8AAA==
+   H4sIAAAAAAAAA2NgGAVDBegCsR4QKxGpXpOGbqEE6ELxUAdDzR+KOMSHmj9GwSgYBaOAGmCw1pGjYBSMglEwCkY2AABV9n5HoA8AAA==
   </data>
  </layer>
 </map>
