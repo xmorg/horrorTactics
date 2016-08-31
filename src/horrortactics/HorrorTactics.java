@@ -48,7 +48,6 @@ public class HorrorTactics extends BasicGame {
     int screen_height = 0;
     long lastframe;
     int turn_count;
-    //int tileflash = 1;
     Color myfilter, myfiltert, myfilterd;
     Image button_endturn;
     Image effect_biff, effect_wiff, effect_shrack;
@@ -91,8 +90,6 @@ public class HorrorTactics extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        //boolean allmonstersmoved = false;
-        //int activemonsters = this.getActiveMonsters();
         Input input = gc.getInput();
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
@@ -212,20 +209,18 @@ public class HorrorTactics extends BasicGame {
                 map.getTileImage(x, y, walls_layer).draw(
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
             } else //inside cannot be dark
-            {
-                if (x < map.player.tilex - 2
+             if (x < map.player.tilex - 2
                         || x > map.player.tilex + 2
                         || y < map.player.tiley - 2
                         || y > map.player.tiley + 2) {
-                    if(this.getTileToBeRendered(x, y)) {
+                    if (this.getTileToBeRendered(x, y)) {
                         map.getTileImage(x, y, walls_layer).draw(
-                            screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd);
+                                screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd);
                     }
                 } else {
                     map.getTileImage(x, y, walls_layer).draw(
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
-            }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
@@ -246,8 +241,7 @@ public class HorrorTactics extends BasicGame {
                     //map.monster[0].drawActor(this, map, x, y);
                     map.drawMonsters(this, x, y);
                     if (this.getTileToBeRendered(x, y)) {
-                        //ArrayIndexOutOfBoundsException
-                        render_wall_by_wall(gc, g, x, y);
+                        render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
                     }
                 }
             }
