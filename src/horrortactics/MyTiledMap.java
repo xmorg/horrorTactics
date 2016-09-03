@@ -101,10 +101,13 @@ public class MyTiledMap extends TiledMap {
                 int gid = this.getTileId(x, y, actor_layer);
                 if (gid > 0) {
                     System.out.println(this.getTileId(x, y, actor_layer));
-                    if (this.getTileProperty(gid, "actor_name", "none").equals("player")) {
+                    String pname = this.getTileProperty(gid, "actor_name", "none");
+                    if (pname.equals("player")) {
                         this.player.tilex = x;
                         this.player.tiley = y;
-                    } else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
+                        this.player.name = pname;
+                        //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
+                    } else if (pname.equals("pear monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster00.png", 218, 313);
                         } catch (SlickException e) {
@@ -141,7 +144,7 @@ public class MyTiledMap extends TiledMap {
                 //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
                 && a.tiley > a.tiledesty) {
             this.onMoveNorth(gc, a, delta);
-        } else if (a.getActorMoving() == true 
+        } else if (a.getActorMoving() == true
                 //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
                 && a.tiley < a.tiledesty) {
             this.onMoveSouth(gc, a, delta);
@@ -149,7 +152,7 @@ public class MyTiledMap extends TiledMap {
                 //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
                 && a.tilex < a.tiledestx) {
             this.onMoveEast(gc, a, delta);
-        } else if (a.getActorMoving() == true 
+        } else if (a.getActorMoving() == true
                 //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
                 && a.tilex > a.tiledestx) {
             this.onMoveWest(gc, a, delta);
@@ -315,10 +318,10 @@ public class MyTiledMap extends TiledMap {
                 return false;
             } else if (this.monsterfollowerInTile(x, y)) {
                 //queue the ATTACKS!
-                System.out.print("cant get from tile:"+
-                        Integer.toString(this.player.tilex) + ","
-                        + Integer.toString(this.player.tiley) + " to "+
-                        Integer.toString(x) +","+ Integer.toString(y)
+                System.out.print("cant get from tile:"
+                        + Integer.toString(this.player.tilex) + ","
+                        + Integer.toString(this.player.tiley) + " to "
+                        + Integer.toString(x) + "," + Integer.toString(y)
                 );
                 return false;
             } else {
@@ -413,13 +416,14 @@ public class MyTiledMap extends TiledMap {
 
     public boolean isPlayerTouchingMonster() {
         //for(int i)
-        for(int i = 0; i < this.monster_max; i++) {
-            if(this.isActorTouchingActor(player, monster[i], player.tilex, player.tiley)) {
+        for (int i = 0; i < this.monster_max; i++) {
+            if (this.isActorTouchingActor(player, monster[i], player.tilex, player.tiley)) {
                 return true;
             }
         }
         return false;
     }
+
     public boolean isMonsterTouchingYou(Actor a) {
         //given tilex, tiley, return true if any items in grid are touching you.
         if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {//you are touching the player.
@@ -463,15 +467,16 @@ public class MyTiledMap extends TiledMap {
         int target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         int target_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         int actor_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        if(actor_attackroll > target_dodgeroll) {
+        if (actor_attackroll > target_dodgeroll) {
             this.getAllPlayersAtXy(dx, dy).dead = true;
             this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
             this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
         } else {
-                this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
-                this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+            this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
+            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
         }
     }
+
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
         if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
             //ATTACK! (monster at tiledestx, tiledesty
@@ -569,6 +574,7 @@ public class MyTiledMap extends TiledMap {
             this.turn_order = "start player";
         }
     }
+
     void onUpdateActorActionText() {
         if (player.action_msg_timer > 0) {
             player.action_msg_timer--;

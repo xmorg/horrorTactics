@@ -18,6 +18,7 @@ import org.newdawn.slick.GameContainer;
  */
 public class Actor {
 
+    String name;
     int tilex;
     int tiley; //the tile we are at (aprox)
     int tiledestx, tiledesty; //where we are going
@@ -68,6 +69,7 @@ public class Actor {
         speed_wait = 0;
         action_msg_timer = 0;
         action_msg = "";
+        name = "none";
         //spriteImage.set
     }
 
