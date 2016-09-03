@@ -95,7 +95,6 @@ public class MyTiledMap extends TiledMap {
             } catch (SlickException e) {
             }
         }
-
         for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
                 int gid = this.getTileId(x, y, actor_layer);
@@ -116,6 +115,7 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].tiley = y;
                         monster[monster_loop].setActorMoving(false);
                         monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
                         monster_loop++;
                     } // add more monsters here;
                 }
@@ -169,8 +169,8 @@ public class MyTiledMap extends TiledMap {
         }
         if (getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == false) {
             //can we try to turn?
-            a.setActorMoving(false);
-            a.setAnimationFrame(0);
+            //a.setActorMoving(false);
+            //a.setAnimationFrame(0);
         }
         //a.speed_wait = 0;
         //}
@@ -314,7 +314,7 @@ public class MyTiledMap extends TiledMap {
         //true=go, false = stop
         int walls_layer = getLayerIndex("walls_layer");
         if (getTileImage(x, y, walls_layer) == null) { //we know doorways are bugged
-            if (x == player.tilex && y == player.tiley) {
+            if (x == player.tilex && y == player.tiley && !this.turn_order.equals("player")) {
                 return false;
             } else if (this.monsterfollowerInTile(x, y)) {
                 //queue the ATTACKS!
