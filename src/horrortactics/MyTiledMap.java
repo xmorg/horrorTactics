@@ -14,7 +14,7 @@ import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.geom.Rectangle; //rects to click on
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.lang.Math.*;
+//import java.lang.Math.*;
 
 /**
  *
@@ -36,7 +36,6 @@ public class MyTiledMap extends TiledMap {
     int pixel_dest_y = -1;
     int light_level = 2; //default light level
     String turn_order = null;
-
     Trigger active_trigger = null;
 
     Actor player = null;
@@ -76,7 +75,7 @@ public class MyTiledMap extends TiledMap {
 
     public void getActorLocationFromTMX() {
         int monster_loop = 0;
-        int follower_loop = 0;
+        //int follower_loop = 0;
         int actor_layer = this.getLayerIndex("actors_layer");
 
         for (int i = 0; i < this.monster_max; i++) {
@@ -102,7 +101,7 @@ public class MyTiledMap extends TiledMap {
                     System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
                     if (pname.equals("player")) {
-                        this.player.tilex = x;
+                        this.player.tilex = x;    this.player.tilex += 10;
                         this.player.tiley = y;
                         this.player.name = pname;
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
@@ -139,43 +138,6 @@ public class MyTiledMap extends TiledMap {
         }
     }
 
-    public void onMoveActor(GameContainer gc, Actor a, int delta) {
-        if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
-                && a.tiley > a.tiledesty) {
-            this.onMoveNorth(gc, a, delta);
-        } else if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
-                && a.tiley < a.tiledesty) {
-            this.onMoveSouth(gc, a, delta);
-        } else if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
-                && a.tilex < a.tiledestx) {
-            this.onMoveEast(gc, a, delta);
-        } else if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) ==false
-                && a.tilex > a.tiledestx) {
-            this.onMoveWest(gc, a, delta);
-        }
-
-        if (a.tilex == a.tiledestx && a.tiley == a.tiledesty) {
-            a.setActorMoving(false);
-            a.setAnimationFrame(0);
-        }
-        if (a.action_points <= 0) {
-            a.action_points = 0;
-            a.setActorMoving(false);
-            a.setAnimationFrame(0);
-        }
-        if (getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == false) {
-            //can we try to turn?
-            //a.setActorMoving(false);
-            //a.setAnimationFrame(0);
-        }
-        //a.speed_wait = 0;
-        //}
-    }
-
     public void setFollowerDirectives() {
         //loop through your monsters and set a path for them to follow
         //if they are controllable, they shall already have destinations.
@@ -198,7 +160,6 @@ public class MyTiledMap extends TiledMap {
             }
         }
     }
-
     //map.monster[0].drawActor(this, map, x, y);
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
@@ -215,9 +176,7 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true) { //there was a monster here.
                 monster[i].action_points = 6; //update action points
-
                 if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
-
                     monster[i].tiledestx = player.tilex;
                     monster[i].tiledesty = player.tiley;
                     //monster[i].setActorMoving(true);
@@ -227,7 +186,7 @@ public class MyTiledMap extends TiledMap {
                         proposed_x = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
                         System.out.print("proposed_x: " + Integer.toString(proposed_x)
                                 + " proposed_y: " + Integer.toString(proposed_y));
-                        if (this.getPassableTile(monster[i].tilex + proposed_x,
+                        if (this.getPassableTile(monster[i],monster[i].tilex + proposed_x,
                                 monster[i].tiley + proposed_y) == true) {
                             monster[i].setActorDestination(monster[i].tilex + proposed_x,
                                     monster[i].tiley + proposed_y);
@@ -236,6 +195,42 @@ public class MyTiledMap extends TiledMap {
                 }
             }
         }
+    }
+
+    public void onMoveActor(GameContainer gc, Actor a, int delta) {
+        if (a.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && a.tiley > a.tiledesty) {
+            this.onMoveNorth(gc, a, delta);
+        } else if (a.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && a.tiley < a.tiledesty) {
+            this.onMoveSouth(gc, a, delta);
+        } else if (a.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && a.tilex < a.tiledestx) {
+            this.onMoveEast(gc, a, delta);
+        } else if (a.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && a.tilex > a.tiledestx) {
+            this.onMoveWest(gc, a, delta);
+        }
+        if (a.tilex == a.tiledestx && a.tiley == a.tiledesty) {
+            a.setActorMoving(false);
+            a.setAnimationFrame(0);
+        }
+        if (a.action_points <= 0) {
+            a.action_points = 0;
+            a.setActorMoving(false);
+            a.setAnimationFrame(0);
+        }
+        if (getPassableTile(a, a.tilex + a.facing_x, a.tiley + a.facing_y) == false) {
+            System.out.print("Ran into An npc?\n");
+            a.setActorMoving(false); //can we try to turn?
+            a.setAnimationFrame(0);
+        }
+        //a.speed_wait = 0;
+        //}
     }
 
     public void onMoveWest(GameContainer gc, Actor a, int delta) {
@@ -310,13 +305,20 @@ public class MyTiledMap extends TiledMap {
         return false;
     }
 
-    public boolean getPassableTile(int x, int y) {
+    public boolean getRanIntoActor(Actor a, int x, int y) { //true if actor is there, false if ok to move
+        if(a.name.equals("player")) {
+            
+        }
+        return false;
+    }
+    public boolean getPassableTile(Actor a, int x, int y) {
         //true=go, false = stop
         int walls_layer = getLayerIndex("walls_layer");
-        if (getTileImage(x, y, walls_layer) == null) { //we know doorways are bugged
-            if (x == player.tilex && y == player.tiley && !this.turn_order.equals("player")) {
-                return false;
-            } else if (this.monsterfollowerInTile(x, y)) {
+        if (getTileImage(a.tilex+a.facing_x, a.tiley+a.facing_y, walls_layer) == null) { //we know doorways are bugged
+            //if (x == player.tilex && y == player.tiley && !this.turn_order.equals("player")) {
+            //    return false; }
+            //} else 
+            /*if (this.monsterfollowerInTile(x, y)) {
                 //queue the ATTACKS!
                 System.out.print("cant get from tile:"
                         + Integer.toString(this.player.tilex) + ","
@@ -326,11 +328,10 @@ public class MyTiledMap extends TiledMap {
                 return false;
             } else {
                 return true;
-            }
-        } else {
-            return false;
+            }*/
+            return true;
         }
-
+        return false;
     }
 
     public void onClickOnMap(int mouse_tile_x, int mouse_tile_y) { //given Mouse Pixels, decide what to do

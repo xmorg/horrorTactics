@@ -60,8 +60,8 @@ public class MouseActions {
     public boolean getClickedOnPlayerAction(HorrorTactics ht, MyTiledMap m) {
         /*check if the tiles have walls.*/
  /*if (map.getTileImage(x, y, walls_layer) != null) {*/
-        if (m.mouse_over_tile_x > 0 && m.mouse_over_tile_y > 0
-                && m.getPassableTile(m.mouse_over_tile_x, m.mouse_over_tile_y) == true) {
+        if (m.mouse_over_tile_x > 0 && m.mouse_over_tile_y > 0){
+                //&& m.getPassableTile(m.player,m.mouse_over_tile_x, m.mouse_over_tile_y) == true) {
             return true;
         }
         return false;
