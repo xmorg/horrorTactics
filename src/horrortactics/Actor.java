@@ -111,7 +111,7 @@ public class Actor {
                 break; //west
             default:
                 this.setfacingloc(1, 0);
-                break;
+                break; //east
         }
     }
 
@@ -241,13 +241,7 @@ public class Actor {
 
     public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y) {
         if (h.getTileToBeRendered(x, y)) {
-            //
-            //if (isSelected() == true
-            //        && m.getTileImage(x, y, m.getLayerIndex("walls_layer")) == null) { //java.lang.ArrayIndexOutOfBoundsException: 20 (went going to sw edge of map
-            //    m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-            //            h.screen_x + h.draw_x, h.screen_y + h.draw_y);
-            //}
-            if(this.isSelected()) {
+            if(this.isSelected() && x == this.tilex && y == this.tiley) {
                 try{
                     Image xi = m.getTileImage(x, y, m.getLayerIndex("walls_layer"));
                     if(xi == null) {
@@ -259,6 +253,7 @@ public class Actor {
             }
         }
         this.drawActor(h, m, x, y);
+        
     }
 
     public void setActorActionPoints(int ap) {

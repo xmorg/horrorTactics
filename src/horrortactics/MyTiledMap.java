@@ -34,6 +34,7 @@ public class MyTiledMap extends TiledMap {
     int mouse_over_tile_y = 0;
     int pixel_dest_x = -1;
     int pixel_dest_y = -1;
+    int light_level = 2; //default light level
     String turn_order = null;
 
     Trigger active_trigger = null;
@@ -314,6 +315,11 @@ public class MyTiledMap extends TiledMap {
                 return false;
             } else if (this.monsterfollowerInTile(x, y)) {
                 //queue the ATTACKS!
+                System.out.print("cant get from tile:"+
+                        Integer.toString(this.player.tilex) + ","
+                        + Integer.toString(this.player.tiley) + " to "+
+                        Integer.toString(x) +","+ Integer.toString(y)
+                );
                 return false;
             } else {
                 return true;
@@ -405,6 +411,15 @@ public class MyTiledMap extends TiledMap {
         return false;
     }
 
+    public boolean isPlayerTouchingMonster() {
+        //for(int i)
+        for(int i = 0; i < this.monster_max; i++) {
+            if(this.isActorTouchingActor(player, monster[i], player.tilex, player.tiley)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean isMonsterTouchingYou(Actor a) {
         //given tilex, tiley, return true if any items in grid are touching you.
         if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {//you are touching the player.
@@ -554,7 +569,6 @@ public class MyTiledMap extends TiledMap {
             this.turn_order = "start player";
         }
     }
-
     void onUpdateActorActionText() {
         if (player.action_msg_timer > 0) {
             player.action_msg_timer--;

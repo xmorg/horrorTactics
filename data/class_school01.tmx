@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
+ <properties>
+  <property name="mapname" value="class_school01.tmx"/>
+  <property name="nextmap" value="apartment1.tmx"/>
+ </properties>
  <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="16" columns="8">
   <image source="tiles250x129.png" width="2000" height="258"/>
  </tileset>
- <tileset firstgid="17" name="walls_image" tilewidth="250" tileheight="512" tilecount="16" columns="8">
-  <image source="walls250x512.png" width="2000" height="1024"/>
+ <tileset firstgid="17" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="49" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -46,7 +50,7 @@
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAVDBegCsR4QKxGpXpOGbqEE6ELxUAdDzR+KOMSHmj9GwSgYBaOAGmCw1pGjYBSMglEwCkY2AABV9n5HoA8AAA==
+   H4sIAAAAAAAAA2NgGAVDBdgCsR0QGxGp3pKGbqEE2ELxUAdDzR+GOMSHmj9GwSgYBaOAGmCw1pH2A+2AUTAKRsEoGAUDCgBvDawfoA8AAA==
   </data>
  </layer>
 </map>
