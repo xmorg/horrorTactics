@@ -132,7 +132,7 @@ public class HorrorTactics extends BasicGame {
             map.turn_order = "monster";
         } else if (map.turn_order.equalsIgnoreCase("monster")) {
             if (this.actor_move_timer == 0) {
-                map.onMonsterMoving(gc, this, delta);
+                map.onMonsterMoving(gc, this, delta); //wrapper for onMoveActor
             }
         }
         map.onUpdateActorActionText();

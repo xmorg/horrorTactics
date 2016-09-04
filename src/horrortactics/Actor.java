@@ -8,7 +8,7 @@ package horrortactics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.GameContainer;
+//import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.Graphics;
 
 /**
