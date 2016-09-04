@@ -108,7 +108,7 @@ public class HorrorTactics extends BasicGame {
             this.game_state = "game over";
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
-                map.onMoveActor(gc, map.player, delta);//this.getMyDelta(gc));
+                map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
             }
             int actor_layer = map.getLayerIndex("actors_layer");
             if (map.getTileImage(map.player.tilex, map.player.tiley, actor_layer) == null) {

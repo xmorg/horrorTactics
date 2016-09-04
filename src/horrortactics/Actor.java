@@ -125,8 +125,8 @@ public class Actor {
         this.animate_frame = f;
     }
 
-    public void onWalkAnimation(GameContainer gc) { //called by MyTiledMap.onMoveDir
-        int timer_max = gc.getFPS() / 6;
+    public void onWalkAnimation(int fps) { //called by MyTiledMap.onMoveDir
+        int timer_max = fps / 6;
         if (this.animate_frame == 0 && this.getActorMoving() == true) {
             this.animation_timer++;
             if (this.animation_timer >= timer_max) {
@@ -267,5 +267,99 @@ public class Actor {
 
     public void resetActorActionPoints() {
         action_points = max_action_points;
+    }
+    
+    public void onMoveActor(MyTiledMap m, int fps) {
+        int f = fps; //gc.getFPS();
+        if (this.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && this.tiley > this.tiledesty) {
+            this.onMoveNorth(m, f);
+        } else if (this.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && this.tiley < this.tiledesty) {
+            this.onMoveSouth(m, f);
+        } else if (this.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && this.tilex < this.tiledestx) {
+            this.onMoveEast(m, f);
+        } else if (this.getActorMoving() == true
+                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && this.tilex > this.tiledestx) {
+            this.onMoveWest(m, f);
+        }
+        if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
+            this.setActorMoving(false);
+            this.setAnimationFrame(0);
+        }
+        if (this.action_points <= 0) {
+            this.action_points = 0;
+            this.setActorMoving(false);
+            this.setAnimationFrame(0);
+        }
+        if (m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == false) {
+            System.out.print("Ran into An npc?\n");
+            this.setActorMoving(false); //can we try to turn?
+            this.setAnimationFrame(0);
+        }
+        //a.speed_wait = 0;
+        //}
+    }
+    
+    public void onMoveWest(MyTiledMap m, int delta) {
+        this.setActiorDirection(m, 3);
+        this.draw_x -= 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
+        this.draw_y -= 1;//(a.speed * delta);
+        this.set_draw_xy(this.draw_x, this.draw_y);
+        this.onWalkAnimation(delta);
+        if (Math.abs(this.draw_x) >= m.TILE_WIDTH_HALF) {
+            this.tilex--; //westr.
+            this.set_draw_xy(0, 0);
+            //a.setAnimationFrame(0);
+            //a.setActionPoints(a.action_points--);
+            this.action_points--;
+        }
+    }
+    public void onMoveEast(MyTiledMap m, int delta) {
+        this.setActiorDirection(m, 0);
+        this.draw_x += 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
+        this.draw_y += 1;//(a.speed * delta);
+        this.set_draw_xy(this.draw_x, this.draw_y);
+        this.onWalkAnimation(delta);
+        if (this.draw_x >= m.TILE_WIDTH_HALF) {
+            this.tilex++; //westr.
+            this.set_draw_xy(0, 0);
+            //a.setAnimationFrame(0);
+            this.action_points--;
+        }
+    }
+
+    public void onMoveSouth(MyTiledMap m, int delta) {
+        this.setActiorDirection(m, 1);
+        this.draw_y += 1;//(a.speed * delta); //a.speed;
+        this.draw_x -= 2;//(a.speed * delta) * 2;
+        this.set_draw_xy(this.draw_x, this.draw_y);
+        this.onWalkAnimation(delta);
+        if (this.draw_y >= Math.abs(m.TILE_HEIGHT_HALF)) {
+            this.tiley++; //south.
+            this.set_draw_xy(0, 0);
+            //a.setAnimationFrame(0);
+            this.action_points--;
+        }
+    }
+
+    public void onMoveNorth(MyTiledMap m, int delta) {
+        this.setActiorDirection(m, 2);
+        this.draw_y -= 1;//(a.speed * delta);//a.speed;
+        this.draw_x += 2;//(a.speed * delta) * 2;//a.speed*2;
+        //System.out.println("delta: " + delta + "," + a.draw_x + "," + a.draw_y);
+        this.set_draw_xy(this.draw_x, this.draw_y);
+        this.onWalkAnimation(delta);
+        if (Math.abs(this.draw_y) >= m.TILE_HEIGHT_HALF) {
+            this.tiley--; //north.
+            this.set_draw_xy(0, 0);
+            //a.setAnimationFrame(0);
+            this.action_points--;
+        }
     }
 }

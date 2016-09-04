@@ -197,100 +197,6 @@ public class MyTiledMap extends TiledMap {
         }
     }
 
-    public void onMoveActor(GameContainer gc, Actor a, int delta) {
-        if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
-                && a.tiley > a.tiledesty) {
-            this.onMoveNorth(gc, a, delta);
-        } else if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
-                && a.tiley < a.tiledesty) {
-            this.onMoveSouth(gc, a, delta);
-        } else if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
-                && a.tilex < a.tiledestx) {
-            this.onMoveEast(gc, a, delta);
-        } else if (a.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
-                && a.tilex > a.tiledestx) {
-            this.onMoveWest(gc, a, delta);
-        }
-        if (a.tilex == a.tiledestx && a.tiley == a.tiledesty) {
-            a.setActorMoving(false);
-            a.setAnimationFrame(0);
-        }
-        if (a.action_points <= 0) {
-            a.action_points = 0;
-            a.setActorMoving(false);
-            a.setAnimationFrame(0);
-        }
-        if (getPassableTile(a, a.tilex + a.facing_x, a.tiley + a.facing_y) == false) {
-            System.out.print("Ran into An npc?\n");
-            a.setActorMoving(false); //can we try to turn?
-            a.setAnimationFrame(0);
-        }
-        //a.speed_wait = 0;
-        //}
-    }
-
-    public void onMoveWest(GameContainer gc, Actor a, int delta) {
-        a.setActiorDirection(this, 3);
-        a.draw_x -= 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
-        a.draw_y -= 1;//(a.speed * delta);
-        a.set_draw_xy(a.draw_x, a.draw_y);
-        a.onWalkAnimation(gc);
-        if (Math.abs(a.draw_x) >= this.TILE_WIDTH_HALF) {
-            a.tilex--; //westr.
-            a.set_draw_xy(0, 0);
-            //a.setAnimationFrame(0);
-            //a.setActionPoints(a.action_points--);
-            a.action_points--;
-        }
-    }
-
-    public void onMoveEast(GameContainer gc, Actor a, int delta) {
-        a.setActiorDirection(this, 0);
-        a.draw_x += 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
-        a.draw_y += 1;//(a.speed * delta);
-        a.set_draw_xy(a.draw_x, a.draw_y);
-        a.onWalkAnimation(gc);
-        if (a.draw_x >= this.TILE_WIDTH_HALF) {
-            a.tilex++; //westr.
-            a.set_draw_xy(0, 0);
-            //a.setAnimationFrame(0);
-            a.action_points--;
-        }
-    }
-
-    public void onMoveSouth(GameContainer gc, Actor a, int delta) {
-        a.setActiorDirection(this, 1);
-        a.draw_y += 1;//(a.speed * delta); //a.speed;
-        a.draw_x -= 2;//(a.speed * delta) * 2;
-        a.set_draw_xy(a.draw_x, a.draw_y);
-        a.onWalkAnimation(gc);
-        if (a.draw_y >= Math.abs(this.TILE_HEIGHT_HALF)) {
-            a.tiley++; //south.
-            a.set_draw_xy(0, 0);
-            //a.setAnimationFrame(0);
-            a.action_points--;
-        }
-    }
-
-    public void onMoveNorth(GameContainer gc, Actor a, int delta) {
-        a.setActiorDirection(this, 2);
-        a.draw_y -= 1;//(a.speed * delta);//a.speed;
-        a.draw_x += 2;//(a.speed * delta) * 2;//a.speed*2;
-        //System.out.println("delta: " + delta + "," + a.draw_x + "," + a.draw_y);
-        a.set_draw_xy(a.draw_x, a.draw_y);
-        a.onWalkAnimation(gc);
-        if (Math.abs(a.draw_y) >= this.TILE_HEIGHT_HALF) {
-            a.tiley--; //north.
-            a.set_draw_xy(0, 0);
-            //a.setAnimationFrame(0);
-            a.action_points--;
-        }
-    }
-
     public boolean monsterfollowerInTile(int x, int y) {
         for (int i = 0; i < this.monster_max; i++) {
             if (x == monster[i].tilex && y == monster[i].tiley) {
@@ -565,7 +471,7 @@ public class MyTiledMap extends TiledMap {
 
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         if (this.getMonsterIsMoving(this.current_monster_moving)) {
-            this.onMoveActor(gc, this.monster[this.current_monster_moving], delta);
+            this.monster[this.current_monster_moving].onMoveActor(this, gc.getFPS());
             if (this.monster[this.current_monster_moving].getActorMoving() == false) {
                 this.whyDidMonsterStop(gc, ht);
             }
