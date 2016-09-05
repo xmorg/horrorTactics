@@ -10,6 +10,7 @@ import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 import org.newdawn.slick.SlickException;
 //import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.Graphics;
+import java.lang.Math.*;
 
 /**
  * Actor class is to encap the actor methods and data
@@ -95,7 +96,7 @@ public class Actor {
         this.facing_y = y;
     }
 
-    public void setActiorDirection(MyTiledMap m, int d) {
+    public void setActiorDirection(int d) {
         //if(m.player.tilex > m.selected_tile_x)
         this.direction = d;
         switch (this.direction) {
@@ -217,6 +218,22 @@ public class Actor {
             this.set_draw_xy(0, 0);
         }
         this.move_action = ismoving;
+        if(Math.abs(this.tiledestx) > Math.abs(this.tiledesty)) {
+            if(this.tilex > this.tiledestx) {//we are going minus(west)
+                this.setActiorDirection(3);
+            }
+            else { //east
+                this.setActiorDirection(0);
+            }
+        } //east or west
+        if(Math.abs(this.tiledesty) > Math.abs(this.tiledestx)) {
+            if(this.tiley > this.tiledesty) { //we are going minus(north) + south
+                this.setActiorDirection(2);
+            }
+            else {
+                this.setActiorDirection(1);
+            }
+        } //north or south
     }
 
     public boolean getActorMoving() {
@@ -297,19 +314,19 @@ public class Actor {
             this.setActorMoving(false);
             this.setAnimationFrame(0);
         }
-        int tdestx = this.tilex+this.facing_x;
-        int tdesty = this.tiley+this.facing_y;
-        if (m.getPassableTile(this, tdestx, tdesty) == false) {
-            System.out.print("Ran into a wall or NPC?\n");
-            this.setActorMoving(false); //can we try to turn?
-            this.setAnimationFrame(0);
-        }
+        //int tdestx = this.tilex+this.facing_x;
+        //int tdesty = this.tiley+this.facing_y;
+        //if (m.getPassableTile(this, tdestx, tdesty) == false) {
+        //    System.out.print("Ran into a wall or NPC?\n");
+        //    this.setActorMoving(false); //can we try to turn?
+        //    this.setAnimationFrame(0);
+        //}
         //a.speed_wait = 0;
         //}
     }
     
     public void onMoveWest(MyTiledMap m, int delta) {
-        this.setActiorDirection(m, 3);
+        this.setActiorDirection(3);
         this.draw_x -= 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
         this.draw_y -= 1;//(a.speed * delta);
         this.set_draw_xy(this.draw_x, this.draw_y);
@@ -323,7 +340,7 @@ public class Actor {
         }
     }
     public void onMoveEast(MyTiledMap m, int delta) {
-        this.setActiorDirection(m, 0);
+        this.setActiorDirection(0);
         this.draw_x += 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
         this.draw_y += 1;//(a.speed * delta);
         this.set_draw_xy(this.draw_x, this.draw_y);
@@ -337,7 +354,7 @@ public class Actor {
     }
 
     public void onMoveSouth(MyTiledMap m, int delta) {
-        this.setActiorDirection(m, 1);
+        this.setActiorDirection(1); //south
         this.draw_y += 1;//(a.speed * delta); //a.speed;
         this.draw_x -= 2;//(a.speed * delta) * 2;
         this.set_draw_xy(this.draw_x, this.draw_y);
@@ -351,7 +368,7 @@ public class Actor {
     }
 
     public void onMoveNorth(MyTiledMap m, int delta) {
-        this.setActiorDirection(m, 2);
+        this.setActiorDirection(2);//north
         this.draw_y -= 1;//(a.speed * delta);//a.speed;
         this.draw_x += 2;//(a.speed * delta) * 2;//a.speed*2;
         //System.out.println("delta: " + delta + "," + a.draw_x + "," + a.draw_y);
