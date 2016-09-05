@@ -101,7 +101,8 @@ public class MyTiledMap extends TiledMap {
                     System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
                     if (pname.equals("player")) {
-                        this.player.tilex = x;    this.player.tilex += 10;
+                        this.player.tilex = x;
+                        this.player.tilex += 10;
                         this.player.tiley = y;
                         this.player.name = pname;
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
@@ -160,6 +161,7 @@ public class MyTiledMap extends TiledMap {
             }
         }
     }
+
     //map.monster[0].drawActor(this, map, x, y);
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
@@ -186,7 +188,7 @@ public class MyTiledMap extends TiledMap {
                         proposed_x = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
                         System.out.print("proposed_x: " + Integer.toString(proposed_x)
                                 + " proposed_y: " + Integer.toString(proposed_y));
-                        if (this.getPassableTile(monster[i],monster[i].tilex + proposed_x,
+                        if (this.getPassableTile(monster[i], monster[i].tilex + proposed_x,
                                 monster[i].tiley + proposed_y) == true) {
                             monster[i].setActorDestination(monster[i].tilex + proposed_x,
                                     monster[i].tiley + proposed_y);
@@ -212,32 +214,33 @@ public class MyTiledMap extends TiledMap {
     }
 
     public boolean getRanIntoActor(Actor a, int x, int y) { //true if actor is there, false if ok to move
-        if(a.name.equals("player")) {
-            
+        if (a.name.equals("player")) {
+
         }
         return false;
     }
+
     public boolean getPassableTile(Actor a, int x, int y) {
         //true=go, false = stop
+        //int tdestx = a.tilex+a.facing_x;
+        //int tdesty = a.tiley+a.facing_y;
         int walls_layer = getLayerIndex("walls_layer");
-        if (getTileImage(a.tilex+a.facing_x, a.tiley+a.facing_y, walls_layer) == null) { //we know doorways are bugged
-            //if (x == player.tilex && y == player.tiley && !this.turn_order.equals("player")) {
-            //    return false; }
-            //} else 
-            /*if (this.monsterfollowerInTile(x, y)) {
-                //queue the ATTACKS!
-                System.out.print("cant get from tile:"
-                        + Integer.toString(this.player.tilex) + ","
-                        + Integer.toString(this.player.tiley) + " to "
-                        + Integer.toString(x) + "," + Integer.toString(y)
-                );
-                return false;
-            } else {
-                return true;
-            }*/
-            return true;
+        if (getTileImage(x, y, walls_layer) == null) { //There are no walls.
+            if (this.turn_order.equals("monster")) {
+                if (x == player.tilex && y == player.tiley) {
+                    return false;
+                }
+            }
+            if (this.turn_order.equals("player")) {
+                for (int i = 0; i < this.monster_max; i++) {
+                    if (x == monster[i].tilex && y == monster[i].tiley) {
+                        return false;
+                    }
+                }
+            }
+            return true;//there are no walls
         }
-        return false;
+        return false; //there might be a wall
     }
 
     public void onClickOnMap(int mouse_tile_x, int mouse_tile_y) { //given Mouse Pixels, decide what to do

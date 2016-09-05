@@ -297,8 +297,10 @@ public class Actor {
             this.setActorMoving(false);
             this.setAnimationFrame(0);
         }
-        if (m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == false) {
-            System.out.print("Ran into An npc?\n");
+        int tdestx = this.tilex+this.facing_x;
+        int tdesty = this.tiley+this.facing_y;
+        if (m.getPassableTile(this, tdestx, tdesty) == false) {
+            System.out.print("Ran into a wall or NPC?\n");
             this.setActorMoving(false); //can we try to turn?
             this.setAnimationFrame(0);
         }
