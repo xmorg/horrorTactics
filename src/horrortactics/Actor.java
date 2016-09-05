@@ -213,26 +213,26 @@ public class Actor {
         return this.tiledesty;
     }
 
+    public void updateActorDirection() {
+        if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {}
+        else if (this.tilex < this.tiledestx) {
+            this.setActiorDirection(this.getEast());
+        } else if (this.tilex > this.tiledestx) {
+            this.setActiorDirection(this.getWest());
+        } else if (this.tiley > this.tiledesty) {
+            this.setActiorDirection(this.getNorth());
+        } else if (this.tiley < this.tiledesty) {
+            this.setActiorDirection(this.getSouth());
+        }
+    }
+
     public void setActorMoving(boolean ismoving) {
         if (ismoving == false) {
             this.set_draw_xy(0, 0);
         }
         this.move_action = ismoving;
         if (this.move_action == true) {
-            if (Math.abs(this.tiledestx) > Math.abs(this.tiledesty)) {
-                if (this.tilex > this.tiledestx) {//we are going minus(west)
-                    this.setActiorDirection(this.getWest());
-                } else { //east
-                    this.setActiorDirection(this.getEast());
-                }
-            } //east or west
-            if (Math.abs(this.tiledesty) > Math.abs(this.tiledestx)) {
-                if (this.tiley > this.tiledesty) { //we are going minus(north) + south
-                    this.setActiorDirection(this.getNorth());
-                } else {
-                    this.setActiorDirection(this.getSouth());
-                }
-            }
+            this.updateActorDirection();
         } //north or south
     }
 
@@ -288,27 +288,21 @@ public class Actor {
 
     public void onMoveActor(MyTiledMap m, int fps) {
         int f = fps; //gc.getFPS();
-        //east(0),west(3)
-        //this.setActiorDirection(this.direction);
         if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
-                && this.tiley > this.tiledesty) {
-            //&& this.direction == getNorth()) {
+                && this.direction == getNorth()) {
             this.onMoveNorth(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
-                && this.tiley < this.tiledesty) {
-            //&& this.direction == getSouth()) {
+                && this.direction == getSouth()) {
             this.onMoveSouth(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
-                && this.tilex < this.tiledestx) {
-            //&& this.direction == getEast()) {
+                && this.direction == getEast()) {
             this.onMoveEast(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
-                && this.tilex > this.tiledestx) {
-            //&& this.direction == getWest()) {
+                && this.direction == getWest()) {
             this.onMoveWest(m, f);
         }
 
@@ -335,6 +329,8 @@ public class Actor {
             //a.setAnimationFrame(0);
             //a.setActionPoints(a.action_points--);
             this.action_points--;
+            //this.tiledestx = this.tilex;
+            this.updateActorDirection();
         }
     }
 
@@ -349,6 +345,8 @@ public class Actor {
             this.set_draw_xy(0, 0);
             //a.setAnimationFrame(0);
             this.action_points--;
+            //this.tiledestx = this.tilex;
+            this.updateActorDirection();
         }
     }
 
@@ -363,6 +361,8 @@ public class Actor {
             this.set_draw_xy(0, 0);
             //a.setAnimationFrame(0);
             this.action_points--;
+            //this.tiledesty = this.tiley;
+            this.updateActorDirection();
         }
     }
 
@@ -376,8 +376,9 @@ public class Actor {
         if (Math.abs(this.draw_y) >= m.TILE_HEIGHT_HALF) {
             this.tiley--; //north.
             this.set_draw_xy(0, 0);
-            //a.setAnimationFrame(0);
             this.action_points--;
+            //this.tiledesty = this.tiley;
+            this.updateActorDirection();
         }
     }
 

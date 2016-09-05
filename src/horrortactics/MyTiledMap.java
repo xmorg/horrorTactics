@@ -243,7 +243,7 @@ public class MyTiledMap extends TiledMap {
             }
             return true;//there are no walls
         }
-        return true; //there might be a wall
+        return false; //there might be a wall
     }
 
     public void onClickOnMap(int mouse_tile_x, int mouse_tile_y) { //given Mouse Pixels, decide what to do
