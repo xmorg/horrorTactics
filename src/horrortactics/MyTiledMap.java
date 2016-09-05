@@ -232,15 +232,18 @@ public class MyTiledMap extends TiledMap {
                 }
             }
             if (this.turn_order.equals("player")) {
+                //player.tilex + player.facing_x, player.tiley + player.facing_y
                 for (int i = 0; i < this.monster_max; i++) {
-                    if (x == monster[i].tilex && y == monster[i].tiley) {
+                    if (x == monster[i].tilex 
+                            && y == monster[i].tiley 
+                            && monster[i].dead == false) {
                         return false;
                     }
                 }
             }
             return true;//there are no walls
         }
-        return false; //there might be a wall
+        return true; //there might be a wall
     }
 
     public void onClickOnMap(int mouse_tile_x, int mouse_tile_y) { //given Mouse Pixels, decide what to do

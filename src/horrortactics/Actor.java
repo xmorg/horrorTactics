@@ -113,7 +113,7 @@ public class Actor {
                 this.setfacingloc(-1, 0);
                 break; //west
             default:
-                this.setfacingloc(1, 0);
+                this.setfacingloc(-1, 0);
                 break; //east
         }
     }
@@ -218,20 +218,20 @@ public class Actor {
             this.set_draw_xy(0, 0);
         }
         this.move_action = ismoving;
-        if(Math.abs(this.tiledestx) > Math.abs(this.tiledesty)) {
-            if(this.tilex > this.tiledestx) {//we are going minus(west)
-                this.setActiorDirection(3);
-            }
-            else { //east
-                this.setActiorDirection(0);
-            }
-        } //east or west
-        if(Math.abs(this.tiledesty) > Math.abs(this.tiledestx)) {
-            if(this.tiley > this.tiledesty) { //we are going minus(north) + south
-                this.setActiorDirection(2);
-            }
-            else {
-                this.setActiorDirection(1);
+        if (this.move_action == true) {
+            if (Math.abs(this.tiledestx) > Math.abs(this.tiledesty)) {
+                if (this.tilex > this.tiledestx) {//we are going minus(west)
+                    this.setActiorDirection(this.getWest());
+                } else { //east
+                    this.setActiorDirection(this.getEast());
+                }
+            } //east or west
+            if (Math.abs(this.tiledesty) > Math.abs(this.tiledestx)) {
+                if (this.tiley > this.tiledesty) { //we are going minus(north) + south
+                    this.setActiorDirection(this.getNorth());
+                } else {
+                    this.setActiorDirection(this.getSouth());
+                }
             }
         } //north or south
     }
@@ -260,19 +260,19 @@ public class Actor {
 
     public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y) {
         if (h.getTileToBeRendered(x, y)) {
-            if(this.isSelected() && x == this.tilex && y == this.tiley) {
-                try{
+            if (this.isSelected() && x == this.tilex && y == this.tiley) {
+                try {
                     Image xi = m.getTileImage(x, y, m.getLayerIndex("walls_layer"));
-                    if(xi == null) {
+                    if (xi == null) {
                         m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
                                 h.screen_x + h.draw_x, h.screen_y + h.draw_y);
                     }
+                } catch (ArrayIndexOutOfBoundsException e) {
                 }
-                catch (ArrayIndexOutOfBoundsException e) {}
             }
         }
         this.drawActor(h, m, x, y);
-        
+
     }
 
     public void setActorActionPoints(int ap) {
@@ -285,26 +285,33 @@ public class Actor {
     public void resetActorActionPoints() {
         action_points = max_action_points;
     }
-    
+
     public void onMoveActor(MyTiledMap m, int fps) {
         int f = fps; //gc.getFPS();
+        //east(0),west(3)
+        //this.setActiorDirection(this.direction);
         if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tiley > this.tiledesty) {
+            //&& this.direction == getNorth()) {
             this.onMoveNorth(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tiley < this.tiledesty) {
+            //&& this.direction == getSouth()) {
             this.onMoveSouth(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tilex < this.tiledestx) {
+            //&& this.direction == getEast()) {
             this.onMoveEast(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tilex > this.tiledestx) {
+            //&& this.direction == getWest()) {
             this.onMoveWest(m, f);
         }
+
         if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
             this.setActorMoving(false);
             this.setAnimationFrame(0);
@@ -314,19 +321,10 @@ public class Actor {
             this.setActorMoving(false);
             this.setAnimationFrame(0);
         }
-        //int tdestx = this.tilex+this.facing_x;
-        //int tdesty = this.tiley+this.facing_y;
-        //if (m.getPassableTile(this, tdestx, tdesty) == false) {
-        //    System.out.print("Ran into a wall or NPC?\n");
-        //    this.setActorMoving(false); //can we try to turn?
-        //    this.setAnimationFrame(0);
-        //}
-        //a.speed_wait = 0;
-        //}
     }
-    
+
     public void onMoveWest(MyTiledMap m, int delta) {
-        this.setActiorDirection(3);
+        this.setActiorDirection(getWest());
         this.draw_x -= 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
         this.draw_y -= 1;//(a.speed * delta);
         this.set_draw_xy(this.draw_x, this.draw_y);
@@ -339,8 +337,9 @@ public class Actor {
             this.action_points--;
         }
     }
+
     public void onMoveEast(MyTiledMap m, int delta) {
-        this.setActiorDirection(0);
+        this.setActiorDirection(getEast());
         this.draw_x += 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
         this.draw_y += 1;//(a.speed * delta);
         this.set_draw_xy(this.draw_x, this.draw_y);
@@ -354,7 +353,7 @@ public class Actor {
     }
 
     public void onMoveSouth(MyTiledMap m, int delta) {
-        this.setActiorDirection(1); //south
+        this.setActiorDirection(getSouth()); //south/1
         this.draw_y += 1;//(a.speed * delta); //a.speed;
         this.draw_x -= 2;//(a.speed * delta) * 2;
         this.set_draw_xy(this.draw_x, this.draw_y);
@@ -368,7 +367,7 @@ public class Actor {
     }
 
     public void onMoveNorth(MyTiledMap m, int delta) {
-        this.setActiorDirection(2);//north
+        this.setActiorDirection(getNorth());//north
         this.draw_y -= 1;//(a.speed * delta);//a.speed;
         this.draw_x += 2;//(a.speed * delta) * 2;//a.speed*2;
         //System.out.println("delta: " + delta + "," + a.draw_x + "," + a.draw_y);
@@ -380,5 +379,21 @@ public class Actor {
             //a.setAnimationFrame(0);
             this.action_points--;
         }
+    }
+
+    public int getNorth() {
+        return 2;
+    }
+
+    public int getSouth() {
+        return 1;
+    }
+
+    public int getEast() {
+        return 0;
+    }
+
+    public int getWest() {
+        return 3;
     }
 }
