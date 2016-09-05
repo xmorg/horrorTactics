@@ -272,19 +272,19 @@ public class Actor {
     public void onMoveActor(MyTiledMap m, int fps) {
         int f = fps; //gc.getFPS();
         if (this.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tiley > this.tiledesty) {
             this.onMoveNorth(m, f);
         } else if (this.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tiley < this.tiledesty) {
             this.onMoveSouth(m, f);
         } else if (this.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tilex < this.tiledestx) {
             this.onMoveEast(m, f);
         } else if (this.getActorMoving() == true
-                //&& getPassableTile(a.tilex + a.facing_x, a.tiley + a.facing_y) == true
+                && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && this.tilex > this.tiledestx) {
             this.onMoveWest(m, f);
         }
