@@ -98,7 +98,7 @@ public class MyTiledMap extends TiledMap {
             for (int x = 0; x < this.getWidth(); x++) {
                 int gid = this.getTileId(x, y, actor_layer);
                 if (gid > 0) {
-                    System.out.println(this.getTileId(x, y, actor_layer));
+                    //System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
                     if (pname.equals("player")) {
                         this.player.tilex = x;
@@ -226,26 +226,13 @@ public class MyTiledMap extends TiledMap {
         //int tdesty = a.tiley+a.facing_y;
         int walls_layer = getLayerIndex("walls_layer");
         if (getTileImage(x, y, walls_layer) == null) { //There are no walls.
-            if (this.turn_order.equals("monster")) {
-                if (x == player.tilex && y == player.tiley) {
-                    return false;
-                }
-            }
-            if (this.turn_order.equals("player")) {
-                //player.tilex + player.facing_x, player.tiley + player.facing_y
-                for (int i = 0; i < this.monster_max; i++) {
-                    if (x == monster[i].tilex 
-                            && y == monster[i].tiley 
-                            && monster[i].dead == false) {
-                        return false;
-                    }
-                }
-            }
-            return true;//there are no walls
+            return true; //There are no walls.
         }
-        return false; //there might be a wall
+        System.out.println("Encountered a wall");
+        return false;//there are walls
     }
 
+    //return false; //there might be a wall
     public void onClickOnMap(int mouse_tile_x, int mouse_tile_y) { //given Mouse Pixels, decide what to do
         //did we click on the players rectangle as it is rendered in the map
         if (mouse_tile_x == player.tilex && mouse_tile_y == player.tiley) //if(pixelX >= 0 && pixelY >=0 && pixelX <= 128 && pixelY <=128)
@@ -328,10 +315,38 @@ public class MyTiledMap extends TiledMap {
     }
 
     public boolean isPlayerTouchingMonster() {
-        //for(int i)
-        for (int i = 0; i < this.monster_max; i++) {
+        for (int i = 0; i < this.monster_max; i++) { //for(int i)
             if (this.isActorTouchingActor(player, monster[i], player.tilex, player.tiley)) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean getPlayerFacingMonster(Actor p) {
+        if (this.isPlayerTouchingMonster() == true) {
+            for (int i = 0; i < this.monster_max; i++) {
+                if (p.direction == p.getEast()) {
+                    if(p.tilex+1 == this.monster[i].tilex && p.tiley == this.monster[i].tiley) {
+                        System.out.println("Encountered monster to the east");
+                        return true;}
+                }else
+                if (p.direction == p.getWest()) {
+                    if(p.tilex-1 == this.monster[i].tilex && p.tiley == this.monster[i].tiley) {
+                        System.out.println("Encountered a monster to the west");
+                        return true;}
+                }else
+                if (p.direction == p.getNorth()) {
+                    if(p.tilex == this.monster[i].tilex && p.tiley-1 == this.monster[i].tiley) {
+                        System.out.println("Encountered a monster to the north");
+                        return true;}
+                }else
+                if (p.direction == p.getSouth()) {
+                    if(p.tilex == this.monster[i].tilex && p.tiley+1 == this.monster[i].tiley) {
+                        System.out.println("Encountered a monster to the south");
+                        return true;}
+                }
+                else{return false;}
             }
         }
         return false;

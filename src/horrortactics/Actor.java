@@ -25,7 +25,7 @@ public class Actor {
     int tiledestx, tiledesty; //where we are going
     private int animate_frame;
     int animation_timer, move_timer;
-    private int direction;
+    int direction;
     int draw_x, draw_y; //where we are drawing them at X,Y
     private Image spriteImage;
     Image iconImage;
@@ -214,7 +214,12 @@ public class Actor {
     }
 
     public void updateActorDirection() {
-        if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {}
+        if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
+        } //else if (this.tilex < this.tiledestx) {            
+        //}
+        //else if (this.tilex == this.tiledestx && this.tiley > this.tiledesty) {
+        //    
+        //}
         else if (this.tilex < this.tiledestx) {
             this.setActiorDirection(this.getEast());
         } else if (this.tilex > this.tiledestx) {
@@ -234,6 +239,7 @@ public class Actor {
         if (this.move_action == true) {
             this.updateActorDirection();
         } //north or south
+
     }
 
     public boolean getActorMoving() {
@@ -252,6 +258,7 @@ public class Actor {
             //screen_x + draw_x, screen_y + draw_y, scale_x);
             if (this.dead == false) {
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
+                //this.iconImage.draw(pdx);
             } else {
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
             }
@@ -290,26 +297,32 @@ public class Actor {
         int f = fps; //gc.getFPS();
         if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
+                && m.getPlayerFacingMonster(this) == false
                 && this.direction == getNorth()) {
             this.onMoveNorth(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
+                && m.getPlayerFacingMonster(this) == false
                 && this.direction == getSouth()) {
             this.onMoveSouth(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
+                && m.getPlayerFacingMonster(this) == false
                 && this.direction == getEast()) {
             this.onMoveEast(m, f);
         } else if (this.getActorMoving() == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
+                && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {
             this.onMoveWest(m, f);
-        }
-
+        }  
+        
         if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
-            this.setActorMoving(false);
-            this.setAnimationFrame(0);
+                System.out.println("Arrived at destination");
+                this.setActorMoving(false);
+                this.setAnimationFrame(0);
         }
+        
         if (this.action_points <= 0) {
             this.action_points = 0;
             this.setActorMoving(false);
@@ -326,10 +339,7 @@ public class Actor {
         if (Math.abs(this.draw_x) >= m.TILE_WIDTH_HALF) {
             this.tilex--; //westr.
             this.set_draw_xy(0, 0);
-            //a.setAnimationFrame(0);
-            //a.setActionPoints(a.action_points--);
             this.action_points--;
-            //this.tiledestx = this.tilex;
             this.updateActorDirection();
         }
     }

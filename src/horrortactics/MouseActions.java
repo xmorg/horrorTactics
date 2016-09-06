@@ -37,11 +37,13 @@ public class MouseActions {
                 onPlayerSelection(map); //select or unselect actor
             } else if (map.player.isSelected() == true && map.turn_order.equalsIgnoreCase("player")) { //added limits so you cant set location when a monster is moving
                 if (getClickedOnPlayerAction(ht, map) == true) {
-                    map.selected_tile_x = map.mouse_over_tile_x;
-                    map.selected_tile_y = map.mouse_over_tile_y;
-                    map.player.tiledestx = map.selected_tile_x;
-                    map.player.tiledesty = map.selected_tile_y;
-                    map.player.setActorMoving(true);
+                    //if(map.getPassableTile(map.player, map.mouse_over_tile_x, map.mouse_over_tile_y) == true) {
+                        map.selected_tile_x = map.mouse_over_tile_x;
+                        map.selected_tile_y = map.mouse_over_tile_y;
+                        map.player.tiledestx = map.selected_tile_x;
+                        map.player.tiledesty = map.selected_tile_y;
+                        map.player.setActorMoving(true);
+                    //}
                 }
             } else { //does not have turn
 
@@ -58,7 +60,7 @@ public class MouseActions {
 
     public boolean getClickedOnPlayerAction(HorrorTactics ht, MyTiledMap m) {
         /*check if the tiles have walls.*/
- /*if (map.getTileImage(x, y, walls_layer) != null) {*/
+        /*if (map.getTileImage(x, y, walls_layer) != null) {*/
         if (m.mouse_over_tile_x > 0 && m.mouse_over_tile_y > 0) {
             //&& m.getPassableTile(m.player,m.mouse_over_tile_x, m.mouse_over_tile_y) == true) {
             return true;

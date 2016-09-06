@@ -238,6 +238,9 @@ public class HorrorTactics extends BasicGame {
                     }
                     
                     map.player.drawPlayer(this, map, x, y);
+                    //map.player.drawPlayer(this, map, x-map.player.facing_x, 
+                    //        y-map.player.facing_y);
+                    //map.player.i
                     //Are we touching a monster? display Options.
                     //if(map.isActorTouchingActor(map.player, map.monster[0], x, y))
                     if(map.isPlayerTouchingMonster() && x == map.player.tilex && 
