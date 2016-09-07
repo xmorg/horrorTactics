@@ -162,6 +162,16 @@ public class MyTiledMap extends TiledMap {
         }
     }
 
+    public void setMonsterToActorDestination(Actor monster, Actor player) {
+        if (player.tilex == monster.tilex && player.tiley > monster.tiley) {
+            monster.tiledestx = player.tilex - 1;
+            monster.tiledesty = player.tiley;
+        } else if (player.tilex == monster.tilex && player.tiley < monster.tiley) {
+            monster.tiledestx = player.tilex - 1;
+            monster.tiledesty = player.tiley;
+        }
+    }
+
     //map.monster[0].drawActor(this, map, x, y);
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
@@ -179,6 +189,9 @@ public class MyTiledMap extends TiledMap {
             if (monster[i].visible == true) { //there was a monster here.
                 monster[i].action_points = 6; //update action points
                 if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
+                    //how can we make the monster's dest to the next to player/not the players location
+                    //this will prvent a forced stop.  How do we calulate the shortest distance to travel
+                    //Euclidian plane? find the shortest distance, then make the route
                     monster[i].tiledestx = player.tilex;
                     monster[i].tiledesty = player.tiley;
                     //monster[i].setActorMoving(true);
@@ -295,20 +308,20 @@ public class MyTiledMap extends TiledMap {
     public boolean isActorTouchingActor(Actor a, Actor b, int x, int y) {
         //a=monster, b=player
         if (a.tilex - 1 == b.tilex && a.tiley == b.tiley) {
-            a.tiledestx = b.tilex;
-            a.tiledesty = b.tiley;
+            //a.tiledestx = b.tilex;
+            //a.tiledesty = b.tiley;
             return true;
         } else if (a.tilex + 1 == b.tilex && a.tiley == b.tiley) {
-            a.tiledestx = b.tilex;
-            a.tiledesty = b.tiley;
+            //a.tiledestx = b.tilex;
+            //a.tiledesty = b.tiley;
             return true;
         } else if (a.tilex == b.tilex && a.tiley - 1 == b.tiley) {
-            a.tiledestx = b.tilex;
-            a.tiledesty = b.tiley;
+            //a.tiledestx = b.tilex;
+            //a.tiledesty = b.tiley;
             return true;
         } else if (a.tilex == b.tilex && a.tiley + 1 == b.tiley) {
-            a.tiledestx = b.tilex;
-            a.tiledesty = b.tiley;
+            //a.tiledestx = b.tilex;
+            //a.tiledesty = b.tiley;
             return true; //you are touching the player.
         }
         return false;
@@ -323,30 +336,31 @@ public class MyTiledMap extends TiledMap {
         return false;
     }
 
+    public boolean getPlayerFacingMonInDir(Actor p, Actor m, int direction, int x, int y) {
+        if (p.direction == direction
+                && p.tilex + x == m.tilex
+                && p.tiley + y == m.tiley) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean getPlayerFacingMonster(Actor p) {
         if (this.isPlayerTouchingMonster() == true) {
             for (int i = 0; i < this.monster_max; i++) {
-                if (p.direction == p.getEast()) {
-                    if(p.tilex+1 == this.monster[i].tilex && p.tiley == this.monster[i].tiley) {
-                        System.out.println("Encountered monster to the east");
-                        return true;}
-                }else
-                if (p.direction == p.getWest()) {
-                    if(p.tilex-1 == this.monster[i].tilex && p.tiley == this.monster[i].tiley) {
-                        System.out.println("Encountered a monster to the west");
-                        return true;}
-                }else
-                if (p.direction == p.getNorth()) {
-                    if(p.tilex == this.monster[i].tilex && p.tiley-1 == this.monster[i].tiley) {
-                        System.out.println("Encountered a monster to the north");
-                        return true;}
-                }else
-                if (p.direction == p.getSouth()) {
-                    if(p.tilex == this.monster[i].tilex && p.tiley+1 == this.monster[i].tiley) {
-                        System.out.println("Encountered a monster to the south");
-                        return true;}
+                if (getPlayerFacingMonInDir(p, monster[i], p.getEast(), 1, 0)) {
+                    return true;
                 }
-                else{return false;}
+                if (getPlayerFacingMonInDir(p, monster[i], p.getWest(), -1, 0)) {
+                    return true;
+                }
+                if (getPlayerFacingMonInDir(p, monster[i], p.getNorth(), 0, -1)) {
+                    return true;
+                }
+                if (getPlayerFacingMonInDir(p, monster[i], p.getSouth(), 0, 1)) {
+                    return true;
+                }
+                return false;
             }
         }
         return false;
@@ -493,6 +507,7 @@ public class MyTiledMap extends TiledMap {
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         if (this.getMonsterIsMoving(this.current_monster_moving)) {
             this.monster[this.current_monster_moving].onMoveActor(this, gc.getFPS());
+            //V-- monster doesnt stop
             if (this.monster[this.current_monster_moving].getActorMoving() == false) {
                 this.whyDidMonsterStop(gc, ht);
             }
