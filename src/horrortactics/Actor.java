@@ -59,7 +59,7 @@ public class Actor {
         dead = false;
         direction = 0;
         animation_timer = 0;
-        visible = true; //actor is visible.
+        visible = false; //actor is visible.
         //hasturn = true;
         action_points = 0;
         max_action_points = 6;
@@ -316,6 +316,13 @@ public class Actor {
                 && this.direction == getWest()) {
             this.onMoveWest(m, f);
         }  
+        
+        if(m.getPassableTile(this, 
+                this.tilex + this.facing_x, 
+                this.tiley + this.facing_y) == false) {
+            this.setActorMoving(false); //That means you monsters!
+            this.setAnimationFrame(0); //just be sure you are not still moving if you touch a wall
+        }
         
         if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
                 System.out.println("Arrived at destination");

@@ -167,49 +167,15 @@ public class MyTiledMap extends TiledMap {
             monster.tiledestx = player.tilex - 1;
             monster.tiledesty = player.tiley;
         } else if (player.tilex == monster.tilex && player.tiley < monster.tiley) {
-            monster.tiledestx = player.tilex - 1;
+            monster.tiledestx = player.tilex + 1;
             monster.tiledesty = player.tiley;
-        }
-    }
-
-    //map.monster[0].drawActor(this, map, x, y);
-    public void setMonsterDirectives() {
-        //loop through your monsters and set a path for them to follow
-        //directive types: random,randomuntilspotted,beeline
-        int proposed_x, proposed_y;
-        this.current_monster_moving = 0;
-        for (int i = 0; i < this.monster_max; i++) {
-            if (monster[i].visible == true) { //there was a monster here.
-                monster[i].action_points = 6; //update action points
-                monster[i].setActorMoving(true);
-                monster[i].setActorDestination(monster[i].tilex, monster[i].tiley);//there initial destination is their pos
-            }
-        }
-        for (int i = 0; i < this.monster_max; i++) {
-            if (monster[i].visible == true) { //there was a monster here.
-                monster[i].action_points = 6; //update action points
-                if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
-                    //how can we make the monster's dest to the next to player/not the players location
-                    //this will prvent a forced stop.  How do we calulate the shortest distance to travel
-                    //Euclidian plane? find the shortest distance, then make the route
-                    monster[i].tiledestx = player.tilex;
-                    monster[i].tiledesty = player.tiley;
-                    //monster[i].setActorMoving(true);
-                } else if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
-                    for (int count = 0; count < 6; count++) {
-                        proposed_y = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
-                        proposed_x = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
-                        System.out.print("proposed_x: " + Integer.toString(proposed_x)
-                                + " proposed_y: " + Integer.toString(proposed_y));
-                        if (this.getPassableTile(monster[i], monster[i].tilex + proposed_x,
-                                monster[i].tiley + proposed_y) == true) {
-                            monster[i].setActorDestination(monster[i].tilex + proposed_x,
-                                    monster[i].tiley + proposed_y);
-                        }
-                    }
-                }
-            }
-        }
+        } else if (player.tilex > monster.tilex && player.tiley == monster.tiley) {
+            monster.tiledestx = player.tilex;
+            monster.tiledesty = player.tiley - 1;
+        } else if (player.tilex < monster.tilex && player.tiley == monster.tiley) {
+            monster.tiledestx = player.tilex;
+            monster.tiledesty = player.tiley + 1;
+        } //need the other 4?
     }
 
     public boolean monsterfollowerInTile(int x, int y) {
@@ -226,19 +192,27 @@ public class MyTiledMap extends TiledMap {
         return false;
     }
 
-    public boolean getRanIntoActor(Actor a, int x, int y) { //true if actor is there, false if ok to move
+    /*public boolean getRanIntoActor(Actor a, int x, int y) { //true if actor is there, false if ok to move
         if (a.name.equals("player")) {
 
         }
         return false;
-    }
-
+    }*/
     public boolean getPassableTile(Actor a, int x, int y) {
         //true=go, false = stop
         //int tdestx = a.tilex+a.facing_x;
         //int tdesty = a.tiley+a.facing_y;
         int walls_layer = getLayerIndex("walls_layer");
         if (getTileImage(x, y, walls_layer) == null) { //There are no walls.
+            if (this.turn_order.equals("monster")) { //does monster collide with someone.
+                if (this.monsterfollowerInTile(x, y) == true) {
+                    return false; //encountered a monster or follower?
+                }
+                if (x == this.player.tilex && y == this.player.tiley) {
+                    return false; //found player.
+                }
+            }
+
             return true; //There are no walls.
         }
         System.out.println("Encountered a wall");
@@ -458,60 +432,30 @@ public class MyTiledMap extends TiledMap {
 
     public boolean getMonsterIsMoving(int i) {
         if (this.monster[i].action_points <= 0) {
-            this.current_monster_moving++;
             return false;
         }
         if (this.monster[i].visible == false) {
-            this.current_monster_moving++;
             return false;
         }
         if (this.monster[i].dead == true) {
-            this.current_monster_moving++;
             return false;
         }
-        //if (this.monster[i].getActorMoving() == false) { 
-        //    this.current_monster_moving++;
-        //    return false; 
-        //}
+        if (this.monster[i].getActorMoving() == false) {
+            return false;
+        }
+        //if (this.getPassableTile(this.monster[i], i, i))
         return true; //all conditions are good.
     }
 
-    public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht) {
-        System.out.println("Monster stopped with remaining AP");
-        if (this.monster[this.current_monster_moving].action_points >= 2) {
-            this.onMonsterCanAttack(gc, ht); //Do we see the player?
-            this.monster[this.current_monster_moving].action_points = 0;
-            this.current_monster_moving++;
-        } else {//you stopped and cant do anything anyways
-            System.out.println("Monster had not enough points to attack");
-            this.monster[this.current_monster_moving].action_points = 0;
-            this.current_monster_moving++;
-        }
-        //allmonstersmoved = false;
-    }
-
-    public int getCurrentMonsterMoving() { //wrapper to avoid out of bounds
-        int active_monster = 0;
-        for (int i = 0; i < this.monster_max; i++) {
-            if (this.monster[i].visible == true) {
-                active_monster++;
-            }
-        }
-        if (this.current_monster_moving < active_monster) {
-            return this.current_monster_moving;
-        } else {
-            return active_monster;
-        }
-    }
-
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
-        if (this.getMonsterIsMoving(this.current_monster_moving)) {
-            this.monster[this.current_monster_moving].onMoveActor(this, gc.getFPS());
-            //V-- monster doesnt stop
-            if (this.monster[this.current_monster_moving].getActorMoving() == false) {
-                this.whyDidMonsterStop(gc, ht);
-            }
+        //if (this.getMonsterIsMoving(this.current_monster_moving)) { //true if he should be moving
+        this.monster[this.current_monster_moving].onMoveActor(
+                this, gc.getFPS());
+        if (this.monster[this.current_monster_moving].getActorMoving()
+                == false) {
+            this.whyDidMonsterStop(gc, ht);
         }
+        //}
         if (this.current_monster_moving >= this.monster_max) {
             this.current_monster_moving = 0;
             this.turn_order = "start player";
@@ -532,5 +476,77 @@ public class MyTiledMap extends TiledMap {
                 monster[i].action_msg_timer--;
             }
         }
+    }
+
+    //map.monster[0].drawActor(this, map, x, y);
+    public void setMonsterDirectives() {
+        //loop through your monsters and set a path for them to follow
+        //directive types: random,randomuntilspotted,beeline
+        int proposed_x, proposed_y;
+        this.current_monster_moving = 0;
+        for (int i = 0; i < this.monster_max; i++) {
+            if (monster[i].visible == true) { //there was a monster here.
+                monster[i].action_points = 6; //update action points
+                monster[i].setActorMoving(true);
+                monster[i].setActorDestination(monster[i].tilex, monster[i].tiley);//there initial destination is their pos
+            }
+        }
+        for (int i = 0; i < this.monster_max; i++) {
+            if (monster[i].visible == true) { //there was a monster here.
+                monster[i].action_points = 6; //update action points
+                if (monster[i].directive_type.equalsIgnoreCase("beeline")) {
+                    //how can we make the monster's dest to the next to player/not the players location
+                    //this will prvent a forced stop.  How do we calulate the shortest distance to travel
+                    //Euclidian plane? find the shortest distance, then make the route
+                    monster[i].tiledestx = player.tilex;
+                    monster[i].tiledesty = player.tiley;
+                    //monster[i].setActorMoving(true);
+                } else if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
+                    for (int count = 0; count < 6; count++) {
+                        proposed_y = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
+                        proposed_x = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());
+                        System.out.print("proposed_x: " + Integer.toString(proposed_x)
+                                + " proposed_y: " + Integer.toString(proposed_y));
+                        if (this.getPassableTile(monster[i], monster[i].tilex + proposed_x,
+                                monster[i].tiley + proposed_y) == true) {
+                            monster[i].setActorDestination(monster[i].tilex + proposed_x,
+                                    monster[i].tiley + proposed_y);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht) {
+        System.out.println("Monster stopped with remaining AP");
+        if (this.monster[this.current_monster_moving].visible == false) {
+            this.current_monster_moving++;
+        } else if (this.monster[this.current_monster_moving].dead == true) {
+            this.current_monster_moving++;
+        } else if (this.getPassableTile(monster[this.current_monster_moving],
+                monster[this.current_monster_moving].tilex
+                + monster[this.current_monster_moving].facing_x,
+                monster[this.current_monster_moving].tiley
+                + monster[this.current_monster_moving].facing_y) == false) {
+            this.current_monster_moving++;
+        } else if (this.monster[this.current_monster_moving].action_points >= 2) {
+            this.onMonsterCanAttack(gc, ht); //Do we see the player?
+            this.monster[this.current_monster_moving].action_points = 0;
+            this.current_monster_moving++;
+        } else if (this.monster[this.current_monster_moving].action_points <= 0) {
+            this.current_monster_moving++;
+        } else if (this.monster[this.current_monster_moving].tilex == this.monster[this.current_monster_moving].tiledestx
+                && this.monster[this.current_monster_moving].tiley == this.monster[this.current_monster_moving].tiledesty) {
+            this.current_monster_moving++;
+        } else if (this.monster[this.current_monster_moving].getActorMoving() == false) {
+            //generic stop
+            this.current_monster_moving++;
+        } else {//you stopped and cant do anything anyways
+            System.out.println("Monster had not enough points to attack");
+            this.monster[this.current_monster_moving].action_points = 0;
+            this.current_monster_moving++;
+        }
+        //allmonstersmoved = false;
     }
 }

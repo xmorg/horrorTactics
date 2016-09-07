@@ -277,10 +277,10 @@ public class HorrorTactics extends BasicGame {
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
                 + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
                 + map.turn_order + " mm: " + map.current_monster_moving + "/"
-                + map.monster[map.getCurrentMonsterMoving()].action_points + " dst:"
-                + map.monster[map.getCurrentMonsterMoving()].tiledestx + ","
-                + map.monster[map.getCurrentMonsterMoving()].tiledesty,
-                200, 10);
+                + map.monster[map.current_monster_moving].action_points + " dst:"
+                + map.monster[map.current_monster_moving].tiledestx + ","
+                + map.monster[map.current_monster_moving].tiledesty,
+                200, 10);//might crash?
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
         }
