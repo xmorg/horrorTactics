@@ -24,7 +24,7 @@ public class Actor {
     int tiley; //the tile we are at (aprox)
     int tiledestx, tiledesty; //where we are going
     private int animate_frame;
-    int animation_timer, move_timer;
+    int animation_timer, move_timer, attack_timer;
     int direction;
     int draw_x, draw_y; //where we are drawing them at X,Y
     private Image spriteImage;
@@ -71,6 +71,7 @@ public class Actor {
         action_msg_timer = 0;
         action_msg = "";
         name = "none";
+        attack_timer = 0;
         //spriteImage.set
     }
 
@@ -149,7 +150,7 @@ public class Actor {
         } else {
             this.animation_timer++;
             if (this.animation_timer >= timer_max) {
-                //this.animate_frame = 0;
+                this.animate_frame = 0;
                 this.animation_timer = 0;
             }
         }
@@ -325,7 +326,7 @@ public class Actor {
         }
         
         if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
-                System.out.println("Arrived at destination");
+                //System.out.println("Arrived at destination");
                 this.setActorMoving(false);
                 this.setAnimationFrame(0);
         }

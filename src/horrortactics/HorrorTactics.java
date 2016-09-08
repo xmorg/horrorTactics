@@ -98,6 +98,8 @@ public class HorrorTactics extends BasicGame {
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
         actor_move_timer++;
+        
+        map.resetAttackAniFrame();
         if (actor_move_timer >= this.fps) {
             this.actor_move_timer = 0;
         }
@@ -132,6 +134,7 @@ public class HorrorTactics extends BasicGame {
             map.turn_order = "monster";
         } else if (map.turn_order.equalsIgnoreCase("monster")) {
             if (this.actor_move_timer == 0) {
+                map.resetAttackAniFrame();
                 map.onMonsterMoving(gc, this, delta); //wrapper for onMoveActor
             }
         }

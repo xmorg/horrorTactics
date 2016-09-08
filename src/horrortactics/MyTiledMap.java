@@ -408,6 +408,8 @@ public class MyTiledMap extends TiledMap {
                     + " Dodge Roll:" + Integer.toString(player_dodgeroll)
             );
             //player at the monster destination is not null
+            monster[this.current_monster_moving].setAnimationFrame(4);
+            monster[this.current_monster_moving].attack_timer = 20;
             if (monster_attackroll > player_dodgeroll) {
                 this.getAllPlayersAtXy(dx, dy).dead = true;
                 this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
@@ -417,7 +419,7 @@ public class MyTiledMap extends TiledMap {
                 this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
                 //Counter Attack.
                 if (player_counterroll > monster_cdodgeroll) {
-                    monster[this.current_monster_moving].dead = true;
+                    //monster[this.current_monster_moving].dead = true;
                     monster[this.current_monster_moving].action_msg = "Dead";
                     monster[this.current_monster_moving].action_msg_timer = 400;
                 } else {
@@ -448,14 +450,12 @@ public class MyTiledMap extends TiledMap {
     }
 
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
-        //if (this.getMonsterIsMoving(this.current_monster_moving)) { //true if he should be moving
         this.monster[this.current_monster_moving].onMoveActor(
                 this, gc.getFPS());
         if (this.monster[this.current_monster_moving].getActorMoving()
                 == false) {
             this.whyDidMonsterStop(gc, ht);
         }
-        //}
         if (this.current_monster_moving >= this.monster_max) {
             this.current_monster_moving = 0;
             this.turn_order = "start player";
@@ -517,22 +517,35 @@ public class MyTiledMap extends TiledMap {
             }
         }
     }
-
+    public void resetAttackAniFrame() {
+        for(int i = 0; i < this.monster_max; i++) {
+            if(this.monster[i].attack_timer > 0) {
+                this.monster[i].attack_timer--;
+                //this.monster[i].setAnimationFrame(0);
+            } else {
+                if(this.monster[i].getAnimationFrame() == 4) {
+                    this.monster[i].setAnimationFrame(0);
+                }
+            }
+        }
+    }
     public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht) {
         System.out.println("Monster stopped with remaining AP");
         if (this.monster[this.current_monster_moving].visible == false) {
             this.current_monster_moving++;
         } else if (this.monster[this.current_monster_moving].dead == true) {
             this.current_monster_moving++;
+        } else if (this.monster[this.current_monster_moving].action_points >= 2) {
+            this.onMonsterCanAttack(gc, ht); //Do we see the player?
+            this.monster[this.current_monster_moving].action_points = 0;
+            //this.monster[this.current_monster_moving].setAnimationFrame(0);
+            //we can also try doing this at the beginning of update.
+            this.current_monster_moving++;
         } else if (this.getPassableTile(monster[this.current_monster_moving],
                 monster[this.current_monster_moving].tilex
                 + monster[this.current_monster_moving].facing_x,
                 monster[this.current_monster_moving].tiley
                 + monster[this.current_monster_moving].facing_y) == false) {
-            this.current_monster_moving++;
-        } else if (this.monster[this.current_monster_moving].action_points >= 2) {
-            this.onMonsterCanAttack(gc, ht); //Do we see the player?
-            this.monster[this.current_monster_moving].action_points = 0;
             this.current_monster_moving++;
         } else if (this.monster[this.current_monster_moving].action_points <= 0) {
             this.current_monster_moving++;
