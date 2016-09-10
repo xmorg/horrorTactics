@@ -61,6 +61,7 @@ public class MyTiledMap extends TiledMap {
         selected_tile_y = -1;
         //player = new Actor("data/tactics_in_distress00", 218, 313);
         player = new Actor("data/tactics_in_distress00", 218, 313);
+        //player = new Actor("data/monster05", 218, 313);
         turn_order = "start player";
     }
 
@@ -116,6 +117,20 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].setActorMoving(false);
                         monster[monster_loop].visible = true;
                         monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 4;
+                        monster_loop++;
+                    } // add more monsters here;
+                    else if (pname.equals("skeleton monster")) {
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/monster05.png", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 0;
                         monster_loop++;
                     } // add more monsters here;
                 }
@@ -192,12 +207,6 @@ public class MyTiledMap extends TiledMap {
         return false;
     }
 
-    /*public boolean getRanIntoActor(Actor a, int x, int y) { //true if actor is there, false if ok to move
-        if (a.name.equals("player")) {
-
-        }
-        return false;
-    }*/
     public boolean getPassableTile(Actor a, int x, int y) {
         //true=go, false = stop
         //int tdestx = a.tilex+a.facing_x;
@@ -215,7 +224,7 @@ public class MyTiledMap extends TiledMap {
 
             return true; //There are no walls.
         }
-        System.out.println("Encountered a wall");
+        //System.out.println("Encountered a wall");
         return false;//there are walls
     }
 
@@ -370,10 +379,38 @@ public class MyTiledMap extends TiledMap {
                 return this.follower[i];
             }
         }
+        for (int i = 0; i < this.monster_max; i++) {
+            if (this.getActorAtXy(monster[i], x, y)) {
+                return this.monster[i];
+            }
+        }
         return null; //found nothing
     }
 
-    public void onActorCanAttack(GameContainer gc, HorrorTactics ht, Actor a) {
+    public void onActorAttackActor(HorrorTactics ht, Actor attacker, Actor defender) {
+        int dx = attacker.tiledestx;
+        int dy = attacker.tiledesty;
+        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        int target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        int target_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        int actor_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        //attacker.attack_timer = 45;
+        //attacker.setAnimationFrame(4);
+        //attacker.updateActorDirection();
+        if (actor_attackroll > target_dodgeroll) {
+            defender.dead = true;
+            defender.action_msg = "Dead";
+            defender.action_msg_timer = 400;
+            defender.turns_till_revival = 0; //do we revive?
+        } else {
+            defender.action_msg = "Dodge";
+            defender.action_msg_timer = 400;
+        }
+    }
+
+    /*public void onActorCanAttack(HorrorTactics ht, Actor a) {
         //players and followers
         int dx = a.tiledestx;
         int dy = a.tiledesty;
@@ -383,15 +420,16 @@ public class MyTiledMap extends TiledMap {
         int target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         int target_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         int actor_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        if (actor_attackroll > target_dodgeroll) {
+        if (actor_attackroll > target_dodgeroll
+                && this.getAllPlayersAtXy(dx, dy) != null) {
             this.getAllPlayersAtXy(dx, dy).dead = true;
             this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
             this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-        } else {
-            this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
-            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-        }
-    }
+        } //else {
+        //   this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
+        //    this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
+        //}
+    }*/
 
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
         if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
@@ -452,6 +490,9 @@ public class MyTiledMap extends TiledMap {
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         this.monster[this.current_monster_moving].onMoveActor(
                 this, gc.getFPS());
+        if (this.monster[this.current_monster_moving].dead == true) {
+            this.current_monster_moving++;
+        }
         if (this.monster[this.current_monster_moving].getActorMoving()
                 == false) {
             this.whyDidMonsterStop(gc, ht);
@@ -490,6 +531,14 @@ public class MyTiledMap extends TiledMap {
                 monster[i].setActorMoving(true);
                 monster[i].setActorDestination(monster[i].tilex, monster[i].tiley);//there initial destination is their pos
             }
+            if(monster[i].max_turns_till_revival > 0 && monster[i].dead == true) {
+                if(monster[i].turns_till_revival >= monster[i].max_turns_till_revival) {
+                    monster[i].dead = false;
+                    monster[i].turns_till_revival=0;
+                } else {
+                    monster[i].turns_till_revival++;
+                }
+            }
         }
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true) { //there was a monster here.
@@ -517,18 +566,23 @@ public class MyTiledMap extends TiledMap {
             }
         }
     }
+
     public void resetAttackAniFrame() {
-        for(int i = 0; i < this.monster_max; i++) {
-            if(this.monster[i].attack_timer > 0) {
+        for (int i = 0; i < this.monster_max; i++) {
+            if (this.monster[i].attack_timer > 0) {
                 this.monster[i].attack_timer--;
                 //this.monster[i].setAnimationFrame(0);
-            } else {
-                if(this.monster[i].getAnimationFrame() == 4) {
-                    this.monster[i].setAnimationFrame(0);
-                }
+            } else if (this.monster[i].getAnimationFrame() == 4) {
+                this.monster[i].setAnimationFrame(0);
             }
         }
+        if (this.player.attack_timer > 0) {
+            this.player.attack_timer--;
+        } else if (this.player.getAnimationFrame() == 4) {
+            this.player.setAnimationFrame(0);
+        }
     }
+
     public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht) {
         System.out.println("Monster stopped with remaining AP");
         if (this.monster[this.current_monster_moving].visible == false) {

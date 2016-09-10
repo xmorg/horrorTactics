@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools | Templatesen
  * and open the template in the editor.
  */
 package horrortactics;
@@ -33,7 +33,7 @@ public class Actor {
     private boolean selected; //if the actor is selected.
     private boolean move_action;
     int action_points, max_action_points;
-    //private boolean hasturn;
+    int turns_till_revival, max_turns_till_revival;
     boolean visible;
     boolean dead;
     String directive_type;
@@ -71,6 +71,8 @@ public class Actor {
         action_msg_timer = 0;
         action_msg = "";
         name = "none";
+        turns_till_revival = 0;
+        max_turns_till_revival = 0;
         attack_timer = 0;
         //spriteImage.set
     }
@@ -297,21 +299,25 @@ public class Actor {
     public void onMoveActor(MyTiledMap m, int fps) {
         int f = fps; //gc.getFPS();
         if (this.getActorMoving() == true
+                && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getNorth()) {
             this.onMoveNorth(m, f);
         } else if (this.getActorMoving() == true
+                && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getSouth()) {
             this.onMoveSouth(m, f);
         } else if (this.getActorMoving() == true
+                && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getEast()) {
             this.onMoveEast(m, f);
         } else if (this.getActorMoving() == true
+                && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {
@@ -335,6 +341,10 @@ public class Actor {
             this.action_points = 0;
             this.setActorMoving(false);
             this.setAnimationFrame(0);
+        }
+        
+        if(this.attack_timer > 0) {
+            this.setAnimationFrame(4); //just in case it got set to 0
         }
     }
 

@@ -38,11 +38,33 @@ public class MouseActions {
             } else if (map.player.isSelected() == true && map.turn_order.equalsIgnoreCase("player")) { //added limits so you cant set location when a monster is moving
                 if (getClickedOnPlayerAction(ht, map) == true) {
                     //if(map.getPassableTile(map.player, map.mouse_over_tile_x, map.mouse_over_tile_y) == true) {
-                        map.selected_tile_x = map.mouse_over_tile_x;
-                        map.selected_tile_y = map.mouse_over_tile_y;
+                    map.selected_tile_x = map.mouse_over_tile_x;
+                    map.selected_tile_y = map.mouse_over_tile_y;
+
+                    //and you are touching a monster!
+                    if (map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y) != null) { //prepare to attack
+                        //map.onActorCanAttack(ht, map.player);
+                        if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
+                            System.out.println("setting player animation frame.");
+                            map.player.setAnimationFrame(4);
+                            map.player.attack_timer = 25;
+
+                            map.player.tiledestx = map.selected_tile_x;
+                            map.player.tiledesty = map.selected_tile_y;
+                            map.player.updateActorDirection();
+
+                            map.onActorAttackActor(ht, map.player,
+                                    map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y));
+                            map.player.tiledestx = map.player.tilex;
+                            map.player.tiledesty = map.player.tiley;
+                        }
+                        //map.player.attack_timer = 25;
+                        //map.player.setAnimationFrame(4);
+                    } else {
                         map.player.tiledestx = map.selected_tile_x;
                         map.player.tiledesty = map.selected_tile_y;
                         map.player.setActorMoving(true);
+                    }
                     //}
                 }
             } else { //does not have turn
@@ -60,7 +82,7 @@ public class MouseActions {
 
     public boolean getClickedOnPlayerAction(HorrorTactics ht, MyTiledMap m) {
         /*check if the tiles have walls.*/
-        /*if (map.getTileImage(x, y, walls_layer) != null) {*/
+ /*if (map.getTileImage(x, y, walls_layer) != null) {*/
         if (m.mouse_over_tile_x > 0 && m.mouse_over_tile_y > 0) {
             //&& m.getPassableTile(m.player,m.mouse_over_tile_x, m.mouse_over_tile_y) == true) {
             return true;
