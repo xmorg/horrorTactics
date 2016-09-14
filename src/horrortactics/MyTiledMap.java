@@ -44,6 +44,7 @@ public class MyTiledMap extends TiledMap {
     private int m_draw_x, m_draw_y; //map draw x
     int current_monster_moving = 0; //debug
     int current_follower_moving = 0;
+    String trigger_check = "no";
 
     public int getDrawX() {
         return m_draw_x;
@@ -63,6 +64,7 @@ public class MyTiledMap extends TiledMap {
         player = new Actor("data/tactics_in_distress00", 218, 313);
         //player = new Actor("data/monster05", 218, 313);
         turn_order = "start player";
+        this.active_trigger = new Trigger("none", "none");
     }
 
     @Override
@@ -76,7 +78,7 @@ public class MyTiledMap extends TiledMap {
 
     public void getActorLocationFromTMX() {
         int monster_loop = 0;
-        //int follower_loop = 0;
+        int follower_loop = 0;
         int actor_layer = this.getLayerIndex("actors_layer");
 
         for (int i = 0; i < this.monster_max; i++) {
@@ -103,10 +105,18 @@ public class MyTiledMap extends TiledMap {
                     String pname = this.getTileProperty(gid, "actor_name", "none");
                     if (pname.equals("player")) {
                         this.player.tilex = x;
-                        this.player.tilex += 10;
+                        //this.player.tilex += 10;
                         this.player.tiley = y;
                         this.player.name = pname;
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
+
+                    } else if (pname.equals("Yukari")) {
+                        try {
+                            follower[follower_loop].changeActorSpritesheet("data/tactics_in_distress01.png", 218, 313);
+                            follower[follower_loop].tilex = x;
+                            follower[follower_loop].tiley = y;
+                        } catch (SlickException e) {
+                        }
                     } else if (pname.equals("pear monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster00.png", 218, 313);
@@ -138,21 +148,16 @@ public class MyTiledMap extends TiledMap {
         }
     }
 
-    public void onSteppedOnTrigger(int x, int y) {
-        int actors_layer = this.getLayerIndex("actors_layer");
-        int gid = this.getTileId(x, y, actors_layer);
-        //long list of triggers!
-        if (this.getTileProperty(gid,
-                "audio_trigger", "none").equals("trapped girl")) {
-            try {
-                this.active_trigger = new Trigger("audio_trigger",
-                        "trapped girl");
-                this.active_trigger.onSetSoundToBePlayed("trappedgirl.ogg");
-            } catch (SlickException n) {
-                this.active_trigger = null;
-            }
+    public void onNewTrigger(String type, String name) {
+        try {
+            this.active_trigger = new Trigger(type,
+                    name);
+        } catch (SlickException n) {
         }
+        //return
     }
+
+    //public Actor getFollowerByXy(int x, int y)
 
     public void setFollowerDirectives() {
         //loop through your monsters and set a path for them to follow
@@ -164,6 +169,15 @@ public class MyTiledMap extends TiledMap {
                 follower[i].setActorMoving(true);
                 follower[i].setActorDestination(follower[i].tiledestx,
                         follower[i].tiledesty);
+            }
+        }
+    }
+
+    public void drawFollowers(HorrorTactics ht, int x, int y) {
+        //map.monster[0].drawActor(this, map, x, y);
+        for (int i = 0; i < this.follower_max; i++) {
+            if (this.follower[i].visible == true) { //just to be sure
+                this.follower[i].drawActor(ht, this, x, y);
             }
         }
     }
@@ -430,7 +444,6 @@ public class MyTiledMap extends TiledMap {
         //    this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
         //}
     }*/
-
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
         if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
             //ATTACK! (monster at tiledestx, tiledesty
@@ -531,10 +544,10 @@ public class MyTiledMap extends TiledMap {
                 monster[i].setActorMoving(true);
                 monster[i].setActorDestination(monster[i].tilex, monster[i].tiley);//there initial destination is their pos
             }
-            if(monster[i].max_turns_till_revival > 0 && monster[i].dead == true) {
-                if(monster[i].turns_till_revival >= monster[i].max_turns_till_revival) {
+            if (monster[i].max_turns_till_revival > 0 && monster[i].dead == true) {
+                if (monster[i].turns_till_revival >= monster[i].max_turns_till_revival) {
                     monster[i].dead = false;
-                    monster[i].turns_till_revival=0;
+                    monster[i].turns_till_revival = 0;
                 } else {
                     monster[i].turns_till_revival++;
                 }

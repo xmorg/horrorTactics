@@ -356,6 +356,7 @@ public class Actor {
         this.onWalkAnimation(delta);
         if (Math.abs(this.draw_x) >= m.TILE_WIDTH_HALF) {
             this.tilex--; //westr.
+            m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
             this.action_points--;
             this.updateActorDirection();
@@ -370,6 +371,7 @@ public class Actor {
         this.onWalkAnimation(delta);
         if (this.draw_x >= m.TILE_WIDTH_HALF) {
             this.tilex++; //westr.
+            m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
             //a.setAnimationFrame(0);
             this.action_points--;
@@ -386,6 +388,7 @@ public class Actor {
         this.onWalkAnimation(delta);
         if (this.draw_y >= Math.abs(m.TILE_HEIGHT_HALF)) {
             this.tiley++; //south.
+            m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
             //a.setAnimationFrame(0);
             this.action_points--;
@@ -403,6 +406,7 @@ public class Actor {
         this.onWalkAnimation(delta);
         if (Math.abs(this.draw_y) >= m.TILE_HEIGHT_HALF) {
             this.tiley--; //north.
+            m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
             this.action_points--;
             //this.tiledesty = this.tiley;

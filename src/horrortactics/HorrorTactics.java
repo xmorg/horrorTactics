@@ -52,6 +52,8 @@ public class HorrorTactics extends BasicGame {
     Image button_endturn, button_punch;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
+    
+    
 
     String game_state = "tactical"; //title, tactical,conversation,cutscene
 
@@ -113,13 +115,13 @@ public class HorrorTactics extends BasicGame {
                 map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
             }
             int actor_layer = map.getLayerIndex("actors_layer");
-            if (map.getTileImage(map.player.tilex, map.player.tiley, actor_layer) == null) {
+            //if (map.getTileImage(map.player.tilex, map.player.tiley, actor_layer) == null) {
                 //^^-dont check for events every time.
-                this.map.active_trigger = null; //null out trigger
-            } else if (this.map.active_trigger == null) { //not already stepped in it
-                /*if (this.getTileProperty(gid, "actor_name", "player").equals("player")) {*/
-                map.onSteppedOnTrigger(this.map.player.tilex, this.map.player.tiley);
-            }
+                //this.map.active_trigger = null; //null out trigger
+            /*} else*/ 
+            if (this.map.active_trigger.name.equals("none")) { //not already stepped in it
+                map.active_trigger.onSteppedOnTrigger(map, this.map.player.tilex, this.map.player.tiley);
+            } // how do we make it null again?
         } else if (map.turn_order.equalsIgnoreCase("start follower")) { //
             this.map.setFollowerDirectives();
             map.turn_order = "follower";
@@ -259,6 +261,7 @@ public class HorrorTactics extends BasicGame {
                                 screen_y + draw_y - 200);
                     }
                     map.drawMonsters(this, x, y); //map.monster[0].drawActor(this, map, x, y);
+                    map.drawFollowers(this,x, y);
                     if (this.getTileToBeRendered(x, y)) {
                         render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
                     }
@@ -284,6 +287,7 @@ public class HorrorTactics extends BasicGame {
                 + map.monster[map.current_monster_moving].tiledestx + ","
                 + map.monster[map.current_monster_moving].tiledesty,
                 200, 10);//might crash?
+        g.drawString("Trigger Check: "+ map.trigger_check, 500, 100);
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
         }
