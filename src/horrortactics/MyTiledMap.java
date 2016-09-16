@@ -35,6 +35,7 @@ public class MyTiledMap extends TiledMap {
     int pixel_dest_x = -1;
     int pixel_dest_y = -1;
     int light_level = 2; //default light level
+    int selected_follower = 0;
     String turn_order = null;
     Trigger active_trigger = null;
 
@@ -158,7 +159,6 @@ public class MyTiledMap extends TiledMap {
     }
 
     //public Actor getFollowerByXy(int x, int y)
-
     public void setFollowerDirectives() {
         //loop through your monsters and set a path for them to follow
         //if they are controllable, they shall already have destinations.
@@ -500,6 +500,23 @@ public class MyTiledMap extends TiledMap {
         return true; //all conditions are good.
     }
 
+    public void onFollowerMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
+        this.follower[this.current_follower_moving].onMoveActor(
+                this, gc.getFPS());
+        //if (this.follower[this.current_follower_moving].dead == true) {
+        //    this.current_monster_moving++;
+        //}
+        //if (this.follower[this.current_follower_moving].getActorMoving()
+        //        == false) {
+            //Why did follower stop? (because you turn him to attack)
+            //this.whyDidMonsterStop(gc, ht);
+        //}
+        //if (this.current_follower_moving >= this.follower_max) {
+        //    this.current_follower_moving = 0;
+            //this.turn_order = "start player";
+            //we still start monster in another way.
+        //}
+    }
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         this.monster[this.current_monster_moving].onMoveActor(
                 this, gc.getFPS());

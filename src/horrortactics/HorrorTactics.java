@@ -52,8 +52,6 @@ public class HorrorTactics extends BasicGame {
     Image button_endturn, button_punch;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
-    
-    
 
     String game_state = "tactical"; //title, tactical,conversation,cutscene
 
@@ -100,7 +98,7 @@ public class HorrorTactics extends BasicGame {
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
         actor_move_timer++;
-        
+
         map.resetAttackAniFrame();
         if (actor_move_timer >= this.fps) {
             this.actor_move_timer = 0;
@@ -112,13 +110,12 @@ public class HorrorTactics extends BasicGame {
             this.game_state = "game over";
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
-                map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
+                if (map.player.selected == true) {
+                    map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
+                } else {
+                    map.onFollowerMoving(gc, this, delta);
+                }
             }
-            int actor_layer = map.getLayerIndex("actors_layer");
-            //if (map.getTileImage(map.player.tilex, map.player.tiley, actor_layer) == null) {
-                //^^-dont check for events every time.
-                //this.map.active_trigger = null; //null out trigger
-            /*} else*/ 
             if (this.map.active_trigger.name.equals("none")) { //not already stepped in it
                 map.active_trigger.onSteppedOnTrigger(map, this.map.player.tilex, this.map.player.tiley);
             } // how do we make it null again?
@@ -199,8 +196,7 @@ public class HorrorTactics extends BasicGame {
                 map.getTileImage(x, y, walls_layer).draw(
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
             } else //inside cannot be dark
-            {
-                if (x < map.player.tilex - map.light_level
+             if (x < map.player.tilex - map.light_level
                         || x > map.player.tilex + map.light_level
                         || y < map.player.tiley - map.light_level
                         || y > map.player.tiley + map.light_level) {
@@ -212,7 +208,6 @@ public class HorrorTactics extends BasicGame {
                     map.getTileImage(x, y, walls_layer).draw(
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
-            }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
@@ -223,7 +218,7 @@ public class HorrorTactics extends BasicGame {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
-                    
+
                     mouse_x = gc.getInput().getMouseX();
                     mouse_y = gc.getInput().getMouseY();
                     int sx = screen_x + draw_x + 30;
@@ -235,24 +230,11 @@ public class HorrorTactics extends BasicGame {
                         map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
-                    if (map.player.isSelected() == false
-                            && x == map.selected_tile_x
-                            && y == map.selected_tile_y) {
-                        map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                                screen_x + draw_x, screen_y + draw_y, scale_x);
-                    }
-                    
                     map.player.drawPlayer(this, map, x, y);
-                    //map.player.drawPlayer(this, map, x-map.player.facing_x, 
-                    //        y-map.player.facing_y);
-                    //map.player.i
-                    //Are we touching a monster? display Options.
-                    //if(map.isActorTouchingActor(map.player, map.monster[0], x, y))
-                    if(map.isPlayerTouchingMonster() && x == map.player.tilex && 
-                            y == map.player.tiley) { //we are touching monster?
-                         this.button_punch.draw(this.screen_x + this.draw_x, 
-                                 this.screen_y + this.draw_y-200);
-                        //h.screen_x + h.draw_x, h.screen_y + h.draw_y
+                    if (map.isPlayerTouchingMonster() && x == map.player.tilex
+                            && y == map.player.tiley) { //we are touching monster?
+                        this.button_punch.draw(this.screen_x + this.draw_x,
+                                this.screen_y + this.draw_y - 200);
                     }
                     if (map.player.action_msg_timer > 0 && x == map.player.tilex && y == map.player.tiley) {
                         //g.drawString(map.player.action_msg, screen_x + draw_x,
@@ -261,11 +243,10 @@ public class HorrorTactics extends BasicGame {
                                 screen_y + draw_y - 200);
                     }
                     map.drawMonsters(this, x, y); //map.monster[0].drawActor(this, map, x, y);
-                    map.drawFollowers(this,x, y);
+                    map.drawFollowers(this, x, y);
                     if (this.getTileToBeRendered(x, y)) {
                         render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
                     }
-                    
 
                 }
             }
@@ -287,7 +268,7 @@ public class HorrorTactics extends BasicGame {
                 + map.monster[map.current_monster_moving].tiledestx + ","
                 + map.monster[map.current_monster_moving].tiledesty,
                 200, 10);//might crash?
-        g.drawString("Trigger Check: "+ map.trigger_check, 500, 100);
+        g.drawString("Trigger Check: " + map.trigger_check, 500, 100);
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
         }

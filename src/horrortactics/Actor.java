@@ -30,7 +30,7 @@ public class Actor {
     private Image spriteImage;
     Image iconImage;
     private SpriteSheet sprites;
-    private boolean selected; //if the actor is selected.
+    boolean selected; //if the actor is selected.
     private boolean move_action;
     int action_points, max_action_points;
     int turns_till_revival, max_turns_till_revival;
@@ -191,6 +191,10 @@ public class Actor {
     public void onSelectActor(boolean selection) {
         this.selected = selection;
     }
+    public void onToggleSelection() {
+        if(this.selected == true) {this.selected = false;}
+        else {this.selected = true;}
+    }
 
     public boolean isSelected() {
         return this.selected;
@@ -256,33 +260,20 @@ public class Actor {
         if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
-            //this.set_draw_xy(pdx, pdy);
-            //map.getTileImage(x, y, background_layer).draw(
-            //screen_x + draw_x, screen_y + draw_y, scale_x);
-            if (this.dead == false) {
+            if (this.selected == true) { //draw the selection if true
+                m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                        h.screen_x + h.draw_x, h.screen_y + h.draw_y);
+            }
+            if (this.dead == false) { //draw actor
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
-                //this.iconImage.draw(pdx);
-            } else {
+            } else { //draw actor dead
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
             }
         }
     }
 
     public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y) {
-        if (h.getTileToBeRendered(x, y)) {
-            if (this.isSelected() && x == this.tilex && y == this.tiley) {
-                try {
-                    Image xi = m.getTileImage(x, y, m.getLayerIndex("walls_layer"));
-                    if (xi == null) {
-                        m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                                h.screen_x + h.draw_x, h.screen_y + h.draw_y);
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                }
-            }
-        }
         this.drawActor(h, m, x, y);
-
     }
 
     public void setActorActionPoints(int ap) {
@@ -322,28 +313,28 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {
             this.onMoveWest(m, f);
-        }  
-        
-        if(m.getPassableTile(this, 
-                this.tilex + this.facing_x, 
+        }
+
+        if (m.getPassableTile(this,
+                this.tilex + this.facing_x,
                 this.tiley + this.facing_y) == false) {
             this.setActorMoving(false); //That means you monsters!
             this.setAnimationFrame(0); //just be sure you are not still moving if you touch a wall
         }
-        
+
         if (this.tilex == this.tiledestx && this.tiley == this.tiledesty) {
-                //System.out.println("Arrived at destination");
-                this.setActorMoving(false);
-                this.setAnimationFrame(0);
+            //System.out.println("Arrived at destination");
+            this.setActorMoving(false);
+            this.setAnimationFrame(0);
         }
-        
+
         if (this.action_points <= 0) {
             this.action_points = 0;
             this.setActorMoving(false);
             this.setAnimationFrame(0);
         }
-        
-        if(this.attack_timer > 0) {
+
+        if (this.attack_timer > 0) {
             this.setAnimationFrame(4); //just in case it got set to 0
         }
     }

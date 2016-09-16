@@ -19,7 +19,6 @@ public class MouseActions {
 
     public MouseActions() {
     }
-
     /* What happens when a mouse button is clicked. */
     public void mouseWasClicked(Input input, MyTiledMap map, HorrorTactics ht) {
         mouse_x = input.getMouseX();
@@ -34,14 +33,24 @@ public class MouseActions {
                 }
             }
             if (playerWasSelected(map) == true) {
-                onPlayerSelection(map); //select or unselect actor
-            } else if (map.player.isSelected() == true && map.turn_order.equalsIgnoreCase("player")) { //added limits so you cant set location when a monster is moving
+                onPlayerSelection(map, map.player); //select or unselect actor
+            } else if (followerWasSelected(map) == true) {
+                //onPlayerSelection(map, map.follower[map.selected_follower]); //select or unselect actor
+                //map.follower[map.selected_follower].selected = true;//direct it!
+                map.player.selected = false; //just in case
+            } else if (map.turn_order.equalsIgnoreCase("player")
+                    && followerIsSelected(map)) {
+                System.out.println("follower"+map.selected_follower+" was given a command");
+                map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
+                map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
+                map.current_follower_moving = map.selected_follower;
+                map.follower[map.selected_follower].setActorMoving(true);
+                
+            } else if (map.turn_order.equalsIgnoreCase("player")
+                    && map.player.isSelected() ) { //added limits so you cant set location when a monster is moving
                 if (getClickedOnPlayerAction(ht, map) == true) {
-                    //if(map.getPassableTile(map.player, map.mouse_over_tile_x, map.mouse_over_tile_y) == true) {
                     map.selected_tile_x = map.mouse_over_tile_x;
                     map.selected_tile_y = map.mouse_over_tile_y;
-
-                    //and you are touching a monster!
                     if (map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y) != null) { //prepare to attack
                         //map.onActorCanAttack(ht, map.player);
                         if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
@@ -90,7 +99,33 @@ public class MouseActions {
         return false;
     }
 
+    public boolean followerIsSelected(MyTiledMap map) {
+        for (int i = 0; i < map.follower_max; i++) {
+            if (map.follower[i].selected == true) {
+                map.selected_follower = i;
+                System.out.println("follower "+i+" is selected");
+                return true;
+            }
+        }
+        System.out.println("returned false? how? Follower 0 selected" +map.follower[0].selected);
+        return false;
+    }
+
     /* check the mouse click to see if a Player was clicked */
+
+    public boolean followerWasSelected(MyTiledMap map) {
+        for (int i = 0; i < map.follower_max; i++) {
+            if (map.follower[i].tilex == map.mouse_over_tile_x
+                    && map.follower[i].tiley == map.mouse_over_tile_y) {
+                map.selected_follower = i;
+                map.follower[i].selected = true;
+                System.out.println("follower ("+map.selected_follower+") was selected");
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean playerWasSelected(MyTiledMap map) {
         if (map.player.tilex == map.mouse_over_tile_x
                 && map.player.tiley == map.mouse_over_tile_y) {
@@ -107,15 +142,6 @@ public class MouseActions {
         }
     }
 
-    /*public boolean tileWasSelected(MyTiledMap map, int px, int py) {
-        if (mouse_x >= px && mouse_x <= px + 250 && mouse_y >= py && mouse_y <= py + 130) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
- /* given X,Y(tiles) from tiles cycled through by onSetTileSelection 
-        set map.selected_tile_x/y to what tile was selected.*/
     public boolean onSetTileSelection(HorrorTactics h, MyTiledMap m, int tx, int ty, int px, int py) {
         if (mouse_x >= px && mouse_x <= px + m.TILE_WIDTH_HALF * 2
                 && mouse_y >= py && mouse_y <= py + m.TILE_HEIGHT_HALF * 2) {
@@ -128,8 +154,13 @@ public class MouseActions {
     }
 
     /* You selected a player*/
-    public void onPlayerSelection(MyTiledMap map) {
-        map.player.onSelectActor(!map.player.isSelected());
+    public void onPlayerSelection(MyTiledMap map, Actor a) {
+        //reset everyone.
+        map.player.onSelectActor(false);
+        for (int i = 0; i < map.follower_max; i++) {
+            map.follower[i].selected = false;
+        }
+        a.selected = true; //set the actor as selected.
     }
 
     public void setMouseXY(int x, int y) {
