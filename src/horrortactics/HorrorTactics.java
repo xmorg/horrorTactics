@@ -257,6 +257,11 @@ public class HorrorTactics extends BasicGame {
 
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
+        for(int i=0; i < this.map.follower_max; i++) {
+            if(this.map.follower[i].visible== true) {
+                this.map.follower[i].iconImage.draw(5, 50+(100*(i+1)) );
+            }
+        }
         g.setColor(myfilterd);
         g.fillOval(5, 50 + 75, 12, 14);
         g.setColor(myfilter);

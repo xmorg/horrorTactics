@@ -19,6 +19,7 @@ public class MouseActions {
 
     public MouseActions() {
     }
+
     /* What happens when a mouse button is clicked. */
     public void mouseWasClicked(Input input, MyTiledMap map, HorrorTactics ht) {
         mouse_x = input.getMouseX();
@@ -42,17 +43,40 @@ public class MouseActions {
                 map.player.selected = false; //just in case
             } else if (map.turn_order.equalsIgnoreCase("player")
                     && followerIsSelected(map)) {
-                
-                map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
-                map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
-                System.out.println("follower"+map.selected_follower+" was given a command"
-                        +map.follower[map.selected_follower].tiledestx +"X"
-                        +map.follower[map.selected_follower].tiledesty);
-                map.current_follower_moving = map.selected_follower;
-                map.follower[map.selected_follower].setActorMoving(true);
-                
+
+                if (map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y) != null) { //prepare to attack
+                    //map.onActorCanAttack(ht, map.player);
+                    //BUG: if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {
+                    if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
+                        //System.out.println("setting player animation frame.");
+                        map.follower[map.selected_follower].setAnimationFrame(4);
+                        map.follower[map.selected_follower].attack_timer = 25;
+                        map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
+                        map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
+                        map.follower[map.selected_follower].updateActorDirection();
+
+                        map.onActorAttackActor(ht, map.follower[map.selected_follower],
+                                map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y));
+                        map.follower[map.selected_follower].tiledestx = map.follower[map.selected_follower].tilex;
+                        map.follower[map.selected_follower].tiledesty = map.follower[map.selected_follower].tiley;
+                    }
+                    //map.player.attack_timer = 25;
+                    //map.player.setAnimationFrame(4);
+                } else {
+
+                    map.selected_tile_x = map.mouse_over_tile_x;
+                    map.selected_tile_y = map.mouse_over_tile_y;
+                    map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
+                    map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
+                    //System.out.println("follower"+map.selected_follower+" was given a command"
+                    //        +map.follower[map.selected_follower].tiledestx +"X"
+                    //        +map.follower[map.selected_follower].tiledesty);
+                    map.current_follower_moving = map.selected_follower;
+                    map.follower[map.selected_follower].setActorMoving(true);
+                }
+
             } else if (map.turn_order.equalsIgnoreCase("player")
-                    && map.player.isSelected() ) { //added limits so you cant set location when a monster is moving
+                    && map.player.isSelected()) { //added limits so you cant set location when a monster is moving
                 if (getClickedOnPlayerAction(ht, map) == true) {
                     map.selected_tile_x = map.mouse_over_tile_x;
                     map.selected_tile_y = map.mouse_over_tile_y;
@@ -108,23 +132,22 @@ public class MouseActions {
         for (int i = 0; i < map.follower_max; i++) {
             if (map.follower[i].selected == true) {
                 map.selected_follower = i;
-                System.out.println("follower "+i+" is selected");
+                System.out.println("follower " + i + " is selected");
                 return true;
             }
         }
-        System.out.println("returned false? how? Follower 0 selected" +map.follower[0].selected);
+        System.out.println("returned false? how? Follower 0 selected" + map.follower[0].selected);
         return false;
     }
 
     /* check the mouse click to see if a Player was clicked */
-
     public boolean followerWasSelected(MyTiledMap map) {
         for (int i = 0; i < map.follower_max; i++) {
             if (map.follower[i].tilex == map.mouse_over_tile_x
                     && map.follower[i].tiley == map.mouse_over_tile_y) {
                 map.selected_follower = i;
                 map.follower[i].selected = true;
-                System.out.println("follower ("+map.selected_follower+") was selected");
+                System.out.println("follower (" + map.selected_follower + ") was selected");
                 return true;
             }
         }

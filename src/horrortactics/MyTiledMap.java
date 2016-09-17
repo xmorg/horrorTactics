@@ -21,7 +21,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author tcooper
  */
 public class MyTiledMap extends TiledMap {
-
     int monster_max = 10;
     int follower_max = 4;
     public Image tiles250x129, walls250x512 = null;
@@ -112,16 +111,17 @@ public class MyTiledMap extends TiledMap {
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                     } else if (pname.equals("Yukari")) {
                         try {
-                            follower[follower_loop].changeActorSpritesheet("data/tactics_in_distress01.png", 218, 313);
+                            follower[follower_loop].changeActorSpritesheet("data/tactics_in_distress01", 218, 313);
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
                             this.player.name = pname;
+                            follower_loop++;
                         } catch (SlickException e) {
                         }
                     } else if (pname.equals("pear monster")) {
                         try {
-                            monster[monster_loop].changeActorSpritesheet("data/monster00.png", 218, 313);
+                            monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313);
                         } catch (SlickException e) {
                         }
                         monster[monster_loop].tilex = x;
