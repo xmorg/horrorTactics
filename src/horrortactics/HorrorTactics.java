@@ -127,7 +127,9 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
             map.player.action_points = 100; //6; //DEBUG
             //give followers action points.
+            this.map.setFollowerDirectives();
             map.turn_order = "player";
+            
         } else if (map.turn_order.equalsIgnoreCase("start monster")) {
             this.map.setMonsterDirectives();
             map.turn_order = "monster";

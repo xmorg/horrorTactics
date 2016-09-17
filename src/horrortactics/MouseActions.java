@@ -23,6 +23,8 @@ public class MouseActions {
     public void mouseWasClicked(Input input, MyTiledMap map, HorrorTactics ht) {
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
+        map.selected_tile_x = map.mouse_over_tile_x;
+        map.selected_tile_y = map.mouse_over_tile_y;
         if (input.isMousePressed(0) == true) {
             //button_endturn.draw(10, gc.getScreenHeight()-64-10);
             if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
@@ -40,9 +42,12 @@ public class MouseActions {
                 map.player.selected = false; //just in case
             } else if (map.turn_order.equalsIgnoreCase("player")
                     && followerIsSelected(map)) {
-                System.out.println("follower"+map.selected_follower+" was given a command");
+                
                 map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
                 map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
+                System.out.println("follower"+map.selected_follower+" was given a command"
+                        +map.follower[map.selected_follower].tiledestx +"X"
+                        +map.follower[map.selected_follower].tiledesty);
                 map.current_follower_moving = map.selected_follower;
                 map.follower[map.selected_follower].setActorMoving(true);
                 

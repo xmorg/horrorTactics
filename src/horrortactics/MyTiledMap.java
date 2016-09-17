@@ -110,12 +110,13 @@ public class MyTiledMap extends TiledMap {
                         this.player.tiley = y;
                         this.player.name = pname;
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
-
                     } else if (pname.equals("Yukari")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/tactics_in_distress01.png", 218, 313);
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
+                            follower[follower_loop].visible = true;
+                            this.player.name = pname;
                         } catch (SlickException e) {
                         }
                     } else if (pname.equals("pear monster")) {
