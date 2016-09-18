@@ -92,7 +92,7 @@ public class MyTiledMap extends TiledMap {
         }
         for (int i = 0; i < this.follower_max; i++) {
             try {
-                follower[i] = new Actor("data/tactics_in_distress00", 218, 313);
+                follower[i] = new Actor("data/tactics_in_distress01", 218, 313);
                 follower[i].visible = false;
             } catch (SlickException e) {
             }
@@ -112,6 +112,7 @@ public class MyTiledMap extends TiledMap {
                     } else if (pname.equals("Yukari")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/tactics_in_distress01", 218, 313);
+                            //follower[follower_loop].
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;

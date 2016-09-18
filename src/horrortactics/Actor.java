@@ -77,6 +77,7 @@ public class Actor {
         //spriteImage.set
     }
 
+    //public void changeActorSpriteSheetX
     public void changeActorSpritesheet(String s, int sx, int sy) throws SlickException {
         //spriteImage = new Image(s);
         //sprites = new SpriteSheet(spriteImage, sx, sy);
