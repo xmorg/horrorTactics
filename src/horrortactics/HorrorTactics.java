@@ -108,7 +108,12 @@ public class HorrorTactics extends BasicGame {
         }
         if (map.turn_order.equalsIgnoreCase("game over")) {
             this.game_state = "game over";
-        } else if (map.turn_order.equalsIgnoreCase("player")) {
+          
+        } else if (map.turn_order.equalsIgnoreCase("planning")) {
+            //planning phase.  Show a dialogue.
+            //Accept clicks through the dialogue
+            //after the last click, accept
+        }else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
                 if (map.player.selected == true) {
                     map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
@@ -146,9 +151,12 @@ public class HorrorTactics extends BasicGame {
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
             g.scale(scale_x, scale_x); //scale the same
+            
+            
             this.render_background_layer(gc, g); //render floor
             this.render_walls_layer(gc, g);      //render walls (and actors!)
             this.render_game_ui(gc, g);
+            this.render_character_busts(gc, g);
         } else if (game_state.equalsIgnoreCase("conversation")) {
             g.scale(scale_x, scale_x); //scale the same
             this.render_background_layer(gc, g); //render floor
@@ -257,15 +265,18 @@ public class HorrorTactics extends BasicGame {
 
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
+        g.drawString(Integer.toString(map.player.action_points), 5, 50 + 75);
         for(int i=0; i < this.map.follower_max; i++) {
             if(this.map.follower[i].visible== true) {
                 this.map.follower[i].iconImage.draw(5, 50+(100*(i+1)) );
+                g.drawString(Integer.toString(this.map.follower[i].action_points),
+                       5, 50+(100*(i+1)+75) );
             }
         }
         g.setColor(myfilterd);
         g.fillOval(5, 50 + 75, 12, 14);
         g.setColor(myfilter);
-        g.drawString(Integer.toString(map.player.action_points), 5, 50 + 75);
+        
         //map.monster[0].iconImage.draw(5, 200);
         button_endturn.draw(10, gc.getScreenHeight() - 64 - 10);
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
@@ -283,6 +294,10 @@ public class HorrorTactics extends BasicGame {
 
     public void render_character_busts(GameContainer gc, Graphics g) {
         //render character busts while conversation is going on.
+        if(this.map.turn_order.equalsIgnoreCase("planning")) {
+            this.map.charbusts[this.map.planevent].draw(-100, gc.getScreenHeight()-600);
+            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight()-100);
+        }
     }
 
     public void render_event_bubbles(GameContainer gc, Graphics g) {

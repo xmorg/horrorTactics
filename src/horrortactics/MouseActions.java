@@ -28,14 +28,19 @@ public class MouseActions {
         map.selected_tile_y = map.mouse_over_tile_y;
         if (input.isMousePressed(0) == true) {
             //button_endturn.draw(10, gc.getScreenHeight()-64-10);
-            if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
+            if (map.turn_order.equalsIgnoreCase("planning")) {
+                if (map.planevent+1 == map.maxplanevent) {
+                    map.turn_order = "start player";
+                } else {
+                    map.planevent++;
+                }
+            } else if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
                     && mouse_x <= 10 + 164 && mouse_y <= ht.screen_height - 10) { //press end turn button.
                 if (map.getAnyActorMoving() == false) {// &&
                     //map.player.getActorMoving() == false) {//be sure we didnt click when monster is moving
                     map.turn_order = "start monster";
                 }
-            }
-            if (playerWasSelected(map) == true) {
+            } else if (playerWasSelected(map) == true) {
                 onPlayerSelection(map, map.player); //select or unselect actor
             } else if (followerWasSelected(map) == true) {
                 //onPlayerSelection(map, map.follower[map.selected_follower]); //select or unselect actor
@@ -43,34 +48,26 @@ public class MouseActions {
                 map.player.selected = false; //just in case
             } else if (map.turn_order.equalsIgnoreCase("player")
                     && followerIsSelected(map)) {
-
                 if (map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y) != null) { //prepare to attack
                     //map.onActorCanAttack(ht, map.player);
                     //BUG: if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {
                     if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
-                        //System.out.println("setting player animation frame.");
                         map.follower[map.selected_follower].setAnimationFrame(4);
                         map.follower[map.selected_follower].attack_timer = 25;
                         map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
                         map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
                         map.follower[map.selected_follower].updateActorDirection();
-
                         map.onActorAttackActor(ht, map.follower[map.selected_follower],
                                 map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y));
                         map.follower[map.selected_follower].tiledestx = map.follower[map.selected_follower].tilex;
                         map.follower[map.selected_follower].tiledesty = map.follower[map.selected_follower].tiley;
                     }
-                    //map.player.attack_timer = 25;
-                    //map.player.setAnimationFrame(4);
                 } else {
 
                     map.selected_tile_x = map.mouse_over_tile_x;
                     map.selected_tile_y = map.mouse_over_tile_y;
                     map.follower[map.selected_follower].tiledestx = map.selected_tile_x;
                     map.follower[map.selected_follower].tiledesty = map.selected_tile_y;
-                    //System.out.println("follower"+map.selected_follower+" was given a command"
-                    //        +map.follower[map.selected_follower].tiledestx +"X"
-                    //        +map.follower[map.selected_follower].tiledesty);
                     map.current_follower_moving = map.selected_follower;
                     map.follower[map.selected_follower].setActorMoving(true);
                 }
@@ -111,10 +108,6 @@ public class MouseActions {
         }/*if (input.isMousePressed(0) == true) {*/
  /*now check if you held the mouse down*/
         if (input.isMouseButtonDown(0)) {
-            /*The player must be selected*/
- /*Where is the mouse in relation to the player?*/
- /*set a proposed direction*/
- /**/
         }
     }
 
@@ -147,6 +140,12 @@ public class MouseActions {
                     && map.follower[i].tiley == map.mouse_over_tile_y) {
                 map.selected_follower = i;
                 map.follower[i].selected = true;
+                //i = selected_follower;
+                for (int s = 0; s < map.follower_max; s++) {
+                    if (s != i) {
+                        map.follower[s].selected = false;
+                    }
+                }
                 System.out.println("follower (" + map.selected_follower + ") was selected");
                 return true;
             }

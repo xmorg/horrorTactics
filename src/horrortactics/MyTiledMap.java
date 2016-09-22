@@ -36,6 +36,9 @@ public class MyTiledMap extends TiledMap {
     int light_level = 2; //default light level
     int selected_follower = 0;
     String turn_order = null;
+    String[] planning = new String[5];
+    Image[] charbusts = new Image[5];
+    int planevent = 0; int maxplanevent = 0;
     Trigger active_trigger = null;
 
     Actor player = null;
@@ -63,8 +66,16 @@ public class MyTiledMap extends TiledMap {
         //player = new Actor("data/tactics_in_distress00", 218, 313);
         player = new Actor("data/tactics_in_distress00", 218, 313);
         //player = new Actor("data/monster05", 218, 313);
-        turn_order = "start player";
+        //turn_order = "start player";
+        turn_order = "planning";
         this.active_trigger = new Trigger("none", "none");
+        for(int i=0;i<5;i++) {
+            this.planning[i] = this.getMapProperty("planning_"+i, "end");
+            if(this.planning[i].equalsIgnoreCase("end")) {
+                this.maxplanevent=i-1; //last one
+            }
+            this.charbusts[i] = new Image("data/"+this.getMapProperty("planning_"+i+"_p", "prt_player_00.png"));
+        }
     }
 
     @Override
@@ -94,6 +105,7 @@ public class MyTiledMap extends TiledMap {
             try {
                 follower[i] = new Actor("data/tactics_in_distress01", 218, 313);
                 follower[i].visible = false;
+                follower[i].direction = follower[i].getEast();
             } catch (SlickException e) {
             }
         }
@@ -168,9 +180,9 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < this.follower_max; i++) {
             if (follower[i].visible == true) {
                 follower[i].action_points = 6;
-                follower[i].setActorMoving(true);
-                follower[i].setActorDestination(follower[i].tiledestx,
-                        follower[i].tiledesty);
+                follower[i].setActorMoving(false);
+                follower[i].setActorDestination(follower[i].tilex,
+                        follower[i].tiley);
             }
         }
     }
