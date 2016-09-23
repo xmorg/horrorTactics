@@ -29,7 +29,7 @@ public class MouseActions {
         if (input.isMousePressed(0) == true) {
             //button_endturn.draw(10, gc.getScreenHeight()-64-10);
             if (map.turn_order.equalsIgnoreCase("planning")) {
-                if (map.planevent+1 == map.maxplanevent) {
+                if (map.planevent == map.maxplanevent) {
                     map.turn_order = "start player";
                 } else {
                     map.planevent++;
@@ -141,6 +141,7 @@ public class MouseActions {
                 map.selected_follower = i;
                 map.follower[i].selected = true;
                 //i = selected_follower;
+                map.player.selected = false; //unselect everyone
                 for (int s = 0; s < map.follower_max; s++) {
                     if (s != i) {
                         map.follower[s].selected = false;

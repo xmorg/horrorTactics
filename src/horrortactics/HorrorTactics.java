@@ -115,11 +115,11 @@ public class HorrorTactics extends BasicGame {
             //after the last click, accept
         }else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
-                if (map.player.selected == true) {
+                //if (map.player.selected == true) {
                     map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
-                } else {
+                //} else {
                     map.onFollowerMoving(gc, this, delta);
-                }
+                //}
             }
             if (this.map.active_trigger.name.equals("none")) { //not already stepped in it
                 map.active_trigger.onSteppedOnTrigger(map, this.map.player.tilex, this.map.player.tiley);

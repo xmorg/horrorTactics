@@ -36,8 +36,8 @@ public class MyTiledMap extends TiledMap {
     int light_level = 2; //default light level
     int selected_follower = 0;
     String turn_order = null;
-    String[] planning = new String[5];
-    Image[] charbusts = new Image[5];
+    String[] planning = new String[20];
+    Image[] charbusts = new Image[20];
     int planevent = 0; int maxplanevent = 0;
     Trigger active_trigger = null;
 
@@ -515,8 +515,11 @@ public class MyTiledMap extends TiledMap {
     }
 
     public void onFollowerMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
-        this.follower[this.current_follower_moving].onMoveActor(
-                this, gc.getFPS());
+        //this.follower[this.current_follower_moving].onMoveActor(
+        //        this, gc.getFPS());
+        for(int i = 0; i < this.follower_max; i++) {
+            this.follower[i].onMoveActor(  this, gc.getFPS());
+        }
         //if (this.follower[this.current_follower_moving].dead == true) {
         //    this.current_monster_moving++;
         //}
