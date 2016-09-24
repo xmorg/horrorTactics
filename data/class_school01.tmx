@@ -7,6 +7,8 @@
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="It should be in the locker room on the second pillar, right side."/>
   <property name="planning_1_p" value="prt_player_00.png"/>
+  <property name="planning_2" value="Yukari: Ok lets hurry! I dont like dark places."/>
+  <property name="planning_2_p" value="prt_yukari_00.png"/>
  </properties>
  <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="16" columns="8">
   <image source="tiles250x129.png" width="2000" height="258"/>
