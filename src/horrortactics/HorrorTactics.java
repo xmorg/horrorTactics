@@ -294,11 +294,19 @@ public class HorrorTactics extends BasicGame {
 
     public void render_character_busts(GameContainer gc, Graphics g) {
         //render character busts while conversation is going on.
+        Color black = new Color(0,0,0,180);
+        Color white = new Color(255,255,255,255);
         if(this.map.turn_order.equalsIgnoreCase("planning")) {
             this.map.charbusts[this.map.planevent].draw(-100, gc.getScreenHeight()-600);
+            g.setColor(black);
+            g.fillRect(0, gc.getScreenHeight()-150, gc.getScreenWidth(), 150);
+            g.setColor(white);
             g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight()-100);
         } else if(this.map.turn_order.equalsIgnoreCase("event spotted")) {
             this.map.EventSpotted_p.draw(-100, gc.getScreenHeight()-600);
+            g.setColor(black);
+            g.fillRect(0, gc.getScreenHeight()-150, gc.getScreenWidth(), 150);
+            g.setColor(white);
             g.drawString(this.map.EventSpotted_m, 400, gc.getScreenHeight()-100);
         }
     }
