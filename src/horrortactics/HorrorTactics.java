@@ -243,8 +243,8 @@ public class HorrorTactics extends BasicGame {
                     map.player.drawPlayer(this, map, x, y);
                     if (map.isPlayerTouchingMonster() && x == map.player.tilex
                             && y == map.player.tiley) { //we are touching monster?
-                        this.button_punch.draw(this.screen_x + this.draw_x,
-                                this.screen_y + this.draw_y - 200);
+                        //this.button_punch.draw(this.screen_x + this.draw_x,
+                        //        this.screen_y + this.draw_y - 200);
                     }
                     if (map.player.action_msg_timer > 0 && x == map.player.tilex && y == map.player.tiley) {
                         //g.drawString(map.player.action_msg, screen_x + draw_x,
@@ -297,6 +297,9 @@ public class HorrorTactics extends BasicGame {
         if(this.map.turn_order.equalsIgnoreCase("planning")) {
             this.map.charbusts[this.map.planevent].draw(-100, gc.getScreenHeight()-600);
             g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight()-100);
+        } else if(this.map.turn_order.equalsIgnoreCase("event spotted")) {
+            this.map.EventSpotted_p.draw(-100, gc.getScreenHeight()-600);
+            g.drawString(this.map.EventSpotted_m, 400, gc.getScreenHeight()-100);
         }
     }
 

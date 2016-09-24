@@ -21,6 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author tcooper
  */
 public class MyTiledMap extends TiledMap {
+
     int monster_max = 10;
     int follower_max = 4;
     public Image tiles250x129, walls250x512 = null;
@@ -36,9 +37,17 @@ public class MyTiledMap extends TiledMap {
     int light_level = 2; //default light level
     int selected_follower = 0;
     String turn_order = null;
+    String old_turn_order = null;
     String[] planning = new String[20];
     Image[] charbusts = new Image[20];
-    int planevent = 0; int maxplanevent = 0;
+
+    String EventSpotted = "none";
+    Image EventSpotted_p = null;
+    String EventSpotted_m = "none";
+    boolean EventSpotted_ran = false;
+
+    int planevent = 0;
+    int maxplanevent = 0;
     Trigger active_trigger = null;
 
     Actor player = null;
@@ -69,12 +78,17 @@ public class MyTiledMap extends TiledMap {
         //turn_order = "start player";
         turn_order = "planning";
         this.active_trigger = new Trigger("none", "none");
-        for(int i=0;i<5;i++) {
-            this.planning[i] = this.getMapProperty("planning_"+i, "end");
-            if(this.planning[i].equalsIgnoreCase("end")) {
-                this.maxplanevent=i-1; //last one
+        for (int i = 0; i < 5; i++) {
+            this.planning[i] = this.getMapProperty("planning_" + i, "end");
+            if (this.planning[i].equalsIgnoreCase("end")) {
+                this.maxplanevent = i - 1; //last one
             }
-            this.charbusts[i] = new Image("data/"+this.getMapProperty("planning_"+i+"_p", "prt_player_00.png"));
+            this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
+        }
+        this.EventSpotted = this.getMapProperty("event_spotted", "none");
+        if (!this.EventSpotted.equalsIgnoreCase("none")) { //if not none, load the event spotted
+            this.EventSpotted_m = this.getMapProperty("event_spotted_m", "none");
+            this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
         }
     }
 
@@ -201,6 +215,15 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < this.monster_max; i++) {
             if (this.monster[i].visible == true) { //just to be sure
                 this.monster[i].drawActor(ht, this, x, y);
+                if (this.monster[i].tilex == x && this.monster[i].tiley == y) {
+                    if(this.EventSpotted_ran == false) {
+                        this.EventSpotted_ran = true; //they are "spotted"
+                        //run event spotted
+                        System.out.println("debug: event spotted ran");
+                        this.old_turn_order = this.turn_order;
+                        this.turn_order = "event spotted";
+                    }
+                }
             }
         }
     }
@@ -517,23 +540,24 @@ public class MyTiledMap extends TiledMap {
     public void onFollowerMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         //this.follower[this.current_follower_moving].onMoveActor(
         //        this, gc.getFPS());
-        for(int i = 0; i < this.follower_max; i++) {
-            this.follower[i].onMoveActor(  this, gc.getFPS());
+        for (int i = 0; i < this.follower_max; i++) {
+            this.follower[i].onMoveActor(this, gc.getFPS());
         }
         //if (this.follower[this.current_follower_moving].dead == true) {
         //    this.current_monster_moving++;
         //}
         //if (this.follower[this.current_follower_moving].getActorMoving()
         //        == false) {
-            //Why did follower stop? (because you turn him to attack)
-            //this.whyDidMonsterStop(gc, ht);
+        //Why did follower stop? (because you turn him to attack)
+        //this.whyDidMonsterStop(gc, ht);
         //}
         //if (this.current_follower_moving >= this.follower_max) {
         //    this.current_follower_moving = 0;
-            //this.turn_order = "start player";
-            //we still start monster in another way.
+        //this.turn_order = "start player";
+        //we still start monster in another way.
         //}
     }
+
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         this.monster[this.current_monster_moving].onMoveActor(
                 this, gc.getFPS());

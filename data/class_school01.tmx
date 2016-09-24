@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
+  <property name="event_spotted" value="pear monster"/>
+  <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
+  <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="mapname" value="class_school01.tmx"/>
   <property name="nextmap" value="apartment1.tmx"/>
   <property name="planning_0" value="I have to get my cell phone."/>
@@ -46,17 +49,17 @@
  </tileset>
  <layer name="background_layer" width="50" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DwQkAAAwDoSP7D90x+lFw1VRVVdXXB1xG2b6gDwAA
+   H4sIAAAAAAAAC+3DwQkAAAwDoSP7D90x+lFw1VRVVdXXB1xG2b6gDwAA
   </data>
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+1W7Q7DIAjkGey2/tr7v+bWHybuBigUdEl3CWkj9uqFLwsRlbdtjRXnmuSfZYincKYWmr/3bd2zM+seSDpmAHU84Km9c1wrdURyrdKBsMRjp89YHhruSefKBNbVoeO24iD0nQfWeCDXr9S5BVxejejo9WtPb8/oVyO2kT7j0I97ejrOwBKPs/+J5kSuK+loe3PNIYmP80k6su9XiLY319znoPkkHVH30xl5lQlLPDLqIwpX1xFV5154ZrA2D62+v43ZCxtpVaKgDwAA
+   H4sIAAAAAAAAC+1W7Q7DIAjkGey2/tr7v+bWHybuBigUdEl3CWkj9uqFLwsRlbdtjRXnmuSfZYincKYWmr/3bd2zM+seSDpmAHU84Km9c1wrdURyrdKBsMRjp89YHhruSefKBNbVoeO24iD0nQfWeCDXr9S5BVxejejo9WtPb8/oVyO2kT7j0I97ejrOwBKPs/+J5kSuK+loe3PNIYmP80k6su9XiLY319znoPkkHVH30xl5lQlLPDLqIwpX1xFV5154ZrA2D62+v43ZCxtpVaKgDwAA
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VsQ0AMAgDQVYKHVX23yoT0CF9hP4WsF05QlsVnJ9w/pQtOw5dQJI+Qn9k59IFJEmoB5pW3l+gDwAA
+   H4sIAAAAAAAAC+3VsQ0AMAgDQVYKHVX23yoT0CF9hP4WsF05QlsVnJ9w/pQtOw5dQJI+Qn9k59IFJEmoB5pW3l+gDwAA
   </data>
  </layer>
 </map>
