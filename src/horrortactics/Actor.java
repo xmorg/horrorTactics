@@ -34,6 +34,7 @@ public class Actor {
     private boolean move_action;
     int action_points, max_action_points;
     int turns_till_revival, max_turns_till_revival;
+    int attack_range; //unless otherwise specified
     boolean visible;
     boolean dead;
     String directive_type;
@@ -56,6 +57,7 @@ public class Actor {
         draw_x = 0; //Where the spite is drawn in X
         draw_y = 0; //Where the sprite is drawn in y
         animate_frame = 0;
+        attack_range = 1;
         dead = false;
         direction = 0;
         animation_timer = 0;

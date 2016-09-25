@@ -591,6 +591,14 @@ public class MyTiledMap extends TiledMap {
     }
 
     //map.monster[0].drawActor(this, map, x, y);
+    public int getDistanceOfActors2(Actor a, Actor b) {
+        int xs = (a.tilex - b.tilex) * (a.tilex - b.tilex);
+        int ys = (a.tiley - b.tiley) * (a.tiley - b.tiley);
+        
+        double dsr = Math.sqrt(xs + ys);
+        int distance = (int)dsr;
+        return distance;
+    }
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
         //directive types: random,randomuntilspotted,beeline
@@ -620,6 +628,18 @@ public class MyTiledMap extends TiledMap {
                     //Euclidian plane? find the shortest distance, then make the route
                     monster[i].tiledestx = player.tilex;
                     monster[i].tiledesty = player.tiley;
+                    int best_distance = this.getDistanceOfActors2(player, monster[i]);
+                    int try_distance = 0;
+                    for(int d = 0; d < this.follower_max; d++) {
+                        if(follower[d].visible== true ) {
+                            try_distance = this.getDistanceOfActors2(follower[d], monster[i]);
+                            if(try_distance < best_distance) {
+                                monster[i].tiledestx = follower[d].tilex;
+                                monster[i].tiledesty = follower[d].tiley;
+                            }
+                        }
+                    }
+                    
                     //monster[i].setActorMoving(true);
                 } else if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
                     for (int count = 0; count < 6; count++) {
@@ -645,6 +665,14 @@ public class MyTiledMap extends TiledMap {
                 //this.monster[i].setAnimationFrame(0);
             } else if (this.monster[i].getAnimationFrame() == 4) {
                 this.monster[i].setAnimationFrame(0);
+            }
+        }
+        for(int i = 0; i < this.follower_max; i++) {
+            if (this.follower[i].attack_timer > 0) {
+                this.follower[i].attack_timer--;
+                //this.monster[i].setAnimationFrame(0);
+            } else if (this.follower[i].getAnimationFrame() == 4) {
+                this.follower[i].setAnimationFrame(0);
             }
         }
         if (this.player.attack_timer > 0) {
