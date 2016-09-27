@@ -72,14 +72,17 @@ public class HorrorTactics extends BasicGame {
         this.lastframe = 0;
         this.turn_count = 0;
         this.currentTime = gc.getTime();
-        map.tiles250x129 = new Image("data/tiles250x129.png");
+        
         screen_height = gc.getScreenHeight();
         screen_width = gc.getScreenWidth();
         //draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
         //draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
-        draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1;
-        draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1;
-        
+        //draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1;
+        //draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1;
+
+        draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_width / 2;
+        draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
+
         this.lastframe = gc.getTime();
         button_endturn = new Image("data/button_endturn.png");
         button_punch = new Image("data/button_punch.png");
@@ -130,8 +133,8 @@ public class HorrorTactics extends BasicGame {
                 this.map.turn_order = "planning";
                 map.mouse_over_tile_x = 1;
                 map.mouse_over_tile_y = 1;
-                draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1;
-                draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1;
+                draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_width / 2;
+                draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
             } catch (SlickException e) {
                 System.out.println("cant load new map " + n_mapname);
             }
@@ -230,8 +233,7 @@ public class HorrorTactics extends BasicGame {
                 map.getTileImage(x, y, walls_layer).draw(
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
             } else //inside cannot be dark
-            {
-                if (x < map.player.tilex - map.light_level
+             if (x < map.player.tilex - map.light_level
                         || x > map.player.tilex + map.light_level
                         || y < map.player.tiley - map.light_level
                         || y > map.player.tiley + map.light_level) {
@@ -243,7 +245,6 @@ public class HorrorTactics extends BasicGame {
                     map.getTileImage(x, y, walls_layer).draw(
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
-            }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
@@ -263,8 +264,8 @@ public class HorrorTactics extends BasicGame {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
                         //try {
-                        //    map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                        //            screen_x + draw_x, screen_y + draw_y, scale_x);
+                            map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                                    screen_x + draw_x, screen_y + draw_y, scale_x);
                         //} catch (NullPointerException n) {
                         //}
                     }

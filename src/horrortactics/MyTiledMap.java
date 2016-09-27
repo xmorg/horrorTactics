@@ -84,6 +84,7 @@ public class MyTiledMap extends TiledMap {
         m_draw_y = draw_y;
         selected_tile_x = -1;
         selected_tile_y = -1;
+        tiles250x129 = new Image("data/tiles250x129.png");
         //player = new Actor("data/tactics_in_distress00", 218, 313);
         player = new Actor("data/tactics_in_distress00", 218, 313);
         //player = new Actor("data/monster05", 218, 313);
