@@ -75,8 +75,11 @@ public class HorrorTactics extends BasicGame {
         map.tiles250x129 = new Image("data/tiles250x129.png");
         screen_height = gc.getScreenHeight();
         screen_width = gc.getScreenWidth();
-        draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
-        draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
+        //draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
+        //draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
+        draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1;
+        draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1;
+        
         this.lastframe = gc.getTime();
         button_endturn = new Image("data/button_endturn.png");
         button_punch = new Image("data/button_punch.png");
@@ -108,17 +111,39 @@ public class HorrorTactics extends BasicGame {
         }
         if (map.turn_order.equalsIgnoreCase("game over")) {
             this.game_state = "game over";
-          
+
         } else if (map.turn_order.equalsIgnoreCase("planning")) {
             //planning phase.  Show a dialogue.
             //Accept clicks through the dialogue
             //after the last click, accept
-        }else if (map.turn_order.equalsIgnoreCase("player")) {
+        } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
+            //exit has been reached, transition map.  Not do not set unless
+            //goal has been reached , or goal = none
+
+        } else if (map.turn_order.equalsIgnoreCase("change map")) {
+            String n_mapname = this.map.next_map;
+            //change map here  map = new MyTiledMap("data/class_school01.tmx", 0, 0);
+            //map.getActorLocationFromTMX();
+            try {
+                this.map = new MyTiledMap("data/" + n_mapname, 0, 0);
+                map.getActorLocationFromTMX();
+                this.map.turn_order = "planning";
+                map.mouse_over_tile_x = 1;
+                map.mouse_over_tile_y = 1;
+                draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1;
+                draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1;
+            } catch (SlickException e) {
+                System.out.println("cant load new map " + n_mapname);
+            }
+        } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
+            //reached goal.  (something happens.)
+            //this.map.EventGoal_ran = true;
+        } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
                 //if (map.player.selected == true) {
-                    map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
+                map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
                 //} else {
-                    map.onFollowerMoving(gc, this, delta);
+                map.onFollowerMoving(gc, this, delta);
                 //}
             }
             if (this.map.active_trigger.name.equals("none")) { //not already stepped in it
@@ -134,7 +159,7 @@ public class HorrorTactics extends BasicGame {
             //give followers action points.
             this.map.setFollowerDirectives();
             map.turn_order = "player";
-            
+
         } else if (map.turn_order.equalsIgnoreCase("start monster")) {
             this.map.setMonsterDirectives();
             map.turn_order = "monster";
@@ -151,8 +176,7 @@ public class HorrorTactics extends BasicGame {
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
             g.scale(scale_x, scale_x); //scale the same
-            
-            
+
             this.render_background_layer(gc, g); //render floor
             this.render_walls_layer(gc, g);      //render walls (and actors!)
             this.render_game_ui(gc, g);
@@ -206,7 +230,8 @@ public class HorrorTactics extends BasicGame {
                 map.getTileImage(x, y, walls_layer).draw(
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
             } else //inside cannot be dark
-             if (x < map.player.tilex - map.light_level
+            {
+                if (x < map.player.tilex - map.light_level
                         || x > map.player.tilex + map.light_level
                         || y < map.player.tiley - map.light_level
                         || y > map.player.tiley + map.light_level) {
@@ -218,6 +243,7 @@ public class HorrorTactics extends BasicGame {
                     map.getTileImage(x, y, walls_layer).draw(
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
@@ -228,7 +254,6 @@ public class HorrorTactics extends BasicGame {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
-
                     mouse_x = gc.getInput().getMouseX();
                     mouse_y = gc.getInput().getMouseY();
                     int sx = screen_x + draw_x + 30;
@@ -237,8 +262,11 @@ public class HorrorTactics extends BasicGame {
                             && mouse_y >= sy && mouse_y <= sy + 130 - 30) {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
-                        map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                                screen_x + draw_x, screen_y + draw_y, scale_x);
+                        //try {
+                        //    map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                        //            screen_x + draw_x, screen_y + draw_y, scale_x);
+                        //} catch (NullPointerException n) {
+                        //}
                     }
                     map.player.drawPlayer(this, map, x, y);
                     if (map.isPlayerTouchingMonster() && x == map.player.tilex
@@ -266,17 +294,17 @@ public class HorrorTactics extends BasicGame {
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
         g.drawString(Integer.toString(map.player.action_points), 5, 50 + 75);
-        for(int i=0; i < this.map.follower_max; i++) {
-            if(this.map.follower[i].visible== true) {
-                this.map.follower[i].iconImage.draw(5, 50+(100*(i+1)) );
+        for (int i = 0; i < this.map.follower_max; i++) {
+            if (this.map.follower[i].visible == true) {
+                this.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)));
                 g.drawString(Integer.toString(this.map.follower[i].action_points),
-                       5, 50+(100*(i+1)+75) );
+                        5, 50 + (100 * (i + 1) + 75));
             }
         }
         g.setColor(myfilterd);
         g.fillOval(5, 50 + 75, 12, 14);
         g.setColor(myfilter);
-        
+
         //map.monster[0].iconImage.draw(5, 200);
         button_endturn.draw(10, gc.getScreenHeight() - 64 - 10);
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
@@ -294,20 +322,32 @@ public class HorrorTactics extends BasicGame {
 
     public void render_character_busts(GameContainer gc, Graphics g) {
         //render character busts while conversation is going on.
-        Color black = new Color(0,0,0,180);
-        Color white = new Color(255,255,255,255);
-        if(this.map.turn_order.equalsIgnoreCase("planning")) {
-            this.map.charbusts[this.map.planevent].draw(-100, gc.getScreenHeight()-600);
+        Color black = new Color(0, 0, 0, 180);
+        Color white = new Color(255, 255, 255, 255);
+        if (this.map.turn_order.equalsIgnoreCase("planning")) {
+            this.map.charbusts[this.map.planevent].draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);
-            g.fillRect(0, gc.getScreenHeight()-150, gc.getScreenWidth(), 150);
+            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
-            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight()-100);
-        } else if(this.map.turn_order.equalsIgnoreCase("event spotted")) {
-            this.map.EventSpotted_p.draw(-100, gc.getScreenHeight()-600);
+            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight() - 100);
+        } else if (this.map.turn_order.equalsIgnoreCase("event spotted")) {
+            this.map.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);
-            g.fillRect(0, gc.getScreenHeight()-150, gc.getScreenWidth(), 150);
+            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
-            g.drawString(this.map.EventSpotted_m, 400, gc.getScreenHeight()-100);
+            g.drawString(this.map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
+        } else if (this.map.turn_order.equalsIgnoreCase("goal reached")) {
+            this.map.EventGoal_p.draw(-100, gc.getScreenHeight() - 600);
+            g.setColor(black);
+            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
+            g.setColor(white);
+            g.drawString(this.map.EventGoal_m, 400, gc.getScreenHeight() - 100);
+        } else if (this.map.turn_order.equalsIgnoreCase("exit reached")) {
+            this.map.EventExit_p.draw(-100, gc.getScreenHeight() - 600);
+            g.setColor(black);
+            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
+            g.setColor(white);
+            g.drawString(this.map.EventExit_m, 400, gc.getScreenHeight() - 100);
         }
     }
 

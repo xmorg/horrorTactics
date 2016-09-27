@@ -266,8 +266,10 @@ public class Actor {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
             if (this.selected == true) { //draw the selection if true
+                try {
                 m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
                         h.screen_x + h.draw_x, h.screen_y + h.draw_y);
+                } catch(NullPointerException n) {}
             }
             if (this.dead == false) { //draw actor
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
@@ -342,6 +344,8 @@ public class Actor {
         if (this.attack_timer > 0) {
             this.setAnimationFrame(4); //just in case it got set to 0
         }
+        
+        //try to check tilex/tiley for an event?
     }
 
     public void onMoveWest(MyTiledMap m, int delta) {

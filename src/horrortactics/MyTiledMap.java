@@ -37,6 +37,7 @@ public class MyTiledMap extends TiledMap {
     int light_level = 2; //default light level
     int selected_follower = 0;
     String turn_order = null;
+    String next_map = "none";
     String old_turn_order = null;
     String[] planning = new String[20];
     Image[] charbusts = new Image[20];
@@ -45,6 +46,17 @@ public class MyTiledMap extends TiledMap {
     Image EventSpotted_p = null;
     String EventSpotted_m = "none";
     boolean EventSpotted_ran = false;
+    
+    String EventGoal = "none";
+    Image EventGoal_p = null;
+    String EventGoal_m = "none";
+    boolean EventGoal_ran = false;
+    
+    String EventExit = "none";
+    Image EventExit_p = null;
+    String EventExit_m = "none";
+    boolean EventExit_ran = false;
+    String RequiresGoal = "no"; //Yes, if you need to reach a goal before exit
 
     int planevent = 0;
     int maxplanevent = 0;
@@ -85,11 +97,20 @@ public class MyTiledMap extends TiledMap {
             }
             this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
         }
+        this.next_map = this.getMapProperty("nextmap", "none");
+        this.RequiresGoal = this.getMapProperty("req_goal", "no");
         this.EventSpotted = this.getMapProperty("event_spotted", "none");
         if (!this.EventSpotted.equalsIgnoreCase("none")) { //if not none, load the event spotted
             this.EventSpotted_m = this.getMapProperty("event_spotted_m", "none");
             this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
         }
+        
+        //reached your goal
+        //this.EventGoal = this.getMapProperty("event_goal", "none");
+        //if (!this.EventGoal.equalsIgnoreCase("none")) {
+        //    this.EventGoal_p = new Image("data/" + this.getMapProperty("event_goal_p", "prt_player_00.png"));
+        //    this.EventGoal_m = this.getMapProperty("event_goal_m", "none");
+        //}
     }
 
     @Override

@@ -6,6 +6,7 @@
 package horrortactics;
 
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Image;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Trigger {
         this.tiley = y;
     }
 
-    public void onSteppedOnTrigger(MyTiledMap m, int x, int y) {
+    public void onSteppedOnTrigger(MyTiledMap m, int x, int y) throws SlickException {
         int actors_layer = m.getLayerIndex("actors_layer");
         int gid = m.getTileId(x, y, actors_layer);
         //long list of triggers!
@@ -42,7 +43,51 @@ public class Trigger {
             m.active_trigger.updateTrigger("audio_trigger", "trapped girl");
         } else if (m.getTileProperty(gid, "activate_trigger", "none").equals("release yukari")) {
             m.active_trigger.updateTrigger("activate_trigger", "release yukari");
-        } else {
+        } else if (!m.getTileProperty(gid, "event_goal", "none").equals("none")) {
+            //you stepped on teh event goal, run charbust?
+            m.active_trigger.updateTrigger("event_goal",m.getTileProperty(gid, "event_goal", "none") );
+            if (!m.active_trigger.name.equalsIgnoreCase("none")) { //still blank.
+                //System.out.println("reached event goal");
+                //assuming this exists?
+                if(m.EventGoal_ran == false) {
+                    m.EventGoal_p = new Image("data/" + m.getTileProperty(gid,"event_goal_p", "prt_player_00.png"));
+                    m.EventGoal_m = m.getTileProperty(gid,"event_goal_m", "none");
+                    m.EventGoal_ran = true;
+                    m.old_turn_order = m.turn_order;
+                    m.turn_order = "goal reached";
+                }
+            }
+        }  else if (!m.getTileProperty(gid, "event_exit", "none").equals("none")) {
+            //you stepped on teh event goal, run charbust?
+            m.active_trigger.updateTrigger("event_exit",m.getTileProperty(gid, "event_exit", "none") );
+            if (m.active_trigger.name.equalsIgnoreCase("exit")) { //still blank.
+                //System.out.println("reached event goal");
+                //assuming this exists?
+                if(m.EventExit_ran == false) {
+                    //event goal equals none, or (event goal != none and ran = true)
+                    
+                    if(m.RequiresGoal.equalsIgnoreCase("yes") && m.EventGoal_ran == true ) {
+                        m.EventExit_p = new Image("data/" + m.getTileProperty(gid,"event_goal_p", "prt_player_00.png"));
+                        m.EventExit_m = m.getTileProperty(gid,"event_goal_m", "none");
+                        m.EventExit_ran = true;
+                        m.old_turn_order = m.turn_order;
+                        //System.out.println("if(m.RequiresGoal.equalsIgnoreCase(\"yes\") && m");
+                        m.turn_order = "exit reached";
+                    } else
+                    if(m.RequiresGoal.equalsIgnoreCase("no")) {//EventGoal.equalsIgnoreCase("none") //requires goal?
+                        m.EventExit_p = new Image("data/" + m.getTileProperty(gid,"event_goal_p", "prt_player_00.png"));
+                        m.EventExit_m = m.getTileProperty(gid,"event_exit_m", "none");
+                        m.EventExit_ran = true;
+                        m.old_turn_order = m.turn_order;
+                        //System.out.println("m.RequiresGoal.equalsIgnoreCase(\"no\")");
+                        m.turn_order = "exit reached";
+                    } 
+                    //m.RequiresGoal.equalsIgnoreCase("yes") && 
+                }
+            }
+        }
+        
+        else {
             m.trigger_check = "none";
             m.active_trigger.name = "none";
         }

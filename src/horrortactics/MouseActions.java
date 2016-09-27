@@ -36,7 +36,13 @@ public class MouseActions {
                 }
             } else if (map.turn_order.equalsIgnoreCase("event spotted")) {
                 map.turn_order = map.old_turn_order; //return to previous turn after click
-            } else if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
+            } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
+                map.turn_order = map.old_turn_order; //return to previous turn after click
+            } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
+                map.turn_order = "change map";
+            }
+            
+            else if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
                     && mouse_x <= 10 + 164 && mouse_y <= ht.screen_height - 10) { //press end turn button.
                 if (map.getAnyActorMoving() == false) {// &&
                     //map.player.getActorMoving() == false) {//be sure we didnt click when monster is moving
