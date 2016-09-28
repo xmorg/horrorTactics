@@ -7,6 +7,13 @@
  </properties>
  <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="16" columns="8">
   <image source="tiles250x129.png" width="2000" height="258"/>
+  <tile id="0">
+   <properties>
+    <property name="event_spotted" value="iman"/>
+    <property name="event_spotted_m" value="Hello?!?!"/>
+    <property name="event_spotted_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="17" name="walls250x512" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512.png" width="2000" height="2048"/>
@@ -18,20 +25,30 @@
     <property name="actor_name" value="player"/>
    </properties>
   </tile>
+  <tile id="8">
+   <properties>
+    <property name="actor_name" value="invisible man"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="actor_name" value="iman"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NmYGBgHsWjeJhjPgrwqL3k2ctDBB61d9TeUXtH7R0M5dVIsHcUj+JRPIpxYQAlSOMOEA4AAA==
+   H4sIAAAAAAAAA2NmYGBgHsWjeJhjPjLwcLGXhwhMLbtHsr30jOORbO9IS1cjzd6Rlp7pXTeM4lE8ikcxNgwA2WnR7BAOAAA=
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA1NkYGBQHMWjeARgJTx8dDlq2kkqoJbdI8ne0XCmj72gcFYZAHtBWHmA7CUVDGV7R2I+GiyYmPqIVvXUKB7Fo3gUAwD2q3BSEA4AAA==
+   H4sIAAAAAAAAA+2WUQ6AIAxDuYro/c9o+COEza6bWRCb9INAfWPOxFI4HU6zqo6sh+vRitysPiNZduaqsh73ZnMq1fbEtGrMMNyImcviSj17u8+Sou+LZqyzjeR6sX2+wPr752lrhNt8JnGtWpnLfEczLuMIrnQu2hFcq3bnaue+yN3t/f5cjOu19K/bfAMwgOnAEA4AAA==
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OMQ0AAAgDsFnCvzks7CDhaRU0AYDefAcAgDMLqccXTRAOAAA=
+   H4sIAAAAAAAAA+3UsREAIAwCwKxkafYfzN4F0Nx/R0cDVW/Y6QIQZgP8Yl25Iy2YxgcCZBz/ji5hEA4AAA==
   </data>
  </layer>
 </map>

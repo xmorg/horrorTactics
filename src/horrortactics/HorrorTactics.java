@@ -129,7 +129,7 @@ public class HorrorTactics extends BasicGame {
             //map.getActorLocationFromTMX();
             try {
                 this.map = new MyTiledMap("data/" + n_mapname, 0, 0);
-                map.getActorLocationFromTMX();
+                map.getActorLocationFromTMX(); //actor location?
                 this.map.turn_order = "planning";
                 map.mouse_over_tile_x = 1;
                 map.mouse_over_tile_y = 1;
@@ -332,11 +332,12 @@ public class HorrorTactics extends BasicGame {
             g.setColor(white);
             g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight() - 100);
         } else if (this.map.turn_order.equalsIgnoreCase("event spotted")) {
-            this.map.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600);
+            //null pointer if there is no event spotted
+            map.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
-            g.drawString(this.map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
+            g.drawString(map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
         } else if (this.map.turn_order.equalsIgnoreCase("goal reached")) {
             this.map.EventGoal_p.draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);

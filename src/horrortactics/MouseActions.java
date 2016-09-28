@@ -137,7 +137,7 @@ public class MouseActions {
                 return true;
             }
         }
-        System.out.println("returned false? how? Follower 0 selected" + map.follower[0].selected);
+        //System.out.println("returned false? how? Follower 0 selected" + map.follower[0].selected);
         return false;
     }
 

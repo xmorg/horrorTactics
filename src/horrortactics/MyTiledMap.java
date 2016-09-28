@@ -46,12 +46,12 @@ public class MyTiledMap extends TiledMap {
     Image EventSpotted_p = null;
     String EventSpotted_m = "none";
     boolean EventSpotted_ran = false;
-    
+
     String EventGoal = "none";
     Image EventGoal_p = null;
     String EventGoal_m = "none";
     boolean EventGoal_ran = false;
-    
+
     String EventExit = "none";
     Image EventExit_p = null;
     String EventExit_m = "none";
@@ -85,9 +85,9 @@ public class MyTiledMap extends TiledMap {
         selected_tile_x = -1;
         selected_tile_y = -1;
         tiles250x129 = new Image("data/tiles250x129.png");
-        //player = new Actor("data/tactics_in_distress00", 218, 313);
         player = new Actor("data/tactics_in_distress00", 218, 313);
-        //player = new Actor("data/monster05", 218, 313);
+        //player = new Actor("data/tactics_in_distress00", 218, 313);
+        //player = new Actor("data/monster06", 218, 313);
         //turn_order = "start player";
         turn_order = "planning";
         this.active_trigger = new Trigger("none", "none");
@@ -104,8 +104,11 @@ public class MyTiledMap extends TiledMap {
         if (!this.EventSpotted.equalsIgnoreCase("none")) { //if not none, load the event spotted
             this.EventSpotted_m = this.getMapProperty("event_spotted_m", "none");
             this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
+        } else {
+            this.EventSpotted_m = this.getMapProperty("event_spotted_m", "end.");
+            this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
         }
-        
+
         //reached your goal
         //this.EventGoal = this.getMapProperty("event_goal", "none");
         //if (!this.EventGoal.equalsIgnoreCase("none")) {
@@ -123,11 +126,10 @@ public class MyTiledMap extends TiledMap {
         m_draw_y = y;
     }
 
-    public void getActorLocationFromTMX() {
+    public void getActorLocationFromTMX() throws SlickException {
         int monster_loop = 0;
         int follower_loop = 0;
         int actor_layer = this.getLayerIndex("actors_layer");
-
         for (int i = 0; i < this.monster_max; i++) {
             try {
                 monster[i] = new Actor("data/monster00", 218, 313);
@@ -151,6 +153,7 @@ public class MyTiledMap extends TiledMap {
                 if (gid > 0) {
                     //System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
+                    //System.out.println(pname);
                     if (pname.equals("player")) {
                         this.player.tilex = x;
                         //this.player.tilex += 10;
@@ -180,8 +183,7 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 4;
                         monster_loop++;
-                    } // add more monsters here;
-                    else if (pname.equals("skeleton monster")) {
+                    } else if (pname.equals("skeleton monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster05.png", 218, 313);
                         } catch (SlickException e) {
@@ -193,9 +195,38 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 0;
                         monster_loop++;
-                    } // add more monsters here;
+                    } else if (pname.equals("invisible man")) {
+                        System.out.println("we got to the invnisible man");
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/monster06", 218, 313);
+                        } catch (SlickException e) { System.out.println("something is wrong.");
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 4;
+                        //set dodge scores
+                        monster_loop++;
+                    }// add more monsters here;
                 }
             }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            this.planning[i] = this.getMapProperty("planning_" + i, "end");
+            if (this.planning[i].equalsIgnoreCase("end")) {
+                this.maxplanevent = i - 1; //last one
+            }
+            this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
+        }
+        this.next_map = this.getMapProperty("nextmap", "none");
+        this.RequiresGoal = this.getMapProperty("req_goal", "no");
+        this.EventSpotted = this.getMapProperty("event_spotted", "none");
+        if (!this.EventSpotted.equalsIgnoreCase("none")) { //if not none, load the event spotted
+            this.EventSpotted_m = this.getMapProperty("event_spotted_m", "none");
+            this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
         }
     }
 
@@ -238,7 +269,7 @@ public class MyTiledMap extends TiledMap {
             if (this.monster[i].visible == true) { //just to be sure
                 this.monster[i].drawActor(ht, this, x, y);
                 if (this.monster[i].tilex == x && this.monster[i].tiley == y) {
-                    if(this.EventSpotted_ran == false) {
+                    if (this.EventSpotted_ran == false) {
                         this.EventSpotted_ran = true; //they are "spotted"
                         //run event spotted
                         System.out.println("debug: event spotted ran");
@@ -616,11 +647,12 @@ public class MyTiledMap extends TiledMap {
     public int getDistanceOfActors2(Actor a, Actor b) {
         int xs = (a.tilex - b.tilex) * (a.tilex - b.tilex);
         int ys = (a.tiley - b.tiley) * (a.tiley - b.tiley);
-        
+
         double dsr = Math.sqrt(xs + ys);
-        int distance = (int)dsr;
+        int distance = (int) dsr;
         return distance;
     }
+
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
         //directive types: random,randomuntilspotted,beeline
@@ -652,16 +684,16 @@ public class MyTiledMap extends TiledMap {
                     monster[i].tiledesty = player.tiley;
                     int best_distance = this.getDistanceOfActors2(player, monster[i]);
                     int try_distance = 0;
-                    for(int d = 0; d < this.follower_max; d++) {
-                        if(follower[d].visible== true ) {
+                    for (int d = 0; d < this.follower_max; d++) {
+                        if (follower[d].visible == true) {
                             try_distance = this.getDistanceOfActors2(follower[d], monster[i]);
-                            if(try_distance < best_distance) {
+                            if (try_distance < best_distance) {
                                 monster[i].tiledestx = follower[d].tilex;
                                 monster[i].tiledesty = follower[d].tiley;
                             }
                         }
                     }
-                    
+
                     //monster[i].setActorMoving(true);
                 } else if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
                     for (int count = 0; count < 6; count++) {
@@ -689,7 +721,7 @@ public class MyTiledMap extends TiledMap {
                 this.monster[i].setAnimationFrame(0);
             }
         }
-        for(int i = 0; i < this.follower_max; i++) {
+        for (int i = 0; i < this.follower_max; i++) {
             if (this.follower[i].attack_timer > 0) {
                 this.follower[i].attack_timer--;
                 //this.monster[i].setAnimationFrame(0);

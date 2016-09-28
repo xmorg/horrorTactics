@@ -83,8 +83,11 @@ public class Actor {
     public void changeActorSpritesheet(String s, int sx, int sy) throws SlickException {
         //spriteImage = new Image(s);
         //sprites = new SpriteSheet(spriteImage, sx, sy);
+        //this.spriteImage = null; //.destroy();
+        //this.iconImage = null; //.destroy();
         spriteImage = new Image(s + ".png");
         iconImage = new Image(s + "_i.png");
+        sprites = new SpriteSheet(spriteImage, sx, sy);
     }
 
     public Image getSpriteframe() //throws SlickException
