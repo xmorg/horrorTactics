@@ -94,7 +94,7 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < 5; i++) {
             this.planning[i] = this.getMapProperty("planning_" + i, "end");
             if (this.planning[i].equalsIgnoreCase("end")) {
-                this.maxplanevent = i - 1; //last one
+                this.maxplanevent = i; //last one
             }
             this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
         }
