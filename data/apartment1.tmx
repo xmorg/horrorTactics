@@ -36,20 +36,27 @@
     <property name="actor_name" value="iman"/>
    </properties>
   </tile>
+  <tile id="13">
+   <properties>
+    <property name="event_exit" value="exit"/>
+    <property name="event_exit_m" value="The door!"/>
+    <property name="event_exit_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3SQQoAIAgAQclr9P/n9gEFE6GSPezVEVRFRImatxJZc4bR6+4M5Nm49ffF/fO+uHH3tKq/8vbEzdvWDFxc3DtuRZ67AfLmexIQDgAA
+   H4sIAAAAAAAAC+3SQQoAIAgAQclr9P/n9gEFE6GSPezVEVRFRImatxJZc4bR6+4M5Nm49ffF/fO+uHH3tKq/8vbEzdvWDFxc3DtuRZ67AfLmexIQDgAA
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA92WSQ7AIAhFuYpDe/8jNi7cED/Rr2gsCUkjw0spUIOIhEPKSCTjZJL7HOLOyI117olj+qqcR+UXwTPKZeVGNqaOOobhMvXXPb6LqwXVzLvOaMZXv6+OYbm6l6ugXta52DpnYEOyYo7KeTrEHZWbucwctbjMfl7BRX69c8TcXVZ93zBgn+FWfRu+s1xrl2XBu6OHa+W2bEnw7mhxdS6P/0LPfdJjb7S4O/aVZz//leul1v3gAzQuD1YQDgAA
+   H4sIAAAAAAAAC92WSQ7AIAhFuYpDe/8jNi7cED/Rr2gsCUkjw0spUIOIhEPKSCTjZJL7HOLOyI117olj+qqcR+UXwTPKZeVGNqaOOobhMvXXPb6LqwXVzLvOaMZXv6+OYbm6l6ugXta52DpnYEOyYo7KeTrEHZWbucwctbjMfl7BRX69c8TcXVZ93zBgn+FWfRu+s1xrl2XBu6OHa+W2bEnw7mhxdS6P/0LPfdJjb7S4O/aVZz//leul1v3gAzQuD1YQDgAA
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3UQREAQAgDMSzdE//GTkaBSRTsp62aodMBEGYDbPHSAZzkAwEyPu6xr/oQDgAA
+   H4sIAAAAAAAAC+3UMQEAAAgCQSs5utg/ljEQ/SsAC0TsUOoCgBgbgItUF8BJfKC/fpYLXDFMxaG5EA4AAA==
   </data>
  </layer>
 </map>
