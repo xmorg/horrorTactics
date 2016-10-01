@@ -18,7 +18,6 @@ import java.lang.Math.*;
  * @author tcooper
  */
 public class Actor {
-
     String name;
     int tilex;
     int tiley; //the tile we are at (aprox)
@@ -37,6 +36,8 @@ public class Actor {
     int attack_range; //unless otherwise specified
     boolean visible;
     boolean dead;
+    boolean canparry =  false;
+    int parryscore;
     String directive_type;
     float speed;
     int facing_x = 0;
@@ -63,6 +64,8 @@ public class Actor {
         animation_timer = 0;
         visible = false; //actor is visible.
         //hasturn = true;
+        canparry = false;
+        parryscore = -3;
         action_points = 0;
         max_action_points = 6;
         move_action = false;
@@ -199,9 +202,13 @@ public class Actor {
     public void onSelectActor(boolean selection) {
         this.selected = selection;
     }
+
     public void onToggleSelection() {
-        if(this.selected == true) {this.selected = false;}
-        else {this.selected = true;}
+        if (this.selected == true) {
+            this.selected = false;
+        } else {
+            this.selected = true;
+        }
     }
 
     public boolean isSelected() {
@@ -270,9 +277,10 @@ public class Actor {
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
             if (this.selected == true) { //draw the selection if true
                 try {
-                m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                        h.screen_x + h.draw_x, h.screen_y + h.draw_y);
-                } catch(NullPointerException n) {}
+                    m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                            h.screen_x + h.draw_x, h.screen_y + h.draw_y);
+                } catch (NullPointerException n) {
+                }
             }
             if (this.dead == false) { //draw actor
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
@@ -295,6 +303,18 @@ public class Actor {
 
     public void resetActorActionPoints() {
         action_points = max_action_points;
+    }
+
+    public void onAttack(HorrorTactics ht/*, Actor target*/) {
+        this.setAnimationFrame(4);
+        this.attack_timer = 25;
+        this.tiledestx = ht.map.selected_tile_x;
+        this.tiledesty = ht.map.selected_tile_y;
+        this.updateActorDirection();
+        //ht.map.onActorAttackActor(ht, ht.map.player,
+        //        ht.map.getAllPlayersAtXy(ht.map.selected_tile_x, ht.map.selected_tile_y));
+        this.tiledestx = this.tilex;
+        this.tiledesty = this.tiley;
     }
 
     public void onMoveActor(MyTiledMap m, int fps) {
@@ -347,7 +367,7 @@ public class Actor {
         if (this.attack_timer > 0) {
             this.setAnimationFrame(4); //just in case it got set to 0
         }
-        
+
         //try to check tilex/tiley for an event?
     }
 

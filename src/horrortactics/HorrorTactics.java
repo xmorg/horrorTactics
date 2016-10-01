@@ -30,7 +30,7 @@ public class HorrorTactics extends BasicGame {
      * @param gamename the command line arguments
      */
     public Input input;
-    private MyTiledMap map;
+    MyTiledMap map;
     private MouseActions msa;
     private KeyActions ksa;
     int draw_x, draw_y = 0;
@@ -38,6 +38,7 @@ public class HorrorTactics extends BasicGame {
     int screen_x, screen_y;
     /* where on the screen?*/
     int mouse_x, mouse_y = 0;
+    int last_mouse_x, last_mouse_y;
     int mouse_tile_x, mouse_tile_y = 0;
     int fps = 0;
     int delta;
@@ -72,7 +73,7 @@ public class HorrorTactics extends BasicGame {
         this.lastframe = 0;
         this.turn_count = 0;
         this.currentTime = gc.getTime();
-        
+
         screen_height = gc.getScreenHeight();
         screen_width = gc.getScreenWidth();
         //draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
@@ -93,6 +94,8 @@ public class HorrorTactics extends BasicGame {
         myfilter = new Color(1f, 1f, 1f, 1f);
         myfiltert = new Color(0.5f, 0.5f, 0.5f, 0.5f);
         myfilterd = new Color(0.2f, 0.2f, 0.2f, 0.8f); //for darkness/fog
+        last_mouse_x = 0;//input.getMouseX();
+        last_mouse_y = 0;//input.getMouseY();
     }
 
     @Override
@@ -112,10 +115,10 @@ public class HorrorTactics extends BasicGame {
         if (map.player.dead == true) {
             map.turn_order = "game over";
         }
-        if (map.turn_order.equalsIgnoreCase("game over")) {
+        if (map.turn_order.equalsIgnoreCase("game over")) { //update
             this.game_state = "game over";
 
-        } else if (map.turn_order.equalsIgnoreCase("planning")) {
+        } else if (map.turn_order.equalsIgnoreCase("planning")) { //update
             //planning phase.  Show a dialogue.
             //Accept clicks through the dialogue
             //after the last click, accept
@@ -233,7 +236,8 @@ public class HorrorTactics extends BasicGame {
                 map.getTileImage(x, y, walls_layer).draw(
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert);
             } else //inside cannot be dark
-             if (x < map.player.tilex - map.light_level
+            {
+                if (x < map.player.tilex - map.light_level
                         || x > map.player.tilex + map.light_level
                         || y < map.player.tiley - map.light_level
                         || y > map.player.tiley + map.light_level) {
@@ -245,6 +249,7 @@ public class HorrorTactics extends BasicGame {
                     map.getTileImage(x, y, walls_layer).draw(
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
@@ -263,11 +268,8 @@ public class HorrorTactics extends BasicGame {
                             && mouse_y >= sy && mouse_y <= sy + 130 - 30) {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
-                        //try {
-                            map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
-                                    screen_x + draw_x, screen_y + draw_y, scale_x);
-                        //} catch (NullPointerException n) {
-                        //}
+                        map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                                screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
                     map.player.drawPlayer(this, map, x, y);
                     if (map.isPlayerTouchingMonster() && x == map.player.tilex
@@ -315,7 +317,8 @@ public class HorrorTactics extends BasicGame {
                 + map.monster[map.current_monster_moving].tiledestx + ","
                 + map.monster[map.current_monster_moving].tiledesty,
                 200, 10);//might crash?
-        g.drawString("Trigger Check: " + map.trigger_check, 500, 100);
+        g.drawString(this.map.log_msg, 200, 10+14);
+        //g.drawString("Trigger Check: " + map.trigger_check, 500, 100);
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
         }

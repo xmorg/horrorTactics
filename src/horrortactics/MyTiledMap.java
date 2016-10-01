@@ -39,6 +39,7 @@ public class MyTiledMap extends TiledMap {
     String turn_order = null;
     String next_map = "none";
     String old_turn_order = null;
+    String log_msg = "";
     String[] planning = new String[20];
     Image[] charbusts = new Image[20];
 
@@ -199,7 +200,8 @@ public class MyTiledMap extends TiledMap {
                         System.out.println("we got to the invnisible man");
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster06", 218, 313);
-                        } catch (SlickException e) { System.out.println("something is wrong.");
+                        } catch (SlickException e) {
+                            System.out.println("something is wrong.");
                         }
                         monster[monster_loop].tilex = x;
                         monster[monster_loop].tiley = y;
@@ -492,54 +494,54 @@ public class MyTiledMap extends TiledMap {
     }
 
     public void onActorAttackActor(HorrorTactics ht, Actor attacker, Actor defender) {
-        int dx = attacker.tiledestx;
-        int dy = attacker.tiledesty;
+        int target_parryroll;
         int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int actor_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        //attacker.attack_timer = 45;
-        //attacker.setAnimationFrame(4);
-        //attacker.updateActorDirection();
-        if (actor_attackroll > target_dodgeroll) {
+        //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        System.out.println("target check "+defender.name);
+        if (defender.canparry) {
+            target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        } else {
+            target_parryroll = 0;
+        }
+        if (actor_attackroll > target_dodgeroll && actor_attackroll > target_parryroll + defender.parryscore) {
             defender.dead = true;
             defender.action_msg = "Dead";
             defender.action_msg_timer = 400;
             defender.turns_till_revival = 0; //do we revive?
+            log_msg = attacker.name + " attacks " + defender.name
+                    + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits";
+
         } else {
             defender.action_msg = "Dodge";
             defender.action_msg_timer = 400;
+            if (target_parryroll + defender.parryscore > actor_attackroll) {
+                log_msg = attacker.name + " attacks " + defender.name
+                        + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore
+                        + ") but the attack was parried.";
+            } else {
+                log_msg = attacker.name + " attacks " + defender.name
+                        + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses";
+            }
         }
     }
 
-    /*public void onActorCanAttack(HorrorTactics ht, Actor a) {
-        //players and followers
-        int dx = a.tiledestx;
-        int dy = a.tiledesty;
-        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int target_counterroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        int actor_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        if (actor_attackroll > target_dodgeroll
-                && this.getAllPlayersAtXy(dx, dy) != null) {
-            this.getAllPlayersAtXy(dx, dy).dead = true;
-            this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
-            this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-        } //else {
-        //   this.getAllPlayersAtXy(dx, dy).action_msg = "Dodge";
-        //    this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
-        //}
-    }*/
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
         if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
             //ATTACK! (monster at tiledestx, tiledesty
-            int dx = monster[this.current_monster_moving].tiledestx;
-            int dy = monster[this.current_monster_moving].tiledesty;
-            int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+            //int dx = monster[this.current_monster_moving].tiledestx;
+            //int dy = monster[this.current_monster_moving].tiledesty;
+            Actor t = this.getAllPlayersAtXy(
+                            monster[this.current_monster_moving].tiledestx,
+                            monster[this.current_monster_moving].tiledesty);
+            if(t == null){
+                System.out.println("woa something is wrong monster target is null");
+            }
+            else {
+                System.out.println("t is not null, found "+t.name);
+            }
+
+            /*int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
             int player_dodgeroll = 100;//ThreadLocalRandom.current().nextInt(1, 6 + 1);
             int player_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
             int player_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
@@ -547,11 +549,14 @@ public class MyTiledMap extends TiledMap {
             int monster_cdodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
             System.out.println("MonsterRoll:" + Integer.toString(monster_attackroll)
                     + " Dodge Roll:" + Integer.toString(player_dodgeroll)
-            );
+            );*/
+            //monster[this.current_monster_moving].setAnimationFrame(4);
+            //monster[this.current_monster_moving].attack_timer = 20;
+            monster[this.current_monster_moving].onAttack(ht);
+            this.onActorAttackActor(ht,monster[this.current_monster_moving], t);
             //player at the monster destination is not null
-            monster[this.current_monster_moving].setAnimationFrame(4);
-            monster[this.current_monster_moving].attack_timer = 20;
-            if (monster_attackroll > player_dodgeroll) {
+
+            /*if (monster_attackroll > player_dodgeroll) {
                 this.getAllPlayersAtXy(dx, dy).dead = true;
                 this.getAllPlayersAtXy(dx, dy).action_msg = "Dead";
                 this.getAllPlayersAtXy(dx, dy).action_msg_timer = 400;
@@ -566,8 +571,16 @@ public class MyTiledMap extends TiledMap {
                 } else {
                     monster[this.current_monster_moving].action_msg = "Dodge";
                     monster[this.current_monster_moving].action_msg_timer = 400;
+                }*/
+                /*if (player_parryroll + defender.parryscore > actor_attackroll) {
+                    log_msg = attacker.name + " attacks " + defender.name
+                            + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore
+                            + ") but the attack was parried.";
+                } else {
+                    log_msg = attacker.name + " attacks " + defender.name
+                            + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses";
                 }
-            }
+            }*/
         } else {
             System.out.println("Monster " + this.current_monster_moving + " found nobody there?");
         }//nobody was there.
