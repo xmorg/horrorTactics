@@ -92,13 +92,13 @@ public class MyTiledMap extends TiledMap {
         //turn_order = "start player";
         turn_order = "planning";
         this.active_trigger = new Trigger("none", "none");
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             this.planning[i] = this.getMapProperty("planning_" + i, "end");
             if (this.planning[i].equalsIgnoreCase("end")) {
                 this.maxplanevent = i; //last one
             }
             this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
-        }
+        }*/
         this.next_map = this.getMapProperty("nextmap", "none");
         this.RequiresGoal = this.getMapProperty("req_goal", "no");
         this.EventSpotted = this.getMapProperty("event_spotted", "none");
@@ -213,6 +213,13 @@ public class MyTiledMap extends TiledMap {
                         monster_loop++;
                     }// add more monsters here;
                 }
+            }
+            for (int i = 0; i < 5; i++) {
+                this.planning[i] = this.getMapProperty("planning_" + i, "end");
+                if (this.planning[i].equalsIgnoreCase("end")) {
+                    this.maxplanevent = i; //last one
+                }
+                this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
             }
         }
 
@@ -498,7 +505,7 @@ public class MyTiledMap extends TiledMap {
         int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        System.out.println("target check "+defender.name);
+        System.out.println("target check " + defender.name);
         if (defender.canparry) {
             target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         } else {
@@ -532,13 +539,12 @@ public class MyTiledMap extends TiledMap {
             //int dx = monster[this.current_monster_moving].tiledestx;
             //int dy = monster[this.current_monster_moving].tiledesty;
             Actor t = this.getAllPlayersAtXy(
-                            monster[this.current_monster_moving].tiledestx,
-                            monster[this.current_monster_moving].tiledesty);
-            if(t == null){
+                    monster[this.current_monster_moving].tiledestx,
+                    monster[this.current_monster_moving].tiledesty);
+            if (t == null) {
                 System.out.println("woa something is wrong monster target is null");
-            }
-            else {
-                System.out.println("t is not null, found "+t.name);
+            } else {
+                System.out.println("t is not null, found " + t.name);
             }
 
             /*int monster_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
@@ -553,7 +559,7 @@ public class MyTiledMap extends TiledMap {
             //monster[this.current_monster_moving].setAnimationFrame(4);
             //monster[this.current_monster_moving].attack_timer = 20;
             monster[this.current_monster_moving].onAttack(ht);
-            this.onActorAttackActor(ht,monster[this.current_monster_moving], t);
+            this.onActorAttackActor(ht, monster[this.current_monster_moving], t);
             //player at the monster destination is not null
 
             /*if (monster_attackroll > player_dodgeroll) {
@@ -572,7 +578,7 @@ public class MyTiledMap extends TiledMap {
                     monster[this.current_monster_moving].action_msg = "Dodge";
                     monster[this.current_monster_moving].action_msg_timer = 400;
                 }*/
-                /*if (player_parryroll + defender.parryscore > actor_attackroll) {
+ /*if (player_parryroll + defender.parryscore > actor_attackroll) {
                     log_msg = attacker.name + " attacks " + defender.name
                             + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore
                             + ") but the attack was parried.";

@@ -31,7 +31,7 @@ public class MouseActions {
         if (input.isMousePressed(0) == true) {
             //button_endturn.draw(10, gc.getScreenHeight()-64-10);
             if (map.turn_order.equalsIgnoreCase("planning")) {
-                if (map.planevent == map.maxplanevent) {
+                if (map.planevent == map.maxplanevent || map.planning[map.planevent].equalsIgnoreCase("end")) {
                     map.turn_order = "start player";
                 } else {
                     map.planevent++;
