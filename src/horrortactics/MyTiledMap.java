@@ -86,10 +86,7 @@ public class MyTiledMap extends TiledMap {
         selected_tile_x = -1;
         selected_tile_y = -1;
         tiles250x129 = new Image("data/tiles250x129.png");
-        player = new Actor("data/tactics_in_distress00", 218, 313);
-        //player = new Actor("data/tactics_in_distress00", 218, 313);
-        //player = new Actor("data/monster06", 218, 313);
-        //turn_order = "start player";
+        player = new Actor("data/girl00", 218, 313);
         turn_order = "planning";
         this.active_trigger = new Trigger("none", "none");
         /*for (int i = 0; i < 5; i++) {
@@ -142,7 +139,7 @@ public class MyTiledMap extends TiledMap {
         }
         for (int i = 0; i < this.follower_max; i++) {
             try {
-                follower[i] = new Actor("data/tactics_in_distress01", 218, 313);
+                follower[i] = new Actor("data/girl01", 218, 313);
                 follower[i].visible = false;
                 follower[i].direction = follower[i].getEast();
             } catch (SlickException e) {
@@ -163,7 +160,7 @@ public class MyTiledMap extends TiledMap {
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                     } else if (pname.equals("Yukari")) {
                         try {
-                            follower[follower_loop].changeActorSpritesheet("data/tactics_in_distress01", 218, 313);
+                            follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
                             //follower[follower_loop].
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
@@ -172,7 +169,21 @@ public class MyTiledMap extends TiledMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-                    } else if (pname.equals("pear monster")) {
+                    } 
+                    else if (pname.equals("Ichi")) {
+                        try {
+                            follower[follower_loop].changeActorSpritesheet("data/boy00", 218, 313);
+                            //follower[follower_loop].
+                            follower[follower_loop].tilex = x;
+                            follower[follower_loop].tiley = y;
+                            follower[follower_loop].visible = true;
+                            this.player.name = pname;
+                            follower_loop++;
+                        } catch (SlickException e) {
+                        }
+                    }
+                    
+                    else if (pname.equals("pear monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313);
                         } catch (SlickException e) {
