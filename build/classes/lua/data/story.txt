@@ -1,0 +1,74 @@
+#String[] matches = myString.split(";"); #This is a comment
+
+intro:1:train.jpg:player_tired.png:null:I'm so tired.  Why do they keep me so late?
+
+intro:2:train.jpg:player_tired.png:null:I feel like I have a mountain of homework before bed.
+
+intro:3:train.jpg:player_tired.png:crone.png:All I want do do is sleep, oh I better give up my seat.
+
+intro:4:train.jpg:player_tired.png:crone.png:[Old Lady] Children today are so rude! Not giving up your seat for an old lady.
+
+intro:5:train.jpg:player_tired.png:crone.png:[Old Lady] You should learn to respect your elders.
+
+intro:6:train.jpg:player_tired.png:crone.png:But I was going to...
+
+intro:7:train.jpg:player_tired.png:crone.png:[Old Lady] Backtalk! such disrespect!
+
+intro:8:train.jpg:player_tired.png:crone.png:[Old Lady] You will learn true respect, you will learn fear!
+
+intro:9:train.jpg:player_tired.png:crone.png:[Old Lady] Your nightmares will haunt you! You will know fear.
+
+intro:10:train.jpg:player_tired.png:crone.png:[Old Lady] All of your friends, anyone who tries to help you, will DIE!
+
+intro:11:train.jpg:player_tired.png:crone.png:[Old Lady] And if your not quick, you will die to! (laughs)
+
+intro:12:train.jpg:player_tired.png:crone.png:[Old Lady] Oh! thats my stop, have a nice day dear.
+
+intro:12:train.jpg:player_confused.png:null.png:Ah, you too?
+
+intro:13:blank.jpg:null:null:null:Day 1
+
+intro:15:classroom.jpg:teacher1.png:null:null:[Teacher] Class dismissed!
+
+intro:16:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:And then she said I would be haunted by nightmares!
+
+intro:17:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Wow, what a weirdo.
+
+intro:18:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Lana] What if she put a curse on you?
+
+intro:19:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:Thats not funny!
+
+intro:20:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Theres no such thing!
+
+intro:21:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:My Phone! I forgot my phone in my locker.
+
+intro:22:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Lana] Its ok, just get it tomorrow.
+
+intro:23:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:I need it tonight! He might text me!
+
+intro:24:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Oh!!!
+
+intro:25:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Ill go with you.
+
+stage1:1:schoolyard1.jpg:janator.png:null:null:[Old Man] The school is closed, the lights are off.
+
+stage1:2:schoolyard1.jpg:janator.png:player_walking.png:null:I really need to get in! I forgot something.
+
+stage1:3:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] I cant let you in!
+
+stage1:4:schoolyard1.jpg:janator.png:player_walking.png:null:Please...
+
+stage1:5:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] Alright, but I wont be responsibile!
+
+stage1:6:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:[Mel] Um, Im afraid of the dark, ill just wait for you here.
+
+stage1:7:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:What?
+
+stage1:8:schoolyard1.jpg:player_walking.png:boys1.png:null:[Tedd] Did someone say dark? We'll take respsibility!
+
+stage1:9:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:[Mel] Pssst! Dont take them! They are bullies! There is no telling...
+
+stage1:10:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:[Tedd] Dont listen to that, you need our protection!
+
+stage1:11:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:Will you take Tedd and his gang? (Y)es (N)o
+
