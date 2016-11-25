@@ -315,6 +315,9 @@ public class Actor {
         //        ht.map.getAllPlayersAtXy(ht.map.selected_tile_x, ht.map.selected_tile_y));
         this.tiledestx = this.tilex;
         this.tiledesty = this.tiley;
+        //who is at x/y?
+        
+        //attack
     }
 
     public void onMoveActor(MyTiledMap m, int fps) {
