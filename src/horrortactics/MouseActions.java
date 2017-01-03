@@ -21,13 +21,27 @@ public class MouseActions {
     }
 
     /* What happens when a mouse button is clicked. */
+    public boolean endTurnButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
+        if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= 10 + 164 && mouse_y <= ht.screen_height - 10) { //press end turn button.
+            if (ht.map.getAnyActorMoving() == false) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+        return false;
+    }
+    
+
     public void mouseWasClicked(Input input, MyTiledMap map, HorrorTactics ht) {
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
         map.selected_tile_x = map.mouse_over_tile_x;
         map.selected_tile_y = map.mouse_over_tile_y;
         int scrollspeed = 3;
-        
+
         if (input.isMousePressed(0) == true) {
             //button_endturn.draw(10, gc.getScreenHeight()-64-10);
             if (map.turn_order.equalsIgnoreCase("planning")) {
@@ -42,12 +56,11 @@ public class MouseActions {
                 map.turn_order = map.old_turn_order; //return to previous turn after click
             } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
                 map.turn_order = "change map";
-            } else if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
-                    && mouse_x <= 10 + 164 && mouse_y <= ht.screen_height - 10) { //press end turn button.
-                if (map.getAnyActorMoving() == false) {// &&
-                    //map.player.getActorMoving() == false) {//be sure we didnt click when monster is moving
-                    map.turn_order = "start monster";
-                }
+            } else if (endTurnButtonWasPressed(ht) == true) { //(mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
+                    //&& mouse_x <= 10 + 164 && mouse_y <= ht.screen_height - 10) { //press end turn button.
+                //if (map.getAnyActorMoving() == false) {// &&
+                    map.turn_order = "start monster"; //End Turn.
+                //}
             } else if (playerWasSelected(map) == true) {
                 onPlayerSelection(map, map.player); //select or unselect actor
             } else if (followerWasSelected(map) == true) {
@@ -93,15 +106,15 @@ public class MouseActions {
             }
         }/*if (input.isMousePressed(0) == true) {*/
  /*now check if you held the mouse down*/
-        if (input.isMouseButtonDown(0) &&  ht.map.turn_order.equalsIgnoreCase("player")) {
+        if (input.isMouseButtonDown(0) && ht.map.turn_order.equalsIgnoreCase("player")) {
             //mouse_x = input.getMouseX();
             //mouse_y = input.getMouseY();
             if (mouse_x > ht.last_mouse_x) {
                 ht.draw_x += scrollspeed;
             } else if (mouse_x < ht.last_mouse_x) {
                 ht.draw_x -= scrollspeed;
-            } 
-            
+            }
+
             if (mouse_y > ht.last_mouse_y) {
                 ht.draw_y += scrollspeed;
             } else if (mouse_y < ht.last_mouse_y) {
