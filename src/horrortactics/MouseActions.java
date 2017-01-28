@@ -71,7 +71,7 @@ public class MouseActions {
                     //map.onActorCanAttack(ht, map.player);
                     //BUG: if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {
                     if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
-                        map.follower[map.selected_follower].onAttack(ht);
+                        map.follower[map.selected_follower].onAttack(ht); // Attack code here.
                     }
                 } else {
 

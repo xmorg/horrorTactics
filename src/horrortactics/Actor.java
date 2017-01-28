@@ -316,7 +316,11 @@ public class Actor {
         this.tiledestx = this.tilex;
         this.tiledesty = this.tiley;
         //who is at x/y?
-        
+        if (ht.map.isMonsterTouchingYou(
+                ht.map.getAllPlayersAtXy(this.tiledestx, this.tiledesty)
+            )) {
+            
+        }
         //attack
     }
 
