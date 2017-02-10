@@ -312,12 +312,14 @@ public class Actor {
         this.tiledestx = this.tilex;
         this.tiledesty = this.tiley;
         //who is at x/y?
-        if (ht.map.isMonsterTouchingYou(
-                ht.map.getAllPlayersAtXy(this.tiledestx, this.tiledesty)
-            )) {
-            
+        Actor t = ht.map.getAllPlayersAtXy(ht.map.selected_tile_x, ht.map.selected_tile_y);
+        if (t == null) {
+            System.out.println("woa something is wrong monster target is null");
+        } else {
+            System.out.println("t is not null, found " + t.name);
+            ht.map.onActorAttackActor(ht, this, t );
         }
-        //attack
+        
     }
 
     public void onMoveActor(MyTiledMap m, int fps) {

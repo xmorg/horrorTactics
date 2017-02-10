@@ -36,9 +36,9 @@ public class MyTiledMap extends TiledMap {
     int pixel_dest_y = -1;
     int light_level = 2; //default light level
     int selected_follower = 0;
-    String turn_order = null;
+    String turn_order = null;  //monster, player
     String next_map = "none";
-    String old_turn_order = null;
+    String old_turn_order = null;    //monster, player
     String log_msg = "";
     String[] planning = new String[20];
     Image[] charbusts = new Image[20];
@@ -87,8 +87,8 @@ public class MyTiledMap extends TiledMap {
         selected_tile_y = -1;
         tiles250x129 = new Image("data/tiles250x129.png");
         //player = new Actor("data/player00", 218, 313);
-        player = new Actor("data/monster05", 218, 313); //monster test
-        turn_order = "planning";
+        player = new Actor("data/monster08", 218, 313); //monster test
+        turn_order = "planning";   //monster, player
         this.active_trigger = new Trigger("none", "none");
         /*for (int i = 0; i < 5; i++) {
             this.planning[i] = this.getMapProperty("planning_" + i, "end");
@@ -496,20 +496,33 @@ public class MyTiledMap extends TiledMap {
     }
 
     Actor getAllPlayersAtXy(int x, int y) {
+        Actor t;
+        t = null;
         if (this.getActorAtXy(player, x, y)) {
-            return player;
+            t =  player;
         }
         for (int i = 0; i < this.follower_max; i++) {
-            if (this.getActorAtXy(follower[i], x, y)) {
-                return this.follower[i];
+            if (this.getActorAtXy(follower[i], x, y) ) {
+                t = this.follower[i];
             }
         }
         for (int i = 0; i < this.monster_max; i++) {
             if (this.getActorAtXy(monster[i], x, y)) {
-                return this.monster[i];
+                t = this.monster[i];
             }
         }
-        return null; //found nothing
+        return t; //found nothing
+    }
+    Actor getAllMonstersAtXy(int x, int y) {
+        for (int i=0; i < this.monster_max; i++) {
+            if (this.getActorAtXy(monster[i], x, y)) {
+                return this.monster[i];
+            }
+            else{
+                return null;
+            }
+        }
+        return null;
     }
 
     public void onActorAttackActor(HorrorTactics ht, Actor attacker, Actor defender) {

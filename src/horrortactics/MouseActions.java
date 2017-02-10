@@ -90,8 +90,10 @@ public class MouseActions {
                     map.selected_tile_y = map.mouse_over_tile_y;
                     if (map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y) != null) { //prepare to attack
                         //map.onActorCanAttack(ht, map.player);
-                        if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
-                            System.out.println("setting player animation frame.");
+                        map.player.tiledestx = map.selected_tile_x;
+                        map.player.tiledesty = map.selected_tile_y;
+                        if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.player.tiledestx, map.player.tiledesty))) {
+                            //System.out.println("setting player animation frame.");
                             map.player.onAttack(ht);
                         }
                     } else {
@@ -99,16 +101,12 @@ public class MouseActions {
                         map.player.tiledesty = map.selected_tile_y;
                         map.player.setActorMoving(true);
                     }
-                    //}
                 }
             } else { //does not have turn
 
             }
-        }/*if (input.isMousePressed(0) == true) {*/
- /*now check if you held the mouse down*/
+        }
         if (input.isMouseButtonDown(0) && ht.map.turn_order.equalsIgnoreCase("player")) {
-            //mouse_x = input.getMouseX();
-            //mouse_y = input.getMouseY();
             if (mouse_x > ht.last_mouse_x) {
                 ht.draw_x += scrollspeed;
             } else if (mouse_x < ht.last_mouse_x) {
