@@ -1,16 +1,8 @@
 # horrorTactics
-Use turn-based tactics to survive your worse fears.
-
-The game features an isometric, square based grid, 
+Survive your worst fears! The player faces a seamingly endless array of spooky scenarios.  It all started on that first night, when she went back to the school to get her cell phone from her locker. The classrooms where crawling with a shambling pear shaped monster.  After surviving her first "encounter", the player returned to school the next day to find everything was normal, like it never happened.  Except her friends.  Any friend who dies, seems to have never existed!  The next night ...
 
 TODO's [code]
-onChangeMap Code
-Script code/dialogue/story
-trigger event on reached goal
-    * now shows when you stepped on a trigger?
-    * How do we know where a goal is?
-        * A planning phase which explains your goal
-Enemy AI: now that there are followers, how do enemies target followers?
+cut scenes
 
 TODO's [art]
 sprites/boy_henchman
