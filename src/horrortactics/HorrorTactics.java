@@ -209,14 +209,14 @@ public class HorrorTactics extends BasicGame {
             for (int x = map.player.tilex - 4; x < map.player.tilex + 4; x++) {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
-                if (this.getTileToBeRendered(x, y)) {
+                if (this.getTileToBeRendered(x, y)) {                    
                     if (this.getTileToBeFiltered(x, y)) {//if its outside 2 steps
                         //java.lang.ArrayIndexOutOfBoundsException: 20 
                         try {
                             Image xi = map.getTileImage(x, y, background_layer);
                             //map.getTileImage(x, y, background_layer).draw(
                             xi.draw(screen_x + draw_x, screen_y + draw_y, scale_x, this.myfilterd);
-                        } catch (ArrayIndexOutOfBoundsException a) {
+                        } catch (ArrayIndexOutOfBoundsException ae) {
                         }
                     } else { //draw normal
                         map.getTileImage(x, y, background_layer).draw(
@@ -250,10 +250,15 @@ public class HorrorTactics extends BasicGame {
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
             }
+            
+            if (y == map.selected_tile_y && x == map.selected_tile_x) {
+                        map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
 
+    
     public void render_walls_layer(GameContainer gc, Graphics g) {
         for (int y = map.player.tiley - 4; y < map.player.tiley + 4; y++) {
             for (int x = map.player.tilex - 4; x < map.player.tilex + 4; x++) {

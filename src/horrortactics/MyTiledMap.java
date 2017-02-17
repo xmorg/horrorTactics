@@ -41,6 +41,7 @@ public class MyTiledMap extends TiledMap {
     String old_turn_order = null;    //monster, player
     String log_msg = "";
     String[] planning = new String[20];
+    Image selected_green, selected_yellow;
     Image[] charbusts = new Image[20];
 
     String EventSpotted = "none";
@@ -86,6 +87,8 @@ public class MyTiledMap extends TiledMap {
         selected_tile_x = -1;
         selected_tile_y = -1;
         tiles250x129 = new Image("data/tiles250x129.png");
+        selected_green = new Image("data/selected_green.png");
+        selected_yellow = new Image("data/selected_yellow.png");
         player = new Actor("data/player00", 218, 313);
         ///player = new Actor("data/girl02", 218, 313); //monster test
         turn_order = "planning";   //monster, player
@@ -108,12 +111,6 @@ public class MyTiledMap extends TiledMap {
             this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
         }
 
-        //reached your goal
-        //this.EventGoal = this.getMapProperty("event_goal", "none");
-        //if (!this.EventGoal.equalsIgnoreCase("none")) {
-        //    this.EventGoal_p = new Image("data/" + this.getMapProperty("event_goal_p", "prt_player_00.png"));
-        //    this.EventGoal_m = this.getMapProperty("event_goal_m", "none");
-        //}
     }
 
     @Override
