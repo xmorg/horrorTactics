@@ -19,6 +19,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Font;
+import org.newdawn.slick.Sound;
 
 /**
  *
@@ -53,6 +54,7 @@ public class HorrorTactics extends BasicGame {
     Image button_endturn, button_punch;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
+    
 
     String game_state = "tactical"; //title, tactical,conversation,cutscene
 
@@ -205,8 +207,9 @@ public class HorrorTactics extends BasicGame {
 
     public void render_background_layer(GameContainer gc, Graphics g) {
         int background_layer = map.getLayerIndex("background_layer");
-        for (int y = map.player.tiley - 4; y < map.player.tiley + 4; y++) {
-            for (int x = map.player.tilex - 4; x < map.player.tilex + 4; x++) {
+        map.set_party_min_renderables();
+        for (int y = map.render_min_y - 4; y < map.render_max_y + 4; y++) {
+            for (int x = map.render_min_x - 4; x < map.render_max_x + 4; x++) {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 if (this.getTileToBeRendered(x, y)) {                    
@@ -260,8 +263,8 @@ public class HorrorTactics extends BasicGame {
 
     
     public void render_walls_layer(GameContainer gc, Graphics g) {
-        for (int y = map.player.tiley - 4; y < map.player.tiley + 4; y++) {
-            for (int x = map.player.tilex - 4; x < map.player.tilex + 4; x++) {
+        for (int y = map.render_min_y - 4; y < map.render_max_y + 4; y++) {
+            for (int x = map.render_min_x - 4; x < map.render_max_x + 4; x++) {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {

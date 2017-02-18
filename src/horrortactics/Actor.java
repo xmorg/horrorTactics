@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 //import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.Graphics;
 import java.lang.Math.*;
+import org.newdawn.slick.Sound;
 
 /**
  * Actor class is to encap the actor methods and data
@@ -45,6 +46,7 @@ public class Actor {
     int speed_wait;
     int action_msg_timer; //max800
     String action_msg;
+    Sound footsteps;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -79,6 +81,7 @@ public class Actor {
         turns_till_revival = 0;
         max_turns_till_revival = 0;
         attack_timer = 0;
+        footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
         //spriteImage.set
     }
 
@@ -252,6 +255,7 @@ public class Actor {
     public void setActorMoving(boolean ismoving) {
         if (ismoving == false) {
             this.set_draw_xy(0, 0);
+            footsteps.stop();
         }
         this.move_action = ismoving;
         if (this.move_action == true) {
@@ -332,24 +336,40 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getNorth()) {
             this.onMoveNorth(m, f);
+            if(!footsteps.playing()) {
+                footsteps.loop();
+                //footsteps.play();
+            }
         } else if (this.getActorMoving() == true
                 && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getSouth()) {
             this.onMoveSouth(m, f);
+            if(!footsteps.playing()) {
+                footsteps.loop();
+                //footsteps.play();
+            }
         } else if (this.getActorMoving() == true
                 && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getEast()) {
             this.onMoveEast(m, f);
+            if(!footsteps.playing()) {
+                footsteps.loop();
+                //footsteps.play();
+            }
         } else if (this.getActorMoving() == true
                 && this.dead == false
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {
             this.onMoveWest(m, f);
+            if(!footsteps.playing()) {
+                footsteps.loop();
+                //footsteps.play();
+            }
         }
 
         if (m.getPassableTile(this,
@@ -374,6 +394,8 @@ public class Actor {
         if (this.attack_timer > 0) {
             this.setAnimationFrame(4); //just in case it got set to 0
         }
+        
+        
 
         //try to check tilex/tiley for an event?
     }

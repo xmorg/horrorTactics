@@ -1,74 +1,72 @@
-#String[] matches = myString.split(";"); #This is a comment
+[player] I'm so tired.  Why do they keep me so late?
 
-intro:1:train.jpg:player_tired.png:null:I'm so tired.  Why do they keep me so late?
+[player] I feel like I have a mountain of homework before bed.
 
-intro:2:train.jpg:player_tired.png:null:I feel like I have a mountain of homework before bed.
+[player] All I want do do is sleep, oh I better give up my seat.
 
-intro:3:train.jpg:player_tired.png:crone.png:All I want do do is sleep, oh I better give up my seat.
+[Old Lady] Children today are so rude! Not giving up your seat for an old lady.
 
-intro:4:train.jpg:player_tired.png:crone.png:[Old Lady] Children today are so rude! Not giving up your seat for an old lady.
+[Old Lady] You should learn to respect your elders.
 
-intro:5:train.jpg:player_tired.png:crone.png:[Old Lady] You should learn to respect your elders.
+[player] But I was going to...
 
-intro:6:train.jpg:player_tired.png:crone.png:But I was going to...
+[Old Lady] Backtalk! such disrespect!
 
-intro:7:train.jpg:player_tired.png:crone.png:[Old Lady] Backtalk! such disrespect!
+[Old Lady] You will learn true respect, you will learn fear!
 
-intro:8:train.jpg:player_tired.png:crone.png:[Old Lady] You will learn true respect, you will learn fear!
+[Old Lady] Your nightmares will haunt you! You will know fear.
 
-intro:9:train.jpg:player_tired.png:crone.png:[Old Lady] Your nightmares will haunt you! You will know fear.
+[Old Lady] All of your friends, anyone who tries to help you, will DIE!
 
-intro:10:train.jpg:player_tired.png:crone.png:[Old Lady] All of your friends, anyone who tries to help you, will DIE!
+[Old Lady] And if your not quick, you will die to! (laughs)
 
-intro:11:train.jpg:player_tired.png:crone.png:[Old Lady] And if your not quick, you will die to! (laughs)
+[Old Lady] Oh! thats my stop, have a nice day dear.
 
-intro:12:train.jpg:player_tired.png:crone.png:[Old Lady] Oh! thats my stop, have a nice day dear.
+[player] Ah, you too?
 
-intro:12:train.jpg:player_confused.png:null.png:Ah, you too?
+Day 1
 
-intro:13:blank.jpg:null:null:null:Day 1
+[Teacher] Class dismissed!
 
-intro:15:classroom.jpg:teacher1.png:null:null:[Teacher] Class dismissed!
+[player] And then she said I would be haunted by nightmares!
 
-intro:16:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:And then she said I would be haunted by nightmares!
+[Mel] Wow, what a weirdo.
 
-intro:17:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Wow, what a weirdo.
+[Lana] What if she put a curse on you?
 
-intro:18:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Lana] What if she put a curse on you?
+[player] Thats not funny!
 
-intro:19:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:Thats not funny!
+[Mel] Theres no such thing!
 
-intro:20:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Theres no such thing!
+[player] My Phone! I forgot my phone in my locker.
 
-intro:21:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:My Phone! I forgot my phone in my locker.
+[Lana] Its ok, just get it tomorrow.
 
-intro:22:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Lana] Its ok, just get it tomorrow.
+[player] I need it tonight! He might text me!
 
-intro:23:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:I need it tonight! He might text me!
+[Mel] Oh!!!
 
-intro:24:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Oh!!!
+[Mel] Ill go with you.
 
-intro:25:homewalk.jpg:player_walking.png:mel_walking.png:lana_walking.png:[Mel] Ill go with you.
+[Old Man] The school is closed, the lights are off.
 
-stage1:1:schoolyard1.jpg:janator.png:null:null:[Old Man] The school is closed, the lights are off.
+[player] I really need to get in! I forgot something.
 
-stage1:2:schoolyard1.jpg:janator.png:player_walking.png:null:I really need to get in! I forgot something.
+[Old Man] I cant let you in!
 
-stage1:3:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] I cant let you in!
+[player] Please...
 
-stage1:4:schoolyard1.jpg:janator.png:player_walking.png:null:Please...
+[Old Man] Alright, but I wont be responsible!
 
-stage1:5:schoolyard1.jpg:janator.png:player_walking.png:null:[Old Man] Alright, but I wont be responsibile!
+[Mel] Um, I’m afraid of the dark, ill just wait for you here.
 
-stage1:6:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:[Mel] Um, Im afraid of the dark, ill just wait for you here.
+[player] What?
 
-stage1:7:schoolyard1.jpg:janator.png:player_walking.png:mel_walking.png:What?
+[Tedd] Did someone say dark? We'll take responsibility!
 
-stage1:8:schoolyard1.jpg:player_walking.png:boys1.png:null:[Tedd] Did someone say dark? We'll take respsibility!
+[Mel] Pssst! Dont take them! They are bullies! There is no telling...
 
-stage1:9:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:[Mel] Pssst! Dont take them! They are bullies! There is no telling...
+[Tedd] Dont listen to that, you need our protection!
 
-stage1:10:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:[Tedd] Dont listen to that, you need our protection!
 
-stage1:11:schoolyard1.jpg:player_walking.png:boys1.png:mel_walking:Will you take Tedd and his gang? (Y)es (N)o
 

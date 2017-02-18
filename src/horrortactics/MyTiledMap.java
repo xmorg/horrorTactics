@@ -14,7 +14,9 @@ import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.geom.Rectangle; //rects to click on
 
 import java.util.concurrent.ThreadLocalRandom;
+import org.newdawn.slick.Sound;
 //import java.lang.Math.*;
+
 
 /**
  *
@@ -43,6 +45,8 @@ public class MyTiledMap extends TiledMap {
     String[] planning = new String[20];
     Image selected_green, selected_yellow;
     Image[] charbusts = new Image[20];
+    
+    
 
     String EventSpotted = "none";
     Image EventSpotted_p = null;
@@ -71,6 +75,8 @@ public class MyTiledMap extends TiledMap {
     int current_monster_moving = 0; //debug
     int current_follower_moving = 0;
     String trigger_check = "no";
+    
+    public int render_min_y = 0, render_min_x = 0, render_max_y = 0, render_max_x = 0;
 
     public int getDrawX() {
         return m_draw_x;
@@ -92,6 +98,7 @@ public class MyTiledMap extends TiledMap {
         player = new Actor("data/player00", 218, 313);
         ///player = new Actor("data/girl02", 218, 313); //monster test
         turn_order = "planning";   //monster, player
+        
         this.active_trigger = new Trigger("none", "none");
         /*for (int i = 0; i < 5; i++) {
             this.planning[i] = this.getMapProperty("planning_" + i, "end");
@@ -809,5 +816,42 @@ public class MyTiledMap extends TiledMap {
             this.current_monster_moving++;
         }
         //allmonstersmoved = false;
+    }
+    
+    public void set_party_min_renderables() {
+        int current_min_y = 0;
+        int current_min_x = 0;
+        int current_max_y = 0;
+        int current_max_x = 0;
+        if(this.player.tiley < current_min_y) {
+            current_min_y = this.player.tiley;
+        }
+        if(this.player.tilex < current_min_x) {
+            current_min_y = this.player.tilex;
+        }
+        if(this.player.tiley > current_max_y) {
+            current_max_y = this.player.tiley;
+        }
+        if(this.player.tilex > current_max_x) {
+            current_max_x = this.player.tilex;
+        }
+        for(int i=0; i < this.follower_max; i++) {
+            if(this.follower[i].tiley < current_min_y) {
+                current_min_y = this.follower[i].tiley;
+            }
+            if(this.follower[i].tilex < current_min_x) {
+                current_min_x = this.follower[i].tilex;
+            }
+            if(this.follower[i].tiley > current_max_y) {
+                current_max_y = this.follower[i].tiley;
+            }
+            if(this.follower[i].tilex > current_max_x) {
+                current_max_x = this.follower[i].tilex;
+            }
+        }
+        this.render_min_y = current_min_y;
+        this.render_min_x = current_min_x;
+        this.render_max_y = current_max_y;
+        this.render_max_x = current_max_x;
     }
 }
