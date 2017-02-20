@@ -174,7 +174,8 @@ public class Actor {
     }
 
     public int getIsoYToScreen(int x, int y) /*int posX = ( x - y) * 250;*/ {
-        int posY = (x + y) * 129 / 2;
+        //int posY = (x + y) * 129 / 2;
+        int posY = (x + y) * 130 / 2;
         return posY;
     }
 
@@ -279,7 +280,7 @@ public class Actor {
                 
                 try {
                     m.selected_green.draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y);
-                    m.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                    m.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                             h.screen_x + h.draw_x, h.screen_y + h.draw_y);
                 } catch (NullPointerException n) {
                 }

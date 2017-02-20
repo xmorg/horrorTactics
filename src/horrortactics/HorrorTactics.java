@@ -276,7 +276,7 @@ public class HorrorTactics extends BasicGame {
                             && mouse_y >= sy && mouse_y <= sy + 130 - 30) {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
-                        map.tiles250x129.getSubImage(0, 0, 250, 129).draw(
+                        map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
                     map.player.drawPlayer(this, map, x, y);

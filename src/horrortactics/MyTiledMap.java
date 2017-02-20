@@ -387,7 +387,8 @@ public class MyTiledMap extends TiledMap {
 
     public int getIsoYToScreen(int x, int y) {
         //int posX = ( x - y) * 250;
-        int posY = (x + y) * 129 / 2;
+        //int posY = (x + y) * 129 / 2;
+        int posY = (x + y) * 130 / 2;
         return posY;
     }
 

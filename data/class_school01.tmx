@@ -14,13 +14,10 @@
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
- <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="16" columns="8">
-  <image source="tiles250x129.png" width="2000" height="258"/>
- </tileset>
- <tileset firstgid="17" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="1" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="49" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -62,19 +59,22 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
+ </tileset>
  <layer name="background_layer" width="50" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DwQkAAAwDoSP7D90x+lFw1VRVVdXXB1xG2b6gDwAA
+   H4sIAAAAAAAAA+3DQQ0AAAwDodNU/+ImYx9IWDVVVVX19QGnj3lvoA8AAA==
   </data>
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+1W7Q7DIAjkGey2/tr7v+bWHybuBigUdEl3CWkj9uqFLwsRlbdtjRXnmuSfZYincKYWmr/3bd2zM+seSDpmAHU84Km9c1wrdURyrdKBsMRjp89YHhruSefKBNbVoeO24iD0nQfWeCDXr9S5BVxejejo9WtPb8/oVyO2kT7j0I97ejrOwBKPs/+J5kSuK+loe3PNIYmP80k6su9XiLY319znoPkkHVH30xl5lQlLPDLqIwpX1xFV5154ZrA2D62+v43ZCxtpVaKgDwAA
+   H4sIAAAAAAAAA+1WXQ/DIAgkdluf9v//7tYHE3cDFAq6pLuEtBF79cKXhYjK27bGinNN8s8yxFM4UwvN3/u27tmZdQ8kHTOAOh7w1N45rpU6IrlW6UBY4rHTZywPDfekc2UC6+rQcVtxEPrOA2s8kOtX6twCLq9GdPT6tae3Z/SrEdtIn3Hoxz09HWdgicfZ/0RzIteVdLS9ueaQxMf5JB3Z9ytE25tr7nPQfJKOqPvpjLzKhCUeGfURhavriKpzLzwzWJuHVt/fxuwFPZJep6APAAA=
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VsQkAIAxE0ayk2Njo/lupA9gFPoT/IPXdVYlQVRPO73B+lnFv0SUStKix46myQxKH/pE/my4gSUIdGiEcxaAPAAA=
+   H4sIAAAAAAAAA+3VsQkAIAxE0ayi2Njo/tupA9gFPoT/IPXdVYlQVRPO73B+lnFv0SUStKix46myQxKH/pE/my4gSUId//wKUqAPAAA=
   </data>
  </layer>
 </map>
