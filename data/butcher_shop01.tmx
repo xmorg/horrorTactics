@@ -14,13 +14,13 @@
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
- <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="16" columns="8">
-  <image source="tiles250x129.png" width="2000" height="258"/>
+ <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
- <tileset firstgid="17" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="33" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="49" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="65" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -64,17 +64,17 @@
  </tileset>
  <layer name="background_layer" width="20" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+NkYGDgHAKYjwI8at6oeaPmjZo3lM0brBgA+p+CHUAGAAA=
+   H4sIAAAAAAAAA+NkYGDgHAKYjwI8Us1DZ1NiHro7B6N/R80bNW+4mjdYMQAFqThhQAYAAA==
   </data>
  </layer>
  <layer name="walls_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA1NiYGBQGuaYD4mtyoAJ1IFYFou4LJoaGEA2DxtQJ1GckHm4gAYOs2HmUQuAzFNFoqlhHgzjig9sAF98wDByvGPThww0cIijm0Ns3FDbPGSAK/1hM08d6hZc4UiO+7CZRUx6Jte/A20esWEHAwNdxg0UBgBWXIqyQAYAAA==
+   H4sIAAAAAAAAA92UYQrAIAhGvxN0k/4EY97/ZNtggmx+5SIQ9kAKiYda1AC0n0cx+w1v9jOqk6+PM0rE58HyIx9DBvXho49Rbo+uK3wa2reFzal3Hz2fd7cXQvLW4/kYq30W9v7Y/AR8jjP1ea7Ie57tN9sXnZ2S/cdlxQGeVx80QAYAAA==
   </data>
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGHnACI+cNRnmmQCxHZluwQYMqWweAxnmkRMOo4C6YDQORsFgBwAaWHGVQAYAAA==
+   H4sIAAAAAAAAA2NgGHnACY+cNxnmuQCxH5luwQYcqWweAxnmkRMOo4C6YDQORsFgBwA0XWYrQAYAAA==
   </data>
  </layer>
 </map>

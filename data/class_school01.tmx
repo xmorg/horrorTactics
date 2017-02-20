@@ -69,7 +69,7 @@
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+1WXQ/DIAgkdluf9v//7tYHE3cDFAq6pLuEtBF79cKXhYjK27bGinNN8s8yxFM4UwvN3/u27tmZdQ8kHTOAOh7w1N45rpU6IrlW6UBY4rHTZywPDfekc2UC6+rQcVtxEPrOA2s8kOtX6twCLq9GdPT6tae3Z/SrEdtIn3Hoxz09HWdgicfZ/0RzIteVdLS9ueaQxMf5JB3Z9ytE25tr7nPQfJKOqPvpjLzKhCUeGfURhavriKpzLzwzWJuHVt/fxuwFPZJep6APAAA=
+   H4sIAAAAAAAAA+1W2w7DIAgldpt92f//buuDCWWAKDibbCc5aRUFTrxgAoB0ckNMg32S/Vvc4Yq3kNOOqNlbc0GI2wPqKzl8eVDiZtR+ka/2z/laqSPS1yodFD3rkeG6lkXDc1JeM5FJu+h4rEgEPvdB73pQX3c55z3g9pVFh3Rft+zcWDwn+r6ycAO9xlE7HdPS4QGugxLrOG8crs9TB6kvi79ZOqJg1YHv5rqHJH+cTdIRTSmvCnw3173PQbNJOqLepxYdd6n5HLT3LjfWG2sWfl1H1DkfxUgN1uphr+1PGw+HIC6aoA8AAA==
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">

@@ -6,8 +6,8 @@
   <property name="planning_1" value="end"/>
   <property name="req_goal" value="no"/>
  </properties>
- <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="16" columns="8">
-  <image source="tiles250x129.png" width="2000" height="258"/>
+ <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
   <tile id="0">
    <properties>
     <property name="event_spotted" value="iman"/>
@@ -16,10 +16,10 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="17" name="walls250x512" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="33" name="walls250x512" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="49" name="actor_grid" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="65" name="actor_grid" tilewidth="218" tileheight="312" tilecount="16" columns="4">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -46,17 +46,17 @@
  </tileset>
  <layer name="background_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3SQQoAIAgAQclr9P/n9gEFE6GSPezVEVRFRImatxJZc4bR6+4M5Nm49ffF/fO+uHH3tKq/8vbEzdvWDFxc3DtuRZ67AfLmexIQDgAA
+   H4sIAAAAAAAAA+3SQQoAIAgAQclr9P/n9gEFE6GSPezVEVRFRImatxJZc4bR6+4M5Nm49ffF/fO+uHH3tKq/8vbEzdvWDFxc3DtuRZ67AfLmexIQDgAA
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC92WSQ7AIAhFuYpDe/8jNi7cED/Rr2gsCUkjw0spUIOIhEPKSCTjZJL7HOLOyI117olj+qqcR+UXwTPKZeVGNqaOOobhMvXXPb6LqwXVzLvOaMZXv6+OYbm6l6ugXta52DpnYEOyYo7KeTrEHZWbucwctbjMfl7BRX69c8TcXVZ93zBgn+FWfRu+s1xrl2XBu6OHa+W2bEnw7mhxdS6P/0LPfdJjb7S4O/aVZz//leul1v3gAzQuD1YQDgAA
+   H4sIAAAAAAAAA9WWSwoDMQiGvc3MpotJMr3/0YqLQBEf8ZEOFQKtxv8jYpxcAHA9tCLWgnmQ5N4PcTP2j3VeyYv0Ffob2deE35KWpi3FUPe0DsTkZLnofzm5tMej3KxJvWfVOcuR7nj1eWlOlEt7eZrUy1QrWuchxKZhvx9Ej+p7uejvBpfLqeB6zcvl7ukvuJxF7hHHjcznCu7su0H8q/co8nb5/t+J33Ne9J1G3NJY4c71ZvZmudosGyDPjhWupq3FOsizg+NSrR3fhZX35I55xXGr5pX2ztnZzxXcQ9gXrXPFeXct7X3wARGb3QUQDgAA
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UMQEAAAgCQSs5utg/ljEQ/SsAC0TsUOoCgBgbgItUF8BJfKC/fpYLXDFMxaG5EA4AAA==
+   H4sIAAAAAAAAA+3UMQEAAAgCQas5utg/jjEQ/SsAC0TsUOoCgBgbgItUF8BJfKC/fpYLXDGtuCtHEA4AAA==
   </data>
  </layer>
 </map>

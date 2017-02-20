@@ -14,13 +14,13 @@
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
- <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="16" columns="8">
-  <image source="tiles250x129.png" width="2000" height="258"/>
+ <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
- <tileset firstgid="17" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="33" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="49" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="65" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -69,12 +69,12 @@
  </layer>
  <layer name="walls_layer" width="8" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA82RAQoAIQgE/UYh3f9/eQQFIuqK1HELEjhumTYiaiukdo5FbqiTRViyGAPu+a063V+Ve30gv+djwJFf8h7cO2Nok6pHvAN+Yn/RnLL+bH83ufX3r96vzu8JeMT+oup+kH/nX/TsTh4ABQAA
+   H4sIAAAAAAAAA82TUQrAIAxDex1FXO9/OhEUQtBUt58FZJuv0RpcMrM0BmrOOcxVevoYxdYqC4bfyjtrHWpZKfCf8l0fkR/7Qzlw5Y/O33mm/XDdziubqD7iOeDcn9N7lI/K9ySf2/v1Zn3l5/My+7L/Dd/lF/X/CK7YX3Tz/6yyUHenqwEGHN6XAAUAAA==
   </data>
  </layer>
  <layer name="actors_layer" width="8" height="40" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+NkYGDgpDE2IiBvAsR2eOQNCchzEiE/igcnHgWjYCABABnN06wABQAA
+   H4sIAAAAAAAAA+NkYGDgpDF2IiDvAsR+eOQdCchzEiE/igcnHgWjYCABAF3o1CYABQAA
   </data>
  </layer>
 </map>
