@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" orientation="isometric" renderorder="left-down" width="20" height="60" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="planning_0" value="Hello? Anyone there?"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
@@ -44,19 +44,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="background_layer" width="30" height="30">
+ <layer name="background_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3SQQoAIAgAQclr9P/n9gEFE6GSPezVEVRFRImatxJZc4bR6+4M5Nm49ffF/fO+uHH3tKq/8vbEzdvWDFxc3DtuRZ67AfLmexIQDgAA
+   H4sIAAAAAAAAA+2WUQ+DIAyEiW4Ce+P//1klgcQ0OtuzaN14uBhJ+HLXUjQ652JjhUUfUHl/KqLriNJK2deknLPyXuVdKsq8kofUgsNLRHfw3sb9/Rvvin54Q3nRedvbY4WH9BfhHd1/W9l+9T6tWfNzJKK9lvKGwhkAnt/gjYR5Nu83f2j99vxNyv7WvKP5aOEvKNcvMPobBTxOf6W87o/PQ+a3inuerdePK63vB9efVJ1ni6f1P/SUvE/keWVePy/teTOUmx27wBIAAA==
   </data>
  </layer>
- <layer name="walls_layer" width="30" height="30">
+ <layer name="walls_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9WWTQoDIQyFc5uZTRejTqG9/8FKFoKEJJofGRoQOtG8D+WZegHA9dDwRHHWQZB7P8SNxD+e80qdx1eYL2RdEX5LWpq2NIe65/D9FdbRmigX868F1hjU415uNCTvzc75E+RIdzx7v7TGy6Ve7iF5mWp5z7kJcz3Q7wfRo/pWLubrhMvVZHCtYeVy9xTzVj9n9StrcFxPf87gdt81kl+9R563y/hdSd6yX8ydk/mZxgq3jzezNsrVelkDuXescDVtba6C3Ds4LtXa8b+w8p7c0a84bla/Opm8ppnl5wzuIazznnPGfncN7X3wA0ireVcQDgAA
+   H4sIAAAAAAAAA+2WYQrDIAyFhd6k/1a6bgrd7n+ztVBBHlHUPIdCHwRR8TNNaMxsjJlJ5iLrOXoKa/Yal8h+qUIeQ47E8doPe4BpeTYwz3slzqT2rJF5tXKVvO2w9RoZ/iHHz3vivf/gnyYf0ryn+K2N/NuAx/x/sb5gXLRi8DCGNy8u6W2UeKkaXMLbMxjhXfhWYz3I4aF/KV5N/Fryls55yCrlYf60PJS2v5K+l8nT9pAST1PvkXeeD3PxbcTL7f9O3kT2bwqYyKuNn6b+SbwPiSeJ2T8jrzQfN4+fD2b/d2sM5fZro901gn637LhawBIAAA==
   </data>
  </layer>
- <layer name="actors_layer" width="30" height="30">
+ <layer name="actors_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3UMQEAAAgCQas5utg/jjEQ/SsAC0TsUOoCgBgbgItUF8BJfKC/fpYLXDGtuCtHEA4AAA==
+   H4sIAAAAAAAAA+3TsQ0AIAwDsL7GyML/5zAz0aWCSvYBUYYkotYszqcfm+hrvC7AwZfu1ud5AABAzgaCWf+bwBIAAA==
   </data>
  </layer>
 </map>

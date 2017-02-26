@@ -69,7 +69,7 @@
  </layer>
  <layer name="walls_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA92UYQrAIAhGvxN0k/4EY97/ZNtggmx+5SIQ9kAKiYda1AC0n0cx+w1v9jOqk6+PM0rE58HyIx9DBvXho49Rbo+uK3wa2reFzal3Hz2fd7cXQvLW4/kYq30W9v7Y/AR8jjP1ea7Ie57tN9sXnZ2S/cdlxQGeVx80QAYAAA==
+   H4sIAAAAAAAAAzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZTwzwYhrkTGeAKJ3zxgc88bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAPoTLA9ABgAA
   </data>
  </layer>
  <layer name="actors_layer" width="20" height="20">

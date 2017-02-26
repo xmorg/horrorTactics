@@ -64,7 +64,7 @@
  </tileset>
  <layer name="background_layer" width="8" height="40" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+NkYGDgHMWjeBSPSMxNAHPQGHMRwLT2PwA42TsCAAUAAA==
+   H4sIAAAAAAAAA+NkYGDgHIJYEA3jEh+ueCT5dThjQvGILc0Tyhek5CNuApiDxpiLACa3XMBXViBjAOFPej4ABQAA
   </data>
  </layer>
  <layer name="walls_layer" width="8" height="40">

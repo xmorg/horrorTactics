@@ -95,8 +95,8 @@ public class MyTiledMap extends TiledMap {
         tiles250x129 = new Image("data/tiles250x129.png");
         selected_green = new Image("data/selected_green.png");
         selected_yellow = new Image("data/selected_yellow.png");
-        player = new Actor("data/player00", 218, 313);
-        ///player = new Actor("data/girl02", 218, 313); //monster test
+        //player = new Actor("data/player00", 218, 313);
+        player = new Actor("data/monster09", 218, 313); //monster test
         turn_order = "planning";   //monster, player
         
         this.active_trigger = new Trigger("none", "none");
