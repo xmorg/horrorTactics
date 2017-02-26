@@ -46,12 +46,12 @@
  </tileset>
  <layer name="background_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3SQQoAIAgAQclr9P/n9gEFE6GSPezVEVRFRImatxJZc4bR6+4M5Nm49ffF/fO+uHH3tKq/8vbEzdvWDFxc3DtuRZ67AfLmexIQDgAA
+   H4sIAAAAAAAAA+3SQQoAIAgFUcltdP/jdgGFnwhRzGK2PkHdzJzo81ahaM4IUl11n253CmU2bv9f4b55X1zdPa3rr7I9cet2NAMXF/eO21HmbkVS3kcQDgAA
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9WWTQoDIQyFc5uZTRejTqG9/8FKFoKEJJofGRoQOtG8D+WZegHA9dDwRHHWQZB7P8SNxD+e80qdx1eYL2RdEX5LWpq2NIe65/D9FdbRmigX868F1hjU415uNCTvzc75E+RIdzx7v7TGy6Ve7iF5mWp5z7kJcz3Q7wfRo/pWLubrhMvVZHCtYeVy9xTzVj9n9StrcFxPf87gdt81kl+9R563y/hdSd6yX8ydk/mZxgq3jzezNsrVelkDuXescDVtba6C3Ds4LtXa8b+w8p7c0a84bla/Opm8ppnl5wzuIazznnPGfncN7X3wA0ireVcQDgAA
+   H4sIAAAAAAAAA8WW0Q7DIAhF/Zv2ZQ+1bsm2/v93LTyYtISLgCy9iUlF4QyHxK2Ust00vsUn2l8Nfmi9cyN6Bv1muTOa4dabuBa/UV0hn8r2VfCNYmmx0RrFXU/zD9jHfWa5ZH8YWGfxGo9yZ4Vqb3TO70kOuuPZ+XKfKJfXcheqZR4res4NrHVRvS8sHo9POhxcsu8DruSjza1crgN8R7nSPSW7t56z+pVXEjfSnzO4ve4as1vvkXWg37Ezuydfsq2D9VEMC7ePl7BXupsertbLWsG9w5KvFltb28v1f9Fykzh97u1X2jvV8p6M9klNEjerX62CXYuZVc8Z3AXsi55zRr7/Gtr74AdtjvwqEA4AAA==
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
