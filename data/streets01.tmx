@@ -46,7 +46,7 @@
  </tileset>
  <layer name="background_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2W0QrDIAxFpd2q2R6G//+zm6BQgtUkpupoHy7SooebxKQFYwycLPfTS6hw3kfh9xL5nYKvTTnOxHvEZ64wsydPkgsKzyON4D0n93c1Xo962IniPerfd0GQ2V/j1eYph9cyD0r11ZoveM5dZZ6mWMO6IgHaw+UtkbMIeDbDWxGzNd6SP2n+jvxtyv72vFp/nOHPKefPEeoLDB6lvlze7Y/Ok/RvEvU+z54/qrS+H1R/XPXmfTK6efT+GO3v33ka99kq81r8af0/98zfCN4X0RmQRMASAAA=
+   H4sIAAAAAAAAA+3RMQ6AIBBE0Q1olMp4/8vaWE0MERyV4hev/ZmFEhEFdhO913q7uNObzb0aevRcVjFaD//KQv+6tZfOTjL1sjSf3lvb1/t+7GMf+9iHftsFevS+6jksA2xAmwPf6qLswBIAAA==
   </data>
  </layer>
  <layer name="walls_layer" width="20" height="60">

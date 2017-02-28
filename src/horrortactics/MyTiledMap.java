@@ -52,6 +52,10 @@ public class MyTiledMap extends TiledMap {
     Image EventSpotted_p = null;
     String EventSpotted_m = "none";
     boolean EventSpotted_ran = false;
+    String EventSpotted1 = "none";  //TODO: make a loop like in planning.
+    Image EventSpotted_p1 = null;   //LOOP: through like in planning during, 
+    String EventSpotted_m1 = "none"; //render_character_busts
+    boolean EventSpotted_ran1 = false;
 
     String EventGoal = "none";
     Image EventGoal_p = null;
@@ -95,8 +99,8 @@ public class MyTiledMap extends TiledMap {
         tiles250x129 = new Image("data/tiles250x129.png");
         selected_green = new Image("data/selected_green.png");
         selected_yellow = new Image("data/selected_yellow.png");
-        //player = new Actor("data/player00", 218, 313);
-        player = new Actor("data/monster09", 218, 313); //monster test
+        player = new Actor("data/player00", 218, 313);
+        //player = new Actor("data/boy01", 218, 313); //monster test
         turn_order = "planning";   //monster, player
         
         this.active_trigger = new Trigger("none", "none");
@@ -110,9 +114,14 @@ public class MyTiledMap extends TiledMap {
         this.next_map = this.getMapProperty("nextmap", "none");
         this.RequiresGoal = this.getMapProperty("req_goal", "no");
         this.EventSpotted = this.getMapProperty("event_spotted", "none");
+        this.EventSpotted1 = this.getMapProperty("event_spotted1", "none");
         if (!this.EventSpotted.equalsIgnoreCase("none")) { //if not none, load the event spotted
             this.EventSpotted_m = this.getMapProperty("event_spotted_m", "none");
             this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
+            if (!this.EventSpotted1.equalsIgnoreCase("none")) {
+                this.EventSpotted_m1 = this.getMapProperty("event_spotted_m1", "none");
+                this.EventSpotted_p1 = new Image("data/" + this.getMapProperty("event_spotted_p1", "prt_player_00.png"));
+            }
         } else {
             this.EventSpotted_m = this.getMapProperty("event_spotted_m", "end.");
             this.EventSpotted_p = new Image("data/" + this.getMapProperty("event_spotted_p", "prt_player_00.png"));
@@ -187,7 +196,43 @@ public class MyTiledMap extends TiledMap {
                         } catch (SlickException e) {
                         }
                     }
-                    
+                    else if (pname.equals("Takeshi")) {
+                        try {
+                            follower[follower_loop].changeActorSpritesheet("data/boy01", 218, 313);
+                            follower[follower_loop].tilex = x;
+                            follower[follower_loop].tiley = y;
+                            follower[follower_loop].visible = true;
+                            this.player.name = pname;
+                            follower_loop++;
+                        } catch (SlickException e) {
+                        }
+                    }
+                    else if (pname.equals("tutor_bully0")) {
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/boy00", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 100;
+                        monster_loop++;
+                    }
+                    else if (pname.equals("tutor_bully1")) {
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/girl03", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 100;
+                        monster_loop++;
+                    }
                     else if (pname.equals("pear monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313);
