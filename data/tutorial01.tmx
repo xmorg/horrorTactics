@@ -7,14 +7,16 @@
   <property name="event_spotted_m1" value="Takeshi: Go on ahead! ill take care of these losers!"/>
   <property name="event_spotted_p" value="prt_player_00.png"/>
   <property name="event_spotted_p1" value="prt_player_00.png"/>
-  <property name="mapname" value="class_school01.tmx"/>
-  <property name="nextmap" value="apartment1.tmx"/>
+  <property name="mapname" value="tutorial01.tmx"/>
+  <property name="nextmap" value="class_school01.tmx"/>
   <property name="planning_0" value="Hello Class. Today we will learn the basics."/>
-  <property name="planning_0_p" value="prt_player_00.png"/>
+  <property name="planning_0_p" value="prt_teacher_00.png"/>
   <property name="planning_1" value="Player, can you go to my office and get my papers?"/>
-  <property name="planning_1_p" value="prt_player_00.png"/>
+  <property name="planning_1_p" value="prt_teacher_00.png"/>
   <property name="planning_2" value="My office is down the hall to the left."/>
-  <property name="planning_2_p" value="prt_yukari_00.png"/>
+  <property name="planning_2_p" value="prt_teacher_00.png"/>
+  <property name="planning_3" value="Takeshi: Ill go with you!"/>
+  <property name="planning_3_p" value="prt_fatboy_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
  <tileset firstgid="1" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
@@ -69,8 +71,8 @@
   </tile>
   <tile id="14">
    <properties>
-    <property name="event_goal" value="cell phone"/>
-    <property name="event_goal_m" value="I got it! Lets get out of here."/>
+    <property name="event_goal" value="papers"/>
+    <property name="event_goal_m" value="Here there are.  Lets get back to class."/>
     <property name="event_goal_p" value="prt_player_00.png"/>
    </properties>
   </tile>
@@ -88,12 +90,12 @@
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+2VawqAIBCEF4PqDna47n+K6EewhfsYWQvDgaVQZz9cX4mIUucxsfCMX0kX78/s//KXdLYvQrvm8yiSOwvf1lxNWyHHBPg1LjrfKC6aQ+Jq9Ue5C93XzFrf0jl5cqX68jo/94k1Xw/Xo4u7N+BG7Sup7417Q/Mg80XOb+R+RrlWcPVyb6D+1u8Cyq3J0RvXG5K3lpuNsZJqfBF1rtHgDu5fuV/EAbeLNpwQDgAA
+   H4sIAAAAAAAAA9WVYQ6DMAiFic66O7jDef9TLPthwprygI23Zi8hKpV+odB2EZHlz21VFvn/Llh6/FDvV/xIL/9u+FFcRJXcZjzZXKTHYI41EY+42XyruNk5LC5a/yx3l/eaefUd7ZOea62vXue+T7x8I9yILu5J4Fb1lTX2i3MDxWTyzezfyn7Ocj3TqqzvrHtBqyk/+15AMax8t+7by7eKe3NiMmbFWvNrjfI95DOhOGZ9kbL9zOJqP5MdOTdm2bd5IX9/7jC4zfCzuVH/THsC21NPjhAOAAA=
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OMREAIAwEsFphYAD/AlmQ0OMHEgWpAqDDSAegyUwH4FrpwGM7HeBLB30sSo8QDgAA
+   H4sIAAAAAAAAA+3OoQ0AIAwF0a6CQFAB+29XTGUd6Q/JveT8mQF/OeoBoDDUA8AjUz3QbBeldXPBFwB0CHfmKOoQDgAA
   </data>
  </layer>
 </map>
