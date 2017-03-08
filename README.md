@@ -20,13 +20,14 @@ asylum patients need walk animations
 asylum guards need walk animations
 
 Maps
-Tutorial can meet bullies, get papers and return to class.  Should transition to class (not tested)
-classroom can meet monsters, get cell phone and return to exit.  Does transition to appartment.
-appartment, can meet monsters, and exit (does not transition to street)
-Street, no monsters, or henchmen(not finished), tiles need to look better.
-butcher shop (needs work)
-subway (needs subway tiles!)
-poolside Monster completed, map completed, no triggers, no placement in map order
-forrest, map completed, no monsters, no triggers, no placement in map order
+- Tutorial can meet bullies, get papers and return to class.  Should transition to class (not tested)
+- classroom can meet monsters, get cell phone and return to exit.  Does transition to appartment.
+- appartment, can meet monsters, and exit (does not transition to street)
+- Street, no monsters, or henchmen(not finished), tiles need to look better.
+- butcher shop / map completed, monster completed, no triggers, no placement in map order
+- subway (needs subway tiles!) / no monsters, no triggers, no placement in map order
+- poolside Monster completed, map completed, no triggers, no placement in map order
+- forrest, map completed, no monsters, no triggers, no placement in map order
+- asylum, no map, no tiles or walls, monsters partially completed, folowers partially completed, no triggers, no placement in map order
 
 
