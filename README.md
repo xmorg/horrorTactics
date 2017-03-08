@@ -19,6 +19,12 @@ policewoman needs attack and back animations
 asylum patients need walk animations
 asylum guards need walk animations
 
+Portraits needed
+Player (colored and face)
+Yukari (colored and face)
+Asylum patients
+Policewoman
+
 Maps
 - Tutorial can meet bullies, get papers and return to class.  Should transition to class (not tested)
 - classroom can meet monsters, get cell phone and return to exit.  Does transition to appartment.
