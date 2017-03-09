@@ -48,12 +48,14 @@
   <tile id="8">
    <properties>
     <property name="actor_name" value="tutor_bully1"/>
+    <property name="actor_spotted" value="false"/>
     <property name="hit_bonus" type="int" value="-1"/>
    </properties>
   </tile>
   <tile id="9">
    <properties>
     <property name="actor_name" value="tutor_bully0"/>
+    <property name="actor_spotted" value="false"/>
     <property name="hit_bonus" type="int" value="-1"/>
    </properties>
   </tile>
@@ -95,7 +97,7 @@
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OoQ0AIAwF0a6CQFAB+29XTGUd6Q/JveT8mQF/OeoBoDDUA8AjUz3QbBeldXPBFwB0CHfmKOoQDgAA
+   H4sIAAAAAAAAA2NgGAWjYGgB/YF2wCgYBTiA4kA7YBSMSKAJxFpUNlOVyuYNdqCHA4+CUTAKRsFIAACCZihNEA4AAA==
   </data>
  </layer>
 </map>

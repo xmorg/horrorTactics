@@ -37,6 +37,7 @@ public class Actor {
     int attack_range; //unless otherwise specified
     boolean visible;
     boolean dead;
+    boolean spotted_enemy = true; // by default we know you are there.
     boolean canparry =  false;
     int parryscore;
     String directive_type;
@@ -333,6 +334,7 @@ public class Actor {
         int f = fps; //gc.getFPS();
         if (this.getActorMoving() == true
                 && this.dead == false
+                //&& this.spotted_enemy == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getNorth()) {
@@ -343,6 +345,7 @@ public class Actor {
             }
         } else if (this.getActorMoving() == true
                 && this.dead == false
+                //&& this.spotted_enemy == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getSouth()) {
@@ -353,6 +356,7 @@ public class Actor {
             }
         } else if (this.getActorMoving() == true
                 && this.dead == false
+                //&& this.spotted_enemy == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getEast()) {
@@ -363,6 +367,7 @@ public class Actor {
             }
         } else if (this.getActorMoving() == true
                 && this.dead == false
+                //&& this.spotted_enemy == true
                 && m.getPassableTile(this, this.tilex + this.facing_x, this.tiley + this.facing_y) == true
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {

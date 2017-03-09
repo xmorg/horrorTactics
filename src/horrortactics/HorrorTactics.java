@@ -173,7 +173,7 @@ public class HorrorTactics extends BasicGame {
             this.map.setMonsterDirectives();
             map.turn_order = "monster";
         } else if (map.turn_order.equalsIgnoreCase("monster")) {
-            if (this.actor_move_timer == 0) {
+            if (this.actor_move_timer == 0 ) {
                 map.resetAttackAniFrame();
                 map.onMonsterMoving(gc, this, delta); //wrapper for onMoveActor
             }
@@ -350,6 +350,10 @@ public class HorrorTactics extends BasicGame {
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
             g.drawString(map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
+            //set all monsters to spotted true (if false)
+            for(int i=0; i < map.monster_max; i++) {
+                map.monster[i].spotted_enemy = true;
+            }
         } else if (this.map.turn_order.equalsIgnoreCase("goal reached")) {
             this.map.EventGoal_p.draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);

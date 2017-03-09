@@ -17,7 +17,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.newdawn.slick.Sound;
 //import java.lang.Math.*;
 
-
 /**
  *
  * @author tcooper
@@ -45,8 +44,6 @@ public class MyTiledMap extends TiledMap {
     String[] planning = new String[20];
     Image selected_green, selected_yellow;
     Image[] charbusts = new Image[20];
-    
-    
 
     String EventSpotted = "none";
     Image EventSpotted_p = null;
@@ -79,7 +76,7 @@ public class MyTiledMap extends TiledMap {
     int current_monster_moving = 0; //debug
     int current_follower_moving = 0;
     String trigger_check = "no";
-    
+
     public int render_min_y = 0, render_min_x = 0, render_max_y = 0, render_max_x = 0;
 
     public int getDrawX() {
@@ -102,7 +99,7 @@ public class MyTiledMap extends TiledMap {
         player = new Actor("data/player00", 218, 313);
         //player = new Actor("data/boy01", 218, 313); //monster test
         turn_order = "planning";   //monster, player
-        
+
         this.active_trigger = new Trigger("none", "none");
         /*for (int i = 0; i < 5; i++) {
             this.planning[i] = this.getMapProperty("planning_" + i, "end");
@@ -165,7 +162,8 @@ public class MyTiledMap extends TiledMap {
                 if (gid > 0) {
                     //System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
-                    //System.out.println(pname);
+                    String actor_spotted = this.getTileProperty(gid, "actor_spotted", "true");
+
                     if (pname.equals("player")) {
                         this.player.tilex = x;
                         //this.player.tilex += 10;
@@ -183,8 +181,7 @@ public class MyTiledMap extends TiledMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-                    } 
-                    else if (pname.equals("Ichi")) {
+                    } else if (pname.equals("Ichi")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/boy00", 218, 313);
                             //follower[follower_loop].
@@ -195,8 +192,7 @@ public class MyTiledMap extends TiledMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-                    }
-                    else if (pname.equals("Takeshi")) {
+                    } else if (pname.equals("Takeshi")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/boy01", 218, 313);
                             follower[follower_loop].tilex = x;
@@ -206,24 +202,15 @@ public class MyTiledMap extends TiledMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-                    }
-                    else if (pname.equals("tutor_bully0")) {
+                    } else if (pname.equals("tutor_bully0")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/boy00", 218, 313);
                         } catch (SlickException e) {
                         }
-                        monster[monster_loop].tilex = x;
-                        monster[monster_loop].tiley = y;
-                        monster[monster_loop].setActorMoving(false);
-                        monster[monster_loop].visible = true;
-                        monster[monster_loop].name = pname;
-                        monster[monster_loop].max_turns_till_revival = 100;
-                        monster_loop++;
-                    }
-                    else if (pname.equals("tutor_bully1")) {
-                        try {
-                            monster[monster_loop].changeActorSpritesheet("data/girl03", 218, 313);
-                        } catch (SlickException e) {
+                        if (actor_spotted.equalsIgnoreCase("false")) {
+                            monster[monster_loop].spotted_enemy = false;
+                        } else {
+                            monster[monster_loop].spotted_enemy = true;
                         }
                         monster[monster_loop].tilex = x;
                         monster[monster_loop].tiley = y;
@@ -232,11 +219,32 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 100;
                         monster_loop++;
-                    }
-                    else if (pname.equals("pear monster")) {
+                    } else if (pname.equals("tutor_bully1")) {
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/girl03", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        if (actor_spotted.equalsIgnoreCase("false")) {
+                            monster[monster_loop].spotted_enemy = false;
+                        } else {
+                            monster[monster_loop].spotted_enemy = true;
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 100;
+                        monster_loop++;
+                    } else if (pname.equals("pear monster")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313);
                         } catch (SlickException e) {
+                        }
+                        if (actor_spotted.equalsIgnoreCase("false")) {
+                            monster[monster_loop].spotted_enemy = false;
+                        } else {
+                            monster[monster_loop].spotted_enemy = true;
                         }
                         monster[monster_loop].tilex = x;
                         monster[monster_loop].tiley = y;
@@ -549,10 +557,10 @@ public class MyTiledMap extends TiledMap {
         Actor t;
         t = null;
         if (this.getActorAtXy(player, x, y)) {
-            t =  player;
+            t = player;
         }
         for (int i = 0; i < this.follower_max; i++) {
-            if (this.getActorAtXy(follower[i], x, y) ) {
+            if (this.getActorAtXy(follower[i], x, y)) {
                 t = this.follower[i];
             }
         }
@@ -563,12 +571,12 @@ public class MyTiledMap extends TiledMap {
         }
         return t; //found nothing
     }
+
     Actor getAllMonstersAtXy(int x, int y) {
-        for (int i=0; i < this.monster_max; i++) {
+        for (int i = 0; i < this.monster_max; i++) {
             if (this.getActorAtXy(monster[i], x, y)) {
                 return this.monster[i];
-            }
-            else{
+            } else {
                 return null;
             }
         }
@@ -706,16 +714,21 @@ public class MyTiledMap extends TiledMap {
     }
 
     public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
-        this.monster[this.current_monster_moving].onMoveActor(
-                this, gc.getFPS());
-        if (this.monster[this.current_monster_moving].dead == true) {
-            this.current_monster_moving++;
-        }
-        if (this.monster[this.current_monster_moving].getActorMoving()
-                == false) {
-            this.whyDidMonsterStop(gc, ht);
-        }
-        if (this.current_monster_moving >= this.monster_max) {
+        if (monster[0].spotted_enemy == true) {
+            this.monster[this.current_monster_moving].onMoveActor(
+                    this, gc.getFPS());
+            if (this.monster[this.current_monster_moving].dead == true) {
+                this.current_monster_moving++;
+            }
+            if (this.monster[this.current_monster_moving].getActorMoving()
+                    == false) {
+                this.whyDidMonsterStop(gc, ht);
+            }
+            if (this.current_monster_moving >= this.monster_max) {
+                this.current_monster_moving = 0;
+                this.turn_order = "start player";
+            }
+        } else {
             this.current_monster_moving = 0;
             this.turn_order = "start player";
         }
@@ -774,18 +787,26 @@ public class MyTiledMap extends TiledMap {
                     //how can we make the monster's dest to the next to player/not the players location
                     //this will prvent a forced stop.  How do we calulate the shortest distance to travel
                     //Euclidian plane? find the shortest distance, then make the route
-                    monster[i].tiledestx = player.tilex;
-                    monster[i].tiledesty = player.tiley;
-                    int best_distance = this.getDistanceOfActors2(player, monster[i]);
-                    int try_distance = 0;
-                    for (int d = 0; d < this.follower_max; d++) {
-                        if (follower[d].visible == true) {
-                            try_distance = this.getDistanceOfActors2(follower[d], monster[i]);
-                            if (try_distance < best_distance) {
-                                monster[i].tiledestx = follower[d].tilex;
-                                monster[i].tiledesty = follower[d].tiley;
+                    System.out.print("Spotted player: " + monster[i].spotted_enemy + "\n");
+
+                    if (monster[i].spotted_enemy == true) { // you must spot the enemy to beline
+                        monster[i].tiledestx = player.tilex;
+                        monster[i].tiledesty = player.tiley;
+                        int best_distance = this.getDistanceOfActors2(player, monster[i]);
+                        int try_distance = 0;
+                        for (int d = 0; d < this.follower_max; d++) {
+                            if (follower[d].visible == true) {
+                                try_distance = this.getDistanceOfActors2(follower[d], monster[i]);
+                                if (try_distance < best_distance) {
+                                    monster[i].tiledestx = follower[d].tilex;
+                                    monster[i].tiledesty = follower[d].tiley;
+                                }
                             }
                         }
+                    }
+                    else {
+                        monster[i].tiledestx = monster[i].tilex;
+                        monster[i].tiledesty = monster[i].tiley;
                     }
 
                     //monster[i].setActorMoving(true);
@@ -863,35 +884,35 @@ public class MyTiledMap extends TiledMap {
         }
         //allmonstersmoved = false;
     }
-    
+
     public void set_party_min_renderables() {
         int current_min_y = 0;
         int current_min_x = 0;
         int current_max_y = 0;
         int current_max_x = 0;
-        if(this.player.tiley < current_min_y) {
+        if (this.player.tiley < current_min_y) {
             current_min_y = this.player.tiley;
         }
-        if(this.player.tilex < current_min_x) {
+        if (this.player.tilex < current_min_x) {
             current_min_y = this.player.tilex;
         }
-        if(this.player.tiley > current_max_y) {
+        if (this.player.tiley > current_max_y) {
             current_max_y = this.player.tiley;
         }
-        if(this.player.tilex > current_max_x) {
+        if (this.player.tilex > current_max_x) {
             current_max_x = this.player.tilex;
         }
-        for(int i=0; i < this.follower_max; i++) {
-            if(this.follower[i].tiley < current_min_y) {
+        for (int i = 0; i < this.follower_max; i++) {
+            if (this.follower[i].tiley < current_min_y) {
                 current_min_y = this.follower[i].tiley;
             }
-            if(this.follower[i].tilex < current_min_x) {
+            if (this.follower[i].tilex < current_min_x) {
                 current_min_x = this.follower[i].tilex;
             }
-            if(this.follower[i].tiley > current_max_y) {
+            if (this.follower[i].tiley > current_max_y) {
                 current_max_y = this.follower[i].tiley;
             }
-            if(this.follower[i].tilex > current_max_x) {
+            if (this.follower[i].tilex > current_max_x) {
                 current_max_x = this.follower[i].tilex;
             }
         }
