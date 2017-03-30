@@ -36,4 +36,14 @@ Maps
 - forrest, map completed, no monsters, no triggers, no placement in map order
 - asylum, no map, no tiles or walls, monsters partially completed, folowers partially completed, no triggers, no placement in map order
 
+Character
+- Health Points - your health, lose this and die
+- Fatigue points - fighting and running decrease fatigue points, 1 attack -2FP, 6AP used a round -1FP.
+- Mental Stability - spotting the enemy, -1, taking damage -2, witnessing death -3
 
+ - Strength, how hard you hit, Every 2 points of endurace adds 1 damage.
+ - Speed, how fast you move. Every 2 points of speed, adds 1 action point.
+ - Endurace, ability to soak up damage, and avoid fatigue. Every 2 points of endurace adds 1 health.
+ - Willpower, ability to take a hit, and keep your cool under stress. Every 2 points adds 1MSp
+ - Luck, you make the best rolls! Every 3 points of Luck adds 1 to dice rolls.
+ 
