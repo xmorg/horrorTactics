@@ -82,22 +82,19 @@
  <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
   <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
- <tileset firstgid="81" name="boy00" tilewidth="218" tileheight="312" tilecount="20" columns="5">
-  <image source="boy00.png" width="1090" height="1248"/>
- </tileset>
  <layer name="background_layer" width="30" height="30" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DAQ0AAAzDoGqaf3EXckhYNVVVVd89zzbb+BAOAAA=
+   H4sIAAAAAAAAA+3DAQ0AAAzDoGqbf1EXckhYNVVVVd89TPrWihAOAAA=
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9VV0Q6DMAgkOuv+wX2c//8VxgcT1sABG9h4CVGpx+Va2k5END08Zhae/9+Ewcc39n7xJZz5VckjngeZuk15VusifIQac4CPdKN+s3SjNTRdNP9R3ZW+18xaX2mf9Lra/PJ57vvE8uvR9eDS3Qt0s/pKG7vj3ECciN/I/s3sZ6kG0rWCI9PvqHuBo7F89b2AOFV+l+7b8pul+zI4kdC4Wn0Oye9GvwHxKtcXIdrPVbo8X6ntOTdGxb++UL4/dyp0m5Kv1vXmR8YBChNg6hAOAAA=
+   H4sIAAAAAAAAA92UUQ7DIAiGeXVX6MM8wW7Q+1+rfZiJoYA/iGtWEhKjwCcKFCIqN2k99UNXaWdt/RZsuL3HjgRuf0ZsjcSLciVbT7z9q6u42n6Ui+T3r9wKMjzckQ/3k/oM5Vr2kh3XDbCxVON68rGEz4iXw2+WG/XLzPeX3N7f+87Wn49qYaaPZmrVW9eZXOmPkbfb2H417iXF13JC76MJnyVIHHR+jLjI3RDJmll9LC93VvqayOKiNryGkP8dcZD+inClHquKHyoZ9byKu0Lu5Ebq5Kl6ALOpsJAQDgAA
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAWjYGgB/YF2wCgYBTiA4kA7YBSMSKAJxFpUNlOVyuYNdqCHA4+CUTAKRsFIAACCZihNEA4AAA==
+   H4sIAAAAAAAAA+3NAQ0AIAwDsFkh5P4tXsZCaA00AXjHLb2n9E7pBQD+sPmwAtMQDgAA
   </data>
  </layer>
 </map>

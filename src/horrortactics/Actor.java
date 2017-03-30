@@ -330,6 +330,12 @@ public class Actor {
         
     }
 
+    public void stopMoving()
+    {
+        this.tiledestx = this.tilex;
+        this.tiledesty = this.tiley;
+        this.move_action = false;
+    }
     public void onMoveActor(MyTiledMap m, int fps) {
         int f = fps; //gc.getFPS();
         if (this.getActorMoving() == true

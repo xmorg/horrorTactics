@@ -449,12 +449,14 @@ public class MyTiledMap extends TiledMap {
     {
         boolean m = false;
         if (this.player.getActorMoving() == true) {
+            System.out.print("player was still moving");
             return true;
         } else {
             m = false;
         }
         for (int i = 0; i < monster_max; i++) {
             if (this.monster[i].getActorMoving() == true) {
+                System.out.print("Monster ["+i+"] was still moving\n");
                 return true;
             } else {
                 m = false;
@@ -462,6 +464,7 @@ public class MyTiledMap extends TiledMap {
         }
         for (int i = 0; i < follower_max; i++) {
             if (this.follower[i].getActorMoving() == true) {
+                System.out.print("Follower ["+i+"] was still moving\n");
                 return true;
             } else {
                 m = false;
@@ -729,8 +732,13 @@ public class MyTiledMap extends TiledMap {
                 this.turn_order = "start player";
             }
         } else {
-            this.current_monster_moving = 0;
-            this.turn_order = "start player";
+            //this.current_monster_moving = 0;
+            this.monster[this.current_monster_moving].stopMoving();
+            this.current_monster_moving++;
+            if (this.current_monster_moving >= this.monster_max) {
+                this.current_monster_moving = 0;
+                this.turn_order = "start player";
+            }
         }
     }
 

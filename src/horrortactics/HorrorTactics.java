@@ -164,7 +164,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 100; //6; //DEBUG
+            map.player.action_points = 6; //6; //DEBUG
             //give followers action points.
             this.map.setFollowerDirectives();
             map.turn_order = "player";
@@ -185,7 +185,7 @@ public class HorrorTactics extends BasicGame {
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
             g.scale(scale_x, scale_x); //scale the same
-
+            //g.setAntiAlias(true);
             this.render_background_layer(gc, g); //render floor
             this.render_walls_layer(gc, g);      //render walls (and actors!)
             this.render_game_ui(gc, g);
@@ -305,12 +305,14 @@ public class HorrorTactics extends BasicGame {
 
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
-        g.drawString(Integer.toString(map.player.action_points), 5, 50 + 75);
+        g.drawString("Action: "+Integer.toString(map.player.action_points), 
+                5, 50+75);
         for (int i = 0; i < this.map.follower_max; i++) {
             if (this.map.follower[i].visible == true) {
                 this.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)));
-                g.drawString(Integer.toString(this.map.follower[i].action_points),
-                        5, 50 + (100 * (i + 1) + 75));
+                g.drawString("Action: "+Integer.toString(map.follower[i].action_points),
+                        //5, 50 + 75);// (100 * (i + 1) + 75));
+                        5, 50 + (100 * (i + 1))+75 );
             }
         }
         g.setColor(myfilterd);
