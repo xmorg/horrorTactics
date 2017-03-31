@@ -21,9 +21,13 @@ public class MouseActions {
     }
 
     /* What happens when a mouse button is clicked. */
+    //button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);  int screen_width = 0; int screen_height = 0;
+    //button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
     public boolean endTurnButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
-        if (mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
-                && mouse_x <= 10 + 164 && mouse_y <= ht.screen_height - 10) { //press end turn button.
+        int bx = ht.screen_width- 200;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) { //press end turn button.
             if (ht.map.getAnyActorMoving() == false) {
                 return true;
             } else {

@@ -51,7 +51,7 @@ public class HorrorTactics extends BasicGame {
     long lastframe;
     int turn_count;
     Color myfilter, myfiltert, myfilterd;
-    Image button_endturn, button_punch;
+    Image button_endturn, button_menu, button_punch;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     
@@ -88,7 +88,8 @@ public class HorrorTactics extends BasicGame {
         draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
 
         this.lastframe = gc.getTime();
-        button_endturn = new Image("data/button_endturn.png");
+        button_endturn = new Image("data/button_endturn2.png");
+        button_menu = new Image("data/button_menu.png");
         button_punch = new Image("data/button_punch.png");
         effect_biff = new Image("data/soundeffects/biff.png");
         effect_wiff = new Image("data/soundeffects/wiff.png");
@@ -320,7 +321,8 @@ public class HorrorTactics extends BasicGame {
         g.setColor(myfilter);
 
         //map.monster[0].iconImage.draw(5, 200);
-        button_endturn.draw(10, gc.getScreenHeight() - 64 - 10);
+        button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);
+        button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
                 + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
                 + map.turn_order + " mm: " + map.current_monster_moving + "/"
