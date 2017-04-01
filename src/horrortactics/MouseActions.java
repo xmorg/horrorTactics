@@ -39,6 +39,7 @@ public class MouseActions {
     }
 
     public void mouseWasClicked(Input input, MyTiledMap map, HorrorTactics ht) {
+        
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
         map.selected_tile_x = map.mouse_over_tile_x;

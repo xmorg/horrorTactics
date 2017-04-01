@@ -9,8 +9,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 import org.newdawn.slick.SlickException;
 //import org.newdawn.slick.GameContainer;
-//import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.Graphics;
 import java.lang.Math.*;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Sound;
 
 /**
@@ -39,6 +41,7 @@ public class Actor {
     boolean dead;
     boolean spotted_enemy = true; // by default we know you are there.
     boolean canparry =  false;
+    boolean ismouse_over = false; //if the mouse is in your rectangle
     int parryscore;
     String directive_type;
     float speed;
@@ -48,6 +51,12 @@ public class Actor {
     int action_msg_timer; //max800
     String action_msg;
     Sound footsteps;
+    //your stats.
+    int health_points, health_points_max;
+    int fatigue_points, fatigue_points_max;
+    int mental_points, mental_points_max;
+    int stat_str, stat_speed, stat_will, stat_luck; 
+    
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -84,6 +93,17 @@ public class Actor {
         attack_timer = 0;
         footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
         //spriteImage.set
+        //stats
+        health_points = 5;
+        health_points_max = 5;
+        fatigue_points = 5;
+        fatigue_points_max = 5;
+        mental_points = 5;
+        mental_points_max = 5;
+        stat_str = 1;
+        stat_speed = 1;
+        stat_will = 1;
+        stat_luck = 1;
     }
 
     //public void changeActorSpriteSheetX
@@ -273,8 +293,27 @@ public class Actor {
         return this.move_action;
     }
 
-    public void drawActor(HorrorTactics h, MyTiledMap m, int x, int y) {
-        if (this.isAtTileXY(x, y) == true) {
+    public void drawHealthBar(Graphics g, Color c, int x, int y, int bar, int barmax) {
+        Rectangle health_bar = new Rectangle(0,0,0,0);
+        Rectangle health_bar_s = new Rectangle(0,0,0,0);
+        int ph = (int) (((double)bar/ (double)barmax)*100/2);
+        if(this.ismouse_over == true) {
+            health_bar.setBounds(x+30, y+30 +50-ph, 10, ph);
+            health_bar_s.setBounds(x+29, y+29, 12, 52);
+            g.setColor(Color.black);
+            g.fill(health_bar_s);
+            g.setColor(c);
+            g.fill(health_bar);
+            g.setColor(Color.white);
+            //g.drawString(this.health_points+"/"+this.health_points_max+"/"+ph, x+30,y+30);
+        }
+    }
+    public void drawActor(HorrorTactics h, MyTiledMap m, int x, int y, Graphics g) {
+        //Rectangle health_bar = new Rectangle(0,0,0,0);
+        //Rectangle health_bar_s = new Rectangle(0,0,0,0);
+        //int x = (int)(((double)a/(double)b) * 100);
+        int ph = (int) (((double)this.health_points/ (double)this.health_points_max)*100/2);        
+         if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
             if (this.selected == true) { //draw the selection if true
@@ -287,6 +326,22 @@ public class Actor {
                 }
             }
             if (this.dead == false) { //draw actor
+                //health bar!   
+                //if(this.health_points < this.health_points_max){System.out.print(this.health_points+" h "+ ph+ "mathed?");}
+                if(this.ismouse_over == true) {
+                    drawHealthBar(g, Color.blue, pdx+12, pdy+12, this.mental_points, this.mental_points_max);
+                    drawHealthBar(g, Color.green, pdx+6, pdy+6, this.fatigue_points, this.fatigue_points_max);
+                    drawHealthBar(g, Color.red, pdx, pdy, this.health_points, this.health_points_max);
+                    /*health_bar.setBounds(pdx+30, pdy+30 +50-ph, 10, ph);
+                    health_bar_s.setBounds(pdx+29, pdy+29, 12, 52);
+                    g.setColor(Color.black);
+                    g.fill(health_bar_s);
+                    g.setColor(Color.green);
+                    g.fill(health_bar);
+                    g.setColor(Color.white);
+                    g.drawString(this.health_points+"/"+this.health_points_max+"/"+ph, pdx+30,pdy+30);*/
+                    
+                }
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
             } else { //draw actor dead
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
@@ -294,8 +349,8 @@ public class Actor {
         }
     }
 
-    public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y) {
-        this.drawActor(h, m, x, y);
+    public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y, Graphics g) {
+        this.drawActor(h, m, x, y, g);
     }
 
     public void setActorActionPoints(int ap) {

@@ -51,6 +51,7 @@ public class HorrorTactics extends BasicGame {
     long lastframe;
     int turn_count;
     Color myfilter, myfiltert, myfilterd;
+    Image title_screen;
     Image button_endturn, button_menu, button_punch;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
@@ -88,6 +89,7 @@ public class HorrorTactics extends BasicGame {
         draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
 
         this.lastframe = gc.getTime();
+        title_screen = new Image("data/title1_00.jpg");
         button_endturn = new Image("data/button_endturn2.png");
         button_menu = new Image("data/button_menu.png");
         button_punch = new Image("data/button_punch.png");
@@ -278,11 +280,13 @@ public class HorrorTactics extends BasicGame {
                             && mouse_y >= sy && mouse_y <= sy + 130 - 30) {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
+                        //is there someone in mouse over tile?
+                        map.mouse_over_actor(x,y);
                         map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
-                    map.player.drawPlayer(this, map, x, y);
-                    if (map.isPlayerTouchingMonster() && x == map.player.tilex
+                    
+                    /*if (map.isPlayerTouchingMonster() && x == map.player.tilex
                             && y == map.player.tiley) { //we are touching monster?
                         //this.button_punch.draw(this.screen_x + this.draw_x,
                         //        this.screen_y + this.draw_y - 200);
@@ -292,9 +296,10 @@ public class HorrorTactics extends BasicGame {
                         //        screen_y + draw_y - 200);
                         this.getComicActionStrImage(map.player.action_msg).draw(screen_x + draw_x,
                                 screen_y + draw_y - 200);
-                    }
-                    map.drawMonsters(this, x, y); //map.monster[0].drawActor(this, map, x, y);
-                    map.drawFollowers(this, x, y);
+                    }*/
+                    map.player.drawPlayer(this, map, x, y, g);
+                    map.drawMonsters(this, x, y, g); //map.monster[0].drawActor(this, map, x, y);
+                    map.drawFollowers(this, x, y, g);
                     if (this.getTileToBeRendered(x, y)) {
                         render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
                     }
@@ -383,6 +388,7 @@ public class HorrorTactics extends BasicGame {
 
     public void render_title(GameContainer gc, Graphics g) {
         //render title menu
+        title_screen.draw(0,0,gc.getWidth(), gc.getHeight());
     }
 
     public void render_game_over(GameContainer gc, Graphics g) {//yoo dyied!
