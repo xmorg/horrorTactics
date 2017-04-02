@@ -14,7 +14,7 @@ import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.geom.Rectangle; //rects to click on
 import org.newdawn.slick.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
-import org.newdawn.slick.Sound;
+//import org.newdawn.slick.Sound;
 //import java.lang.Math.*;
 
 /**
@@ -61,6 +61,8 @@ public class MyTiledMap extends TiledMap {
 
     String EventExit = "none";
     Image EventExit_p = null;
+    Image mission_goal = null;   int draw_goal_x = -1, draw_goal_y = -1;
+    
     String EventExit_m = "none";
     boolean EventExit_ran = false;
     String RequiresGoal = "no"; //Yes, if you need to reach a goal before exit
@@ -163,12 +165,19 @@ public class MyTiledMap extends TiledMap {
                     //System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
                     String actor_spotted = this.getTileProperty(gid, "actor_spotted", "true");
-
-                    if (pname.equals("player")) {
+                    String mission_goal = this.getTileProperty(gid, "event_goal", "no");
+                    if(mission_goal.equalsIgnoreCase("yes")){
+                        this.mission_goal = new Image("data/"+ this.getTileProperty(gid, "event_goal_graphic", "papers.png"));
+                        //set the X/y
+                        this.draw_goal_x = x;
+                        this.draw_goal_y = y;
+                    }                  
+                    
+                    if(pname.equals("player")) {
                         this.player.tilex = x;
                         //this.player.tilex += 10;
                         this.player.tiley = y;
-                        this.player.name = pname;
+                        this.player.name = "Riku"; //pname;
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                     } else if (pname.equals("Yukari")) {
                         try {
@@ -177,7 +186,7 @@ public class MyTiledMap extends TiledMap {
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
-                            this.player.name = pname;
+                            follower[follower_loop].name = pname;
                             follower_loop++;
                         } catch (SlickException e) {
                         }
@@ -188,7 +197,7 @@ public class MyTiledMap extends TiledMap {
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
-                            this.player.name = pname;
+                            follower[follower_loop].name = pname;
                             follower_loop++;
                         } catch (SlickException e) {
                         }
@@ -198,7 +207,7 @@ public class MyTiledMap extends TiledMap {
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
-                            this.player.name = pname;
+                            follower[follower_loop].name = pname;
                             follower_loop++;
                         } catch (SlickException e) {
                         }

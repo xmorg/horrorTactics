@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 //import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.Graphics;
-import java.lang.Math.*;
+//import java.lang.Math.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Sound;
 
@@ -547,5 +547,46 @@ public class Actor {
 
     public int getWest() {
         return 3;
+    }
+    
+    public void drawPopupWindow(HorrorTactics ht, Graphics g) {
+        int w = 400;
+        int h = 400;
+        int x = ht.screen_width/2 -w/2;
+        int y = ht.screen_height/2 -h/2;
+        
+        Color c = new Color(10,10,10,245);
+        Rectangle r = new Rectangle(0,0,0,0);
+        Rectangle s = new Rectangle(0,0,0,0);
+        r.setBounds(x, y, w, h);
+        s.setBounds(x-1, y-1, w+2, h+2);
+        if(ht.popup_window.equalsIgnoreCase("profile")) {
+            //draw it
+            g.setColor(Color.white);
+            g.fill(s);
+            g.setColor(c);
+            g.fill(r);
+            sprites.getSubImage(0, 0).draw(x-30, y+50);
+            g.setColor(Color.white);
+            g.drawString(this.name, x+200, y+20);
+            g.drawString("Level: 1" , x+200, y+40);
+            g.drawString("Health: " +this.health_points+"/"+this.health_points_max, x+200, y+60);
+            g.drawString("Fatigue: " +this.fatigue_points+"/"+this.fatigue_points_max, x+200, y+80);
+            g.drawString("Stress: " +this.mental_points+"/"+this.mental_points_max, x+200, y+100);
+            g.drawString("Strength: " +this.stat_str, x+200, y+120);
+            g.drawString("Speed: " +this.stat_speed, x+200, y+140);
+            g.drawString("Willpower: " +this.stat_will, x+200, y+160);
+            g.drawString("Luck: " +this.stat_luck, x+200, y+180);
+        }
+        else if( ht.popup_window.equalsIgnoreCase("items")) {
+            //draw it
+            g.setColor(c);
+            g.fill(r);
+            sprites.getSubImage(0, 0).draw(x-30, y+50);
+            g.setColor(Color.white);
+            g.drawString(this.name+"'s Items", x+200, y+20);
+        } else {
+            //do nothing.
+        }
     }
 }

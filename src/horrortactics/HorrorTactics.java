@@ -6,8 +6,8 @@
  */
 package horrortactics;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -18,15 +18,14 @@ import org.newdawn.slick.Input;
 //import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Font;
-import org.newdawn.slick.Sound;
+//import org.newdawn.slick.Font;
+//import org.newdawn.slick.Sound;
 
 /**
  *
  * @author tcooper
  */
 public class HorrorTactics extends BasicGame {
-
     /**
      * @param gamename the command line arguments
      */
@@ -50,9 +49,10 @@ public class HorrorTactics extends BasicGame {
     int screen_height = 0;
     long lastframe;
     int turn_count;
+    String popup_window = "none";
     Color myfilter, myfiltert, myfilterd;
     Image title_screen;
-    Image button_endturn, button_menu, button_punch;
+    Image button_endturn, button_menu, button_punch, button_items, button_profile;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     
@@ -90,6 +90,8 @@ public class HorrorTactics extends BasicGame {
 
         this.lastframe = gc.getTime();
         title_screen = new Image("data/title1_00.jpg");
+        button_items = new Image("data/button_items.png");
+        button_profile = new Image("data/button_profile.png");
         button_endturn = new Image("data/button_endturn2.png");
         button_menu = new Image("data/button_menu.png");
         button_punch = new Image("data/button_punch.png");
@@ -297,9 +299,17 @@ public class HorrorTactics extends BasicGame {
                         this.getComicActionStrImage(map.player.action_msg).draw(screen_x + draw_x,
                                 screen_y + draw_y - 200);
                     }*/
+                    //if()
                     map.player.drawPlayer(this, map, x, y, g);
                     map.drawMonsters(this, x, y, g); //map.monster[0].drawActor(this, map, x, y);
                     map.drawFollowers(this, x, y, g);
+                    if(this.map.RequiresGoal.equalsIgnoreCase("yes") 
+                            && x == this.map.draw_goal_x
+                            && y == this.map.draw_goal_y) { //bug? better have an image
+                        int pdx = screen_x + draw_x; // + this.draw_x;
+                        int pdy = screen_y + draw_y; // + this.draw_y - 230;
+                        this.map.mission_goal.draw(pdx,pdy);
+                    }
                     if (this.getTileToBeRendered(x, y)) {
                         render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
                     }
@@ -326,6 +336,8 @@ public class HorrorTactics extends BasicGame {
         g.setColor(myfilter);
 
         //map.monster[0].iconImage.draw(5, 200);
+        button_items.draw(gc.getScreenWidth() - 400, gc.getScreenHeight() - 64 - 10);
+        button_profile.draw(gc.getScreenWidth() - 300, gc.getScreenHeight() - 64 - 10);
         button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);
         button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
@@ -340,6 +352,19 @@ public class HorrorTactics extends BasicGame {
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
         }
+        //check for a follower selected
+        boolean foundselected = false;
+        for(int i= 0; i < map.follower_max; i++) {
+            if(map.follower[i].selected == true) {
+                foundselected = true;
+                this.map.follower[i].drawPopupWindow(this, g);
+                break;
+            }
+        }
+        if(foundselected == false) {
+            this.map.player.drawPopupWindow(this, g); //who is currently selected?
+        }
+            
     }
 
     public void render_character_busts(GameContainer gc, Graphics g) {
@@ -435,8 +460,8 @@ public class HorrorTactics extends BasicGame {
             appgc.start();
 
         } catch (SlickException ex) {
-            Logger.getLogger(HorrorTactics.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(HorrorTactics.class
+            //        .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -500,5 +525,4 @@ public class HorrorTactics extends BasicGame {
         map = new MyTiledMap(newmap, 0, 0); //setup a new map
         map.getActorLocationFromTMX(); //get the actor info
     }
-
 }

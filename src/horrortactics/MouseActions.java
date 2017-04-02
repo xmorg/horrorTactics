@@ -37,6 +37,42 @@ public class MouseActions {
         }
         return false;
     }
+    public boolean profileButtonWasPressed(HorrorTactics ht) {
+        int bx = ht.screen_width- 300;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) {
+            if (ht.popup_window.equalsIgnoreCase("none") ) {
+                ht.popup_window = "profile";
+            }
+            else if (ht.popup_window.equalsIgnoreCase("profile") ) {
+                ht.popup_window = "none";
+            }
+            else {
+                ht.popup_window = "profile";
+            }
+            return true;
+        }
+        return false;
+    }
+    public boolean itemsButtonWasPressed(HorrorTactics ht) {
+        int bx = ht.screen_width- 400;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) {
+            if (ht.popup_window.equalsIgnoreCase("none") ) {
+                ht.popup_window = "items";
+            }
+            else if (ht.popup_window.equalsIgnoreCase("items") ) {
+                ht.popup_window = "none";
+            }
+            else {
+                ht.popup_window = "items";
+            }
+            return true;
+        }
+        return false;
+    }
 
     public void mouseWasClicked(Input input, MyTiledMap map, HorrorTactics ht) {
         
@@ -54,7 +90,14 @@ public class MouseActions {
                 } else {
                     map.planevent++;
                 }
-            } else if (endTurnButtonWasPressed(ht) == true) { //(mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
+            } 
+            else if (this.profileButtonWasPressed(ht)) { //stops working sometimes?
+                //we alreadyset these.
+            }
+            else if (this.itemsButtonWasPressed(ht)) {
+                
+            }
+            else if (endTurnButtonWasPressed(ht) == true) { //(mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
                 System.out.print("End turn was pressed\n");
                 map.turn_order = "start monster"; //End Turn.
             } else if (map.turn_order.equalsIgnoreCase("event spotted")) {
