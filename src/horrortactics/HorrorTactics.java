@@ -304,6 +304,7 @@ public class HorrorTactics extends BasicGame {
                     map.drawMonsters(this, x, y, g); //map.monster[0].drawActor(this, map, x, y);
                     map.drawFollowers(this, x, y, g);
                     if(this.map.RequiresGoal.equalsIgnoreCase("yes") 
+                            && this.map.EventGoal_ran == false
                             && x == this.map.draw_goal_x
                             && y == this.map.draw_goal_y) { //bug? better have an image
                         int pdx = screen_x + draw_x; // + this.draw_x;
