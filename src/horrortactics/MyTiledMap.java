@@ -486,7 +486,7 @@ public class MyTiledMap extends TiledMap {
     }
 
     public boolean isActorTouchingActor(Actor a, Actor b, int x, int y) {
-        //a=monster, b=player
+        //a=monster, b=player //x, and y not used?
         if (a.tilex - 1 == b.tilex && a.tiley == b.tiley) {
             //a.tiledestx = b.tilex;
             //a.tiledesty = b.tiley;
@@ -636,6 +636,11 @@ public class MyTiledMap extends TiledMap {
                         + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses";
             }
         }
+        //we already checke for action points, not remove them
+        attacker.action_points -= 3;
+        attacker.fatigue_points -= 1; if(attacker.fatigue_points <0) {attacker.fatigue_points=0;}
+        defender.fatigue_points -= 1; if(defender.fatigue_points <0) {defender.fatigue_points=0;}
+        if(attacker.action_points < 0) {attacker.action_points = 0;}
     }
 
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
