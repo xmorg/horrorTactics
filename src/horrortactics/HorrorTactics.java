@@ -294,10 +294,10 @@ public class HorrorTactics extends BasicGame {
                         //        this.screen_y + this.draw_y - 200);
                     }
                     if (map.player.action_msg_timer > 0 && x == map.player.tilex && y == map.player.tiley) {
-                        //g.drawString(map.player.action_msg, screen_x + draw_x,
-                        //        screen_y + draw_y - 200);
-                        this.getComicActionStrImage(map.player.action_msg).draw(screen_x + draw_x,
+                        g.drawString(map.player.action_msg, screen_x + draw_x,
                                 screen_y + draw_y - 200);
+                        //this.getComicActionStrImage(map.player.action_msg).draw(screen_x + draw_x,
+                        //        screen_y + draw_y - 200);
                     }*/
                     //if()
                     map.player.drawPlayer(this, map, x, y, g);

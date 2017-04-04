@@ -613,8 +613,8 @@ public class MyTiledMap extends TiledMap {
             defender.health_points -= damage_roll;
             if(defender.health_points <= 0) {
                 defender.dead = true;
-                defender.action_msg = "Dead";
-                defender.action_msg_timer = 400;
+                defender.action_msg = " "+damage_roll+ " ";
+                defender.action_msg_timer = 200;
                 defender.turns_till_revival = 0; //do we revive?
                 log_msg = attacker.name + " attacks " + defender.name
                     + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for "+damage_roll+ " points of damage, killing "+ defender.name;
@@ -625,8 +625,8 @@ public class MyTiledMap extends TiledMap {
             }
 
         } else {
-            defender.action_msg = "Dodge";
-            defender.action_msg_timer = 400;
+            defender.action_msg = "Miss";
+            defender.action_msg_timer = 200;
             if (target_parryroll + defender.parryscore > actor_attackroll) {
                 log_msg = attacker.name + " attacks " + defender.name
                         + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore

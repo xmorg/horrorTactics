@@ -21,6 +21,7 @@ import org.newdawn.slick.Sound;
  * @author tcooper
  */
 public class Actor {
+
     String name;
     int tilex;
     int tiley; //the tile we are at (aprox)
@@ -40,7 +41,7 @@ public class Actor {
     boolean visible;
     boolean dead;
     boolean spotted_enemy = true; // by default we know you are there.
-    boolean canparry =  false;
+    boolean canparry = false;
     boolean ismouse_over = false; //if the mouse is in your rectangle
     int parryscore;
     String directive_type;
@@ -55,8 +56,7 @@ public class Actor {
     int health_points, health_points_max;
     int fatigue_points, fatigue_points_max;
     int mental_points, mental_points_max;
-    int stat_str, stat_speed, stat_will, stat_luck; 
-    
+    int stat_str, stat_speed, stat_will, stat_luck;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -294,12 +294,12 @@ public class Actor {
     }
 
     public void drawHealthBar(Graphics g, Color c, int x, int y, int bar, int barmax) {
-        Rectangle health_bar = new Rectangle(0,0,0,0);
-        Rectangle health_bar_s = new Rectangle(0,0,0,0);
-        int ph = (int) (((double)bar/ (double)barmax)*100/2);
-        if(this.ismouse_over == true) {
-            health_bar.setBounds(x+30, y+30 +50-ph, 10, ph);
-            health_bar_s.setBounds(x+29, y+29, 12, 52);
+        Rectangle health_bar = new Rectangle(0, 0, 0, 0);
+        Rectangle health_bar_s = new Rectangle(0, 0, 0, 0);
+        int ph = (int) (((double) bar / (double) barmax) * 100 / 2);
+        if (this.ismouse_over == true) {
+            health_bar.setBounds(x + 30, y + 30 + 50 - ph, 10, ph);
+            health_bar_s.setBounds(x + 29, y + 29, 12, 52);
             g.setColor(Color.black);
             g.fill(health_bar_s);
             g.setColor(c);
@@ -308,16 +308,18 @@ public class Actor {
             //g.drawString(this.health_points+"/"+this.health_points_max+"/"+ph, x+30,y+30);
         }
     }
+
     public void drawActor(HorrorTactics h, MyTiledMap m, int x, int y, Graphics g) {
         //Rectangle health_bar = new Rectangle(0,0,0,0);
         //Rectangle health_bar_s = new Rectangle(0,0,0,0);
         //int x = (int)(((double)a/(double)b) * 100);
-        int ph = (int) (((double)this.health_points/ (double)this.health_points_max)*100/2);        
-         if (this.isAtTileXY(x, y) == true) {
+
+        int ph = (int) (((double) this.health_points / (double) this.health_points_max) * 100 / 2);
+        if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
             if (this.selected == true) { //draw the selection if true
-                
+
                 try {
                     m.selected_green.draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y);
                     m.tiles250x129.getSubImage(0, 0, 250, 130).draw(
@@ -326,25 +328,24 @@ public class Actor {
                 }
             }
             if (this.dead == false) { //draw actor
-                //health bar!   
-                //if(this.health_points < this.health_points_max){System.out.print(this.health_points+" h "+ ph+ "mathed?");}
-                if(this.ismouse_over == true) {
-                    drawHealthBar(g, Color.blue, pdx+12, pdy+12, this.mental_points, this.mental_points_max);
-                    drawHealthBar(g, Color.green, pdx+6, pdy+6, this.fatigue_points, this.fatigue_points_max);
+                if (this.ismouse_over == true) {
+                    drawHealthBar(g, Color.blue, pdx + 12, pdy + 12, this.mental_points, this.mental_points_max);
+                    drawHealthBar(g, Color.green, pdx + 6, pdy + 6, this.fatigue_points, this.fatigue_points_max);
                     drawHealthBar(g, Color.red, pdx, pdy, this.health_points, this.health_points_max);
-                    /*health_bar.setBounds(pdx+30, pdy+30 +50-ph, 10, ph);
-                    health_bar_s.setBounds(pdx+29, pdy+29, 12, 52);
-                    g.setColor(Color.black);
-                    g.fill(health_bar_s);
-                    g.setColor(Color.green);
-                    g.fill(health_bar);
-                    g.setColor(Color.white);
-                    g.drawString(this.health_points+"/"+this.health_points_max+"/"+ph, pdx+30,pdy+30);*/
-                    
+
                 }
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);
             } else { //draw actor dead
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
+            }
+            if (this.action_msg_timer > 0) {
+                if(this.action_msg.equalsIgnoreCase("miss")) {
+                    g.setColor(Color.white);
+                }
+                else { //show damage
+                    g.setColor(Color.red);
+                }
+                g.drawString(this.action_msg, pdx + 50, pdy);
             }
         }
     }
@@ -365,7 +366,7 @@ public class Actor {
     }
 
     public void onAttack(HorrorTactics ht/*, Actor target*/) {
-        
+
         this.tiledestx = ht.map.selected_tile_x;
         this.tiledesty = ht.map.selected_tile_y;
         this.updateActorDirection();
@@ -382,21 +383,21 @@ public class Actor {
             //check range //note, what about ranged units? 
             //isActorTouchingActor is a temporary hack, because/we need to check range.
             //check action points
-            if(this.action_points >= 3 && ht.map.isActorTouchingActor(this, t, tilex, tiley) && this.dead == false) {
-                ht.map.onActorAttackActor(ht, this, t );
+            if (this.action_points >= 3 && ht.map.isActorTouchingActor(this, t, tilex, tiley) && this.dead == false) {
+                ht.map.onActorAttackActor(ht, this, t);
                 this.setAnimationFrame(4);
                 this.attack_timer = 25;
             }
         }
-        
+
     }
 
-    public void stopMoving()
-    {
+    public void stopMoving() {
         this.tiledestx = this.tilex;
         this.tiledesty = this.tiley;
         this.move_action = false;
     }
+
     public void onMoveActor(MyTiledMap m, int fps) {
         int f = fps; //gc.getFPS();
         if (this.getActorMoving() == true
@@ -406,7 +407,7 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getNorth()) {
             this.onMoveNorth(m, f);
-            if(!footsteps.playing()) {
+            if (!footsteps.playing()) {
                 footsteps.loop();
                 //footsteps.play();
             }
@@ -417,7 +418,7 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getSouth()) {
             this.onMoveSouth(m, f);
-            if(!footsteps.playing()) {
+            if (!footsteps.playing()) {
                 footsteps.loop();
                 //footsteps.play();
             }
@@ -428,7 +429,7 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getEast()) {
             this.onMoveEast(m, f);
-            if(!footsteps.playing()) {
+            if (!footsteps.playing()) {
                 footsteps.loop();
                 //footsteps.play();
             }
@@ -439,7 +440,7 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {
             this.onMoveWest(m, f);
-            if(!footsteps.playing()) {
+            if (!footsteps.playing()) {
                 footsteps.loop();
                 //footsteps.play();
             }
@@ -467,8 +468,6 @@ public class Actor {
         if (this.attack_timer > 0) {
             this.setAnimationFrame(4); //just in case it got set to 0
         }
-        
-        
 
         //try to check tilex/tiley for an event?
     }
@@ -554,43 +553,42 @@ public class Actor {
     public int getWest() {
         return 3;
     }
-    
+
     public void drawPopupWindow(HorrorTactics ht, Graphics g) {
         int w = 400;
         int h = 400;
-        int x = ht.screen_width/2 -w/2;
-        int y = ht.screen_height/2 -h/2;
-        
-        Color c = new Color(10,10,10,245);
-        Rectangle r = new Rectangle(0,0,0,0);
-        Rectangle s = new Rectangle(0,0,0,0);
+        int x = ht.screen_width / 2 - w / 2;
+        int y = ht.screen_height / 2 - h / 2;
+
+        Color c = new Color(10, 10, 10, 245);
+        Rectangle r = new Rectangle(0, 0, 0, 0);
+        Rectangle s = new Rectangle(0, 0, 0, 0);
         r.setBounds(x, y, w, h);
-        s.setBounds(x-1, y-1, w+2, h+2);
-        if(ht.popup_window.equalsIgnoreCase("profile")) {
+        s.setBounds(x - 1, y - 1, w + 2, h + 2);
+        if (ht.popup_window.equalsIgnoreCase("profile")) {
             //draw it
             g.setColor(Color.white);
             g.fill(s);
             g.setColor(c);
             g.fill(r);
-            sprites.getSubImage(0, 0).draw(x-30, y+50);
+            sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
-            g.drawString(this.name, x+200, y+20);
-            g.drawString("Level: 1" , x+200, y+40);
-            g.drawString("Health: " +this.health_points+"/"+this.health_points_max, x+200, y+60);
-            g.drawString("Fatigue: " +this.fatigue_points+"/"+this.fatigue_points_max, x+200, y+80);
-            g.drawString("Stress: " +this.mental_points+"/"+this.mental_points_max, x+200, y+100);
-            g.drawString("Strength: " +this.stat_str, x+200, y+120);
-            g.drawString("Speed: " +this.stat_speed, x+200, y+140);
-            g.drawString("Willpower: " +this.stat_will, x+200, y+160);
-            g.drawString("Luck: " +this.stat_luck, x+200, y+180);
-        }
-        else if( ht.popup_window.equalsIgnoreCase("items")) {
+            g.drawString(this.name, x + 200, y + 20);
+            g.drawString("Level: 1", x + 200, y + 40);
+            g.drawString("Health: " + this.health_points + "/" + this.health_points_max, x + 200, y + 60);
+            g.drawString("Fatigue: " + this.fatigue_points + "/" + this.fatigue_points_max, x + 200, y + 80);
+            g.drawString("Stress: " + this.mental_points + "/" + this.mental_points_max, x + 200, y + 100);
+            g.drawString("Strength: " + this.stat_str, x + 200, y + 120);
+            g.drawString("Speed: " + this.stat_speed, x + 200, y + 140);
+            g.drawString("Willpower: " + this.stat_will, x + 200, y + 160);
+            g.drawString("Luck: " + this.stat_luck, x + 200, y + 180);
+        } else if (ht.popup_window.equalsIgnoreCase("items")) {
             //draw it
             g.setColor(c);
             g.fill(r);
-            sprites.getSubImage(0, 0).draw(x-30, y+50);
+            sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
-            g.drawString(this.name+"'s Items", x+200, y+20);
+            g.drawString(this.name + "'s Items", x + 200, y + 20);
         } else {
             //do nothing.
         }
