@@ -57,7 +57,8 @@ public class Actor {
     int fatigue_points, fatigue_points_max;
     int mental_points, mental_points_max;
     int stat_str, stat_speed, stat_will, stat_luck;
-    int exp_level, exp_points;
+    int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
+    boolean newLevelUp;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -107,6 +108,7 @@ public class Actor {
         stat_luck = 1;
         exp_level = 0;
         exp_points = 0;
+        newLevelUp = false;
     }
 
     //public void changeActorSpriteSheetX
@@ -595,5 +597,13 @@ public class Actor {
         } else {
             //do nothing.
         }
+    }
+    void onLevelUp()
+    {
+        //int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
+        if( (this.exp_points >= (this.exp_level+1) * (exp_level+1)*10) && this.newLevelUp== false ) { //there was a level up.
+            this.newLevelUp = true;
+            this.exp_level++;
+        } //wait for point distrib before setting to false (not implemented)
     }
 }
