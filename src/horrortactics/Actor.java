@@ -590,6 +590,8 @@ public class Actor {
             if(this.newLevelUp == true) { //green means you can click on a [+] //no mouse contorls yet.
                 g.setColor(Color.green);
             }
+            //int x = ht.screen_width / 2 - w / 2;
+            //int y = ht.screen_height / 2 - h / 2;
             g.drawString(LevelUpControls+" Strength: " + this.stat_str, x + 200, y + 120);
             g.drawString(LevelUpControls+" Speed: " + this.stat_speed, x + 200, y + 140);
             g.drawString(LevelUpControls+" Willpower: " + this.stat_will, x + 200, y + 160);
