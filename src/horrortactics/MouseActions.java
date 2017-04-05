@@ -23,6 +23,18 @@ public class MouseActions {
     /* What happens when a mouse button is clicked. */
     //button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);  int screen_width = 0; int screen_height = 0;
     //button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
+    /* ON LEVEL UP, click here to increase stat
+    //int x = ht.screen_width / 2 - w / 2;
+    //int y = ht.screen_height / 2 - h / 2;
+    g.drawString(LevelUpControls+" Strength: " + this.stat_str, x + 200, y + 120);
+    g.drawString(LevelUpControls+" Speed: " + this.stat_speed, x + 200, y + 140);
+    g.drawString(LevelUpControls+" Willpower: " + this.stat_will, x + 200, y + 160);
+    g.drawString(LevelUpControls+" Luck: " + this.stat_luck, x + 200, y + 180);
+    
+    */
+    
+    
+    
     public boolean endTurnButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
         int bx = ht.screen_width- 200;
         int bw = 92;
