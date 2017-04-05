@@ -564,14 +564,18 @@ public class Actor {
         int h = 400;
         int x = ht.screen_width / 2 - w / 2;
         int y = ht.screen_height / 2 - h / 2;
-
+        String LevelUpControls;
         Color c = new Color(10, 10, 10, 245);
         Rectangle r = new Rectangle(0, 0, 0, 0);
         Rectangle s = new Rectangle(0, 0, 0, 0);
         r.setBounds(x, y, w, h);
         s.setBounds(x - 1, y - 1, w + 2, h + 2);
         if (ht.popup_window.equalsIgnoreCase("profile")) {
+            
+            if(this.newLevelUp == true) { LevelUpControls = "[+]";}
+            else {LevelUpControls = "   ";}
             //draw it
+            //Note is level up == true?
             g.setColor(Color.white);
             g.fill(s);
             g.setColor(c);
@@ -579,14 +583,17 @@ public class Actor {
             sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
             g.drawString(this.name, x + 200, y + 20);
-            g.drawString("Level: 1", x + 200, y + 40);
+            g.drawString("Level: "+this.exp_level, x + 200, y + 40);
             g.drawString("Health: " + this.health_points + "/" + this.health_points_max, x + 200, y + 60);
             g.drawString("Fatigue: " + this.fatigue_points + "/" + this.fatigue_points_max, x + 200, y + 80);
             g.drawString("Stress: " + this.mental_points + "/" + this.mental_points_max, x + 200, y + 100);
-            g.drawString("Strength: " + this.stat_str, x + 200, y + 120);
-            g.drawString("Speed: " + this.stat_speed, x + 200, y + 140);
-            g.drawString("Willpower: " + this.stat_will, x + 200, y + 160);
-            g.drawString("Luck: " + this.stat_luck, x + 200, y + 180);
+            if(this.newLevelUp == true) { //green means you can click on a [+] //no mouse contorls yet.
+                g.setColor(Color.green);
+            }
+            g.drawString(LevelUpControls+" Strength: " + this.stat_str, x + 200, y + 120);
+            g.drawString(LevelUpControls+" Speed: " + this.stat_speed, x + 200, y + 140);
+            g.drawString(LevelUpControls+" Willpower: " + this.stat_will, x + 200, y + 160);
+            g.drawString(LevelUpControls+" Luck: " + this.stat_luck, x + 200, y + 180);
         } else if (ht.popup_window.equalsIgnoreCase("items")) {
             //draw it
             g.setColor(c);
