@@ -57,6 +57,7 @@ public class Actor {
     int fatigue_points, fatigue_points_max;
     int mental_points, mental_points_max;
     int stat_str, stat_speed, stat_will, stat_luck;
+    int exp_level, exp_points;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -104,6 +105,8 @@ public class Actor {
         stat_speed = 1;
         stat_will = 1;
         stat_luck = 1;
+        exp_level = 0;
+        exp_points = 0;
     }
 
     //public void changeActorSpriteSheetX
