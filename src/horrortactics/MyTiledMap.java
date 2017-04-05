@@ -457,18 +457,18 @@ public class MyTiledMap extends TiledMap {
     }
 
     public boolean getAnyActorMoving() //is anyone moving? return true
-    {
+    { ///hack, if you are dead you are not moving!
         boolean m = false;
         if (this.player.getActorMoving() == true) {
             System.out.print("player was still moving");
-            return true;
+            if(this.player.dead == false) { return true; }
         } else {
             m = false;
         }
         for (int i = 0; i < monster_max; i++) {
-            if (this.monster[i].getActorMoving() == true) {
+            if ( this.monster[i].dead==false && this.monster[i].getActorMoving() == true) {
                 System.out.print("Monster ["+i+"] was still moving\n");
-                return true;
+                if(this.monster[i].dead == false) { return true; }
             } else {
                 m = false;
             }
@@ -476,12 +476,11 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < follower_max; i++) {
             if (this.follower[i].getActorMoving() == true) {
                 System.out.print("Follower ["+i+"] was still moving\n");
-                return true;
+                if(this.follower[i].dead == false) { return true; }
             } else {
                 m = false;
             }
         }
-
         return m;
     }
 
@@ -758,10 +757,14 @@ public class MyTiledMap extends TiledMap {
         int proposed_x, proposed_y;
         this.current_monster_moving = 0;
         for (int i = 0; i < this.monster_max; i++) {
-            if (monster[i].visible == true) { //there was a monster here.
+            if (monster[i].visible == true && monster[i].dead == false) { //there was a monster here(and alive)
                 monster[i].action_points = 6; //update action points
                 monster[i].setActorMoving(true);
                 monster[i].setActorDestination(monster[i].tilex, monster[i].tiley);//there initial destination is their pos
+            }
+            else {
+                monster[i].setActorMoving(false);
+                monster[i].action_points = 0;
             }
             if (monster[i].max_turns_till_revival > 0 && monster[i].dead == true) {
                 if (monster[i].turns_till_revival >= monster[i].max_turns_till_revival) {
