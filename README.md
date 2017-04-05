@@ -13,17 +13,17 @@ set a flag where some monsters only move once spotted.  Better for "block your p
 
 
 TODO's [art]
-smooth out player's animation
-takeshi's back animation looks bad.
-policewoman needs attack and back animations
-asylum patients need walk animations
-asylum guards need walk animations
+- smooth out player's animation
+- takeshi's back animation looks bad.
+- policewoman needs attack and back animations
+- asylum patients need walk animations
+- asylum guards need walk animations
 
 Portraits needed
-Player (colored and face)
-Yukari (colored and face)
-Asylum patients
-Policewoman
+- Player (colored and face)
+- Yukari (colored and face)
+- Asylum patients
+- Policewoman
 
 Maps
 - Tutorial can meet bullies, get papers and return to class.  Should transition to class (not tested)
@@ -37,13 +37,15 @@ Maps
 - asylum, no map, no tiles or walls, monsters partially completed, folowers partially completed, no triggers, no placement in map order
 
 Character
-- Health Points - your health, lose this and die
-- Fatigue points - fighting and running decrease fatigue points, 1 attack -2FP, 6AP used a round -1FP.
-- Mental Stability - spotting the enemy, -1, taking damage -2, witnessing death -3
+- [DONE]Health Points - your health, lose this and die
+- [DONE]Fatigue points - fighting and running decrease fatigue points, 1 attack -2FP, 6AP used a round -1FP.
+- [DONE]Mental Stability - spotting the enemy, -1, taking damage -2, witnessing death -3
 
- - Strength, how hard you hit, Every 2 points of endurace adds 1 damage.
+ - Experience Level / Points, gain level+1 * level+1*10 to advance.
+ - Points to be gained on any attack kill, objective completed, and level survived.
+ - Strength, how hard you hit, Every 2 points of endurace adds 1 damage. (should also do health?
  - Speed, how fast you move. Every 2 points of speed, adds 1 action point.
- - Endurace, ability to soak up damage, and avoid fatigue. Every 2 points of endurace adds 1 health.
  - Willpower, ability to take a hit, and keep your cool under stress. Every 2 points adds 1MSp
  - Luck, you make the best rolls! Every 3 points of Luck adds 1 to dice rolls.
+ 
  
