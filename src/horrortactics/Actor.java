@@ -58,7 +58,7 @@ public class Actor {
     int mental_points, mental_points_max;
     int stat_str, stat_speed, stat_will, stat_luck;
     int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
-    boolean newLevelUp;
+    boolean newLevelUp, expForGoal, expForExitReached;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -109,6 +109,8 @@ public class Actor {
         exp_level = 0;
         exp_points = 0;
         newLevelUp = false;
+        expForGoal = false;
+        expForExitReached = false;
     }
 
     //public void changeActorSpriteSheetX

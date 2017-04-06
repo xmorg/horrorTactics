@@ -132,10 +132,16 @@ public class HorrorTactics extends BasicGame {
             //after the last click, accept
         } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
             //exit has been reached, transition map.  Do not set unless
-            map.player.exp_points+= 3;
+            if(map.player.expForExitReached == false) {
+                map.player.exp_points+= 3;
+                map.player.expForExitReached = true;
+            }
             for(int i=0; i<map.follower_max; i++) {
                 if(map.follower[i].dead == false) {
-                    map.follower[i].exp_points+= 3;
+                    if(map.follower[i].expForExitReached == false) {
+                        map.follower[i].exp_points+= 3;
+                        map.follower[i].expForExitReached = true;
+                    }
                 }
             }
             //goal has been reached , or goal = none
@@ -157,10 +163,17 @@ public class HorrorTactics extends BasicGame {
             }
         } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
             //reached goal.  (something happens.)
-            map.player.exp_points+= 3;
+            //BUG! it happens over and over.
+            if(map.player.expForGoal == false) {
+                map.player.exp_points+= 3;
+                map.player.expForGoal = true;
+            }
             for(int i=0; i<map.follower_max; i++) {
                 if(map.follower[i].dead == false) {
-                    map.follower[i].exp_points+= 3;
+                    if(map.player.expForGoal == false) {
+                        map.follower[i].exp_points+= 3;
+                        map.follower[i].expForGoal = true;
+                    }
                 }
             }
             //this.map.EventGoal_ran = true;
@@ -181,7 +194,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 6; //6; //DEBUG
+            map.player.action_points = 100; //6; //DEBUG
             //check for level up
             map.player.onLevelUp();
             for(int i =0; i < map.follower_max; i++) {
