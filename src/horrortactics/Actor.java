@@ -572,8 +572,8 @@ public class Actor {
         s.setBounds(x - 1, y - 1, w + 2, h + 2);
         if (ht.popup_window.equalsIgnoreCase("profile")) {
             
-            if(this.newLevelUp == true) { LevelUpControls = "[+]";}
-            else {LevelUpControls = "   ";}
+            if(this.newLevelUp == true) { LevelUpControls = "[+] ";}
+            else {LevelUpControls = "";}
             //draw it
             //Note is level up == true?
             g.setColor(Color.white);
@@ -592,10 +592,11 @@ public class Actor {
             }
             //int x = ht.screen_width / 2 - w / 2;
             //int y = ht.screen_height / 2 - h / 2;
-            g.drawString(LevelUpControls+" Strength: " + this.stat_str, x + 200, y + 120);
-            g.drawString(LevelUpControls+" Speed: " + this.stat_speed, x + 200, y + 140);
-            g.drawString(LevelUpControls+" Willpower: " + this.stat_will, x + 200, y + 160);
-            g.drawString(LevelUpControls+" Luck: " + this.stat_luck, x + 200, y + 180);
+            g.drawString(LevelUpControls+"Strength: " + this.stat_str, x + 200, y + 120);
+            g.drawString(LevelUpControls+"Speed: " + this.stat_speed, x + 200, y + 140);
+            g.drawString(LevelUpControls+"Willpower: " + this.stat_will, x + 200, y + 160);
+            g.drawString(LevelUpControls+"Luck: " + this.stat_luck, x + 200, y + 180);
+            g.drawString(LevelUpControls+"Exp: " + this.exp_points, x + 200, y + 200);
         } else if (ht.popup_window.equalsIgnoreCase("items")) {
             //draw it
             g.setColor(c);

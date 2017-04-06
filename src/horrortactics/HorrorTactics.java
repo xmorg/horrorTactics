@@ -131,7 +131,13 @@ public class HorrorTactics extends BasicGame {
             //Accept clicks through the dialogue
             //after the last click, accept
         } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
-            //exit has been reached, transition map.  Not do not set unless
+            //exit has been reached, transition map.  Do not set unless
+            map.player.exp_points+= 3;
+            for(int i=0; i<map.follower_max; i++) {
+                if(map.follower[i].dead == false) {
+                    map.follower[i].exp_points+= 3;
+                }
+            }
             //goal has been reached , or goal = none
 
         } else if (map.turn_order.equalsIgnoreCase("change map")) {
@@ -151,6 +157,12 @@ public class HorrorTactics extends BasicGame {
             }
         } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
             //reached goal.  (something happens.)
+            map.player.exp_points+= 3;
+            for(int i=0; i<map.follower_max; i++) {
+                if(map.follower[i].dead == false) {
+                    map.follower[i].exp_points+= 3;
+                }
+            }
             //this.map.EventGoal_ran = true;
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
@@ -170,6 +182,11 @@ public class HorrorTactics extends BasicGame {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
             map.player.action_points = 6; //6; //DEBUG
+            //check for level up
+            map.player.onLevelUp();
+            for(int i =0; i < map.follower_max; i++) {
+                map.follower[i].onLevelUp();
+            }
             //give followers action points.
             this.map.setFollowerDirectives();
             map.turn_order = "player";

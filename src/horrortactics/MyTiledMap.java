@@ -138,6 +138,8 @@ public class MyTiledMap extends TiledMap {
     }
 
     public void getActorLocationFromTMX() throws SlickException {
+        //We do not get stats, only locations.
+        //note, how do we carry followers from map to map? (or will we ever?)
         int monster_loop = 0;
         int follower_loop = 0;
         int actor_layer = this.getLayerIndex("actors_layer");
@@ -148,7 +150,6 @@ public class MyTiledMap extends TiledMap {
 
             } catch (SlickException e) {
             }
-
         }
         for (int i = 0; i < this.follower_max; i++) {
             try {
@@ -172,10 +173,8 @@ public class MyTiledMap extends TiledMap {
                         this.draw_goal_x = x;
                         this.draw_goal_y = y;
                     }                  
-                    
                     if(pname.equals("player")) {
                         this.player.tilex = x;
-                        //this.player.tilex += 10;
                         this.player.tiley = y;
                         this.player.name = "Riku"; //pname;
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
@@ -617,6 +616,7 @@ public class MyTiledMap extends TiledMap {
                 defender.turns_till_revival = 0; //do we revive?
                 log_msg = attacker.name + " attacks " + defender.name
                     + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for "+damage_roll+ " points of damage, killing "+ defender.name;
+                attacker.exp_points += 3;
             }
             else {
                 log_msg = attacker.name + " attacks " + defender.name

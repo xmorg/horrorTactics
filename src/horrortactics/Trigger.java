@@ -64,8 +64,7 @@ public class Trigger {
                 //System.out.println("reached event goal");
                 //assuming this exists?
                 if(m.EventExit_ran == false) {
-                    //event goal equals none, or (event goal != none and ran = true)
-                    
+                    //event goal equals none, or (event goal != none and ran = true)                    
                     if(m.RequiresGoal.equalsIgnoreCase("yes") && m.EventGoal_ran == true ) {
                         m.EventExit_p = new Image("data/" + m.getTileProperty(gid,"event_goal_p", "prt_player_00.png"));
                         m.EventExit_m = m.getTileProperty(gid,"event_goal_m", "none");

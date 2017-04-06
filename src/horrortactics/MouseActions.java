@@ -23,17 +23,71 @@ public class MouseActions {
     /* What happens when a mouse button is clicked. */
     //button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);  int screen_width = 0; int screen_height = 0;
     //button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
-    /* ON LEVEL UP, click here to increase stat
-    //int x = ht.screen_width / 2 - w / 2;
-    //int y = ht.screen_height / 2 - h / 2;
-    g.drawString(LevelUpControls+" Strength: " + this.stat_str, x + 200, y + 120);
-    g.drawString(LevelUpControls+" Speed: " + this.stat_speed, x + 200, y + 140);
-    g.drawString(LevelUpControls+" Willpower: " + this.stat_will, x + 200, y + 160);
-    g.drawString(LevelUpControls+" Luck: " + this.stat_luck, x + 200, y + 180);
     
-    */
+    Actor getMSelectedActor(HorrorTactics ht) {
+        boolean foundselected = false;
+        for(int i= 0; i < ht.map.follower_max; i++) {
+            if(ht.map.follower[i].selected == true) {
+                foundselected = true;
+                //ht.map.follower[i].drawPopupWindow(this, g);
+                return ht.map.follower[i];
+            }
+        }
+        if(foundselected == false) {
+            //this.map.player.drawPopupWindow(this, g); //who is currently selected?
+            return ht.map.player;
+        }
+        return ht.map.player; //default is player
+    }
     
-    
+    public void levelupButtonWasPressed(HorrorTactics ht) {
+        int w = 400; //same as whats drawn on the screen.
+        int h = 400;
+        int x = ht.screen_width / 2 - w / 2;
+        int y = ht.screen_height / 2 - h / 2;
+        /* ON LEVEL UP, click here to increase stat        
+        g.drawString(LevelUpControls+" Strength: " + this.stat_str, x + 200, y + 120);
+        g.drawString(LevelUpControls+" Speed: " + this.stat_speed, x + 200, y + 140);
+        g.drawString(LevelUpControls+" Willpower: " + this.stat_will, x + 200, y + 160);
+        g.drawString(LevelUpControls+" Luck: " + this.stat_luck, x + 200, y + 180);
+        first, determine if it was pressed.
+        */
+        int xi = x+200;
+        int yi = y+120;
+        if (ht.popup_window.equalsIgnoreCase("profile")) {
+            if(this.mouse_x >= xi && this.mouse_x <= xi +200
+                    && this.mouse_y >=yi && this.mouse_y <= yi+20) {
+                if(getMSelectedActor(ht).newLevelUp) {//true
+                    getMSelectedActor(ht).stat_str++;
+                    getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
+                }
+            }
+            else if(this.mouse_x >= xi && this.mouse_x <= xi +200
+                    && this.mouse_y >=yi+20 && this.mouse_y <= yi+20*2) {
+                //increase Speed
+                if(getMSelectedActor(ht).newLevelUp) {//true
+                    getMSelectedActor(ht).stat_speed++;
+                    getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
+                }
+            }
+            else if(this.mouse_x >= xi && this.mouse_x <= xi +200
+                    && this.mouse_y >=yi+20*2 && this.mouse_y <= yi+20*3) {
+                //increase Willpower
+                if(getMSelectedActor(ht).newLevelUp) {//true
+                    getMSelectedActor(ht).stat_will++;
+                    getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
+                }
+            }
+            else if(this.mouse_x >= xi && this.mouse_x <= xi +200
+                    && this.mouse_y >=yi+20*3 && this.mouse_y <= yi+20*4) {
+                //increase Luck
+                if(getMSelectedActor(ht).newLevelUp) {//true
+                    getMSelectedActor(ht).stat_luck++;
+                    getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
+                }
+            }
+        }
+    }
     
     public boolean endTurnButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
         int bx = ht.screen_width- 200;
@@ -94,8 +148,11 @@ public class MouseActions {
         map.selected_tile_y = map.mouse_over_tile_y;
         int scrollspeed = 3;
 
+        
         if (input.isMousePressed(0) == true) {
             //button_endturn.draw(10, gc.getScreenHeight()-64-10);
+            
+            //now we need to, stop eveything below.
             if (map.turn_order.equalsIgnoreCase("planning")) {
                 if (map.planevent == map.maxplanevent || map.planning[map.planevent].equalsIgnoreCase("end")) {
                     map.turn_order = "start player";
@@ -103,6 +160,10 @@ public class MouseActions {
                     map.planevent++;
                 }
             } 
+            else if (ht.popup_window.equalsIgnoreCase("profile")) {
+                levelupButtonWasPressed(ht); //simple check
+                this.profileButtonWasPressed(ht);
+            }
             else if (this.profileButtonWasPressed(ht)) { //stops working sometimes?
                 //we alreadyset these.
             }
