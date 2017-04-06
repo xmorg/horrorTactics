@@ -59,6 +59,7 @@ public class MouseActions {
                     && this.mouse_y >=yi && this.mouse_y <= yi+20) {
                 if(getMSelectedActor(ht).newLevelUp) {//true
                     getMSelectedActor(ht).stat_str++;
+                    getMSelectedActor(ht).health_points_max += 2;
                     getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
                 }
             }
@@ -66,7 +67,8 @@ public class MouseActions {
                     && this.mouse_y >=yi+20 && this.mouse_y <= yi+20*2) {
                 //increase Speed
                 if(getMSelectedActor(ht).newLevelUp) {//true
-                    getMSelectedActor(ht).stat_speed++;
+                    getMSelectedActor(ht).stat_speed++; //TODO! we need to add action point bonus for speed.
+                    getMSelectedActor(ht).health_points_max += 1;
                     getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
                 }
             }
@@ -75,6 +77,8 @@ public class MouseActions {
                 //increase Willpower
                 if(getMSelectedActor(ht).newLevelUp) {//true
                     getMSelectedActor(ht).stat_will++;
+                    getMSelectedActor(ht).health_points_max += 1;
+                    getMSelectedActor(ht).fatigue_points_max += 1;
                     getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
                 }
             }
@@ -82,7 +86,8 @@ public class MouseActions {
                     && this.mouse_y >=yi+20*3 && this.mouse_y <= yi+20*4) {
                 //increase Luck
                 if(getMSelectedActor(ht).newLevelUp) {//true
-                    getMSelectedActor(ht).stat_luck++;
+                    getMSelectedActor(ht).stat_luck++; //what is luck? on dice rolls add, +stat_luck -1
+                    getMSelectedActor(ht).health_points_max += 1;
                     getMSelectedActor(ht).newLevelUp = false; //you clicked and now its done.
                 }
             }

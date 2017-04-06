@@ -55,6 +55,7 @@ public class HorrorTactics extends BasicGame {
     Image button_endturn, button_menu, button_punch, button_items, button_profile;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
+    Actor playersave;
     
 
     String game_state = "tactical"; //title, tactical,conversation,cutscene
@@ -104,6 +105,7 @@ public class HorrorTactics extends BasicGame {
         myfilterd = new Color(0.2f, 0.2f, 0.2f, 0.8f); //for darkness/fog
         last_mouse_x = 0;//input.getMouseX();
         last_mouse_y = 0;//input.getMouseY();
+        playersave = new Actor("data/player00", 218, 313); //to carry over the player.
     }
 
     @Override
@@ -151,8 +153,11 @@ public class HorrorTactics extends BasicGame {
             //change map here  map = new MyTiledMap("data/class_school01.tmx", 0, 0);
             //map.getActorLocationFromTMX();
             try {
+                this.map.player.copyActorStats(playersave);
                 this.map = new MyTiledMap("data/" + n_mapname, 0, 0);
+                //we lose player info Here.  
                 map.getActorLocationFromTMX(); //actor location?
+                this.playersave.copyActorStats(map.player);
                 this.map.turn_order = "planning";
                 map.mouse_over_tile_x = 1;
                 map.mouse_over_tile_y = 1;
@@ -194,7 +199,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 100; //6; //DEBUG
+            map.player.action_points = 100 + map.player.stat_speed-1; //6; //DEBUG
             //check for level up
             map.player.onLevelUp();
             for(int i =0; i < map.follower_max; i++) {

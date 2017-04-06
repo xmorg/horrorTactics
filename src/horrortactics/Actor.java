@@ -618,4 +618,17 @@ public class Actor {
             this.exp_level++;
         } //wait for point distrib before setting to false (not implemented)
     }
+    
+    void copyActorStats(Actor a)
+    {
+        a.name = this.name;
+        a.exp_level = this.exp_level;
+        a.exp_points = this.exp_points;
+        a.stat_luck = this.stat_luck;
+        a.stat_speed = this.stat_speed;
+        a.stat_str = this.stat_str;
+        a.stat_will = this.stat_will;
+        a.health_points_max = this.health_points_max;
+        a.health_points = this.health_points;
+    }
 }
