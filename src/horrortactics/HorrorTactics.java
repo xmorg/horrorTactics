@@ -55,6 +55,7 @@ public class HorrorTactics extends BasicGame {
     Image button_endturn, button_menu, button_punch, button_items, button_profile;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
+    Image level_up_icon; //level_up_icon.png
     Actor playersave;
     
 
@@ -106,6 +107,7 @@ public class HorrorTactics extends BasicGame {
         last_mouse_x = 0;//input.getMouseX();
         last_mouse_y = 0;//input.getMouseY();
         playersave = new Actor("data/player00", 218, 313); //to carry over the player.
+        level_up_icon = new Image("data/level_up_icon.png");
     }
 
     @Override
@@ -357,11 +359,18 @@ public class HorrorTactics extends BasicGame {
 
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
+        //level_up_icon
+        if(map.player.newLevelUp == true) {
+            this.level_up_icon.draw(5, 50);
+        }
         g.drawString("Action: "+Integer.toString(map.player.action_points), 
                 5, 50+75);
         for (int i = 0; i < this.map.follower_max; i++) {
             if (this.map.follower[i].visible == true) {
                 this.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)));
+                if(map.follower[i].newLevelUp == true) {
+                    this.level_up_icon.draw(5, 50 + (100 * (i + 1)));
+                }
                 g.drawString("Action: "+Integer.toString(map.follower[i].action_points),
                         //5, 50 + 75);// (100 * (i + 1) + 75));
                         5, 50 + (100 * (i + 1))+75 );
