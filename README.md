@@ -11,6 +11,11 @@ set a flag where some monsters only move once spotted.  Better for "block your p
   - increase action points?
   - give infinite action points until an encounter?
 
+Tutorial Text
+ "Select the tile you're standing on, then click the tile you want to go"
+ "Press your spacebar, or the end turn button to advance to the next turn."
+ "Bullies can be tough, better let me handle them. Click to attack when in range."
+ "The Teacher's office is the second door on the right."
 
 TODO's [art]
 - smooth out player's animation
