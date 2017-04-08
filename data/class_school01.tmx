@@ -22,6 +22,7 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
+    <property name="costume" value="player00"/>
    </properties>
   </tile>
   <tile id="1">
@@ -53,7 +54,7 @@
   </tile>
   <tile id="14">
    <properties>
-    <property name="event_goal" value="cell phone"/>
+    <property name="event_goal" value="yes"/>
     <property name="event_goal_graphic" value="mission_cellphone.png"/>
     <property name="event_goal_m" value="I got it! Lets get out of here."/>
     <property name="event_goal_p" value="prt_player_00.png"/>

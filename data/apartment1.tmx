@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
+  <property name="mapname" value="apartment1.tmx"/>
+  <property name="nextmap" value="streets01.tmx"/>
   <property name="planning_0" value="Hello? Anyone there?"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="end"/>
@@ -24,6 +26,7 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
+    <property name="costume" value="player01"/>
    </properties>
   </tile>
   <tile id="8">

@@ -177,6 +177,7 @@ public class MyTiledMap extends TiledMap {
                         this.player.tilex = x;
                         this.player.tiley = y;
                         this.player.name = "Riku"; //pname;
+                        this.player.changeActorSpritesheet(this.getTileProperty(gid, "costume", "player00"), 218, 313);
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                     } else if (pname.equals("Yukari")) {
                         try {

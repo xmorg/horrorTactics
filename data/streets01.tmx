@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="20" height="60" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
-  <property name="planning_0" value="Hello? Anyone there?"/>
+  <property name="mapname" value="streets01.tmx"/>
+  <property name="planning_0" value="Whats this?  The streets look unfinished"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="end"/>
   <property name="req_goal" value="no"/>
@@ -24,11 +25,12 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
+    <property name="costume" value="player00"/>
    </properties>
   </tile>
   <tile id="8">
    <properties>
-    <property name="actor_name" value="invisible man"/>
+    <property name="actor_name" value="skeleton"/>
    </properties>
   </tile>
   <tile id="9">

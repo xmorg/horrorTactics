@@ -11,7 +11,7 @@
   <property name="nextmap" value="class_school01.tmx"/>
   <property name="planning_0" value="Hello Class. Today we will learn the basics."/>
   <property name="planning_0_p" value="prt_teacher_00.png"/>
-  <property name="planning_1" value="Player, can you go to my office and get my papers?"/>
+  <property name="planning_1" value="Riku, can you go to my office and get my papers?"/>
   <property name="planning_1_p" value="prt_teacher_00.png"/>
   <property name="planning_2" value="My office is down the hall to the left."/>
   <property name="planning_2_p" value="prt_teacher_00.png"/>
@@ -27,6 +27,7 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
+    <property name="costume" value="player00"/>
    </properties>
   </tile>
   <tile id="1">
@@ -43,6 +44,10 @@
    <properties>
     <property name="actor_name" value="Takeshi"/>
     <property name="health_bonus" type="int" value="1"/>
+    <property name="tutor_text_0" value="Select the tile you're standing on, then click the tile you want to go"/>
+    <property name="tutor_text_1" value="Press your spacebar, or the end turn button to advance to the next turn."/>
+    <property name="tutor_text_2" value="Bullies can be tough, better let me handle them. Click to attack when in range."/>
+    <property name="tutor_text_3" value="The Teacher's office is the second door on the right."/>
    </properties>
   </tile>
   <tile id="8">
