@@ -374,8 +374,8 @@ public class Actor {
 
     public void onAttack(HorrorTactics ht/*, Actor target*/) {
 
-        this.tiledestx = ht.map.selected_tile_x;
-        this.tiledesty = ht.map.selected_tile_y;
+        //this.tiledestx = ht.map.selected_tile_x;  //monsters have to attack too, remove code.
+        //this.tiledesty = ht.map.selected_tile_y;
         this.updateActorDirection();
         //ht.map.onActorAttackActor(ht, ht.map.player,
         //        ht.map.getAllPlayersAtXy(ht.map.selected_tile_x, ht.map.selected_tile_y));
@@ -392,8 +392,8 @@ public class Actor {
             //check action points
             if (this.action_points >= 3 && ht.map.isActorTouchingActor(this, t, tilex, tiley) && this.dead == false) {
                 ht.map.onActorAttackActor(ht, this, t);
-                this.setAnimationFrame(4);
-                this.attack_timer = 25;
+                //this.setAnimationFrame(4);
+                //this.attack_timer = 25;
             }
         }
 

@@ -30,12 +30,12 @@
   </tile>
   <tile id="8">
    <properties>
-    <property name="actor_name" value="skeleton"/>
+    <property name="actor_name" value="zombie1"/>
    </properties>
   </tile>
   <tile id="9">
    <properties>
-    <property name="actor_name" value="iman"/>
+    <property name="actor_name" value="zombie2"/>
    </properties>
   </tile>
   <tile id="13">
@@ -61,7 +61,7 @@
  </layer>
  <layer name="actors_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OQQ0AAAgEIKv5tH8hW3hzgwRUkdTpAPDWpAMAAABHFiuziAbAEgAA
+   H4sIAAAAAAAAA+3OQQ0AMAgEMKzxHP4FoWGvC0mroFUkdToAnPXSgaMmHQAAAL4tsSPVjsASAAA=
   </data>
  </layer>
 </map>

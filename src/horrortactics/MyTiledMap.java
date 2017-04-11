@@ -262,9 +262,9 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 4;
                         monster_loop++;
-                    } else if (pname.equals("skeleton monster")) {
+                    } else if (pname.equals("skeleton")) {
                         try {
-                            monster[monster_loop].changeActorSpritesheet("data/monster05.png", 218, 313);
+                            monster[monster_loop].changeActorSpritesheet("data/monster05", 218, 313);
                         } catch (SlickException e) {
                         }
                         monster[monster_loop].tilex = x;
@@ -273,6 +273,30 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].visible = true;
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 0;
+                        monster_loop++; 
+                    } else if (pname.equalsIgnoreCase("zombie1")) {
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/monster10", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 2;
+                        monster_loop++; 
+                    } else if (pname.equalsIgnoreCase("zombie2")) {
+                        try {
+                            monster[monster_loop].changeActorSpritesheet("data/monster11", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        monster[monster_loop].tilex = x;
+                        monster[monster_loop].tiley = y;
+                        monster[monster_loop].setActorMoving(false);
+                        monster[monster_loop].visible = true;
+                        monster[monster_loop].name = pname;
+                        monster[monster_loop].max_turns_till_revival = 2;
                         monster_loop++;
                     } else if (pname.equals("invisible man")) {
                         System.out.println("we got to the invnisible man");
@@ -603,6 +627,8 @@ public class MyTiledMap extends TiledMap {
         int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) +attacker.stat_str-1;
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         System.out.println("target check " + defender.name);
+        attacker.setAnimationFrame(4);
+        attacker.attack_timer = 25;
         if (defender.canparry) {
             target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         } else {
