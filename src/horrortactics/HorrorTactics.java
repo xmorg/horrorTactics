@@ -297,7 +297,6 @@ public class HorrorTactics extends BasicGame {
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
             }
-            
             if (y == map.selected_tile_y && x == map.selected_tile_x) {
                         map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
             }
@@ -307,52 +306,41 @@ public class HorrorTactics extends BasicGame {
 
     
     public void render_walls_layer(GameContainer gc, Graphics g) {
-        for (int y = map.render_min_y - 4; y < map.render_max_y + 4; y++) {
-            for (int x = map.render_min_x - 4; x < map.render_max_x + 4; x++) {
-                screen_x = (x - y) * map.TILE_WIDTH_HALF;
-                screen_y = (x + y) * map.TILE_HEIGHT_HALF;
-                if (x >= 0 && y >= 0 && x <= map.getTileWidth() && y <= map.getTileHeight()) {
-                    mouse_x = gc.getInput().getMouseX();
+        int mw = map.getTileWidth();
+        int mh = map.getTileHeight();
+        for (int y = map.render_min_y - 4; y < map.render_max_y + 4; y++) { /*Y Loop*/
+            for (int x = map.render_min_x - 4; x < map.render_max_x + 4; x++) { /* X Loop*/
+                screen_x = (x - y) * map.TILE_WIDTH_HALF; /*Calculate screen/x/y*/
+                screen_y = (x + y) * map.TILE_HEIGHT_HALF;                
+                if (x >= 0 && y >= 0 && x <= mw && y <= mh) { /*loop through tiles */
+                    mouse_x = gc.getInput().getMouseX(); /*get mouse coords*/
                     mouse_y = gc.getInput().getMouseY();
-                    int sx = screen_x + draw_x + 30;
+                    int sx = screen_x + draw_x + 30; /*screen x/y+drawing offset*/
                     int sy = screen_y + draw_y + 30;
+                    /*compare mouse to sx*/
                     if (mouse_x >= sx && mouse_x <= sx + 250 - 30
                             && mouse_y >= sy && mouse_y <= sy + 130 - 30) {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
                         //is there someone in mouse over tile?
-                        map.mouse_over_actor(x,y);
+                        map.mouse_over_actor(x,y); //render the selector.
                         map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
-                    
-                    /*if (map.isPlayerTouchingMonster() && x == map.player.tilex
-                            && y == map.player.tiley) { //we are touching monster?
-                        //this.button_punch.draw(this.screen_x + this.draw_x,
-                        //        this.screen_y + this.draw_y - 200);
-                    }
-                    if (map.player.action_msg_timer > 0 && x == map.player.tilex && y == map.player.tiley) {
-                        g.drawString(map.player.action_msg, screen_x + draw_x,
-                                screen_y + draw_y - 200);
-                        //this.getComicActionStrImage(map.player.action_msg).draw(screen_x + draw_x,
-                        //        screen_y + draw_y - 200);
-                    }*/
-                    //if()
-                    map.player.drawPlayer(this, map, x, y, g);
-                    map.drawMonsters(this, x, y, g); //map.monster[0].drawActor(this, map, x, y);
-                    map.drawFollowers(this, x, y, g);
+                    map.player.drawPlayer(this, map, x, y, g); /*Draw your player*/
+                    map.drawMonsters(this, x, y, g); /*map.monster[0].drawActor(this, map, x, y);*/
+                    map.drawFollowers(this, x, y, g); /*draw your followers*/
                     if(this.map.RequiresGoal.equalsIgnoreCase("yes") 
                             && this.map.EventGoal_ran == false
                             && x == this.map.draw_goal_x
-                            && y == this.map.draw_goal_y) { //bug? better have an image
-                        int pdx = screen_x + draw_x; // + this.draw_x;
-                        int pdy = screen_y + draw_y; // + this.draw_y - 230;
+                            && y == this.map.draw_goal_y) { /*bug? better have an image*/
+                        int pdx = screen_x + draw_x; /* + this.draw_x;*/
+                        int pdy = screen_y + draw_y; /* + this.draw_y - 230;*/
                         this.map.mission_goal.draw(pdx,pdy);
                     }
                     if (this.getTileToBeRendered(x, y)) {
                         render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
                     }
-
                 }
             }
         }
@@ -380,8 +368,6 @@ public class HorrorTactics extends BasicGame {
         g.setColor(myfilterd);
         g.fillOval(5, 50 + 75, 12, 14);
         g.setColor(myfilter);
-
-        //map.monster[0].iconImage.draw(5, 200);
         button_items.draw(gc.getScreenWidth() - 400, gc.getScreenHeight() - 64 - 10);
         button_profile.draw(gc.getScreenWidth() - 300, gc.getScreenHeight() - 64 - 10);
         button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);
