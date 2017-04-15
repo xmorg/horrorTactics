@@ -61,8 +61,9 @@ public class MyTiledMap extends TiledMap {
 
     String EventExit = "none";
     Image EventExit_p = null;
-    Image mission_goal = null;   int draw_goal_x = -1, draw_goal_y = -1;
-    
+    Image mission_goal = null;
+    int draw_goal_x = -1, draw_goal_y = -1;
+
     String EventExit_m = "none";
     boolean EventExit_ran = false;
     String RequiresGoal = "no"; //Yes, if you need to reach a goal before exit
@@ -167,17 +168,17 @@ public class MyTiledMap extends TiledMap {
                     String pname = this.getTileProperty(gid, "actor_name", "none");
                     String actor_spotted = this.getTileProperty(gid, "actor_spotted", "true");
                     String mission_goal = this.getTileProperty(gid, "event_goal", "no");
-                    if(mission_goal.equalsIgnoreCase("yes")){
-                        this.mission_goal = new Image("data/"+ this.getTileProperty(gid, "event_goal_graphic", "papers.png"));
+                    if (mission_goal.equalsIgnoreCase("yes")) {
+                        this.mission_goal = new Image("data/" + this.getTileProperty(gid, "event_goal_graphic", "papers.png"));
                         //set the X/y
                         this.draw_goal_x = x;
                         this.draw_goal_y = y;
-                    }                  
-                    if(pname.equals("player")) {
+                    }
+                    if (pname.equals("player")) {
                         this.player.tilex = x;
                         this.player.tiley = y;
                         this.player.name = "Riku"; //pname;
-                        this.player.changeActorSpritesheet("data/"+this.getTileProperty(gid, "costume", "player00"), 218, 313);
+                        this.player.changeActorSpritesheet("data/" + this.getTileProperty(gid, "costume", "player00"), 218, 313);
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                     } else if (pname.equals("Yukari")) {
                         try {
@@ -204,6 +205,17 @@ public class MyTiledMap extends TiledMap {
                     } else if (pname.equals("Takeshi")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/boy01", 218, 313);
+                            follower[follower_loop].tilex = x;
+                            follower[follower_loop].tiley = y;
+                            follower[follower_loop].visible = true;
+                            follower[follower_loop].name = pname;
+                            follower_loop++;
+                        } catch (SlickException e) {
+                        }
+
+                    } else if (pname.equals("Officer Ayano")) {
+                        try {
+                            follower[follower_loop].changeActorSpritesheet("data/police01", 218, 313);
                             follower[follower_loop].tilex = x;
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
@@ -273,7 +285,7 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].visible = true;
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 0;
-                        monster_loop++; 
+                        monster_loop++;
                     } else if (pname.equalsIgnoreCase("zombie1")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster10", 218, 313);
@@ -285,7 +297,7 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].visible = true;
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 2;
-                        monster_loop++; 
+                        monster_loop++;
                     } else if (pname.equalsIgnoreCase("zombie2")) {
                         try {
                             monster[monster_loop].changeActorSpritesheet("data/monster11", 218, 313);
@@ -357,7 +369,7 @@ public class MyTiledMap extends TiledMap {
         this.current_follower_moving = 0;
         for (int i = 0; i < this.follower_max; i++) {
             if (follower[i].visible == true) {
-                follower[i].action_points = 6 + follower[i].stat_speed-1;
+                follower[i].action_points = 6 + follower[i].stat_speed - 1;
                 follower[i].setActorMoving(false);
                 follower[i].setActorDestination(follower[i].tilex,
                         follower[i].tiley);
@@ -379,7 +391,7 @@ public class MyTiledMap extends TiledMap {
         for (int i = 0; i < this.monster_max; i++) {
             if (this.monster[i].visible == true) { //just to be sure
                 //energy bar here?
-                
+
                 this.monster[i].drawActor(ht, this, x, y, g);
                 if (this.monster[i].tilex == x && this.monster[i].tiley == y) {
                     if (this.EventSpotted_ran == false) {
@@ -485,22 +497,28 @@ public class MyTiledMap extends TiledMap {
         boolean m = false;
         if (this.player.getActorMoving() == true) {
             System.out.print("player was still moving");
-            if(this.player.dead == false) { return true; }
+            if (this.player.dead == false) {
+                return true;
+            }
         } else {
             m = false;
         }
         for (int i = 0; i < monster_max; i++) {
-            if ( this.monster[i].dead==false && this.monster[i].getActorMoving() == true) {
-                System.out.print("Monster ["+i+"] was still moving\n");
-                if(this.monster[i].dead == false) { return true; }
+            if (this.monster[i].dead == false && this.monster[i].getActorMoving() == true) {
+                System.out.print("Monster [" + i + "] was still moving\n");
+                if (this.monster[i].dead == false) {
+                    return true;
+                }
             } else {
                 m = false;
             }
         }
         for (int i = 0; i < follower_max; i++) {
             if (this.follower[i].getActorMoving() == true) {
-                System.out.print("Follower ["+i+"] was still moving\n");
-                if(this.follower[i].dead == false) { return true; }
+                System.out.print("Follower [" + i + "] was still moving\n");
+                if (this.follower[i].dead == false) {
+                    return true;
+                }
             } else {
                 m = false;
             }
@@ -622,9 +640,9 @@ public class MyTiledMap extends TiledMap {
 
     public void onActorAttackActor(HorrorTactics ht, Actor attacker, Actor defender) {
         int target_parryroll;
-        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) +attacker.stat_luck-1;
-        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) +defender.stat_luck-1;
-        int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) +attacker.stat_str-1;
+        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_luck - 1;
+        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + defender.stat_luck - 1;
+        int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_str - 1;
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         System.out.println("target check " + defender.name);
         attacker.setAnimationFrame(4);
@@ -636,18 +654,17 @@ public class MyTiledMap extends TiledMap {
         }
         if (actor_attackroll > target_dodgeroll && actor_attackroll > target_parryroll + defender.parryscore) {
             defender.health_points -= damage_roll;
-            if(defender.health_points <= 0) {
+            if (defender.health_points <= 0) {
                 defender.dead = true;
-                defender.action_msg = " "+damage_roll+ " ";
+                defender.action_msg = " " + damage_roll + " ";
                 defender.action_msg_timer = 200;
                 defender.turns_till_revival = 0; //do we revive?
                 log_msg = attacker.name + " attacks " + defender.name
-                    + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for "+damage_roll+ " points of damage, killing "+ defender.name;
+                        + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage, killing " + defender.name;
                 attacker.exp_points += 3;
-            }
-            else {
+            } else {
                 log_msg = attacker.name + " attacks " + defender.name
-                    + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for "+damage_roll+ " points of damage.";
+                        + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage.";
             }
 
         } else {
@@ -664,9 +681,17 @@ public class MyTiledMap extends TiledMap {
         }
         //we already checke for action points, not remove them
         attacker.action_points -= 3;
-        attacker.fatigue_points -= 1; if(attacker.fatigue_points <0) {attacker.fatigue_points=0;}
-        defender.fatigue_points -= 1; if(defender.fatigue_points <0) {defender.fatigue_points=0;}
-        if(attacker.action_points < 0) {attacker.action_points = 0;}
+        attacker.fatigue_points -= 1;
+        if (attacker.fatigue_points < 0) {
+            attacker.fatigue_points = 0;
+        }
+        defender.fatigue_points -= 1;
+        if (defender.fatigue_points < 0) {
+            defender.fatigue_points = 0;
+        }
+        if (attacker.action_points < 0) {
+            attacker.action_points = 0;
+        }
     }
 
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
@@ -788,8 +813,7 @@ public class MyTiledMap extends TiledMap {
                 monster[i].action_points = 6; //update action points
                 monster[i].setActorMoving(true);
                 monster[i].setActorDestination(monster[i].tilex, monster[i].tiley);//there initial destination is their pos
-            }
-            else {
+            } else {
                 monster[i].setActorMoving(false);
                 monster[i].action_points = 0;
             }
@@ -825,8 +849,7 @@ public class MyTiledMap extends TiledMap {
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         monster[i].tiledestx = monster[i].tilex;
                         monster[i].tiledesty = monster[i].tiley;
                     }
@@ -943,31 +966,27 @@ public class MyTiledMap extends TiledMap {
         this.render_max_y = current_max_y;
         this.render_max_x = current_max_x;
     }
-    
-    void mouse_over_actor(int x, int y)
-    {
+
+    void mouse_over_actor(int x, int y) {
         if (this.player.tilex == x && this.player.tiley == y) {
             this.player.ismouse_over = true;
-        }
-        else {
+        } else {
             this.player.ismouse_over = false;
         }
-        for(int i=0; i< this.follower_max; i++) {
+        for (int i = 0; i < this.follower_max; i++) {
             if (this.follower[i].tilex == x && this.follower[i].tiley == y) {
                 this.follower[i].ismouse_over = true;
-            }
-            else {
+            } else {
                 this.follower[i].ismouse_over = false;
             }
         }
-        for(int i=0; i < this.monster_max; i++) {
+        for (int i = 0; i < this.monster_max; i++) {
             if (this.monster[i].tilex == x && this.monster[i].tiley == y) {
                 this.monster[i].ismouse_over = true;
-            }
-            else {
+            } else {
                 this.monster[i].ismouse_over = false;
             }
         }
-        
+
     }
 }

@@ -25,7 +25,19 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
-    <property name="costume" value="player00"/>
+    <property name="costume" value="player01"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="actor_name" value="Officer Ayano"/>
+    <property name="weapon" value="pistol"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="actor_name" value="Takeshi"/>
+    <property name="health_bonus" value="2"/>
    </properties>
   </tile>
   <tile id="8">
@@ -61,7 +73,7 @@
  </layer>
  <layer name="actors_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OQQ0AMAgEMKzxHP4FoWGvC0mroFUkdToAnPXSgaMmHQAAAL4tsSPVjsASAAA=
+   H4sIAAAAAAAAA+3SQQ4AEAwEQF8TceD/D/ICIsEBM8c22UO3ITAjH8qNm3LSphzgHmVx/6vambvXG/T4H50z4j8A3tEAF1ERl8ASAAA=
   </data>
  </layer>
 </map>
