@@ -57,9 +57,10 @@ public class HorrorTactics extends BasicGame {
     Image enemy_moving_message;
     Image level_up_icon; //level_up_icon.png
     Actor playersave;
+    TitleMenu titlemenu;
     
 
-    String game_state = "tactical"; //title, tactical,conversation,cutscene
+    String game_state = "title"; //title, tactical,conversation,cutscene
 
     public HorrorTactics(String gamename) {
         super(gamename);
@@ -72,6 +73,7 @@ public class HorrorTactics extends BasicGame {
         //map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
         ksa = new KeyActions();
+        titlemenu = new TitleMenu();
         //input = new Input(gc.getHeight());
         map.getActorLocationFromTMX();
         fps = gc.getFPS();

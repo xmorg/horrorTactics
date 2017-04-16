@@ -155,8 +155,7 @@ public class MouseActions {
 
         
         if (input.isMousePressed(0) == true) {
-            //button_endturn.draw(10, gc.getScreenHeight()-64-10);
-            
+            ht.titlemenu.onMouseClick(ht, mouse_x, mouse_y);
             //now we need to, stop eveything below.
             if (map.turn_order.equalsIgnoreCase("planning")) {
                 if (map.planevent == map.maxplanevent || map.planning[map.planevent].equalsIgnoreCase("end")) {
