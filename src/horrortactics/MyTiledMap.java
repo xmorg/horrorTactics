@@ -166,6 +166,7 @@ public class MyTiledMap extends TiledMap {
                 if (gid > 0) {
                     //System.out.println(this.getTileId(x, y, actor_layer));
                     String pname = this.getTileProperty(gid, "actor_name", "none");
+                    String weapon = this.getTileProperty(gid, "weapon", "none");
                     String actor_spotted = this.getTileProperty(gid, "actor_spotted", "true");
                     String mission_goal = this.getTileProperty(gid, "event_goal", "no");
                     if (mission_goal.equalsIgnoreCase("yes")) {
@@ -180,6 +181,7 @@ public class MyTiledMap extends TiledMap {
                         this.player.name = "Riku"; //pname;
                         this.player.changeActorSpritesheet("data/" + this.getTileProperty(gid, "costume", "player00"), 218, 313);
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
+                        this.player.swapSoundEffects("", "", "", "", "", "" );
                     } else if (pname.equals("Yukari")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
@@ -220,6 +222,7 @@ public class MyTiledMap extends TiledMap {
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
                             follower[follower_loop].name = pname;
+                            //if(weapon)
                             follower_loop++;
                         } catch (SlickException e) {
                         }
@@ -273,6 +276,8 @@ public class MyTiledMap extends TiledMap {
                         monster[monster_loop].visible = true;
                         monster[monster_loop].name = pname;
                         monster[monster_loop].max_turns_till_revival = 4;
+                        monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg", 
+                                "pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg" );
                         monster_loop++;
                     } else if (pname.equals("skeleton")) {
                         try {
@@ -652,7 +657,7 @@ public class MyTiledMap extends TiledMap {
         } else {
             target_parryroll = 0;
         }
-        if (actor_attackroll > target_dodgeroll && actor_attackroll > target_parryroll + defender.parryscore) {
+        if (actor_attackroll > target_dodgeroll && actor_attackroll > target_parryroll + defender.parryscore) { //hit
             defender.health_points -= damage_roll;
             if (defender.health_points <= 0) {
                 defender.dead = true;
@@ -661,13 +666,18 @@ public class MyTiledMap extends TiledMap {
                 defender.turns_till_revival = 0; //do we revive?
                 log_msg = attacker.name + " attacks " + defender.name
                         + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage, killing " + defender.name;
+                defender.snd_died.play();
                 attacker.exp_points += 3;
+                
             } else {
                 log_msg = attacker.name + " attacks " + defender.name
                         + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage.";
+                defender.snd_washit.play();
             }
-
-        } else {
+            
+            attacker.snd_swing_hit.play();
+            //defender.snd_washit.play();
+        } else { //miss
             defender.action_msg = "Miss";
             defender.action_msg_timer = 200;
             if (target_parryroll + defender.parryscore > actor_attackroll) {
@@ -678,6 +688,8 @@ public class MyTiledMap extends TiledMap {
                 log_msg = attacker.name + " attacks " + defender.name
                         + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses";
             }
+            attacker.snd_swing_miss.play();
+            defender.snd_dodging.play();
         }
         //we already checke for action points, not remove them
         attacker.action_points -= 3;

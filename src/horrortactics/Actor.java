@@ -51,7 +51,10 @@ public class Actor {
     int speed_wait;
     int action_msg_timer; //max800
     String action_msg;
-    Sound footsteps;
+    Sound snd_footsteps;
+    Sound snd_swing_hit, snd_swing_miss;
+    Sound snd_washit, snd_dodging, snd_died;
+    String weapon;
     //your stats.
     int health_points, health_points_max;
     int fatigue_points, fatigue_points_max;
@@ -93,9 +96,14 @@ public class Actor {
         turns_till_revival = 0;
         max_turns_till_revival = 0;
         attack_timer = 0;
-        footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
-        //spriteImage.set
-        //stats
+        //no try catch!
+        snd_footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
+        snd_swing_miss = new Sound("data/soundeffects/swing_miss.ogg");
+        snd_swing_hit = new Sound("data/soundeffects/punch_hit.ogg");
+        snd_washit = new Sound("data/soundeffects/guy_hit1.ogg");
+        snd_dodging = new Sound("data/soundeffects/guy_dodging1.ogg");
+        snd_died = new Sound("data/soundeffects/guy_die1.ogg");
+        weapon = "none";
         health_points = 5;
         health_points_max = 5;
         fatigue_points = 5;
@@ -284,7 +292,7 @@ public class Actor {
     public void setActorMoving(boolean ismoving) {
         if (ismoving == false) {
             this.set_draw_xy(0, 0);
-            footsteps.stop();
+            snd_footsteps.stop();
         }
         this.move_action = ismoving;
         if (this.move_action == true) {
@@ -414,8 +422,8 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getNorth()) {
             this.onMoveNorth(m, f);
-            if (!footsteps.playing()) {
-                footsteps.loop();
+            if (!snd_footsteps.playing()) {
+                snd_footsteps.loop();
                 //footsteps.play();
             }
         } else if (this.getActorMoving() == true
@@ -425,8 +433,8 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getSouth()) {
             this.onMoveSouth(m, f);
-            if (!footsteps.playing()) {
-                footsteps.loop();
+            if (!snd_footsteps.playing()) {
+                snd_footsteps.loop();
                 //footsteps.play();
             }
         } else if (this.getActorMoving() == true
@@ -436,8 +444,8 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getEast()) {
             this.onMoveEast(m, f);
-            if (!footsteps.playing()) {
-                footsteps.loop();
+            if (!snd_footsteps.playing()) {
+                snd_footsteps.loop();
                 //footsteps.play();
             }
         } else if (this.getActorMoving() == true
@@ -447,8 +455,8 @@ public class Actor {
                 && m.getPlayerFacingMonster(this) == false
                 && this.direction == getWest()) {
             this.onMoveWest(m, f);
-            if (!footsteps.playing()) {
-                footsteps.loop();
+            if (!snd_footsteps.playing()) {
+                snd_footsteps.loop();
                 //footsteps.play();
             }
         }
@@ -630,5 +638,51 @@ public class Actor {
         a.stat_will = this.stat_will;
         a.health_points_max = this.health_points_max;
         a.health_points = this.health_points;
+    }
+    
+    void swapSoundEffects(String footsteps, String miss, String hit, String washit, String dodge, String died ) {
+        /*snd_footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
+        snd_swing_miss = new Sound("data/soundeffects/swing_miss.ogg");
+        snd_swing_hit = new Sound("data/soundeffects/punch_hit.ogg");
+        snd_washit = new Sound("data/soundeffects/guy_hit1.ogg");
+        snd_dodging = new Sound("data/soundeffects/guy_dodging1.ogg");
+        snd_died = new Sound("data/soundeffects/guy_die1.ogg");*/
+        String mpath = "data/soundeffects/";
+        if(!footsteps.isEmpty()) {
+            try {
+                this.snd_footsteps = new Sound(mpath+footsteps);
+            }
+            catch(SlickException e){};
+        }
+        if(!miss.isEmpty()) {
+            try {
+                this.snd_swing_miss = new Sound(mpath+miss);
+            }
+            catch(SlickException e){};
+        }
+        if(!hit.isEmpty()) {
+            try {
+                this.snd_swing_hit = new Sound(mpath+hit);
+            }
+            catch(SlickException e){};
+        }
+        if(!washit.isEmpty()) {
+            try {
+                this.snd_washit = new Sound(mpath+washit);
+            }
+            catch(SlickException e){};
+        }
+        if(!dodge.isEmpty()) {
+            try {
+                this.snd_dodging = new Sound(mpath+dodge);
+            }
+            catch(SlickException e){};
+        }
+        if(!died.isEmpty()) {
+            try {
+                this.snd_died = new Sound(mpath+died);
+            }
+            catch(SlickException e){};
+        }
     }
 }
