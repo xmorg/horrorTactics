@@ -19,10 +19,6 @@ public class MouseActions {
 
     public MouseActions() {
     }
-
-    /* What happens when a mouse button is clicked. */
-    //button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);  int screen_width = 0; int screen_height = 0;
-    //button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
     
     Actor getMSelectedActor(HorrorTactics ht) {
         boolean foundselected = false;
@@ -171,11 +167,9 @@ public class MouseActions {
                 levelupButtonWasPressed(ht); //simple check
                 this.profileButtonWasPressed(ht);
             }
-            else if (this.profileButtonWasPressed(ht)) { //stops working sometimes?
-                //we alreadyset these.
+            else if (this.profileButtonWasPressed(ht)) { 
             }
-            else if (this.itemsButtonWasPressed(ht)) {
-                
+            else if (this.itemsButtonWasPressed(ht)) {                
             }
             else if (endTurnButtonWasPressed(ht) == true) { //(mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
                 System.out.print("End turn was pressed\n");
@@ -207,7 +201,6 @@ public class MouseActions {
                     map.current_follower_moving = map.selected_follower;
                     map.follower[map.selected_follower].setActorMoving(true);
                 }
-
             } else if (map.turn_order.equalsIgnoreCase("player")
                     && endTurnButtonWasPressed(ht) == false
                     && map.player.isSelected()) { //added limits so you cant set location when a monster is moving
