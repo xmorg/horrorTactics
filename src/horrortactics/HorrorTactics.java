@@ -94,7 +94,7 @@ public class HorrorTactics extends BasicGame {
         draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
 
         this.lastframe = gc.getTime();
-        title_screen = new Image("data/title1_00.jpg");
+        title_screen = new Image("data/title1_01.jpg");
         button_items = new Image("data/button_items.png");
         button_profile = new Image("data/button_profile.png");
         button_endturn = new Image("data/button_endturn2.png");

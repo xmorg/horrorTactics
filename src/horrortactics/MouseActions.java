@@ -163,7 +163,10 @@ public class MouseActions {
                 } else {
                     map.planevent++;
                 }
-            } 
+            }
+            else if(map.turn_order.equalsIgnoreCase("title") && ht.game_state.equalsIgnoreCase("tactical")) {
+                map.turn_order = "planning";
+            }
             else if (ht.popup_window.equalsIgnoreCase("profile")) {
                 levelupButtonWasPressed(ht); //simple check
                 this.profileButtonWasPressed(ht);

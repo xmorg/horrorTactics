@@ -29,6 +29,7 @@ public class TitleMenu {
         //already clicked
         if(ht.game_state.equalsIgnoreCase("title")) {
             ht.game_state = "tactical";
+            //ht.map.turn_order = "planning";
         }
     }
 }

@@ -101,7 +101,7 @@ public class MyTiledMap extends TiledMap {
         selected_yellow = new Image("data/selected_yellow.png");
         player = new Actor("data/player00", 218, 313);
         //player = new Actor("data/boy01", 218, 313); //monster test
-        turn_order = "planning";   //monster, player
+        turn_order = "title";   //monster, player, planning, cutscene //make it planning after you start a new game
 
         this.active_trigger = new Trigger("none", "none");
         /*for (int i = 0; i < 5; i++) {
