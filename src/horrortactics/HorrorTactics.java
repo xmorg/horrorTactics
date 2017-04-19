@@ -18,6 +18,7 @@ import org.newdawn.slick.Input;
 //import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Music;
 //import org.newdawn.slick.Font;
 //import org.newdawn.slick.Sound;
 
@@ -26,6 +27,7 @@ import org.newdawn.slick.SlickException;
  * @author tcooper
  */
 public class HorrorTactics extends BasicGame {
+
     /**
      * @param gamename the command line arguments
      */
@@ -58,8 +60,7 @@ public class HorrorTactics extends BasicGame {
     Image level_up_icon; //level_up_icon.png
     Actor playersave;
     TitleMenu titlemenu;
-    
-
+    Music music;
     String game_state = "title"; //title, tactical,conversation,cutscene
 
     public HorrorTactics(String gamename) {
@@ -85,10 +86,6 @@ public class HorrorTactics extends BasicGame {
 
         screen_height = gc.getScreenHeight();
         screen_width = gc.getScreenWidth();
-        //draw_x = 800; //= map.getIsoXToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
-        //draw_y = 0; //map.getIsoYToScreen(map.getPlayerX(), map.getPlayerY()) * -1;
-        //draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1;
-        //draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1;
 
         draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_width / 2;
         draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
@@ -111,6 +108,7 @@ public class HorrorTactics extends BasicGame {
         last_mouse_y = 0;//input.getMouseY();
         playersave = new Actor("data/player00", 218, 313); //to carry over the player.
         level_up_icon = new Image("data/level_up_icon.png");
+        music = new Music("data/soundeffects/anxiety_backwards.ogg");
     }
 
     @Override
@@ -124,6 +122,17 @@ public class HorrorTactics extends BasicGame {
         actor_move_timer++;
 
         map.resetAttackAniFrame();
+
+        if (this.game_state.equalsIgnoreCase("title")) {
+            if(!music.playing()) {
+                music.play();
+            }
+            //System.out.println("trying to play music");
+        } else {
+            if(music.playing())
+            music.stop();
+        }
+
         if (actor_move_timer >= this.fps) {
             this.actor_move_timer = 0;
         }
@@ -139,14 +148,14 @@ public class HorrorTactics extends BasicGame {
             //after the last click, accept
         } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
             //exit has been reached, transition map.  Do not set unless
-            if(map.player.expForExitReached == false) {
-                map.player.exp_points+= 3;
+            if (map.player.expForExitReached == false) {
+                map.player.exp_points += 3;
                 map.player.expForExitReached = true;
             }
-            for(int i=0; i<map.follower_max; i++) {
-                if(map.follower[i].dead == false) {
-                    if(map.follower[i].expForExitReached == false) {
-                        map.follower[i].exp_points+= 3;
+            for (int i = 0; i < map.follower_max; i++) {
+                if (map.follower[i].dead == false) {
+                    if (map.follower[i].expForExitReached == false) {
+                        map.follower[i].exp_points += 3;
                         map.follower[i].expForExitReached = true;
                     }
                 }
@@ -174,14 +183,14 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
             //reached goal.  (something happens.)
             //BUG! it happens over and over.
-            if(map.player.expForGoal == false) {
-                map.player.exp_points+= 3;
+            if (map.player.expForGoal == false) {
+                map.player.exp_points += 3;
                 map.player.expForGoal = true;
             }
-            for(int i=0; i<map.follower_max; i++) {
-                if(map.follower[i].dead == false) {
-                    if(map.player.expForGoal == false) {
-                        map.follower[i].exp_points+= 3;
+            for (int i = 0; i < map.follower_max; i++) {
+                if (map.follower[i].dead == false) {
+                    if (map.player.expForGoal == false) {
+                        map.follower[i].exp_points += 3;
                         map.follower[i].expForGoal = true;
                     }
                 }
@@ -204,10 +213,10 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 100 + map.player.stat_speed-1; //6; //DEBUG
+            map.player.action_points = 100 + map.player.stat_speed - 1; //6; //DEBUG
             //check for level up
             map.player.onLevelUp();
-            for(int i =0; i < map.follower_max; i++) {
+            for (int i = 0; i < map.follower_max; i++) {
                 map.follower[i].onLevelUp();
             }
             //give followers action points.
@@ -218,7 +227,7 @@ public class HorrorTactics extends BasicGame {
             this.map.setMonsterDirectives();
             map.turn_order = "monster";
         } else if (map.turn_order.equalsIgnoreCase("monster")) {
-            if (this.actor_move_timer == 0 ) {
+            if (this.actor_move_timer == 0) {
                 map.resetAttackAniFrame();
                 map.onMonsterMoving(gc, this, delta); //wrapper for onMoveActor
             }
@@ -259,7 +268,7 @@ public class HorrorTactics extends BasicGame {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF;
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF;
                 try {
-                    if (this.getTileToBeRendered(x, y)) {                    
+                    if (this.getTileToBeRendered(x, y)) {
                         if (this.getTileToBeFiltered(x, y)) {//if its outside 2 steps
                             //java.lang.ArrayIndexOutOfBoundsException: 20 
                             try {
@@ -267,14 +276,14 @@ public class HorrorTactics extends BasicGame {
                                 //map.getTileImage(x, y, background_layer).draw(
                                 xi.draw(screen_x + draw_x, screen_y + draw_y, scale_x, this.myfilterd);
                             } catch (ArrayIndexOutOfBoundsException ae) {
-                        }
+                            }
                         } else { //draw normal
                             map.getTileImage(x, y, background_layer).draw(
-                                screen_x + draw_x, screen_y + draw_y, scale_x);
+                                    screen_x + draw_x, screen_y + draw_y, scale_x);
                         }
                     }
-                }
-                catch(ArrayIndexOutOfBoundsException e) {} // block the bug.
+                } catch (ArrayIndexOutOfBoundsException e) {
+                } // block the bug.
             }
         }
     }
@@ -302,24 +311,29 @@ public class HorrorTactics extends BasicGame {
                 }
             }
             if (y == map.selected_tile_y && x == map.selected_tile_x) {
-                        map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
+                map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }
 
-    
     public void render_walls_layer(GameContainer gc, Graphics g) {
         int mw = map.getTileWidth();
         int mh = map.getTileHeight();
-        for (int y = map.render_min_y - 4; y < map.render_max_y + 4; y++) { /*Y Loop*/
-            for (int x = map.render_min_x - 4; x < map.render_max_x + 4; x++) { /* X Loop*/
-                screen_x = (x - y) * map.TILE_WIDTH_HALF; /*Calculate screen/x/y*/
-                screen_y = (x + y) * map.TILE_HEIGHT_HALF;                
-                if (x >= 0 && y >= 0 && x <= mw && y <= mh) { /*loop through tiles */
-                    mouse_x = gc.getInput().getMouseX(); /*get mouse coords*/
+        for (int y = map.render_min_y - 4; y < map.render_max_y + 4; y++) {
+            /*Y Loop*/
+            for (int x = map.render_min_x - 4; x < map.render_max_x + 4; x++) {
+                /* X Loop*/
+                screen_x = (x - y) * map.TILE_WIDTH_HALF;
+                /*Calculate screen/x/y*/
+                screen_y = (x + y) * map.TILE_HEIGHT_HALF;
+                if (x >= 0 && y >= 0 && x <= mw && y <= mh) {
+                    /*loop through tiles */
+                    mouse_x = gc.getInput().getMouseX();
+                    /*get mouse coords*/
                     mouse_y = gc.getInput().getMouseY();
-                    int sx = screen_x + draw_x + 30; /*screen x/y+drawing offset*/
+                    int sx = screen_x + draw_x + 30;
+                    /*screen x/y+drawing offset*/
                     int sy = screen_y + draw_y + 30;
                     /*compare mouse to sx*/
                     if (mouse_x >= sx && mouse_x <= sx + 250 - 30
@@ -327,20 +341,26 @@ public class HorrorTactics extends BasicGame {
                         map.mouse_over_tile_x = x;
                         map.mouse_over_tile_y = y;
                         //is there someone in mouse over tile?
-                        map.mouse_over_actor(x,y); //render the selector.
+                        map.mouse_over_actor(x, y); //render the selector.
                         map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                                 screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
-                    map.player.drawPlayer(this, map, x, y, g); /*Draw your player*/
-                    map.drawMonsters(this, x, y, g); /*map.monster[0].drawActor(this, map, x, y);*/
-                    map.drawFollowers(this, x, y, g); /*draw your followers*/
-                    if(this.map.RequiresGoal.equalsIgnoreCase("yes") 
+                    map.player.drawPlayer(this, map, x, y, g);
+                    /*Draw your player*/
+                    map.drawMonsters(this, x, y, g);
+                    /*map.monster[0].drawActor(this, map, x, y);*/
+                    map.drawFollowers(this, x, y, g);
+                    /*draw your followers*/
+                    if (this.map.RequiresGoal.equalsIgnoreCase("yes")
                             && this.map.EventGoal_ran == false
                             && x == this.map.draw_goal_x
-                            && y == this.map.draw_goal_y) { /*bug? better have an image*/
-                        int pdx = screen_x + draw_x; /* + this.draw_x;*/
-                        int pdy = screen_y + draw_y; /* + this.draw_y - 230;*/
-                        this.map.mission_goal.draw(pdx,pdy);
+                            && y == this.map.draw_goal_y) {
+                        /*bug? better have an image*/
+                        int pdx = screen_x + draw_x;
+                        /* + this.draw_x;*/
+                        int pdy = screen_y + draw_y;
+                        /* + this.draw_y - 230;*/
+                        this.map.mission_goal.draw(pdx, pdy);
                     }
                     if (this.getTileToBeRendered(x, y)) {
                         render_wall_by_wall(gc, g, x, y); //ArrayIndexOutOfBoundsException
@@ -353,20 +373,20 @@ public class HorrorTactics extends BasicGame {
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
         //level_up_icon
-        if(map.player.newLevelUp == true) {
+        if (map.player.newLevelUp == true) {
             this.level_up_icon.draw(5, 50);
         }
-        g.drawString("Action: "+Integer.toString(map.player.action_points), 
-                5, 50+75);
+        g.drawString("Action: " + Integer.toString(map.player.action_points),
+                5, 50 + 75);
         for (int i = 0; i < this.map.follower_max; i++) {
             if (this.map.follower[i].visible == true) {
                 this.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)));
-                if(map.follower[i].newLevelUp == true) {
+                if (map.follower[i].newLevelUp == true) {
                     this.level_up_icon.draw(5, 50 + (100 * (i + 1)));
                 }
-                g.drawString("Action: "+Integer.toString(map.follower[i].action_points),
+                g.drawString("Action: " + Integer.toString(map.follower[i].action_points),
                         //5, 50 + 75);// (100 * (i + 1) + 75));
-                        5, 50 + (100 * (i + 1))+75 );
+                        5, 50 + (100 * (i + 1)) + 75);
             }
         }
         g.setColor(myfilterd);
@@ -383,24 +403,24 @@ public class HorrorTactics extends BasicGame {
                 + map.monster[map.current_monster_moving].tiledestx + ","
                 + map.monster[map.current_monster_moving].tiledesty,
                 200, 10);//might crash?
-        g.drawString(this.map.log_msg, 200, 10+14);
+        g.drawString(this.map.log_msg, 200, 10 + 14);
         //g.drawString("Trigger Check: " + map.trigger_check, 500, 100);
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
         }
         //check for a follower selected
         boolean foundselected = false;
-        for(int i= 0; i < map.follower_max; i++) {
-            if(map.follower[i].selected == true) {
+        for (int i = 0; i < map.follower_max; i++) {
+            if (map.follower[i].selected == true) {
                 foundselected = true;
                 this.map.follower[i].drawPopupWindow(this, g);
                 break;
             }
         }
-        if(foundselected == false) {
+        if (foundselected == false) {
             this.map.player.drawPopupWindow(this, g); //who is currently selected?
         }
-            
+
     }
 
     public void render_character_busts(GameContainer gc, Graphics g) {
@@ -421,7 +441,7 @@ public class HorrorTactics extends BasicGame {
             g.setColor(white);
             g.drawString(map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
             //set all monsters to spotted true (if false)
-            for(int i=0; i < map.monster_max; i++) {
+            for (int i = 0; i < map.monster_max; i++) {
                 map.monster[i].spotted_enemy = true;
             }
         } else if (this.map.turn_order.equalsIgnoreCase("goal reached")) {
@@ -449,7 +469,7 @@ public class HorrorTactics extends BasicGame {
 
     public void render_title(GameContainer gc, Graphics g) {
         //render title menu
-        title_screen.draw(0,0,gc.getWidth(), gc.getHeight());
+        title_screen.draw(0, 0, gc.getWidth(), gc.getHeight());
     }
 
     public void render_game_over(GameContainer gc, Graphics g) {//yoo dyied!
