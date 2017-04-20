@@ -104,6 +104,21 @@ public class MouseActions {
         }
         return false;
     }
+    public boolean menuButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
+        int bx = ht.screen_width- 100;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) { //press end turn button.
+            System.out.println("menu button was pressed.");
+            if (ht.map.getAnyActorMoving() == false) {
+                return true;
+            } else {
+                System.out.println("menu was pressed, but someone is still moving?");
+                return false;
+            }
+        }
+        return false;
+    }
     public boolean profileButtonWasPressed(HorrorTactics ht) {
         int bx = ht.screen_width- 300;
         int bw = 92;
@@ -170,6 +185,9 @@ public class MouseActions {
             else if (this.profileButtonWasPressed(ht)) { 
             }
             else if (this.itemsButtonWasPressed(ht)) {                
+            }
+            else if (this.menuButtonWasPressed(ht)) {  
+                
             }
             else if (endTurnButtonWasPressed(ht) == true) { //(mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
                 System.out.print("End turn was pressed\n");

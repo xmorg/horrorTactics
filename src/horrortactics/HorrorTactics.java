@@ -14,13 +14,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-//import org.newdawn.slick.SpriteSheet;
-//import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Music;
-//import org.newdawn.slick.Font;
-//import org.newdawn.slick.Sound;
+
 
 /**
  *
@@ -54,6 +51,9 @@ public class HorrorTactics extends BasicGame {
     String popup_window = "none";
     Color myfilter, myfiltert, myfilterd;
     Image title_screen;
+    Image title_text;// = new Image("data/title_text.jpg");
+    Image title_text_save;// = new Image("data/title_text_save.jpg");
+    Image title_text_load;// = new Image("data/title_text_load.jpg");
     Image button_endturn, button_menu, button_punch, button_items, button_profile;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
@@ -92,6 +92,9 @@ public class HorrorTactics extends BasicGame {
 
         this.lastframe = gc.getTime();
         title_screen = new Image("data/title1_01.jpg");
+        title_text = new Image("data/title_text.jpg");
+        title_text_save = new Image("data/title_text_save.jpg");
+        title_text_load = new Image("data/title_text_load.jpg");
         button_items = new Image("data/button_items.png");
         button_profile = new Image("data/button_profile.png");
         button_endturn = new Image("data/button_endturn2.png");
@@ -468,8 +471,16 @@ public class HorrorTactics extends BasicGame {
     }
 
     public void render_title(GameContainer gc, Graphics g) {
-        //render title menu
+        //render title menu, not TitleMenu class in not implemented
         title_screen.draw(0, 0, gc.getWidth(), gc.getHeight());
+        if(this.game_state.equalsIgnoreCase("title")) {
+            this.title_text_load.draw(0,0, this.title_text_load.getWidth(),this.title_text_load.getHeight());
+        }
+        else {
+            this.title_text_save.draw(0,0, this.title_text_load.getWidth(),this.title_text_load.getHeight());
+        }
+        
+        
     }
 
     public void render_game_over(GameContainer gc, Graphics g) {//yoo dyied!
