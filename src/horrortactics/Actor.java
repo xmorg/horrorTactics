@@ -685,4 +685,40 @@ public class Actor {
             catch(SlickException e){};
         }
     }
+    public int getAttackPenalty(){
+        if(this.mental_points < 3) {
+            return -1;
+        }
+        else if (this.mental_points <= 1) {
+            return -2;
+        }
+        else if (this.mental_points <= 0) {
+            return -3; //you are totally wasted
+        }
+        return 0;
+    }
+    public int getMovePenalty() {
+        if (this.fatigue_points <= 3) {
+            return -1;
+        }
+        else if (this.fatigue_points <= 2) {
+            return -2;
+        }
+        else if (this.fatigue_points <= 0) {
+            return -3;
+        }
+        return 0;
+    }
+    public int getDodgePenalty() {
+        if (this.fatigue_points <= 3) {
+            return -1;
+        }
+        else if (this.fatigue_points <= 2) {
+            return -2;
+        }
+        else if (this.fatigue_points <= 0) {
+            return -3;
+        }
+        return 0;
+    }
 }

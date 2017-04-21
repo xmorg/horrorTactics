@@ -216,7 +216,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 100 + map.player.stat_speed - 1; //6; //DEBUG
+            map.player.action_points = 100 + map.player.stat_speed - 1 +map.player.getMovePenalty();
             //check for level up
             map.player.onLevelUp();
             for (int i = 0; i < map.follower_max; i++) {

@@ -374,7 +374,7 @@ public class MyTiledMap extends TiledMap {
         this.current_follower_moving = 0;
         for (int i = 0; i < this.follower_max; i++) {
             if (follower[i].visible == true) {
-                follower[i].action_points = 6 + follower[i].stat_speed - 1;
+                follower[i].action_points = 6 + follower[i].stat_speed - 1 +follower[i].getMovePenalty();
                 follower[i].setActorMoving(false);
                 follower[i].setActorDestination(follower[i].tilex,
                         follower[i].tiley);
@@ -645,8 +645,10 @@ public class MyTiledMap extends TiledMap {
 
     public void onActorAttackActor(HorrorTactics ht, Actor attacker, Actor defender) {
         int target_parryroll;
-        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_luck - 1;
-        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + defender.stat_luck - 1;
+        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
+                + attacker.stat_luck - 1 +attacker.getAttackPenalty();
+        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
+                + defender.stat_luck - 1 +defender.getDodgePenalty();
         int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_str - 1;
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         System.out.println("target check " + defender.name);
