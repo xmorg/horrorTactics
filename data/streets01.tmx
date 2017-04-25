@@ -2,6 +2,7 @@
 <map version="1.0" orientation="isometric" renderorder="left-down" width="20" height="60" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="mapname" value="streets01.tmx"/>
+  <property name="nextmap" value="poolside01.tmx"/>
   <property name="planning_0" value="Whats this?  The streets look unfinished"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="end"/>
