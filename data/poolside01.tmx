@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="50" tilewidth="250" tileheight="129" nextobjectid="1">
+ <properties>
+  <property name="mapname" value="poolside01.tmx"/>
+  <property name="nextmap" value="poolside01.tmx"/>
+ </properties>
  <tileset firstgid="1" name="walls250x512" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
