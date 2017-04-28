@@ -721,4 +721,12 @@ public class Actor {
         }
         return 0;
     }
+    public int getDodgeBonus() {
+        if( this.stat_speed > 1 ) {
+            return this.stat_speed -2;
+        }
+        else {
+            return 0;
+        }
+    }
 }

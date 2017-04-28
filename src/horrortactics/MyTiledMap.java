@@ -648,7 +648,9 @@ public class MyTiledMap extends TiledMap {
         int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
                 + attacker.stat_luck - 1 +attacker.getAttackPenalty();
         int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
-                + defender.stat_luck - 1 +defender.getDodgePenalty();
+                + defender.stat_luck - 1 
+                + defender.getDodgePenalty() //luck
+                + defender.getDodgeBonus(); //speed
         int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_str - 1;
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         System.out.println("target check " + defender.name);
