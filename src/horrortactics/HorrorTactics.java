@@ -69,14 +69,14 @@ public class HorrorTactics extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        map = new MyTiledMap("data/class_school01.tmx", 0, 0);
+        //map = new MyTiledMap("data/class_school01.tmx", 0, 0);
         //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
-        //map = new MyTiledMap("data/streets01.tmx", 0, 0);
+        map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
         ksa = new KeyActions();
         titlemenu = new TitleMenu();
         //input = new Input(gc.getHeight());
-        map.getActorLocationFromTMX();
+        map.actormap.getActorLocationFromTMX(map);
         fps = gc.getFPS();
         actor_move_timer = 0;
         this.lastTime = 0;
@@ -173,7 +173,7 @@ public class HorrorTactics extends BasicGame {
                 this.map.player.copyActorStats(playersave);
                 this.map = new MyTiledMap("data/" + n_mapname, 0, 0);
                 //we lose player info Here.  
-                map.getActorLocationFromTMX(); //actor location?
+                map.actormap.getActorLocationFromTMX(map); //actor location?
                 this.playersave.copyActorStats(map.player);
                 this.map.turn_order = "planning";
                 map.mouse_over_tile_x = 1;
@@ -590,6 +590,6 @@ public class HorrorTactics extends BasicGame {
 
     public void loadNewMap(String newmap) throws SlickException {
         map = new MyTiledMap(newmap, 0, 0); //setup a new map
-        map.getActorLocationFromTMX(); //get the actor info
+        map.actormap.getActorLocationFromTMX(map); //get the actor info
     }
 }

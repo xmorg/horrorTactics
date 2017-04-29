@@ -4,13 +4,13 @@
   <property name="event_spotted" value="pear monster"/>
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
-  <property name="mapname" value="class_school01.tmx"/>
+  <property name="mapname" value="butcher_shop01.tmx"/>
   <property name="nextmap" value="apartment1.tmx"/>
-  <property name="planning_0" value="I have to get my cell phone."/>
+  <property name="planning_0" value="Help! Hes got my sister!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
-  <property name="planning_1" value="It should be in the locker room on the second pillar, right side."/>
+  <property name="planning_1" value="Whats going on?"/>
   <property name="planning_1_p" value="prt_player_00.png"/>
-  <property name="planning_2" value="Yukari: Ok lets hurry! I dont like dark places."/>
+  <property name="planning_2" value="The butcher! Hes gone crazy!"/>
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
@@ -74,7 +74,7 @@
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGHnACY+cNxnmuQCxH5luwQYcqWweAxnmkRMOo4C6YDQORsFgBwA0XWYrQAYAAA==
+   H4sIAAAAAAAAA2NgGAXUAH5k6HEGYlcqmgcCjlQ2j1TgTSd7RsEoGAUDDwCcHJdtQAYAAA==
   </data>
  </layer>
 </map>

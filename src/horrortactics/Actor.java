@@ -62,6 +62,7 @@ public class Actor {
     int stat_str, stat_speed, stat_will, stat_luck;
     int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
     boolean newLevelUp, expForGoal, expForExitReached;
+    int storyline_died; //Did you die in the story, and if you did, can you be replaced by another character.
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -96,6 +97,7 @@ public class Actor {
         turns_till_revival = 0;
         max_turns_till_revival = 0;
         attack_timer = 0;
+        storyline_died = 0;
         //no try catch!
         snd_footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
         snd_swing_miss = new Sound("data/soundeffects/swing_miss.ogg");
