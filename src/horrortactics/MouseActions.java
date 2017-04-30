@@ -208,7 +208,12 @@ public class MouseActions {
                 if (map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y) != null) { //prepare to attack
                     //map.onActorCanAttack(ht, map.player);
                     //BUG: if (this.isActorTouchingActor(a, this.player, a.tilex, a.tiley)) {
-                    if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
+                    if (map.follower[map.selected_follower].attack_range > 1) {
+                        //make sure there is an enemey here.
+                        //you have the range sir!
+                        map.follower[map.selected_follower].onAttack(ht); // Attack code here.
+                    }
+                    else if (map.isMonsterTouchingYou(map.getAllPlayersAtXy(map.selected_tile_x, map.selected_tile_y))) {
                         map.follower[map.selected_follower].onAttack(ht); // Attack code here.
                     }
                 } else {

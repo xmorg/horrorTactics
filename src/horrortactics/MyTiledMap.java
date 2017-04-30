@@ -214,7 +214,6 @@ public class MyTiledMap extends TiledMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-
                     } else if (pname.equals("Officer Ayano")) {
                         try {
                             follower[follower_loop].changeActorSpritesheet("data/police01", 218, 313);
@@ -222,6 +221,8 @@ public class MyTiledMap extends TiledMap {
                             follower[follower_loop].tiley = y;
                             follower[follower_loop].visible = true;
                             follower[follower_loop].name = pname;
+                            follower[follower_loop].attack_range = 2; // can shoot
+                            //follower[follower_loop].action_points = 100; //testing shooting.
                             //if(weapon)
                             follower_loop++;
                         } catch (SlickException e) {

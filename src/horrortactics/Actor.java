@@ -403,6 +403,9 @@ public class Actor {
                 //this.setAnimationFrame(4);
                 //this.attack_timer = 25;
             }
+            else if (this.action_points >= 3 && this.attack_range >1 && this.dead == false) {
+                ht.map.onActorAttackActor(ht, this, t);
+            }
         }
 
     }
