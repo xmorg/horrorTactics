@@ -24,6 +24,7 @@ import org.newdawn.slick.Graphics;
  */
 public class TitleMenu {
     public String menu_state; //newgame/ingame
+    public String show_window;
     Image title_image;
     Image title_text, title_text_save, title_text_load;
     //Sound title_music;
@@ -33,39 +34,41 @@ public class TitleMenu {
     int menuw;
     int menuh;
     Rectangle m_rect;
+    Rectangle popup;
+    Color wc;
     
     public TitleMenu (HorrorTactics ht) throws SlickException  {
-        this.menu_state = "newgame";
-        //title_screen = new Image("data/title1_01.jpg");
-        //title_text = new Image("data/title_text.jpg");
-        //title_text_save = new Image("data/title_text_save.jpg");
-        //title_text_load = new Image("data/title_text_load.jpg");
+        menu_state = "newgame";
+        show_window = "none";
         title_image = new Image("data/title1_01.jpg"); //placeholder for title
         title_text = new Image("data/title_text.jpg");
         title_text_save = new Image("data/title_text_save.jpg");
         title_text_load = new Image("data/title_text_load.jpg");
-        //title_music = new Music("data/soundeffects/anxiety_backwards.ogg");
-        //title_music = new Sound("data/soundeffects/anxiety_backwards.ogg");
-        //title_music.addListener(ml);    
-        //ml = new MusicListener();
-        
         menux = 10;
         menuy = ht.screen_height/2;
         menuw = this.title_text_load.getWidth();
         menuh = this.title_text_load.getHeight();
         m_rect = new Rectangle(menux, menuy, menuw,menuh );
+        popup = new Rectangle(menux+menuw+1, 100, 600,600); //rectangle for inner window
+        //title_music = new Music("data/soundeffects/anxiety_backwards.ogg");
+        //title_music = new Sound("data/soundeffects/anxiety_backwards.ogg");
+        //title_music.addListener(ml);    
+        //ml = new MusicListener();
+        wc = new Color(20,20,20,200);
+           
     }
     public void render(HorrorTactics ht, Graphics g) {
-        //int tx = 0;
-        //int ty = 0;
         int tx = ht.mouse_x;
         int ty = ht.mouse_y;
-        if(ht.game_state.equalsIgnoreCase("title")) {
+        if(ht.game_state.equalsIgnoreCase("title start")) {
             this.title_image.draw(0, 0, ht.screen_width, ht.screen_height); //draw the menu
             //this.title_text_load.draw(ht.screen_width/2,ht.screen_height/2, this.title_text_load.getWidth(),this.title_text_load.getHeight());
             this.title_text_load.draw(menux, menuy, menuw, menuh);
         }
         this.onMouseOver(ht, g, tx, ty);
+        this.renderCredits(ht, g);
+        this.renderLoadGame(ht, g);
+        this.renderOptions(ht, g);
     }
 
     //public boolean getRect()
@@ -81,20 +84,28 @@ public class TitleMenu {
         Rectangle options_rect = new Rectangle(menux+28, menuy+238, 334,66);
         Rectangle credits_rect = new Rectangle(menux+28, menuy+324, 334,66);
         Rectangle exit_rect = new Rectangle(menux+28, menuy+414, 334,66);
-        if(ht.game_state.equalsIgnoreCase("title")) {
-            if (newgame_rect.contains(x, y)) {
+        if(ht.game_state.equalsIgnoreCase("title start") || ht.game_state.equalsIgnoreCase("title ingame")) {
+            if (newgame_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 ht.game_state = "tactical"; //go through the list of
-            } else if(loadgame_rect.contains(x,y)) {
+            } else if(loadgame_rect.contains(x,y) && show_window.equalsIgnoreCase("none")) {
                 //load game
-            } else if(options_rect.contains(x, y)) {
+                this.show_window = "load";
+            } else if(options_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 //display options
-            } else if(credits_rect.contains(x, y)) {
+                this.show_window = "options";
+            } else if(credits_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 //display credits
-            } else if(exit_rect.contains(x, y)) {
+                this.show_window = "credits";
+            } else if(exit_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 //exit the game
                 ht.setGameState("exit");
-                //game_state = "exit";
                 //gc.exit();
+            } else if(show_window.equalsIgnoreCase("load")) { //define a button here
+                show_window = "none";
+            } else if(show_window.equalsIgnoreCase("credits")) {
+                show_window = "none";
+            } else if(show_window.equalsIgnoreCase("options")) {
+                show_window = "none";
             }
         }
     }
@@ -104,7 +115,7 @@ public class TitleMenu {
         Rectangle options_rect = new Rectangle(menux+28, menuy+238, 334,66);
         Rectangle credits_rect = new Rectangle(menux+28, menuy+324, 334,66);
         Rectangle exit_rect = new Rectangle(menux+28, menuy+414, 334,66);
-        if(ht.game_state.equalsIgnoreCase("title")) {
+        if(ht.game_state.equalsIgnoreCase("title start") || ht.game_state.equalsIgnoreCase("title ingame")) {
             g.setLineWidth(4);
             g.setColor(Color.red);
             if (newgame_rect.contains(x, y)) {
@@ -151,6 +162,45 @@ public class TitleMenu {
                         exit_rect.getY()+exit_rect.getHeight()
                 );
             }
+        }
+    }
+    public void renderCredits(HorrorTactics ht, Graphics g) {
+        if(this.show_window.equalsIgnoreCase("credits")) {
+            //	drawRect(float x1, float y1, float width, float height)             
+            g.setColor(this.wc);
+            g.fillRect(popup.getX(),popup.getY(), popup.getWidth(), popup.getHeight());
+            g.setColor(Color.white);
+            g.drawString("Everything Done by Tim Cooper", popup.getX()+10, popup.getY()+10);
+        }
+    }
+    public void renderOptions(HorrorTactics ht, Graphics g) {
+        if(this.show_window.equalsIgnoreCase("options")) {
+            g.setColor(this.wc);
+            g.fillRect(popup.getX(),popup.getY(), popup.getWidth(), popup.getHeight());
+            g.setColor(Color.white);
+            g.drawString("Game Options", popup.getX()+200, popup.getY()+10);
+            g.drawString("Fullscreen: ["+ht.fullscreen_toggle+"]", popup.getX()+20, popup.getY()+10+(20*1));
+            g.drawString("Sound: ["+ht.sound_toggle+"]", popup.getX()+20, popup.getY()+10+(20*2));
+        }
+    }
+    public void renderLoadGame(HorrorTactics ht, Graphics g) {
+        if(this.show_window.equalsIgnoreCase("load")) {
+            
+            Rectangle slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
+            Rectangle slot2 = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
+            Rectangle slot3 = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
+            g.setColor(this.wc);
+            g.fillRect(popup.getX(),popup.getY(), popup.getWidth(), popup.getHeight());
+            g.setColor(Color.white);
+            g.fillRect(slot1.getX(), slot1.getY(), slot1.getWidth(), slot1.getHeight());
+            g.fillRect(slot2.getX(), slot2.getY(), slot2.getWidth(), slot2.getHeight());
+            g.fillRect(slot3.getX(), slot3.getY(), slot3.getWidth(), slot3.getHeight());
+            g.setColor(Color.white);
+            g.drawString("Load Game", popup.getX()+200, popup.getY()+10);
+            g.setColor(Color.black);
+            g.drawString("Save Slot 1", slot1.getX()+10, slot1.getY()+10);
+            g.drawString("Save Slot 2", slot2.getX()+10, slot2.getY()+10);
+            g.drawString("Save Slot 3", slot3.getX()+10, slot3.getY()+10);
         }
     }
 }

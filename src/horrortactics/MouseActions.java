@@ -7,6 +7,7 @@ package horrortactics;
 
 //import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
 
 /**
  *
@@ -50,9 +51,11 @@ public class MouseActions {
         */
         int xi = x+200;
         int yi = y+120;
+        Rectangle rect_str = new Rectangle(xi, yi, 200, 20);
         if (ht.popup_window.equalsIgnoreCase("profile")) {
-            if(this.mouse_x >= xi && this.mouse_x <= xi +200
-                    && this.mouse_y >=yi && this.mouse_y <= yi+20) {
+            if(rect_str.contains(this.mouse_x, this.mouse_y)) {
+            //if(this.mouse_x >= xi && this.mouse_x <= xi +200
+            //        && this.mouse_y >=yi && this.mouse_y <= yi+20) {
                 if(getMSelectedActor(ht).newLevelUp) {//true
                     getMSelectedActor(ht).stat_str++;
                     getMSelectedActor(ht).health_points_max += 2;
@@ -163,9 +166,7 @@ public class MouseActions {
         map.selected_tile_x = map.mouse_over_tile_x;
         map.selected_tile_y = map.mouse_over_tile_y;
         int scrollspeed = 3;
-
-        //ht.titlemenu.onMouseOver(ht, ht.g, mouse_x, mouse_y);
-        
+        //ht.titlemenu.onMouseOver(ht, ht.g, mouse_x, mouse_y);        
         if (input.isMousePressed(0) == true) {
             ht.titlemenu.onMouseClick(ht, mouse_x, mouse_y);
             //now we need to, stop eveything below.

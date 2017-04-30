@@ -56,7 +56,9 @@ public class HorrorTactics extends BasicGame {
     Actor playersave;
     TitleMenu titlemenu;
     Music music;
-    String game_state = "title"; //title, tactical,conversation,cutscene
+    String game_state = "title start"; //title start, title ingame, tactical,conversation,cutscene
+    String fullscreen_toggle = "Yes";
+    String sound_toggle = "Yes";
 
     public HorrorTactics(String gamename) {
         super(gamename);
@@ -120,7 +122,7 @@ public class HorrorTactics extends BasicGame {
 
         if (this.game_state.equalsIgnoreCase("exit")) {
             gc.exit();
-        } else if (this.game_state.equalsIgnoreCase("title")) {
+        } else if (this.game_state.equalsIgnoreCase("title start") || this.game_state.equalsIgnoreCase("title ingame")) {
             if (!music.playing()) {
                 music.play();
             }
@@ -250,10 +252,9 @@ public class HorrorTactics extends BasicGame {
             this.render_character_busts(gc, g); //bring up the busts, and talk
         } else if (game_state.equalsIgnoreCase("cutscene")) {
             this.render_cutscene(gc, g); //animations?
-        } else if (game_state.equalsIgnoreCase("title")) {
+        } else if (game_state.equalsIgnoreCase("title start") || game_state.equalsIgnoreCase("title ingame")) {
             //this.render_title(gc, g);
             this.titlemenu.render(this, g);
-
         } else if (game_state.equalsIgnoreCase("game over")) {
             this.render_game_over(gc, g);  //its game over for your kind
         }
