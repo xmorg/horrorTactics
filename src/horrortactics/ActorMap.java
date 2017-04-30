@@ -107,6 +107,7 @@ public class ActorMap {
                             m.follower[follower_loop].tiley = y;
                             m.follower[follower_loop].visible = true;
                             m.follower[follower_loop].name = pname;
+                            m.follower[follower_loop].attack_range = 2;
                             //if(weapon)
                             follower_loop++;
                         } catch (SlickException e) {
