@@ -424,73 +424,6 @@ public class MyTiledMap extends TiledMap {
         return null;
     }
 
-    public void onActorAttackActor(HorrorTactics ht, Actor attacker, Actor defender) {
-        int target_parryroll;
-        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
-                + attacker.stat_luck - 1 +attacker.getAttackPenalty();
-        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
-                + defender.stat_luck - 1 
-                + defender.getDodgePenalty() //luck
-                + defender.getDodgeBonus(); //speed
-        int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_str - 1;
-        //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        System.out.println("target check " + defender.name);
-        attacker.setAnimationFrame(4);
-        attacker.attack_timer = 25;
-        if (defender.canparry) {
-            target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
-        } else {
-            target_parryroll = 0;
-        }
-        if (actor_attackroll > target_dodgeroll && actor_attackroll > target_parryroll + defender.parryscore) { //hit
-            defender.health_points -= damage_roll;
-            if (defender.health_points <= 0) {
-                defender.dead = true;
-                defender.action_msg = " " + damage_roll + " ";
-                defender.action_msg_timer = 200;
-                defender.turns_till_revival = 0; //do we revive?
-                log_msg = attacker.name + " attacks " + defender.name
-                        + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage, killing " + defender.name;
-                defender.snd_died.play();
-                attacker.exp_points += 3;
-                
-            } else {
-                log_msg = attacker.name + " attacks " + defender.name
-                        + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage.";
-                defender.snd_washit.play();
-            }
-            
-            attacker.snd_swing_hit.play();
-            //defender.snd_washit.play();
-        } else { //miss
-            defender.action_msg = "Miss";
-            defender.action_msg_timer = 200;
-            if (target_parryroll + defender.parryscore > actor_attackroll) {
-                log_msg = attacker.name + " attacks " + defender.name
-                        + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore
-                        + ") but the attack was parried.";
-            } else {
-                log_msg = attacker.name + " attacks " + defender.name
-                        + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses";
-            }
-            attacker.snd_swing_miss.play();
-            defender.snd_dodging.play();
-        }
-        //we already checke for action points, not remove them
-        attacker.action_points -= 3;
-        attacker.fatigue_points -= 1;
-        if (attacker.fatigue_points < 0) {
-            attacker.fatigue_points = 0;
-        }
-        defender.fatigue_points -= 1;
-        if (defender.fatigue_points < 0) {
-            defender.fatigue_points = 0;
-        }
-        if (attacker.action_points < 0) {
-            attacker.action_points = 0;
-        }
-    }
-
     public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht) {
         if (this.isMonsterTouchingYou(monster[this.current_monster_moving])) {
             Actor t = this.getAllPlayersAtXy(
@@ -502,7 +435,7 @@ public class MyTiledMap extends TiledMap {
                 System.out.println("t is not null, found " + t.name);
             }
             monster[this.current_monster_moving].onAttack(ht);
-            this.onActorAttackActor(ht, monster[this.current_monster_moving], t);
+            monster[this.current_monster_moving].onActorAttackActor(ht, t);
             //player at the monster destination is not null
 
         } else {

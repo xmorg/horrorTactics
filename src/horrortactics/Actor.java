@@ -5,6 +5,7 @@
  */
 package horrortactics;
 
+import java.util.concurrent.ThreadLocalRandom;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 import org.newdawn.slick.SlickException;
@@ -401,12 +402,12 @@ public class Actor {
             //isActorTouchingActor is a temporary hack, because/we need to check range.
             //check action points
             if (this.action_points >= 3 && ht.map.isActorTouchingActor(this, t, tilex, tiley) && this.dead == false) {
-                ht.map.onActorAttackActor(ht, this, t);
+                onActorAttackActor(ht, t);
                 //this.setAnimationFrame(4);
                 //this.attack_timer = 25;
             }
             else if (this.action_points >= 3 && this.attack_range >1 && this.dead == false) {
-                ht.map.onActorAttackActor(ht, this, t);
+                onActorAttackActor(ht, t);
             }
         }
 
@@ -732,6 +733,65 @@ public class Actor {
         }
         else {
             return 0;
+        }
+    }
+
+    public void onActorAttackActor(HorrorTactics ht, Actor defender) {
+        int target_parryroll;
+        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + this.stat_luck - 1 + this.getAttackPenalty();
+        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + defender.stat_luck - 1 + defender.getDodgePenalty() //luck
+         + defender.getDodgeBonus(); //speed
+        int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + this.stat_str - 1;
+        //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        System.out.println("target check " + defender.name);
+        this.setAnimationFrame(4);
+        this.attack_timer = 25;
+        if (defender.canparry) {
+            target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        } else {
+            target_parryroll = 0;
+        }
+        if (actor_attackroll > target_dodgeroll && actor_attackroll > target_parryroll + defender.parryscore) {
+            //hit
+            defender.health_points -= damage_roll;
+            if (defender.health_points <= 0) {
+                defender.dead = true;
+                defender.action_msg = " " + damage_roll + " ";
+                defender.action_msg_timer = 200;
+                defender.turns_till_revival = 0; //do we revive?
+                ht.map.log_msg = this.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage, killing " + defender.name;
+                defender.snd_died.play();
+                this.exp_points += 3;
+            } else {
+                ht.map.log_msg = this.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage.";
+                defender.snd_washit.play();
+            }
+            this.snd_swing_hit.play();
+            //defender.snd_washit.play();
+        } else {
+            //miss
+            defender.action_msg = "Miss";
+            defender.action_msg_timer = 200;
+            if (target_parryroll + defender.parryscore > actor_attackroll) {
+                ht.map.log_msg = this.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore + ") but the attack was parried.";
+            } else {
+                ht.map.log_msg = this.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses";
+            }
+            this.snd_swing_miss.play();
+            defender.snd_dodging.play();
+        }
+        //we already checke for action points, not remove them
+        this.action_points -= 3;
+        this.fatigue_points -= 1;
+        if (this.fatigue_points < 0) {
+            this.fatigue_points = 0;
+        }
+        defender.fatigue_points -= 1;
+        if (defender.fatigue_points < 0) {
+            defender.fatigue_points = 0;
+        }
+        if (this.action_points < 0) {
+            this.action_points = 0;
         }
     }
 }
