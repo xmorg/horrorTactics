@@ -18,7 +18,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Music;
 
-
 /**
  *
  * @author tcooper
@@ -50,10 +49,6 @@ public class HorrorTactics extends BasicGame {
     int turn_count;
     String popup_window = "none";
     Color myfilter, myfiltert, myfilterd;
-    Image title_screen;
-    Image title_text;// = new Image("data/title_text.jpg");
-    Image title_text_save;// = new Image("data/title_text_save.jpg");
-    Image title_text_load;// = new Image("data/title_text_load.jpg");
     Image button_endturn, button_menu, button_punch, button_items, button_profile;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
@@ -74,7 +69,7 @@ public class HorrorTactics extends BasicGame {
         map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
         ksa = new KeyActions();
-        titlemenu = new TitleMenu();
+        titlemenu = new TitleMenu(this);
         //input = new Input(gc.getHeight());
         map.actormap.getActorLocationFromTMX(map);
         fps = gc.getFPS();
@@ -91,10 +86,7 @@ public class HorrorTactics extends BasicGame {
         draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + this.screen_height / 2;
 
         this.lastframe = gc.getTime();
-        title_screen = new Image("data/title1_01.jpg");
-        title_text = new Image("data/title_text.jpg");
-        title_text_save = new Image("data/title_text_save.jpg");
-        title_text_load = new Image("data/title_text_load.jpg");
+
         button_items = new Image("data/button_items.png");
         button_profile = new Image("data/button_profile.png");
         button_endturn = new Image("data/button_endturn2.png");
@@ -126,14 +118,17 @@ public class HorrorTactics extends BasicGame {
 
         map.resetAttackAniFrame();
 
-        if (this.game_state.equalsIgnoreCase("title")) {
-            if(!music.playing()) {
+        if (this.game_state.equalsIgnoreCase("exit")) {
+            gc.exit();
+        } else if (this.game_state.equalsIgnoreCase("title")) {
+            if (!music.playing()) {
                 music.play();
             }
             //System.out.println("trying to play music");
         } else {
-            if(music.playing())
-            music.stop();
+            if (music.playing()) {
+                music.stop();
+            }
         }
 
         if (actor_move_timer >= this.fps) {
@@ -216,7 +211,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 100 + map.player.stat_speed - 1 +map.player.getMovePenalty();
+            map.player.action_points = 100 + map.player.stat_speed - 1 + map.player.getMovePenalty();
             //check for level up
             map.player.onLevelUp();
             for (int i = 0; i < map.follower_max; i++) {
@@ -256,7 +251,8 @@ public class HorrorTactics extends BasicGame {
         } else if (game_state.equalsIgnoreCase("cutscene")) {
             this.render_cutscene(gc, g); //animations?
         } else if (game_state.equalsIgnoreCase("title")) {
-            this.render_title(gc, g);
+            //this.render_title(gc, g);
+            this.titlemenu.render(this, g);
 
         } else if (game_state.equalsIgnoreCase("game over")) {
             this.render_game_over(gc, g);  //its game over for your kind
@@ -468,19 +464,6 @@ public class HorrorTactics extends BasicGame {
 
     public void render_cutscene(GameContainer gc, Graphics g) {
         //render cutscenes
-    }
-
-    public void render_title(GameContainer gc, Graphics g) {
-        //render title menu, not TitleMenu class in not implemented
-        title_screen.draw(0, 0, gc.getWidth(), gc.getHeight());
-        if(this.game_state.equalsIgnoreCase("title")) {
-            this.title_text_load.draw(0,0, this.title_text_load.getWidth(),this.title_text_load.getHeight());
-        }
-        else {
-            this.title_text_save.draw(0,0, this.title_text_load.getWidth(),this.title_text_load.getHeight());
-        }
-        
-        
     }
 
     public void render_game_over(GameContainer gc, Graphics g) {//yoo dyied!

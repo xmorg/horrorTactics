@@ -164,6 +164,7 @@ public class MouseActions {
         map.selected_tile_y = map.mouse_over_tile_y;
         int scrollspeed = 3;
 
+        //ht.titlemenu.onMouseOver(ht, ht.g, mouse_x, mouse_y);
         
         if (input.isMousePressed(0) == true) {
             ht.titlemenu.onMouseClick(ht, mouse_x, mouse_y);
