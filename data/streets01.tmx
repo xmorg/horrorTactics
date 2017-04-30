@@ -2,10 +2,13 @@
 <map version="1.0" orientation="isometric" renderorder="left-down" width="20" height="60" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="mapname" value="streets01.tmx"/>
-  <property name="nextmap" value="poolside01.tmx"/>
-  <property name="planning_0" value="Whats this?  The streets look unfinished"/>
+  <property name="nextmap" value="butcher_shop01.tmx"/>
+  <property name="planning_0" value="Officer : Citizen! What are you doing outside?!?  There's a curfew!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
-  <property name="planning_1" value="end"/>
+  <property name="planning_1" value="There's something in my house... I cant go back!"/>
+  <property name="planning_1_p" value="prt_player_00.png"/>
+  <property name="planning_2" value="Officer: Nevermind that! the streets are crawling with phychos!"/>
+  <property name="planning_3" value="Officer: Alright, stay behind me! We need to get back to the station."/>
   <property name="req_goal" value="no"/>
  </properties>
  <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="32" columns="8">
@@ -54,7 +57,7 @@
   <tile id="13">
    <properties>
     <property name="event_exit" value="exit"/>
-    <property name="event_exit_m" value="The door!"/>
+    <property name="event_exit_m" value="The streets are blocked! Hurry, into the butcher shop!"/>
     <property name="event_exit_p" value="prt_player_00.png"/>
    </properties>
   </tile>
@@ -74,7 +77,7 @@
  </layer>
  <layer name="actors_layer" width="20" height="60">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3SQQ4AEAwEQF8TceD/D/ICIsEBM8c22UO3ITAjH8qNm3LSphzgHmVx/6vambvXG/T4H50z4j8A3tEAF1ERl8ASAAA=
+   H4sIAAAAAAAAA2NgGAXEAFcametIJXOcqWTOKBgFo2DoAE8K5Ucq8MIhPhpewwOMxuPIA6NxPgrwgdH0MQoIAT8i8CgYBaNgcAAA+KLWUMASAAA=
   </data>
  </layer>
 </map>

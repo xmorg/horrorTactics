@@ -75,6 +75,7 @@ public class MyTiledMap extends TiledMap {
     Actor player = null;
     Actor[] follower = new Actor[follower_max];
     Actor[] monster = new Actor[monster_max];
+    ActorMap actormap = new ActorMap();
     private int m_draw_x, m_draw_y; //map draw x
     int current_monster_moving = 0; //debug
     int current_follower_moving = 0;
@@ -138,6 +139,7 @@ public class MyTiledMap extends TiledMap {
         m_draw_y = y;
     }
 
+<<<<<<< HEAD
     public void getActorLocationFromTMX() throws SlickException {
         //We do not get stats, only locations.
         //note, how do we carry followers from map to map? (or will we ever?)
@@ -359,6 +361,11 @@ public class MyTiledMap extends TiledMap {
         }
     }
 
+=======
+    //public void getActorLocationFromTMX() throws SlickException {
+     //move to ActorMap   
+    //}
+>>>>>>> 0763bca0c3fcd1e2392ea9b7b5992b508c36d48d
     public void onNewTrigger(String type, String name) {
         try {
             this.active_trigger = new Trigger(type,
@@ -649,7 +656,9 @@ public class MyTiledMap extends TiledMap {
         int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
                 + attacker.stat_luck - 1 +attacker.getAttackPenalty();
         int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) 
-                + defender.stat_luck - 1 +defender.getDodgePenalty();
+                + defender.stat_luck - 1 
+                + defender.getDodgePenalty() //luck
+                + defender.getDodgeBonus(); //speed
         int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + attacker.stat_str - 1;
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         System.out.println("target check " + defender.name);

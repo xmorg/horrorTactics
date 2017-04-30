@@ -21,9 +21,14 @@ public class KeyActions {
 
     public void getKeyActions(GameContainer gc, Input input, HorrorTactics ht) {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            ht.setGameState("exit");
+            //ht.setGameState("exit");
             //game_state = "exit";
-            gc.exit();
+            //gc.exit();
+            if(ht.game_state.equalsIgnoreCase("tactical")) {
+                ht.game_state = "title start";
+            } else if(ht.game_state.equalsIgnoreCase("tactical")) {
+                ht.game_state = "title start";
+            }    
         } else if (input.isKeyDown(Input.KEY_UP)) {
             ht.draw_y++;
         } else if (input.isKeyDown(Input.KEY_DOWN)) {
