@@ -25,11 +25,10 @@ public class KeyActions {
             //game_state = "exit";
             //gc.exit();
             if(ht.game_state.equalsIgnoreCase("tactical")) {
-                ht.game_state = "title";
+                ht.game_state = "title start";
             } else if(ht.game_state.equalsIgnoreCase("tactical")) {
-                ht.game_state = "title";
-            }
-            
+                ht.game_state = "title start";
+            }    
         } else if (input.isKeyDown(Input.KEY_UP)) {
             ht.draw_y++;
         } else if (input.isKeyDown(Input.KEY_DOWN)) {
