@@ -13,7 +13,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.GameContainer;
 //import org.newdawn.slick.geom.Rectangle; //rects to click on
 import org.newdawn.slick.Graphics;
-import java.util.concurrent.ThreadLocalRandom;
+//import java.util.concurrent.ThreadLocalRandom;
 //import org.newdawn.slick.Sound;
 //import java.lang.Math.*;
 
