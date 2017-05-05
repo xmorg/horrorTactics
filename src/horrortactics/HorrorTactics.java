@@ -234,22 +234,14 @@ public class HorrorTactics extends BasicGame {
         }
         map.onUpdateActorActionText();
     }
-
+    
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
-            g.scale(scale_x, scale_x); //scale the same
-            //g.setAntiAlias(true);
-            this.render_background_layer(gc, g); //render floor
-            this.render_walls_layer(gc, g);      //render walls (and actors!)
-            this.render_game_ui(gc, g);
-            this.render_character_busts(gc, g);
+            render_tactical_base(gc, g);
         } else if (game_state.equalsIgnoreCase("conversation")) {
             g.scale(scale_x, scale_x); //scale the same
-            this.render_background_layer(gc, g); //render floor
-            this.render_walls_layer(gc, g);      //render walls (and actors!)
-            this.render_game_ui(gc, g);
-            this.render_character_busts(gc, g); //bring up the busts, and talk
+            render_tactical_base(gc, g);
         } else if (game_state.equalsIgnoreCase("cutscene")) {
             this.render_cutscene(gc, g); //animations?
         } else if (game_state.equalsIgnoreCase("title start") || game_state.equalsIgnoreCase("title ingame")) {
@@ -259,7 +251,14 @@ public class HorrorTactics extends BasicGame {
             this.render_game_over(gc, g);  //its game over for your kind
         }
     }
-
+    
+    public void render_tactical_base(GameContainer gc, Graphics g) {
+        g.scale(scale_x, scale_x); //scale the same
+        this.render_background_layer(gc, g); //render floor
+        this.render_walls_layer(gc, g);      //render walls (and actors!)
+        this.render_game_ui(gc, g);
+        this.render_character_busts(gc, g);
+    }
     public void render_background_layer(GameContainer gc, Graphics g) {
         int background_layer = map.getLayerIndex("background_layer");
         map.set_party_min_renderables();
@@ -407,6 +406,10 @@ public class HorrorTactics extends BasicGame {
         //g.drawString("Trigger Check: " + map.trigger_check, 500, 100);
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
+            //The enemy is moving, show which enemy.(so people dont get bored)
+            for(int mi=0; mi < this.map.current_monster_moving; mi++) {
+                this.map.monster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92*mi+2), gc.getHeight() / 2+92);
+            }
         }
         //check for a follower selected
         boolean foundselected = false;

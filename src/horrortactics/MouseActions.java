@@ -189,7 +189,7 @@ public class MouseActions {
             else if (this.itemsButtonWasPressed(ht)) {                
             }
             else if (this.menuButtonWasPressed(ht)) {  
-                
+                ht.game_state = "title ingame";
             }
             else if (endTurnButtonWasPressed(ht) == true) { //(mouse_x >= 10 && mouse_y >= ht.screen_height - 64 - 10
                 System.out.print("End turn was pressed\n");

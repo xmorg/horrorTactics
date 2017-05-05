@@ -25,9 +25,9 @@ public class KeyActions {
             //game_state = "exit";
             //gc.exit();
             if(ht.game_state.equalsIgnoreCase("tactical")) {
-                ht.game_state = "title start";
-            } else if(ht.game_state.equalsIgnoreCase("tactical")) {
-                ht.game_state = "title start";
+                ht.game_state = "title ingame";
+            } else if(ht.game_state.equalsIgnoreCase("title ingame")) {
+                ht.game_state = "tactical";
             }    
         } else if (input.isKeyDown(Input.KEY_UP)) {
             ht.draw_y++;

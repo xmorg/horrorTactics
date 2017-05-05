@@ -26,7 +26,7 @@ public class TitleMenu {
     public String menu_state; //newgame/ingame
     public String show_window;
     Image title_image;
-    Image title_text, title_text_save, title_text_load;
+    Image title_text, title_text_save, title_text_load, title_text_resume;
     //Sound title_music;
     //MusicListener ml;
     int menux;
@@ -44,6 +44,7 @@ public class TitleMenu {
         title_text = new Image("data/title_text.jpg");
         title_text_save = new Image("data/title_text_save.jpg");
         title_text_load = new Image("data/title_text_load.jpg");
+        title_text_resume = new Image("data/title_text_resume.jpg");
         menux = 10;
         menuy = ht.screen_height/2;
         menuw = this.title_text_load.getWidth();
@@ -60,10 +61,14 @@ public class TitleMenu {
     public void render(HorrorTactics ht, Graphics g) {
         int tx = ht.mouse_x;
         int ty = ht.mouse_y;
+        
         if(ht.game_state.equalsIgnoreCase("title start")) {
             this.title_image.draw(0, 0, ht.screen_width, ht.screen_height); //draw the menu
             //this.title_text_load.draw(ht.screen_width/2,ht.screen_height/2, this.title_text_load.getWidth(),this.title_text_load.getHeight());
             this.title_text_load.draw(menux, menuy, menuw, menuh);
+        } else if(ht.game_state.equalsIgnoreCase("title ingame")) {
+            this.title_image.draw(0, 0, ht.screen_width, ht.screen_height); //draw the menu
+            this.title_text_resume.draw(menux, menuy, menuw, menuh);
         }
         this.onMouseOver(ht, g, tx, ty);
         this.renderCredits(ht, g);
@@ -86,7 +91,7 @@ public class TitleMenu {
         Rectangle exit_rect = new Rectangle(menux+28, menuy+414, 334,66);
         if(ht.game_state.equalsIgnoreCase("title start") || ht.game_state.equalsIgnoreCase("title ingame")) {
             if (newgame_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
-                ht.game_state = "tactical"; //go through the list of
+                ht.game_state = "tactical"; //go through the list of               
             } else if(loadgame_rect.contains(x,y) && show_window.equalsIgnoreCase("none")) {
                 //load game
                 this.show_window = "load";
