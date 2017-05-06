@@ -331,17 +331,16 @@ public class Actor {
         //Rectangle health_bar = new Rectangle(0,0,0,0);
         //Rectangle health_bar_s = new Rectangle(0,0,0,0);
         //int x = (int)(((double)a/(double)b) * 100);
-
+        Color lg = new Color(0,0,0,80);
         int ph = (int) (((double) this.health_points / (double) this.health_points_max) * 100 / 2);
         if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
             if (this.selected == true) { //draw the selection if true
 
-                try {
+                try { //draw select box
                     m.selected_green.draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y);
-                    m.tiles250x129.getSubImage(0, 0, 250, 130).draw(
-                            h.screen_x + h.draw_x, h.screen_y + h.draw_y);
+                    m.tiles250x129.getSubImage(0, 0, 250, 130).draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y);
                 } catch (NullPointerException n) {
                 }
             }
@@ -352,7 +351,11 @@ public class Actor {
                     drawHealthBar(g, Color.red, pdx, pdy, this.health_points, this.health_points_max);
 
                 }
-                this.getSpriteframe().draw(pdx, pdy, h.scale_x);
+                g.setColor(lg);
+                //g.fillRect(pdx, pdy+this.sprites.getSprite(0, 0).getHeight()-100, 200, 100);
+                g.fillOval(pdx+50, pdy+this.sprites.getSprite(0, 0).getHeight()-50, 100, 50);
+                g.setColor(Color.white);
+                this.getSpriteframe().draw(pdx, pdy, h.scale_x);//draw actual actor
             } else { //draw actor dead
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
             }
