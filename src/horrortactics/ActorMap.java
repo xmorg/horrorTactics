@@ -64,6 +64,7 @@ public class ActorMap {
                         m.player.tilex = x;
                         m.player.tiley = y;
                         m.player.name = "Riku"; //pname;
+                        //m.player.weapon = "knife"; //equip a weapon
                         m.player.changeActorSpritesheet("data/" + m.getTileProperty(gid, "costume", "player00"), 218, 313);
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                          m.player.swapSoundEffects("", "", "", "", "", "");

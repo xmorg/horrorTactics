@@ -17,6 +17,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  *
@@ -53,6 +54,7 @@ public class HorrorTactics extends BasicGame {
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     Image level_up_icon; //level_up_icon.png
+    
     Actor playersave;
     TitleMenu titlemenu;
     Music music;
@@ -67,8 +69,8 @@ public class HorrorTactics extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //map = new MyTiledMap("data/class_school01.tmx", 0, 0);
-        //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
-        map = new MyTiledMap("data/streets01.tmx", 0, 0);
+        map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
+        //map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
         ksa = new KeyActions();
         titlemenu = new TitleMenu(this);
@@ -106,6 +108,7 @@ public class HorrorTactics extends BasicGame {
         playersave = new Actor("data/player00", 218, 313); //to carry over the player.
         level_up_icon = new Image("data/level_up_icon.png");
         music = new Music("data/soundeffects/anxiety_backwards.ogg");
+        
     }
 
     @Override

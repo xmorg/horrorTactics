@@ -64,6 +64,7 @@ public class Actor {
     int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
     boolean newLevelUp, expForGoal, expForExitReached;
     int storyline_died; //Did you die in the story, and if you did, can you be replaced by another character.
+    SpriteSheet player_knife_sprite, player_club_sprite, player_cleaver_sprite;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -122,6 +123,8 @@ public class Actor {
         newLevelUp = false;
         expForGoal = false;
         expForExitReached = false;
+        player_knife_sprite = new SpriteSheet("data/player00_knife.png", 218, 313);
+        player_club_sprite = new SpriteSheet("data/player00_club.png", 218, 313);
     }
 
     //public void changeActorSpriteSheetX
@@ -135,6 +138,13 @@ public class Actor {
     {
         /*another function will change the animation, and direction*/
         Image i = sprites.getSubImage(animate_frame, direction);
+        return i;
+    }
+
+    public Image getSpriteframe(SpriteSheet sp) //throws SlickException
+    {
+        /*another function will change the animation, and direction*/
+        Image i = sp.getSubImage(animate_frame, direction);
         return i;
     }
 
@@ -331,7 +341,7 @@ public class Actor {
         //Rectangle health_bar = new Rectangle(0,0,0,0);
         //Rectangle health_bar_s = new Rectangle(0,0,0,0);
         //int x = (int)(((double)a/(double)b) * 100);
-        Color lg = new Color(0,0,0,80);
+        Color lg = new Color(0, 0, 0, 80);
         int ph = (int) (((double) this.health_points / (double) this.health_points_max) * 100 / 2);
         if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
@@ -353,17 +363,24 @@ public class Actor {
                 }
                 g.setColor(lg);
                 //g.fillRect(pdx, pdy+this.sprites.getSprite(0, 0).getHeight()-100, 200, 100);
-                g.fillOval(pdx+50, pdy+this.sprites.getSprite(0, 0).getHeight()-50, 100, 50);
+                g.fillOval(pdx + 50, pdy + this.sprites.getSprite(0, 0).getHeight() - 50, 100, 50);
                 g.setColor(Color.white);
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);//draw actual actor
+                if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("knife")) {
+                    this.getSpriteframe(this.player_knife_sprite).draw(pdx, pdy, h.scale_x);
+                } else if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("club")) {
+                    this.getSpriteframe(this.player_club_sprite).draw(pdx, pdy, h.scale_x);
+                } else if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("cleaver")) {
+                    this.getSpriteframe(this.player_cleaver_sprite).draw(pdx, pdy, h.scale_x);
+                }
+
             } else { //draw actor dead
                 this.getDeadSpriteframe().draw(pdx, pdy, h.scale_x);
             }
             if (this.action_msg_timer > 0) {
-                if(this.action_msg.equalsIgnoreCase("miss")) {
+                if (this.action_msg.equalsIgnoreCase("miss")) {
                     g.setColor(Color.white);
-                }
-                else { //show damage
+                } else { //show damage
                     g.setColor(Color.red);
                 }
                 g.drawString(this.action_msg, pdx + 50, pdy);
@@ -408,8 +425,7 @@ public class Actor {
                 onActorAttackActor(ht, t);
                 //this.setAnimationFrame(4);
                 //this.attack_timer = 25;
-            }
-            else if (this.action_points >= 3 && this.attack_range >1 && this.dead == false) {
+            } else if (this.action_points >= 3 && this.attack_range > 1 && this.dead == false) {
                 onActorAttackActor(ht, t);
             }
         }
@@ -590,9 +606,12 @@ public class Actor {
         r.setBounds(x, y, w, h);
         s.setBounds(x - 1, y - 1, w + 2, h + 2);
         if (ht.popup_window.equalsIgnoreCase("profile")) {
-            
-            if(this.newLevelUp == true) { LevelUpControls = "[+] ";}
-            else {LevelUpControls = "";}
+
+            if (this.newLevelUp == true) {
+                LevelUpControls = "[+] ";
+            } else {
+                LevelUpControls = "";
+            }
             //draw it
             //Note is level up == true?
             g.setColor(Color.white);
@@ -602,20 +621,20 @@ public class Actor {
             sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
             g.drawString(this.name, x + 200, y + 20);
-            g.drawString("Level: "+this.exp_level, x + 200, y + 40);
+            g.drawString("Level: " + this.exp_level, x + 200, y + 40);
             g.drawString("Health: " + this.health_points + "/" + this.health_points_max, x + 200, y + 60);
             g.drawString("Fatigue: " + this.fatigue_points + "/" + this.fatigue_points_max, x + 200, y + 80);
             g.drawString("Stress: " + this.mental_points + "/" + this.mental_points_max, x + 200, y + 100);
-            if(this.newLevelUp == true) { //green means you can click on a [+] //no mouse contorls yet.
+            if (this.newLevelUp == true) { //green means you can click on a [+] //no mouse contorls yet.
                 g.setColor(Color.green);
             }
             //int x = ht.screen_width / 2 - w / 2;
             //int y = ht.screen_height / 2 - h / 2;
-            g.drawString(LevelUpControls+"Strength: " + this.stat_str, x + 200, y + 120);
-            g.drawString(LevelUpControls+"Speed: " + this.stat_speed, x + 200, y + 140);
-            g.drawString(LevelUpControls+"Willpower: " + this.stat_will, x + 200, y + 160);
-            g.drawString(LevelUpControls+"Luck: " + this.stat_luck, x + 200, y + 180);
-            g.drawString(LevelUpControls+"Exp: " + this.exp_points, x + 200, y + 200);
+            g.drawString(LevelUpControls + "Strength: " + this.stat_str, x + 200, y + 120);
+            g.drawString(LevelUpControls + "Speed: " + this.stat_speed, x + 200, y + 140);
+            g.drawString(LevelUpControls + "Willpower: " + this.stat_will, x + 200, y + 160);
+            g.drawString(LevelUpControls + "Luck: " + this.stat_luck, x + 200, y + 180);
+            g.drawString(LevelUpControls + "Exp: " + this.exp_points, x + 200, y + 200);
         } else if (ht.popup_window.equalsIgnoreCase("items")) {
             //draw it
             g.setColor(c);
@@ -627,17 +646,16 @@ public class Actor {
             //do nothing.
         }
     }
-    void onLevelUp()
-    {
+
+    void onLevelUp() {
         //int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
-        if( (this.exp_points >= (this.exp_level+1) * (exp_level+1)*10) && this.newLevelUp== false ) { //there was a level up.
+        if ((this.exp_points >= (this.exp_level + 1) * (exp_level + 1) * 10) && this.newLevelUp == false) { //there was a level up.
             this.newLevelUp = true;
             this.exp_level++;
         } //wait for point distrib before setting to false (not implemented)
     }
-    
-    void copyActorStats(Actor a)
-    {
+
+    void copyActorStats(Actor a) {
         a.name = this.name;
         a.exp_level = this.exp_level;
         a.exp_points = this.exp_points;
@@ -648,93 +666,90 @@ public class Actor {
         a.health_points_max = this.health_points_max;
         a.health_points = this.health_points;
     }
-    
-    void swapSoundEffects(String footsteps, String miss, String hit, String washit, String dodge, String died ) {
+
+    void swapSoundEffects(String footsteps, String miss, String hit, String washit, String dodge, String died) {
         /*snd_footsteps = new Sound("data/soundeffects/steps_hallway.ogg");
-        snd_swing_miss = new Sound("data/soundeffects/swing_miss.ogg");
-        snd_swing_hit = new Sound("data/soundeffects/punch_hit.ogg");
-        snd_washit = new Sound("data/soundeffects/guy_hit1.ogg");
-        snd_dodging = new Sound("data/soundeffects/guy_dodging1.ogg");
-        snd_died = new Sound("data/soundeffects/guy_die1.ogg");*/
+         snd_swing_miss = new Sound("data/soundeffects/swing_miss.ogg");
+         snd_swing_hit = new Sound("data/soundeffects/punch_hit.ogg");
+         snd_washit = new Sound("data/soundeffects/guy_hit1.ogg");
+         snd_dodging = new Sound("data/soundeffects/guy_dodging1.ogg");
+         snd_died = new Sound("data/soundeffects/guy_die1.ogg");*/
         String mpath = "data/soundeffects/";
-        if(!footsteps.isEmpty()) {
+        if (!footsteps.isEmpty()) {
             try {
-                this.snd_footsteps = new Sound(mpath+footsteps);
-            }
-            catch(SlickException e){};
+                this.snd_footsteps = new Sound(mpath + footsteps);
+            } catch (SlickException e) {
+            };
         }
-        if(!miss.isEmpty()) {
+        if (!miss.isEmpty()) {
             try {
-                this.snd_swing_miss = new Sound(mpath+miss);
-            }
-            catch(SlickException e){};
+                this.snd_swing_miss = new Sound(mpath + miss);
+            } catch (SlickException e) {
+            };
         }
-        if(!hit.isEmpty()) {
+        if (!hit.isEmpty()) {
             try {
-                this.snd_swing_hit = new Sound(mpath+hit);
-            }
-            catch(SlickException e){};
+                this.snd_swing_hit = new Sound(mpath + hit);
+            } catch (SlickException e) {
+            };
         }
-        if(!washit.isEmpty()) {
+        if (!washit.isEmpty()) {
             try {
-                this.snd_washit = new Sound(mpath+washit);
-            }
-            catch(SlickException e){};
+                this.snd_washit = new Sound(mpath + washit);
+            } catch (SlickException e) {
+            };
         }
-        if(!dodge.isEmpty()) {
+        if (!dodge.isEmpty()) {
             try {
-                this.snd_dodging = new Sound(mpath+dodge);
-            }
-            catch(SlickException e){};
+                this.snd_dodging = new Sound(mpath + dodge);
+            } catch (SlickException e) {
+            };
         }
-        if(!died.isEmpty()) {
+        if (!died.isEmpty()) {
             try {
-                this.snd_died = new Sound(mpath+died);
-            }
-            catch(SlickException e){};
+                this.snd_died = new Sound(mpath + died);
+            } catch (SlickException e) {
+            };
         }
     }
-    public int getAttackPenalty(){
-        if(this.mental_points < 3) {
+
+    public int getAttackPenalty() {
+        if (this.mental_points < 3) {
             return -1;
-        }
-        else if (this.mental_points <= 1) {
+        } else if (this.mental_points <= 1) {
             return -2;
-        }
-        else if (this.mental_points <= 0) {
+        } else if (this.mental_points <= 0) {
             return -3; //you are totally wasted
         }
         return 0;
     }
+
     public int getMovePenalty() {
         if (this.fatigue_points <= 3) {
             return -1;
-        }
-        else if (this.fatigue_points <= 2) {
+        } else if (this.fatigue_points <= 2) {
             return -2;
-        }
-        else if (this.fatigue_points <= 0) {
+        } else if (this.fatigue_points <= 0) {
             return -3;
         }
         return 0;
     }
+
     public int getDodgePenalty() {
         if (this.fatigue_points <= 3) {
             return -1;
-        }
-        else if (this.fatigue_points <= 2) {
+        } else if (this.fatigue_points <= 2) {
             return -2;
-        }
-        else if (this.fatigue_points <= 0) {
+        } else if (this.fatigue_points <= 0) {
             return -3;
         }
         return 0;
     }
+
     public int getDodgeBonus() {
-        if( this.stat_speed > 1 ) {
-            return this.stat_speed -2;
-        }
-        else {
+        if (this.stat_speed > 1) {
+            return this.stat_speed - 2;
+        } else {
             return 0;
         }
     }
@@ -743,7 +758,7 @@ public class Actor {
         int target_parryroll;
         int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + this.stat_luck - 1 + this.getAttackPenalty();
         int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + defender.stat_luck - 1 + defender.getDodgePenalty() //luck
-         + defender.getDodgeBonus(); //speed
+                + defender.getDodgeBonus(); //speed
         int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + this.stat_str - 1;
         //int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1);
         System.out.println("target check " + defender.name);
