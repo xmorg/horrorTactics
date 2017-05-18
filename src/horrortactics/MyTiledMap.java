@@ -5,6 +5,7 @@
  */
 package horrortactics;
 
+import java.util.concurrent.ThreadLocalRandom;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 //import org.newdawn.slick.tiled.TileSet;
@@ -106,12 +107,12 @@ public class MyTiledMap extends TiledMap {
 
         this.active_trigger = new Trigger("none", "none");
         /*for (int i = 0; i < 5; i++) {
-            this.planning[i] = this.getMapProperty("planning_" + i, "end");
-            if (this.planning[i].equalsIgnoreCase("end")) {
-                this.maxplanevent = i; //last one
-            }
-            this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
-        }*/
+         this.planning[i] = this.getMapProperty("planning_" + i, "end");
+         if (this.planning[i].equalsIgnoreCase("end")) {
+         this.maxplanevent = i; //last one
+         }
+         this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
+         }*/
         this.next_map = this.getMapProperty("nextmap", "none");
         this.RequiresGoal = this.getMapProperty("req_goal", "no");
         this.EventSpotted = this.getMapProperty("event_spotted", "none");
@@ -155,7 +156,7 @@ public class MyTiledMap extends TiledMap {
         this.current_follower_moving = 0;
         for (int i = 0; i < this.follower_max; i++) {
             if (follower[i].visible == true) {
-                follower[i].action_points = 6 + follower[i].stat_speed - 1 +follower[i].getMovePenalty();
+                follower[i].action_points = 6 + follower[i].stat_speed - 1 + follower[i].getMovePenalty();
                 follower[i].setActorMoving(false);
                 follower[i].setActorDestination(follower[i].tilex,
                         follower[i].tiley);
@@ -533,11 +534,23 @@ public class MyTiledMap extends TiledMap {
         return distance;
     }
 
+    public int getMaxFollowers() {
+        int count = 0;
+        //if(player)//assume player is alive
+        for (int i = 0; i < this.follower_max; i++) {
+            if (follower[i].visible && follower[i].dead == false) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
         //directive types: random,randomuntilspotted,beeline
         int proposed_x, proposed_y;
         this.current_monster_moving = 0;
+        int max_active_followers = this.getMaxFollowers();
         for (int i = 0; i < this.monster_max; i++) {
             if (monster[i].visible == true && monster[i].dead == false) { //there was a monster here(and alive)
                 monster[i].action_points = 6; //update action points
@@ -564,7 +577,8 @@ public class MyTiledMap extends TiledMap {
                     //this will prvent a forced stop.  How do we calulate the shortest distance to travel
                     //Euclidian plane? find the shortest distance, then make the route
                     System.out.print("Spotted player: " + monster[i].spotted_enemy + "\n");
-
+                    //int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + this.stat_luck - 1 + this.getAttackPenalty();
+                    int targetActor = ThreadLocalRandom.current().nextInt(0, max_active_followers);
                     if (monster[i].spotted_enemy == true) { // you must spot the enemy to beline
                         monster[i].tiledestx = player.tilex;
                         monster[i].tiledesty = player.tiley;
@@ -583,8 +597,6 @@ public class MyTiledMap extends TiledMap {
                         monster[i].tiledestx = monster[i].tilex;
                         monster[i].tiledesty = monster[i].tiley;
                     }
-
-                    //monster[i].setActorMoving(true);
                 } else if (monster[i].directive_type.equalsIgnoreCase("random")) { //randomly move around.
                     for (int count = 0; count < 6; count++) {
                         proposed_y = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random());

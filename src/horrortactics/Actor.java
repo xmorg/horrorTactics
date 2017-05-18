@@ -57,10 +57,13 @@ public class Actor {
     Sound snd_washit, snd_dodging, snd_died;
     String weapon;
     //your stats.
-    int health_points, health_points_max;
-    int fatigue_points, fatigue_points_max;
-    int mental_points, mental_points_max;
-    int stat_str, stat_speed, stat_will, stat_luck;
+    int health_points, health_points_max; //lose all heath and die
+    int fatigue_points, fatigue_points_max; //lose all fatigue and get a action point penalty, and dodge penalty.
+    int mental_points, mental_points_max; //lose all mental, and get an attack penalty.
+    int stat_str, //health(on level up) and damage
+            stat_speed, //movement and dodge
+            stat_will, //fatigue and health (on level up)
+            stat_luck; //chance to dodge / chance to hit
     int exp_level, exp_points; //level up = exp_level+1 * exp_level+1*10
     boolean newLevelUp, expForGoal, expForExitReached;
     int storyline_died; //Did you die in the story, and if you did, can you be replaced by another character.
@@ -91,7 +94,8 @@ public class Actor {
         move_action = false;
         facing_x = 0;
         facing_y = 0;
-        speed = 0.05f;
+        //speed = 0.05f;
+        speed = 2;
         speed_wait = 0;
         action_msg_timer = 0;
         action_msg = "";
@@ -514,8 +518,8 @@ public class Actor {
 
     public void onMoveWest(MyTiledMap m, int delta) {
         this.setActiorDirection(getWest());
-        this.draw_x -= 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
-        this.draw_y -= 1;//(a.speed * delta);
+        this.draw_x -= 2 * this.speed;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
+        this.draw_y -= 1 * this.speed;//(a.speed * delta);
         this.set_draw_xy(this.draw_x, this.draw_y);
         this.onWalkAnimation(delta);
         if (Math.abs(this.draw_x) >= m.TILE_WIDTH_HALF) {
@@ -529,8 +533,8 @@ public class Actor {
 
     public void onMoveEast(MyTiledMap m, int delta) {
         this.setActiorDirection(getEast());
-        this.draw_x += 2;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
-        this.draw_y += 1;//(a.speed * delta);
+        this.draw_x += 2 * this.speed;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
+        this.draw_y += 1 * this.speed;//(a.speed * delta);
         this.set_draw_xy(this.draw_x, this.draw_y);
         this.onWalkAnimation(delta);
         if (this.draw_x >= m.TILE_WIDTH_HALF) {
@@ -546,8 +550,8 @@ public class Actor {
 
     public void onMoveSouth(MyTiledMap m, int delta) {
         this.setActiorDirection(getSouth()); //south/1
-        this.draw_y += 1;//(a.speed * delta); //a.speed;
-        this.draw_x -= 2;//(a.speed * delta) * 2;
+        this.draw_y += 1 * this.speed;//(a.speed * delta); //a.speed;
+        this.draw_x -= 2 * this.speed;//(a.speed * delta) * 2;
         this.set_draw_xy(this.draw_x, this.draw_y);
         this.onWalkAnimation(delta);
         if (this.draw_y >= Math.abs(m.TILE_HEIGHT_HALF)) {
@@ -563,8 +567,8 @@ public class Actor {
 
     public void onMoveNorth(MyTiledMap m, int delta) {
         this.setActiorDirection(getNorth());//north
-        this.draw_y -= 1;//(a.speed * delta);//a.speed;
-        this.draw_x += 2;//(a.speed * delta) * 2;//a.speed*2;
+        this.draw_y -= 1 * this.speed;//(a.speed * delta);//a.speed;
+        this.draw_x += 2 * this.speed;//(a.speed * delta) * 2;//a.speed*2;
         //System.out.println("delta: " + delta + "," + a.draw_x + "," + a.draw_y);
         this.set_draw_xy(this.draw_x, this.draw_y);
         this.onWalkAnimation(delta);
