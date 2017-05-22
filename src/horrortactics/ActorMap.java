@@ -110,6 +110,9 @@ public class ActorMap {
                             m.follower[follower_loop].name = pname;
                             m.follower[follower_loop].attack_range = 2;
                             //if(weapon)
+                            //m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
+                                //"pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg");
+                            m.follower[follower_loop].swapSoundEffects("", "pistol_shotl.ogg", "pistol_shotl.ogg", "", "", "");
                             follower_loop++;
                         } catch (SlickException e) {
                         }
