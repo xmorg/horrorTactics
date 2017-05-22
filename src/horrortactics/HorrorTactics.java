@@ -184,8 +184,6 @@ public class HorrorTactics extends BasicGame {
                 System.out.println("cant load new map " + n_mapname);
             }
         } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
-            //reached goal.  (something happens.)
-            //BUG! it happens over and over.
             if (map.player.expForGoal == false) {
                 map.player.exp_points += 3;
                 map.player.expForGoal = true;
@@ -198,7 +196,6 @@ public class HorrorTactics extends BasicGame {
                     }
                 }
             }
-            //this.map.EventGoal_ran = true;
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
                 //if (map.player.selected == true) {

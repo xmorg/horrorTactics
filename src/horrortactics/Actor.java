@@ -646,6 +646,19 @@ public class Actor {
             sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
             g.drawString(this.name + "'s Items", x + 200, y + 20);
+
+            if (ht.map.RequiresGoal.equalsIgnoreCase("yes")
+                    && ht.map.EventGoal_ran == true) {
+                //&& x == this.map.draw_goal_x
+                //&& y == this.map.draw_goal_y) {
+                /*bug? better have an image*/
+                //int pdx = screen_x + draw_x;
+                /* + this.draw_x;*/
+                //int pdy = screen_y + draw_y;
+                /* + this.draw_y - 230;*/
+                ht.map.mission_goal.draw(x+200, y+200);
+            }
+
         } else {
             //do nothing.
         }
