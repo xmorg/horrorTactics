@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
+ <properties>
+  <property name="event_spotted" value="tutor_bully0"/>
+  <property name="event_spotted1" value="tutor_bully0"/>
+  <property name="event_spotted_m" value="(hallway bullies) Oh no, not Now..."/>
+  <property name="event_spotted_m1" value="Takeshi: Go on ahead! ill take care of these losers!"/>
+  <property name="event_spotted_p" value="prt_player_00.png"/>
+  <property name="event_spotted_p1" value="prt_player_00.png"/>
+  <property name="mapname" value="tutorial01.tmx"/>
+  <property name="nextmap" value="class_school01.tmx"/>
+  <property name="planning_0" value="Hello Class. Today we will learn the basics."/>
+  <property name="planning_0_p" value="prt_teacher_00.png"/>
+  <property name="planning_1" value="Riku, can you go to my office and get my papers?"/>
+  <property name="planning_1_p" value="prt_teacher_00.png"/>
+  <property name="planning_2" value="My office is down the hall to the left."/>
+  <property name="planning_2_p" value="prt_teacher_00.png"/>
+  <property name="planning_3" value="Takeshi: Ill go with you!"/>
+  <property name="planning_3_p" value="prt_fatboy_00.png"/>
+  <property name="req_goal" value="yes"/>
+ </properties>
+ <tileset firstgid="1" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512.png" width="2000" height="2048"/>
+ </tileset>
+ <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+  <image source="actor_grid.png" width="872" height="1248"/>
+  <tile id="0">
+   <properties>
+    <property name="actor_name" value="player"/>
+    <property name="costume" value="player00"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="actor_name" value="Yukari"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="actor_name" value="Ichi"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="actor_name" value="Takeshi"/>
+    <property name="health_bonus" type="int" value="1"/>
+    <property name="tutor_text_0" value="Select the tile you're standing on, then click the tile you want to go"/>
+    <property name="tutor_text_1" value="Press your spacebar, or the end turn button to advance to the next turn."/>
+    <property name="tutor_text_2" value="Bullies can be tough, better let me handle them. Click to attack when in range."/>
+    <property name="tutor_text_3" value="The Teacher's office is the second door on the right."/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="actor_name" value="tutor_bully1"/>
+    <property name="actor_spotted" value="false"/>
+    <property name="hit_bonus" type="int" value="-1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="actor_name" value="tutor_bully0"/>
+    <property name="actor_spotted" value="false"/>
+    <property name="hit_bonus" type="int" value="-1"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="audio_trigger" value="trapped_girl"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="event_exit" value="exit"/>
+    <property name="event_exit_m" value="end"/>
+    <property name="event_exit_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="event_goal" value="yes"/>
+    <property name="event_goal_graphic" value="mission_papers.png"/>
+    <property name="event_goal_m" value="Here there are.  Lets get back to class."/>
+    <property name="event_goal_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
+ </tileset>
+ <tileset firstgid="81" name="boy00" tilewidth="218" tileheight="312" tilecount="20" columns="5">
+  <image source="boy00.png" width="1090" height="1248"/>
+ </tileset>
+ <tileset firstgid="101" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_2.png" width="2000" height="2048"/>
+ </tileset>
+ <layer name="background_layer" width="30" height="30" opacity="0.99">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DAQ0AAAzDoGqaf3EXckhYNVVVVd89zzbb+BAOAAA=
+  </data>
+ </layer>
+ <layer name="walls_layer" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC9VVQQ6DQAgk2q79gz7Oc///gKYHEyQwCxbcdBKisg6TcVmciGj685hZeN5/EQZfX9n9wdfwzS9GHvE8yNRt4vq+SRdhU2rMAT7SlX4b2cjUjdawdNH3j+oudN6z3v5q50TqWt+X95Xsk55fj64Hh+5eoCt9Xu0ra+2OuYE4cl365H4j5zezn7UaSLcXHKifo35H/Rc4GstnzMmsvooA8Z/iuec3S/fR4UTC4lr1OTS/K10D4lXuL0K0n6t0eb5S2zM3RsWvvlBezp0K3Wbkq3W9+ZHxAcxxfgMQDgAA
+  </data>
+ </layer>
+ <layer name="actors_layer" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYGgB/YF2wCgYBTiA4kA7YBSMSKAJxFpUNlOVyuYNdqCHA4+CUTAKRsFIAACCZihNEA4AAA==
+  </data>
+ </layer>
+</map>

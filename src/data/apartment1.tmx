@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
+ <properties>
+  <property name="mapname" value="apartment1.tmx"/>
+  <property name="nextmap" value="streets01.tmx"/>
+  <property name="planning_0" value="Hello? Anyone there?"/>
+  <property name="planning_0_p" value="prt_player_00.png"/>
+  <property name="planning_1" value="end"/>
+  <property name="req_goal" value="no"/>
+ </properties>
+ <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
+  <tile id="0">
+   <properties>
+    <property name="event_spotted" value="iman"/>
+    <property name="event_spotted_m" value="Hello?!?!"/>
+    <property name="event_spotted_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="33" name="walls250x512" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512.png" width="2000" height="2048"/>
+ </tileset>
+ <tileset firstgid="65" name="actor_grid" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+  <image source="actor_grid.png" width="872" height="1248"/>
+  <tile id="0">
+   <properties>
+    <property name="actor_name" value="player"/>
+    <property name="costume" value="player01"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="actor_name" value="invisible man"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="actor_name" value="iman"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="event_exit" value="exit"/>
+    <property name="event_exit_m" value="The door!"/>
+    <property name="event_exit_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background_layer" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3SQQoAIAgFUcltdP/jdgGFnwhRzGK2PkHdzJzo81ahaM4IUl11n253CmU2bv9f4b55X1zdPa3rr7I9cet2NAMXF/eO21HmbkVS3kcQDgAA
+  </data>
+ </layer>
+ <layer name="walls_layer" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA8WW0Q7DIAhF/Zv2ZQ+1bsm2/v93LTyYtISLgCy9iUlF4QyHxK2Ust00vsUn2l8Nfmi9cyN6Bv1muTOa4dabuBa/UV0hn8r2VfCNYmmx0RrFXU/zD9jHfWa5ZH8YWGfxGo9yZ4Vqb3TO70kOuuPZ+XKfKJfXcheqZR4res4NrHVRvS8sHo9POhxcsu8DruSjza1crgN8R7nSPSW7t56z+pVXEjfSnzO4ve4as1vvkXWg37Ezuydfsq2D9VEMC7ePl7BXupsertbLWsG9w5KvFltb28v1f9Fykzh97u1X2jvV8p6M9klNEjerX62CXYuZVc8Z3AXsi55zRr7/Gtr74AdtjvwqEA4AAA==
+  </data>
+ </layer>
+ <layer name="actors_layer" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3UMQEAAAgCQas5utg/jjEQ/SsAC0TsUOoCgBgbgItUF8BJfKC/fpYLXDGtuCtHEA4AAA==
+  </data>
+ </layer>
+</map>

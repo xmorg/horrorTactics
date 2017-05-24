@@ -54,7 +54,7 @@ public class HorrorTactics extends BasicGame {
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     Image level_up_icon; //level_up_icon.png
-    
+
     Actor playersave;
     TitleMenu titlemenu;
     Music music;
@@ -108,7 +108,7 @@ public class HorrorTactics extends BasicGame {
         playersave = new Actor("data/player00", 218, 313); //to carry over the player.
         level_up_icon = new Image("data/level_up_icon.png");
         music = new Music("data/soundeffects/anxiety_backwards.ogg");
-        
+
     }
 
     @Override
@@ -234,7 +234,7 @@ public class HorrorTactics extends BasicGame {
         }
         map.onUpdateActorActionText();
     }
-    
+
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
@@ -251,7 +251,7 @@ public class HorrorTactics extends BasicGame {
             this.render_game_over(gc, g);  //its game over for your kind
         }
     }
-    
+
     public void render_tactical_base(GameContainer gc, Graphics g) {
         g.scale(scale_x, scale_x); //scale the same
         this.render_background_layer(gc, g); //render floor
@@ -259,6 +259,7 @@ public class HorrorTactics extends BasicGame {
         this.render_game_ui(gc, g);
         this.render_character_busts(gc, g);
     }
+
     public void render_background_layer(GameContainer gc, Graphics g) {
         int background_layer = map.getLayerIndex("background_layer");
         map.set_party_min_renderables();
@@ -310,7 +311,19 @@ public class HorrorTactics extends BasicGame {
                 }
             }
             if (y == map.selected_tile_y && x == map.selected_tile_x) {
+                //map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
+                map.selected_green.draw(screen_x + draw_x, screen_y + draw_y);
+            }
+            if (y == map.player.tiledesty && x == map.player.tiledestx
+                    && map.player.getActorMoving()) {
                 map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
+            }
+            for (int i = 0; i < map.follower_max; i++) {
+                if (y == map.follower[i].tiledesty 
+                        && x == map.follower[i].tiledestx //){
+                        && map.follower[i].getActorMoving()) {
+                    map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
@@ -341,8 +354,8 @@ public class HorrorTactics extends BasicGame {
                         map.mouse_over_tile_y = y;
                         //is there someone in mouse over tile?
                         map.mouse_over_actor(x, y); //render the selector.
-                        map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
-                                screen_x + draw_x, screen_y + draw_y, scale_x);
+                        //map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
+                        //        screen_x + draw_x, screen_y + draw_y, scale_x);
                     }
                     map.player.drawPlayer(this, map, x, y, g);
                     /*Draw your player*/
@@ -407,8 +420,8 @@ public class HorrorTactics extends BasicGame {
         if (this.map.turn_order.equalsIgnoreCase("monster")) {
             this.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2);
             //The enemy is moving, show which enemy.(so people dont get bored)
-            for(int mi=0; mi < this.map.current_monster_moving; mi++) {
-                this.map.monster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92*mi+2), gc.getHeight() / 2+92);
+            for (int mi = 0; mi < this.map.current_monster_moving; mi++) {
+                this.map.monster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92 * mi + 2), gc.getHeight() / 2 + 92);
             }
         }
         //check for a follower selected
@@ -539,14 +552,14 @@ public class HorrorTactics extends BasicGame {
     }
 
     /*public int getActiveMonsters() {
-        int am = 0;
-        for (int i = 0; i < map.monster_max; i++) {
-            if (map.monster[i].visible == true) {
-                am++;
-            }
-        }
-        return am; 
-    }*/
+     int am = 0;
+     for (int i = 0; i < map.monster_max; i++) {
+     if (map.monster[i].visible == true) {
+     am++;
+     }
+     }
+     return am; 
+     }*/
     public boolean getTileToBeRendered(int x, int y) {
         if (x < 0) {
             return false;
