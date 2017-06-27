@@ -310,7 +310,7 @@ public class HorrorTactics extends BasicGame {
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter);
                 }
             }
-            if (y == map.selected_tile_y && x == map.selected_tile_x) {
+            if (y == map.selected_tile_y && x == map.selected_tile_x && this.map.turn_order.equalsIgnoreCase("player")) {
                 //map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
                 map.selected_green.draw(screen_x + draw_x, screen_y + draw_y);
             }

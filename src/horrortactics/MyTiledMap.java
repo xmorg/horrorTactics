@@ -547,7 +547,7 @@ public class MyTiledMap extends TiledMap {
 
     public void setMonsterDirectives() {
         //loop through your monsters and set a path for them to follow
-        //directive types: random,randomuntilspotted,beeline
+        //directive types: random,randomuntilspotted,beeline,
         int proposed_x, proposed_y;
         this.current_monster_moving = 0;
         int max_active_followers = this.getMaxFollowers();
@@ -655,6 +655,16 @@ public class MyTiledMap extends TiledMap {
                 + monster[this.current_monster_moving].facing_x,
                 monster[this.current_monster_moving].tiley
                 + monster[this.current_monster_moving].facing_y) == false) {
+            //see if monster can move around tiles
+            
+            
+            
+            
+            // set a new destination?
+            
+            
+            
+            //set back to the original desination?
             this.current_monster_moving++;
         } else if (this.monster[this.current_monster_moving].action_points <= 0) {
             this.current_monster_moving++;

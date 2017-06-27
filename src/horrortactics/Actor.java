@@ -350,7 +350,7 @@ public class Actor {
         if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
             int pdy = h.screen_y + h.draw_y + this.draw_y - 230;
-            if (this.selected == true) { //draw the selection if true
+            if (this.selected == true && h.map.turn_order.equalsIgnoreCase("player") ) { //draw the selection if true
 
                 try { //draw select box
                     m.selected_green.draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y);
