@@ -436,7 +436,6 @@ public class HorrorTactics extends BasicGame {
         if (foundselected == false) {
             this.map.player.drawPopupWindow(this, g); //who is currently selected?
         }
-
     }
 
     public void render_character_busts(GameContainer gc, Graphics g) {
@@ -526,10 +525,7 @@ public class HorrorTactics extends BasicGame {
             appgc.setTargetFrameRate(60); //trying to slow down fast computers.
             appgc.start();
 
-        } catch (SlickException ex) {
-            //Logger.getLogger(HorrorTactics.class
-            //        .getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (SlickException ex) {        }
     }
 
     public void setGameState(String state) {

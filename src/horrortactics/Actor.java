@@ -730,7 +730,7 @@ public class Actor {
         }
     }
 
-    public int getAttackPenalty() {
+    public int getAttackPenalty() { //check scores and get a hit penalty
         if (this.mental_points < 3) {
             return -1;
         } else if (this.mental_points <= 1) {
@@ -741,7 +741,7 @@ public class Actor {
         return 0;
     }
 
-    public int getMovePenalty() {
+    public int getMovePenalty() { //check scores and get a move penalty
         if (this.fatigue_points <= 3) {
             return -1;
         } else if (this.fatigue_points <= 2) {
@@ -752,7 +752,7 @@ public class Actor {
         return 0;
     }
 
-    public int getDodgePenalty() {
+    public int getDodgePenalty() { //check scores and get a dodge penalty
         if (this.fatigue_points <= 3) {
             return -1;
         } else if (this.fatigue_points <= 2) {
@@ -763,7 +763,7 @@ public class Actor {
         return 0;
     }
 
-    public int getDodgeBonus() {
+    public int getDodgeBonus() { //check scores and get a dodge bonus
         if (this.stat_speed > 1) {
             return this.stat_speed - 2;
         } else {
