@@ -32,14 +32,29 @@
     <property name="actor_name" value="Yukari"/>
    </properties>
   </tile>
+  <tile id="2">
+   <properties>
+    <property name="actor_name" value="Miyu"/>
+   </properties>
+  </tile>
   <tile id="3">
    <properties>
     <property name="actor_name" value="Ichi"/>
    </properties>
   </tile>
+  <tile id="4">
+   <properties>
+    <property name="actor_name" value="Takeshi"/>
+   </properties>
+  </tile>
   <tile id="8">
    <properties>
     <property name="actor_name" value="pear monster"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="actor_name" value="butcher"/>
    </properties>
   </tile>
   <tile id="12">
@@ -64,17 +79,17 @@
  </tileset>
  <layer name="background_layer" width="20" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+NkYGDgHAKYjwI8Us1DZ1NiHro7B6N/R80bNW+4mjdYMQAFqThhQAYAAA==
+   H4sIAAAAAAAAC+NkYGDgHAKYjwI8Us1DZ1NiHro7B6N/R80bNW+4mjdYMQAFqThhQAYAAA==
   </data>
  </layer>
  <layer name="walls_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZTwzwYhrkTGeAKJ3zxgc88bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAPoTLA9ABgAA
+   H4sIAAAAAAAACzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZTwzwYhrkTGeAKJ3zxgc88bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAPoTLA9ABgAA
   </data>
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAXUAH5k6HEGYlcqmgcCjlQ2j1TgTSd7RsEoGAUDDwCcHJdtQAYAAA==
+   H4sIAAAAAAAAC2NgGAXUAH5k6HEGYlcqmgcCjlQ2j1TgTSd7RsEoGAUDDwCcHJdtQAYAAA==
   </data>
  </layer>
 </map>

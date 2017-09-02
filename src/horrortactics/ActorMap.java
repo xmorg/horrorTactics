@@ -68,7 +68,7 @@ public class ActorMap {
                         m.player.changeActorSpritesheet("data/" + m.getTileProperty(gid, "costume", "player00"), 218, 313);
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
                          m.player.swapSoundEffects("", "", "", "", "", "");
-                    } else if (pname.equals("Yukari")) {
+                    } else if (pname.equals("Yukari")) { //little nerd girl
                         try {
                             m.follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
                             //follower[follower_loop].
@@ -79,7 +79,18 @@ public class ActorMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-                    } else if (pname.equals("Ichi")) {
+                    }else if (pname.equals("Miyu")) { //kendo girl
+                        try {
+                            m.follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
+                            //follower[follower_loop].
+                            m.follower[follower_loop].tilex = x;
+                            m.follower[follower_loop].tiley = y;
+                            m.follower[follower_loop].visible = true;
+                            m.follower[follower_loop].name = pname;
+                            follower_loop++;
+                        } catch (SlickException e) {
+                        }
+                    } else if (pname.equals("Ichi")) { //slim boy
                         try {
                             m.follower[follower_loop].changeActorSpritesheet("data/boy00", 218, 313);
                             //follower[follower_loop].
@@ -90,7 +101,7 @@ public class ActorMap {
                             follower_loop++;
                         } catch (SlickException e) {
                         }
-                    } else if (pname.equals("Takeshi")) {
+                    } else if (pname.equals("Takeshi")) { //fat boy
                         try {
                             m.follower[follower_loop].changeActorSpritesheet("data/boy01", 218, 313);
                             m.follower[follower_loop].tilex = x;
@@ -224,7 +235,21 @@ public class ActorMap {
                         m.monster[monster_loop].name = pname;
                         m.monster[monster_loop].max_turns_till_revival = 2;
                         monster_loop++;
-                    } else if (pname.equals("invisible man")) {
+                    } else if (pname.equalsIgnoreCase("butcher")) {
+                        try {
+                            m.monster[monster_loop].changeActorSpritesheet("data/monster07", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        m.monster[monster_loop].health_points = 15; //boss!
+                        m.monster[monster_loop].health_points_max = 15;
+                        m.monster[monster_loop].tilex = x;
+                        m.monster[monster_loop].tiley = y;
+                        m.monster[monster_loop].setActorMoving(false);
+                        m.monster[monster_loop].visible = true;
+                        m.monster[monster_loop].name = pname;
+                        m.monster[monster_loop].max_turns_till_revival = 99;
+                        monster_loop++;
+                    }else if (pname.equals("invisible man")) {
                         System.out.println("we got to the invnisible man");
                         try {
                             m.monster[monster_loop].changeActorSpritesheet("data/monster06", 218, 313);
