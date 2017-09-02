@@ -8,6 +8,10 @@ package horrortactics;
 
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
+import java.awt.FontFormatException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -18,6 +22,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SpriteSheet;
+//import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
+import java.awt.Font;
 
 /**
  *
@@ -61,13 +69,29 @@ public class HorrorTactics extends BasicGame {
     String game_state = "title start"; //title start, title ingame, tactical,conversation,cutscene
     String fullscreen_toggle = "Yes";
     String sound_toggle = "Yes";
+    java.awt.Font UIFont1;
+    org.newdawn.slick.UnicodeFont uniFont;
 
     public HorrorTactics(String gamename) {
         super(gamename);
+        try {
+            //jf = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, org.newdawn.slick.util.ResourceLoader.getResourceAsStream("data/School_Writing.ttf"));
+            UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
+                    org.newdawn.slick.util.ResourceLoader.getResourceAsStream("data/School_Writing.ttf"));
+            UIFont1 = UIFont1.deriveFont(java.awt.Font.PLAIN, 48.f); //You can change "PLAIN" to "BOLD" or "ITALIC"... and 16.f is the size of your font
+
+            uniFont = new org.newdawn.slick.UnicodeFont(UIFont1);
+            uniFont.addAsciiGlyphs();
+            uniFont.getEffects().add(new ColorEffect(java.awt.Color.white)); //You can change your color here, but you can also change it in the render{ ... }
+            uniFont.addAsciiGlyphs();
+            uniFont.loadGlyphs();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void init(GameContainer gc) throws SlickException {
+@Override
+        public void init(GameContainer gc) throws SlickException {
         //map = new MyTiledMap("data/class_school01.tmx", 0, 0);
         //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
         map = new MyTiledMap("data/streets01.tmx", 0, 0);
@@ -112,7 +136,7 @@ public class HorrorTactics extends BasicGame {
     }
 
     @Override
-    public void update(GameContainer gc, int delta) throws SlickException {
+        public void update(GameContainer gc, int delta) throws SlickException {
         Input input = gc.getInput();
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
@@ -236,7 +260,7 @@ public class HorrorTactics extends BasicGame {
     }
 
     @Override
-    public void render(GameContainer gc, Graphics g) throws SlickException {
+        public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
             render_tactical_base(gc, g);
         } else if (game_state.equalsIgnoreCase("conversation")) {
@@ -381,7 +405,8 @@ public class HorrorTactics extends BasicGame {
             }
         }
     }
-
+    
+    //public void render_game_ui(GameContainer gc, Graphics g, )
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
         //level_up_icon
@@ -447,14 +472,15 @@ public class HorrorTactics extends BasicGame {
             g.setColor(black);
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
-            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight() - 100);
+            //this.uniFont.drawString(400, gc.getScreenHeight() - 100, this.map.planning[this.map.planevent], Color.white );
+            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight() - 100 );
         } else if (this.map.turn_order.equalsIgnoreCase("event spotted")) {
             //null pointer if there is no event spotted
             map.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
-            g.drawString(map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
+            //uniFont.drawString(400, gc.getScreenHeight() - 100, map.EventSpotted_m, Color.white);
             //set all monsters to spotted true (if false)
             for (int i = 0; i < map.monster_max; i++) {
                 map.monster[i].spotted_enemy = true;
@@ -464,12 +490,14 @@ public class HorrorTactics extends BasicGame {
             g.setColor(black);
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
+            //uniFont.drawString(400, gc.getScreenHeight() - 100, this.map.EventGoal_m, Color.white);
             g.drawString(this.map.EventGoal_m, 400, gc.getScreenHeight() - 100);
         } else if (this.map.turn_order.equalsIgnoreCase("exit reached")) {
             this.map.EventExit_p.draw(-100, gc.getScreenHeight() - 600);
             g.setColor(black);
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
+            //uniFont.drawString(400, gc.getScreenHeight() - 100, this.map.EventExit_m, Color.white);
             g.drawString(this.map.EventExit_m, 400, gc.getScreenHeight() - 100);
         }
     }
