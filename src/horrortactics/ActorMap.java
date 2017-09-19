@@ -67,7 +67,8 @@ public class ActorMap {
                         //m.player.weapon = "knife"; //equip a weapon
                         m.player.changeActorSpritesheet("data/" + m.getTileProperty(gid, "costume", "player00"), 218, 313);
                         //} else if (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")) {
-                         m.player.swapSoundEffects("", "", "", "", "", "");
+                        //void swapSoundEffects(String footsteps, String miss, String hit, String washit, String dodge, String died) {
+                         m.player.swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg");
                     } else if (pname.equals("Yukari")) { //little nerd girl
                         try {
                             m.follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
@@ -82,6 +83,7 @@ public class ActorMap {
                     }else if (pname.equals("Miyu")) { //kendo girl
                         try {
                             m.follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
+                            m.follower[follower_loop].swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg");
                             //follower[follower_loop].
                             m.follower[follower_loop].tilex = x;
                             m.follower[follower_loop].tiley = y;
@@ -123,7 +125,7 @@ public class ActorMap {
                             //if(weapon)
                             //m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
                                 //"pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg");
-                            m.follower[follower_loop].swapSoundEffects("", "pistol_shotl.ogg", "pistol_shotl.ogg", "", "", "");
+                            m.follower[follower_loop].swapSoundEffects("", "pistol_shotl.ogg", "pistol_shotl.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg");
                             follower_loop++;
                         } catch (SlickException e) {
                         }
@@ -160,6 +162,7 @@ public class ActorMap {
                         m.monster[monster_loop].visible = true;
                         m.monster[monster_loop].name = pname;
                         m.monster[monster_loop].max_turns_till_revival = 100;
+                        m.monster[monster_loop].swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg");
                         monster_loop++;
                     } else if (pname.equals("pear monster")) {
                         try {
