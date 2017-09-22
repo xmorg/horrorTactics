@@ -62,9 +62,11 @@ public class HorrorTactics extends BasicGame {
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     Image level_up_icon; //level_up_icon.png
+    Image prev_streets01,prev_apartment1;
 
     Actor playersave;
     TitleMenu titlemenu;
+    SaveMyFile playerfile;
     Music music;
     String game_state = "title start"; //title start, title ingame, tactical,conversation,cutscene
     String fullscreen_toggle = "Yes";
@@ -88,10 +90,11 @@ public class HorrorTactics extends BasicGame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        playerfile = new SaveMyFile();
     }
 
-@Override
-        public void init(GameContainer gc) throws SlickException {
+    @Override
+    public void init(GameContainer gc) throws SlickException {
         //map = new MyTiledMap("data/class_school01.tmx", 0, 0);
         //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
         map = new MyTiledMap("data/streets01.tmx", 0, 0);
@@ -123,6 +126,10 @@ public class HorrorTactics extends BasicGame {
         effect_biff = new Image("data/soundeffects/biff.png");
         effect_wiff = new Image("data/soundeffects/wiff.png");
         effect_shrack = new Image("data/soundeffects/shrack.png");
+        
+        prev_streets01 = new Image("data/prev_streets01.jpg");
+        prev_apartment1 = new Image("data/prev_apartment1.jpg");
+        
         enemy_moving_message = new Image("data/enemy_moving.png");
         myfilter = new Color(1f, 1f, 1f, 1f);
         myfiltert = new Color(0.5f, 0.5f, 0.5f, 0.5f);
@@ -136,7 +143,7 @@ public class HorrorTactics extends BasicGame {
     }
 
     @Override
-        public void update(GameContainer gc, int delta) throws SlickException {
+    public void update(GameContainer gc, int delta) throws SlickException {
         Input input = gc.getInput();
         mouse_x = input.getMouseX();
         mouse_y = input.getMouseY();
@@ -148,6 +155,8 @@ public class HorrorTactics extends BasicGame {
         map.resetAttackAniFrame();
 
         if (this.game_state.equalsIgnoreCase("exit")) {
+            //GAMEEXIT
+            //playerfile.saveData(this, "1");
             gc.exit();
         } else if (this.game_state.equalsIgnoreCase("title start") || this.game_state.equalsIgnoreCase("title ingame")) {
             if (!music.playing()) {
@@ -260,7 +269,7 @@ public class HorrorTactics extends BasicGame {
     }
 
     @Override
-        public void render(GameContainer gc, Graphics g) throws SlickException {
+    public void render(GameContainer gc, Graphics g) throws SlickException {
         if (game_state.equalsIgnoreCase("tactical")) {
             render_tactical_base(gc, g);
         } else if (game_state.equalsIgnoreCase("conversation")) {
@@ -343,7 +352,7 @@ public class HorrorTactics extends BasicGame {
                 map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
             }
             for (int i = 0; i < map.follower_max; i++) {
-                if (y == map.follower[i].tiledesty 
+                if (y == map.follower[i].tiledesty
                         && x == map.follower[i].tiledestx //){
                         && map.follower[i].getActorMoving()) {
                     map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y);
@@ -405,7 +414,7 @@ public class HorrorTactics extends BasicGame {
             }
         }
     }
-    
+
     //public void render_game_ui(GameContainer gc, Graphics g, )
     public void render_game_ui(GameContainer gc, Graphics g) {
         map.player.iconImage.draw(5, 50);
@@ -473,7 +482,7 @@ public class HorrorTactics extends BasicGame {
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150);
             g.setColor(white);
             //this.uniFont.drawString(400, gc.getScreenHeight() - 100, this.map.planning[this.map.planevent], Color.white );
-            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight() - 100 );
+            g.drawString(this.map.planning[this.map.planevent], 400, gc.getScreenHeight() - 100);
         } else if (this.map.turn_order.equalsIgnoreCase("event spotted")) {
             //null pointer if there is no event spotted
             map.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600);
@@ -553,7 +562,8 @@ public class HorrorTactics extends BasicGame {
             appgc.setTargetFrameRate(60); //trying to slow down fast computers.
             appgc.start();
 
-        } catch (SlickException ex) {        }
+        } catch (SlickException ex) {
+        }
     }
 
     public void setGameState(String state) {
@@ -602,10 +612,18 @@ public class HorrorTactics extends BasicGame {
 
     public boolean getTileToBeFiltered(int x, int y) { //if its outside 2 steps
         if (getTileToBeRendered(x, y)) {
-            if (x < map.player.tilex - 2
-                    || x > map.player.tilex + 2
-                    || y < map.player.tiley - 2
-                    || y > map.player.tiley + 2) {
+            /*for (int i = 0; i < map.follower_max; i++) {
+                if (x < map.follower[i].tilex - 2
+                        || x > map.follower[i].tilex + 2
+                        || y < map.follower[i].tiley - 2
+                        || y > map.follower[i].tiley + 2) {
+                    return false;
+                } 
+            }*/
+            if (x < map.player.tilex - 3
+                    || x > map.player.tilex + 3
+                    || y < map.player.tiley - 3
+                    || y > map.player.tiley + 3) {
                 return true;
             }
         }

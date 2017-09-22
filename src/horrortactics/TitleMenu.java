@@ -36,6 +36,9 @@ public class TitleMenu {
     Rectangle m_rect;
     Rectangle popup;
     Color wc;
+    Rectangle slot1; // = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
+    Rectangle slot2; // = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
+    Rectangle slot3; // = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
     
     public TitleMenu (HorrorTactics ht) throws SlickException  {
         menu_state = "newgame";
@@ -56,6 +59,9 @@ public class TitleMenu {
         //title_music.addListener(ml);    
         //ml = new MusicListener();
         wc = new Color(20,20,20,200);
+        slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
+        slot2 = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
+        slot3 = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
            
     }
     public void render(HorrorTactics ht, Graphics g) {
@@ -89,12 +95,18 @@ public class TitleMenu {
         Rectangle options_rect = new Rectangle(menux+28, menuy+238, 334,66);
         Rectangle credits_rect = new Rectangle(menux+28, menuy+324, 334,66);
         Rectangle exit_rect = new Rectangle(menux+28, menuy+414, 334,66);
+        //Rectangle slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
+        //Rectangle slot2 = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
+        //Rectangle slot3 = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
         if(ht.game_state.equalsIgnoreCase("title start") || ht.game_state.equalsIgnoreCase("title ingame")) {
             if (newgame_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 ht.game_state = "tactical"; //go through the list of               
-            } else if(loadgame_rect.contains(x,y) && show_window.equalsIgnoreCase("none")) {
+            } else if(loadgame_rect.contains(x,y) && show_window.equalsIgnoreCase("none") && ht.game_state.equalsIgnoreCase("title start")) {
                 //load game
                 this.show_window = "load";
+            } else if(loadgame_rect.contains(x,y) && show_window.equalsIgnoreCase("none") && ht.game_state.equalsIgnoreCase("title ingame"))  {
+                //save game
+                this.show_window = "save";
             } else if(options_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 //display options
                 this.show_window = "options";
@@ -106,6 +118,17 @@ public class TitleMenu {
                 ht.setGameState("exit");
                 //gc.exit();
             } else if(show_window.equalsIgnoreCase("load")) { //define a button here
+                show_window = "none";
+            } else if(show_window.equalsIgnoreCase("save")) { //define a button here
+                //You wanted to save the game at slot ?
+                if(this.slot1.contains(x, y)) {
+                    //save to this file
+                    ht.playerfile.savePlayerMapData(ht, "1");
+                }else if(this.slot2.contains(x, y)) {
+                    ht.playerfile.savePlayerMapData(ht, "2");
+                }else if(this.slot3.contains(x, y)) {
+                    ht.playerfile.savePlayerMapData(ht, "3");
+                }
                 show_window = "none";
             } else if(show_window.equalsIgnoreCase("credits")) {
                 show_window = "none";
@@ -189,23 +212,36 @@ public class TitleMenu {
         }
     }
     public void renderLoadGame(HorrorTactics ht, Graphics g) {
-        if(this.show_window.equalsIgnoreCase("load")) {
-            
-            Rectangle slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
-            Rectangle slot2 = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
-            Rectangle slot3 = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
+        if(this.show_window.equalsIgnoreCase("load") || this.show_window.equalsIgnoreCase("save")) {
+            //Rectangle slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
+            //Rectangle slot2 = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
+            //Rectangle slot3 = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
             g.setColor(this.wc);
             g.fillRect(popup.getX(),popup.getY(), popup.getWidth(), popup.getHeight());
-            g.setColor(Color.white);
+            g.setColor(Color.black);
             g.fillRect(slot1.getX(), slot1.getY(), slot1.getWidth(), slot1.getHeight());
             g.fillRect(slot2.getX(), slot2.getY(), slot2.getWidth(), slot2.getHeight());
             g.fillRect(slot3.getX(), slot3.getY(), slot3.getWidth(), slot3.getHeight());
             g.setColor(Color.white);
-            g.drawString("Load Game", popup.getX()+200, popup.getY()+10);
-            g.setColor(Color.black);
+            if(this.show_window.equalsIgnoreCase("load")) {
+                g.drawString("Load Game", popup.getX()+200, popup.getY()+10);
+            }
+            else {
+                g.drawString("Save Game", popup.getX()+200, popup.getY()+10);
+            }
+            g.setColor(Color.white);
+            //see if the slots exist (filenames) then post a pic of they do.
+            renderSaveSlot(ht, g, "Save1.txt");
             g.drawString("Save Slot 1", slot1.getX()+10, slot1.getY()+10);
+            
             g.drawString("Save Slot 2", slot2.getX()+10, slot2.getY()+10);
             g.drawString("Save Slot 3", slot3.getX()+10, slot3.getY()+10);
         }
     }
+    public void renderSaveSlot(HorrorTactics ht, Graphics g, String f) {
+        if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_streets01, slot1.getX(), slot1.getY());
+        }
+    }
 }
+
