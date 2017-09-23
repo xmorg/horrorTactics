@@ -241,7 +241,13 @@ public class TitleMenu {
     public void renderSaveSlot(HorrorTactics ht, Graphics g, String f) {
         if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
             g.drawImage(ht.prev_streets01, slot1.getX(), slot1.getY());
-        }
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_streets01, slot1.getX(), slot1.getY());
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("tutorial01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_tutorial01, slot1.getX(), slot1.getY());
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("class_school01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_tutorial01, slot1.getX(), slot1.getY());
+        }//prev_tutorial01
     }
 }
 

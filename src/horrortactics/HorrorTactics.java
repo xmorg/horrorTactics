@@ -62,7 +62,7 @@ public class HorrorTactics extends BasicGame {
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     Image level_up_icon; //level_up_icon.png
-    Image prev_streets01,prev_apartment1;
+    Image prev_streets01,prev_apartment1, prev_tutorial01;
 
     Actor playersave;
     TitleMenu titlemenu;
@@ -96,8 +96,8 @@ public class HorrorTactics extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //map = new MyTiledMap("data/class_school01.tmx", 0, 0);
-        //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
-        map = new MyTiledMap("data/streets01.tmx", 0, 0);
+        map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
+        //map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
         ksa = new KeyActions();
         titlemenu = new TitleMenu(this);
@@ -129,6 +129,7 @@ public class HorrorTactics extends BasicGame {
         
         prev_streets01 = new Image("data/prev_streets01.jpg");
         prev_apartment1 = new Image("data/prev_apartment1.jpg");
+        prev_tutorial01 = new Image("data/prev_tutorial01.jpg");
         
         enemy_moving_message = new Image("data/enemy_moving.png");
         myfilter = new Color(1f, 1f, 1f, 1f);
