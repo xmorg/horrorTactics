@@ -492,6 +492,7 @@ public class HorrorTactics extends BasicGame {
             g.setColor(white);
             //uniFont.drawString(400, gc.getScreenHeight() - 100, map.EventSpotted_m, Color.white);
             //set all monsters to spotted true (if false)
+            g.drawString(map.EventSpotted_m, 400, gc.getScreenHeight() - 100);
             for (int i = 0; i < map.monster_max; i++) {
                 map.monster[i].spotted_enemy = true;
             }
