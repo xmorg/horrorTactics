@@ -30,13 +30,27 @@ public class SaveMyFile {
         }
     }
 
+    public void saveActorData(Actor a, String a_type, BufferedWriter out) throws java.lang.Exception {
+        //out.write(mapname + ";");
+        out.write(a_type + "{"+a.name + ";");
+        out.write(Integer.toString(a.draw_x)+";");
+        out.write(Integer.toString(a.draw_y)+";");
+        //more stuff.
+        out.write("}");
+    }
     public void savePlayerMapData(HorrorTactics ht, String slot) { //save your progress
-        try {
+        try { //putting the relevent map, player, follower, monster info into a file.
             FileWriter fstream = new FileWriter("Save" + slot + ".txt");
             BufferedWriter out = new BufferedWriter(fstream);
             //out.write("String newmap");
             out.write(ht.map.mapname + ";");
-            out.write(ht.map.player.name + ";");
+            saveActorData(ht.map.player, "player" ,out);
+            for(int i=0; i < ht.map.follower_max; i++) {
+                saveActorData(ht.map.follower[i], "follower", out);
+            }
+            for(int i=0; i < ht.map.monster_max; i++) {
+                saveActorData(ht.map.monster[i], "monster", out);
+            }
             out.close();
         } catch (Exception e) {//Catch exception if any
             System.err.println("Error: " + e.getMessage());
