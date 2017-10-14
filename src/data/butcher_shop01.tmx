@@ -12,7 +12,7 @@
   <property name="planning_1_p" value="prt_player_00.png"/>
   <property name="planning_2" value="The butcher! Hes gone crazy!"/>
   <property name="planning_2_p" value="prt_yukari_00.png"/>
-  <property name="req_goal" value="yes"/>
+  <property name="req_goal" value="no"/>
  </properties>
  <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32" columns="8">
   <image source="tiles250x129.png" width="2000" height="520"/>
@@ -89,7 +89,7 @@
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAXUAH5k6HEGYlcqmgcCjlQ2j1TgTSd7RsEoGAUDDwCcHJdtQAYAAA==
+   H4sIAAAAAAAAC2NgGAXUAH5k6HEGYlcqmgcCjkSY502m2aNgFIyCUYAMACvquExABgAA
   </data>
  </layer>
 </map>

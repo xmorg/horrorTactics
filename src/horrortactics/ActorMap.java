@@ -82,12 +82,17 @@ public class ActorMap {
                         }
                     }else if (pname.equals("Miyu")) { //kendo girl
                         try {
-                            m.follower[follower_loop].changeActorSpritesheet("data/girl01", 218, 313);
+                            m.follower[follower_loop].changeActorSpritesheet("data/girl02", 218, 313);
                             m.follower[follower_loop].swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg");
                             //follower[follower_loop].
                             m.follower[follower_loop].tilex = x;
                             m.follower[follower_loop].tiley = y;
                             m.follower[follower_loop].visible = true;
+                            m.follower[follower_loop].stat_str = m.follower[follower_loop].stat_str+2;
+                            m.follower[follower_loop].health_points = m.follower[follower_loop].health_points+2;
+                            m.follower[follower_loop].health_points_max = m.follower[follower_loop].health_points_max+2;
+                            m.follower[follower_loop].exp_level = 2;
+                            m.follower[follower_loop].stat_luck++;
                             m.follower[follower_loop].name = pname;
                             follower_loop++;
                         } catch (SlickException e) {
@@ -199,6 +204,8 @@ public class ActorMap {
                         m.monster[monster_loop].visible = true;
                         m.monster[monster_loop].name = pname;
                         m.monster[monster_loop].max_turns_till_revival = 0;
+                        m.monster[monster_loop].health_points_max = 20;
+                        m.monster[monster_loop].health_points = 20;
                         m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
                                 "pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg");
                         monster_loop++;

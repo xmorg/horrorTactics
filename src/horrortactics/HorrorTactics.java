@@ -96,7 +96,8 @@ public class HorrorTactics extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //map = new MyTiledMap("data/class_school01.tmx", 0, 0);
-        map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
+        //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
+        map = new MyTiledMap("data/butcher_shop01.tmx", 0, 0);
         //map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
         ksa = new KeyActions();
