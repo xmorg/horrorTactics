@@ -58,11 +58,11 @@ public class HorrorTactics extends BasicGame {
     int turn_count;
     String popup_window = "none";
     Color myfilter, myfiltert, myfilterd;
-    Image button_endturn, button_menu, button_punch, button_items, button_profile;
+    Image button_endturn, button_menu, button_punch, button_items, button_profile, button_shadow;
     Image effect_biff, effect_wiff, effect_shrack;
     Image enemy_moving_message;
     Image level_up_icon; //level_up_icon.png
-    Image prev_streets01,prev_apartment1, prev_tutorial01;
+    Image prev_streets01,prev_apartment1, prev_tutorial01, prev_butcher_shop01;
 
     Actor playersave;
     TitleMenu titlemenu;
@@ -123,6 +123,7 @@ public class HorrorTactics extends BasicGame {
         button_profile = new Image("data/button_profile.png");
         button_endturn = new Image("data/button_endturn2.png");
         button_menu = new Image("data/button_menu.png");
+        button_shadow = new Image("data/button_shadow.png");
         button_punch = new Image("data/button_punch.png");
         effect_biff = new Image("data/soundeffects/biff.png");
         effect_wiff = new Image("data/soundeffects/wiff.png");
@@ -131,6 +132,7 @@ public class HorrorTactics extends BasicGame {
         prev_streets01 = new Image("data/prev_streets01.jpg");
         prev_apartment1 = new Image("data/prev_apartment1.jpg");
         prev_tutorial01 = new Image("data/prev_tutorial01.jpg");
+        prev_butcher_shop01 = new Image("data/prev_butcher_shop01.jpg");
         
         enemy_moving_message = new Image("data/enemy_moving.png");
         myfilter = new Color(1f, 1f, 1f, 1f);
@@ -174,12 +176,13 @@ public class HorrorTactics extends BasicGame {
         if (actor_move_timer >= this.fps) {
             this.actor_move_timer = 0;
         }
-        if (map.player.dead == true) {
+        if (map.player.dead == true && this.game_state.equalsIgnoreCase("tactical")) {
             map.turn_order = "game over";
+            this.game_state = "game over";
         }
         if (map.turn_order.equalsIgnoreCase("game over")) { //update
-            this.game_state = "game over";
-
+            //this.game_state = "game over";
+            //map.turn_order = "";
         } else if (map.turn_order.equalsIgnoreCase("planning")) { //update
             //planning phase.  Show a dialogue.
             //Accept clicks through the dialogue
@@ -418,10 +421,21 @@ public class HorrorTactics extends BasicGame {
     }
 
     //public void render_game_ui(GameContainer gc, Graphics g, )
+    public int getMouseOverBottomButtons(HorrorTactics ht) {
+        //if(ht.map.m)
+        if( msa.menuButtonWasOver(ht) ) {return 100;}
+        else if( msa.endTurnButtonWasOver(ht) ) {return 200;}
+        else if( msa.profileButtonWasOver(ht)) { return 300; }
+        else if( msa.itemsButtonWasOver(ht) ) {return 400;}
+        else {
+            return -100;
+        }
+    }
     public void render_game_ui(GameContainer gc, Graphics g) {
+        int mouseovervar;
+        mouseovervar = getMouseOverBottomButtons(this);
         map.player.iconImage.draw(5, 50);
-        //level_up_icon
-        if (map.player.newLevelUp == true) {
+        if (map.player.newLevelUp == true) { //level_up_icon
             this.level_up_icon.draw(5, 50);
         }
         g.drawString("Action: " + Integer.toString(map.player.action_points),
@@ -444,6 +458,7 @@ public class HorrorTactics extends BasicGame {
         button_profile.draw(gc.getScreenWidth() - 300, gc.getScreenHeight() - 64 - 10);
         button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10);
         button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10);
+        button_shadow.draw(gc.getScreenWidth() -mouseovervar, gc.getScreenHeight() - 64 - 10); //button_shadow
         g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
                 + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
                 + map.turn_order + " mm: " + map.current_monster_moving + "/"

@@ -6,9 +6,9 @@
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="mapname" value="butcher_shop01.tmx"/>
   <property name="nextmap" value="apartment1.tmx"/>
-  <property name="planning_0" value="Help! Hes got my sister!"/>
+  <property name="planning_0" value="We can't go back! They're everywhere!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
-  <property name="planning_1" value="Whats going on?"/>
+  <property name="planning_1" value="The door, in the back."/>
   <property name="planning_1_p" value="prt_player_00.png"/>
   <property name="planning_2" value="The butcher! Hes gone crazy!"/>
   <property name="planning_2_p" value="prt_yukari_00.png"/>
@@ -25,6 +25,7 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
+    <property name="costume" value="player01"/>
    </properties>
   </tile>
   <tile id="1">
@@ -34,7 +35,8 @@
   </tile>
   <tile id="2">
    <properties>
-    <property name="actor_name" value="Miyu"/>
+    <property name="actor_name" value="Officer Ayano"/>
+    <property name="weapon" value="pistol"/>
    </properties>
   </tile>
   <tile id="3">
@@ -79,17 +81,17 @@
  </tileset>
  <layer name="background_layer" width="20" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+NkYGDgHAKYjwI8Us1DZ1NiHro7B6N/R80bNW+4mjdYMQAFqThhQAYAAA==
+   H4sIAAAAAAAAC+NkYGDgHAKYjwI8Us1DZ1NiHro7B5t5QyE+Rs0bNY9c8wYrBgBgQlrrQAYAAA==
   </data>
  </layer>
  <layer name="walls_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZTwzwYhrkTGeAKJ3zxgc88bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAPoTLA9ABgAA
+   H4sIAAAAAAAACzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZT0zyYO5EBrnDCFx8wjM08bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAG3ikdhABgAA
   </data>
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAXUAH5k6HEGYlcqmgcCjkSY502m2aNgFIyCUYAMACvquExABgAA
+   H4sIAAAAAAAAC2NgGAXUAH5k6HEGYlcqmgcCjkSY502m2bjMGwWjYBSMTAAAfvdhUkAGAAA=
   </data>
  </layer>
 </map>

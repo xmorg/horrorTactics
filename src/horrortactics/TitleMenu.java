@@ -233,21 +233,36 @@ public class TitleMenu {
             //see if the slots exist (filenames) then post a pic of they do.
             renderSaveSlot(ht, g, "Save1.txt");
             g.drawString("Save Slot 1", slot1.getX()+10, slot1.getY()+10);
-            
+            renderSaveSlot(ht, g, "Save2.txt");
             g.drawString("Save Slot 2", slot2.getX()+10, slot2.getY()+10);
+            renderSaveSlot(ht, g, "Save3.txt");
             g.drawString("Save Slot 3", slot3.getX()+10, slot3.getY()+10);
         }
     }
+    
+    public Rectangle getSaveSlot(String s) {
+        if(s.equalsIgnoreCase("Save1.txt")) {
+            return slot1;
+        } else if(s.equalsIgnoreCase("Save2.txt")) {
+            return slot2;
+        } else if(s.equalsIgnoreCase("Save3.txt")) {
+            return slot3;
+        }
+        return slot1;
+    }
     public void renderSaveSlot(HorrorTactics ht, Graphics g, String f) {
         if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
-            g.drawImage(ht.prev_streets01, slot1.getX(), slot1.getY());
+            g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
         } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
-            g.drawImage(ht.prev_streets01, slot1.getX(), slot1.getY());
+            g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
         } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("tutorial01.tmx")) { //"Save1ps.txt"
-            g.drawImage(ht.prev_tutorial01, slot1.getX(), slot1.getY());
+            g.drawImage(ht.prev_tutorial01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
         } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("class_school01.tmx")) { //"Save1ps.txt"
-            g.drawImage(ht.prev_tutorial01, slot1.getX(), slot1.getY());
-        }//prev_tutorial01
+            g.drawImage(ht.prev_tutorial01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("butcher_shop01.tmx")) {
+            g.drawImage(ht.prev_butcher_shop01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+        }
+    //prev_tutorial01
     }
 }
 

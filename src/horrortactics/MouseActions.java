@@ -93,6 +93,16 @@ public class MouseActions {
         }
     }
     
+    public boolean endTurnButtonWasOver(HorrorTactics ht) { //, MyTiledMap map) {
+        int bx = ht.screen_width- 200;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) { //press end turn button.
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean endTurnButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
         int bx = ht.screen_width- 200;
         int bw = 92;
@@ -107,13 +117,24 @@ public class MouseActions {
         }
         return false;
     }
+    public boolean menuButtonWasOver(HorrorTactics ht) { //, MyTiledMap map) {
+        int bx = ht.screen_width- 100;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) { //press end turn button.
+            return true;
+        } else {
+            return false;
+        }
+    }
     public boolean menuButtonWasPressed(HorrorTactics ht) { //, MyTiledMap map) {
         int bx = ht.screen_width- 100;
         int bw = 92;
         if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
                 && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) { //press end turn button.
             System.out.println("menu button was pressed.");
-            if (ht.map.getAnyActorMoving() == false) {
+            if (ht.map.getAnyActorMoving() == false || ht.game_state.equalsIgnoreCase("game over")) {
+                //System.out.println("menu was pressed, and it worked."); //we know this is happening on gameover
                 return true;
             } else {
                 System.out.println("menu was pressed, but someone is still moving?");
@@ -121,6 +142,16 @@ public class MouseActions {
             }
         }
         return false;
+    }
+    public boolean profileButtonWasOver(HorrorTactics ht) {
+        int bx = ht.screen_width- 300;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean profileButtonWasPressed(HorrorTactics ht) {
         int bx = ht.screen_width- 300;
@@ -139,6 +170,17 @@ public class MouseActions {
             return true;
         }
         return false;
+    }
+    public boolean itemsButtonWasOver(HorrorTactics ht) {
+        int bx = ht.screen_width- 400;
+        int bw = 92;
+        if (mouse_x >= bx && mouse_y >= ht.screen_height - 64 - 10
+                && mouse_x <= bx + bw && mouse_y <= ht.screen_height - 10) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     public boolean itemsButtonWasPressed(HorrorTactics ht) {
         int bx = ht.screen_width- 400;
