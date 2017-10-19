@@ -62,14 +62,17 @@
  <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
   <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
+ <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_2.png" width="2000" height="2048"/>
+ </tileset>
  <layer name="background_layer" width="50" height="12" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNmYGAwxoMthwjG54dRf9AfG2LBuMSJxZTop9TuUTx48XBJV0PRHwNdzpBbjg6VcnXUH4MLk+oPAIszZFVgCQAA
+   H4sIAAAAAAAACzNmYGAwxoMthwjG54dRf9Afu2DBFjjEicWU6KfU7lE8ePFwSVdD0R9WgxQTKkeHSrk66o/BhUn1BwDZh+WSYAkAAA==
   </data>
  </layer>
  <layer name="walls_layer" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAeBoqs0udYAkAAA==
+   H4sIAAAAAAAAC2NgGAWjYPiDSCCOIAMPNjAY3TQKqAfCycSU6o8kIAcD6OpGwSgYBbgBAAWk3PlgCQAA
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="12">
