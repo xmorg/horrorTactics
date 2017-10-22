@@ -72,7 +72,7 @@
  </layer>
  <layer name="walls_layer" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYPiDSCCOIAMPNjAY3TQKqAfCycSU6o8kIAcD6OpGwSgYBbgBAAWk3PlgCQAA
+   H4sIAAAAAAAAC2NgGAWjYGBAFBKOIMCPhOqJJEItPr3k6KM2iKCRubgArfxBbzAS/BFOJkY2m1S9kQT0Irs3Eof4KBgFowATAABADElNYAkAAA==
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="12">
