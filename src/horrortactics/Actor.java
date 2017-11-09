@@ -68,6 +68,7 @@ public class Actor {
     boolean newLevelUp, expForGoal, expForExitReached;
     int storyline_died; //Did you die in the story, and if you did, can you be replaced by another character.
     SpriteSheet player_knife_sprite, player_club_sprite, player_cleaver_sprite;
+    boolean shadow;
 
     public Actor(String s, int sx, int sy) throws SlickException {
         spriteImage = new Image(s + ".png");
@@ -129,6 +130,7 @@ public class Actor {
         expForExitReached = false;
         player_knife_sprite = new SpriteSheet("data/player00_knife.png", 218, 313);
         player_club_sprite = new SpriteSheet("data/player00_club.png", 218, 313);
+        shadow = true;
     }
 
     //public void changeActorSpriteSheetX
@@ -365,10 +367,11 @@ public class Actor {
                     drawHealthBar(g, Color.red, pdx, pdy, this.health_points, this.health_points_max);
 
                 }
-                g.setColor(lg);
-                //g.fillRect(pdx, pdy+this.sprites.getSprite(0, 0).getHeight()-100, 200, 100);
-                g.fillOval(pdx + 50, pdy + this.sprites.getSprite(0, 0).getHeight() - 50, 100, 50);
-                g.setColor(Color.white);
+                if(this.shadow) { // what if monster has no shadow!?!?!
+                    g.setColor(lg);
+                    g.fillOval(pdx + 50, pdy + this.sprites.getSprite(0, 0).getHeight() - 50, 100, 50);
+                    g.setColor(Color.white);
+                }
                 this.getSpriteframe().draw(pdx, pdy, h.scale_x);//draw actual actor
                 if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("knife")) {
                     this.getSpriteframe(this.player_knife_sprite).draw(pdx, pdy, h.scale_x);

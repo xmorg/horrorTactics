@@ -580,7 +580,7 @@ public class MyTiledMap extends TiledMap {
                     //Euclidian plane? find the shortest distance, then make the route
                     System.out.print("Spotted player: " + monster[i].spotted_enemy + "\n");
                     //int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + this.stat_luck - 1 + this.getAttackPenalty();
-                    int targetActor = ThreadLocalRandom.current().nextInt(0, max_active_followers);
+                    //int targetActor = ThreadLocalRandom.current().nextInt(0, max_active_followers);
                     if (monster[i].spotted_enemy == true) { // you must spot the enemy to beline
                         monster[i].tiledestx = player.tilex;
                         monster[i].tiledesty = player.tiley;

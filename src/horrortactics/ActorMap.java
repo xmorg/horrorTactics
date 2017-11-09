@@ -272,6 +272,7 @@ public class ActorMap {
                         m.monster[monster_loop].visible = true;
                         m.monster[monster_loop].name = pname;
                         m.monster[monster_loop].max_turns_till_revival = 4;
+                        m.monster[monster_loop].shadow = false;
                         //set dodge scores
                         monster_loop++;
                     }// add more monsters here;
