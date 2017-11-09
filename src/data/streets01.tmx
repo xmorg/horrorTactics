@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="left-down" width="20" height="60" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" orientation="isometric" renderorder="left-down" width="60" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="mapname" value="streets01.tmx"/>
   <property name="nextmap" value="butcher_shop01.tmx"/>
@@ -65,19 +65,19 @@
  <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512_2.png" width="2000" height="2048"/>
  </tileset>
- <layer name="background_layer" width="20" height="60">
+ <layer name="background_layer" width="60" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3X3QqAIAwFYLE/pYvo/V+2AiUQmW7OtNrFuQn6OOpCskopWzk7MdD71/PVJbcD1Gk8Y1xmgheaHJ4VL+rFZiHlTUgvNcvYfuKJh/k+fExGWno5fonn95e6f1/3hiA5Zw152jmayRsCs3S9UD/q/j3ZzyK9VD+sJ/2k31/6cd9vNe5L7Hp79bZIxLsD/X/00O/tHsc8L8wed7+SpOavdT+qdwA+v04AwBIAAA==
+   H4sIAAAAAAAAC+2VsQ6AMAhESay1uvn/P9vFJqZp6gJy4g1vuoUHAYqIFELIJ9knWb5ybZKz753e91QG2Xcz8l1Bff823+j761WDh+8CUAt97XxH2WEEgu/oF1ncKtR71W6z9i9C+r9v+SLOt2VRfZ96EWV/SWwqKz+KN8ASAAA=
   </data>
  </layer>
- <layer name="walls_layer" width="20" height="60">
+ <layer name="walls_layer" width="60" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA92XUQqDMAyGC97Et4lzU3B70jt4/8tMwUAJaUyTdHP+8CNW8tkmNNY6hFA7eUiMS3Qnxvr92iSe5yrmeWhw4oDG1TdkK6+PDLwHE8M96wPN02pQ8rrV7X71mB/mwP2ZeM8vzM9SD+r+TPlrC82vQzzP/Yv7C85LrnDfs/K2+Dh/s5HXIN50Md5MmOJxPTiHNwoY8btw/TQ8HM/xNPkryfOob0medb24fvPOAFv3L8Rv614M8RTPMh+Q9QxJ8Sz9/qi+70I86flvi6+c51dFTMzT5i/+1/DoV6+g76exqD1gWe8RT1qPibGWlxr/J560HhxP0w84HiinB3I87KvwpM4RlXOKJz2vSXmc4F3U2Q9/z3PW+yveInSK9wEyKgTXwBIAAA==
+   H4sIAAAAAAAAC92W0QrCIBSGz01Fr9HdWFEGa1f2CEGXvf+LpKR0OPPoDHXtfPAjjA39OGcqwAdlcjXpUe4/ZC1Y3xN5Jt2XQl1uLlJ9JcDVQ6rvCFNfBd/9iuNSeV2lebgx5OuZW+NjqUVVpKQvR6oHWvYI9rWE/t9YP68N7zu4kfpKcrWkfAeQRaqfpfl6uP1KWj97/sl3a7JHqQHnu8T+TH03FeaI3e9zz196np5nvINpUV/rOKIoyLtPlrxbtfDFaDK2ZgdtfDUKwHK+JerbucTQgTyZvDKCvztEQufoCqYPBHu+AQJHyWnAEgAA
   </data>
  </layer>
- <layer name="actors_layer" width="20" height="60">
+ <layer name="actors_layer" width="60" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAXEAFcametIJXOcqWTOKBgFo2DoAE8K5Ucq8MIhPhpewwOMxuPIA6NxPgrwgdH0MQoIAT8i8CgYBaNgcAAA+KLWUMASAAA=
+   H4sIAAAAAAAAC2NgGAWjYBSMglHgicT2IlH9KBgF6ICYNIQOXKnuilEw2IDzANg5UGWV4wDZOwpGwUgDhOqb0fbKKBgFo2A4AQBgPrfTwBIAAA==
   </data>
  </layer>
 </map>
