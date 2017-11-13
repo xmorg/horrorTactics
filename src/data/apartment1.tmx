@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
+  <property name="followers" value="0"/>
   <property name="mapname" value="apartment1.tmx"/>
   <property name="nextmap" value="streets01.tmx"/>
   <property name="planning_0" value="Hello? Anyone there?"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
-  <property name="planning_1" value="end"/>
+  <property name="planning_1" value="Hello?"/>
   <property name="req_goal" value="no"/>
  </properties>
  <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="32" columns="8">
@@ -49,17 +50,17 @@
  </tileset>
  <layer name="background_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3SQQoAIAgFUcltdP/jdgGFnwhRzGK2PkHdzJzo81ahaM4IUl11n253CmU2bv9f4b55X1zdPa3rr7I9cet2NAMXF/eO21HmbkVS3kcQDgAA
+   H4sIAAAAAAAAC+3SQQoAIAgFUcltdP/jdgGFnwhRzGK2PkHdzJzo81ahaM4IUl11n253CmU2bv9f4b55X1zdPa3rr7I9cet2NAMXF/eO21HmbkVS3kcQDgAA
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA8WW0Q7DIAhF/Zv2ZQ+1bsm2/v93LTyYtISLgCy9iUlF4QyHxK2Ust00vsUn2l8Nfmi9cyN6Bv1muTOa4dabuBa/UV0hn8r2VfCNYmmx0RrFXU/zD9jHfWa5ZH8YWGfxGo9yZ4Vqb3TO70kOuuPZ+XKfKJfXcheqZR4res4NrHVRvS8sHo9POhxcsu8DruSjza1crgN8R7nSPSW7t56z+pVXEjfSnzO4ve4as1vvkXWg37Ezuydfsq2D9VEMC7ePl7BXupsertbLWsG9w5KvFltb28v1f9Fykzh97u1X2jvV8p6M9klNEjerX62CXYuZVc8Z3AXsi55zRr7/Gtr74AdtjvwqEA4AAA==
+   H4sIAAAAAAAAC8WW0Q7DIAhF/Zv2ZQ+1bsm2/v93LTyYtISLgCy9iUlF4QyHxK2Ust00vsUn2l8Nfmi9cyN6Bv1muTOa4dabuBa/UV0hn8r2VfCNYmmx0RrFXU/zD9jHfWa5ZH8YWGfxGo9yZ4Vqb3TO70kOuuPZ+XKfKJfXcheqZR4res4NrHVRvS8sHo9POhxcsu8DruSjza1crgN8R7nSPSW7t56z+pVXEjfSnzO4ve4as1vvkXWg37Ezuydfsq2D9VEMC7ePl7BXupsertbLWsG9w5KvFltb28v1f9Fykzh97u1X2jvV8p6M9klNEjerX62CXYuZVc8Z3AXsi55zRr7/Gtr74AdtjvwqEA4AAA==
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3UMQEAAAgCQas5utg/jjEQ/SsAC0TsUOoCgBgbgItUF8BJfKC/fpYLXDGtuCtHEA4AAA==
+   H4sIAAAAAAAAC2NgGBzAc6AdMApGwQCD0TwwCoYKcBxoB4yCUTAKBiXwG2H2joJRMFwAAKZI/9kQDgAA
   </data>
  </layer>
 </map>

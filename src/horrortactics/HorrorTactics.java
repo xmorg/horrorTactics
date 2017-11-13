@@ -25,7 +25,7 @@ import org.newdawn.slick.SpriteSheet;
 //import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
-import java.awt.Font;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  *
@@ -71,26 +71,36 @@ public class HorrorTactics extends BasicGame {
     String game_state = "title start"; //title start, title ingame, tactical,conversation,cutscene
     String fullscreen_toggle = "Yes";
     String sound_toggle = "Yes";
-    java.awt.Font UIFont1;
-    org.newdawn.slick.UnicodeFont uniFont;
+    //java.awt.Font UIFont1;
+    //org.newdawn.slick.UnicodeFont uniFont;
+    TrueTypeFont ttf;
+    java.awt.Font font;
 
     public HorrorTactics(String gamename) {
         super(gamename);
         try {
-            //jf = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, org.newdawn.slick.util.ResourceLoader.getResourceAsStream("data/School_Writing.ttf"));
-            UIFont1 = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT,
-                    org.newdawn.slick.util.ResourceLoader.getResourceAsStream("data/School_Writing.ttf"));
-            UIFont1 = UIFont1.deriveFont(java.awt.Font.PLAIN, 48.f); //You can change "PLAIN" to "BOLD" or "ITALIC"... and 16.f is the size of your font
 
-            uniFont = new org.newdawn.slick.UnicodeFont(UIFont1);
-            uniFont.addAsciiGlyphs();
-            uniFont.getEffects().add(new ColorEffect(java.awt.Color.white)); //You can change your color here, but you can also change it in the render{ ... }
-            uniFont.addAsciiGlyphs();
-            uniFont.loadGlyphs();
+            //Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            //awtFont2 = awtFont2.deriveFont(24f); // set font size
+            //font2 = new TrueTypeFont(awtFont2, antiAlias);
+            /*
+            try {
+			InputStream inputStream	= ResourceLoader.getResourceAsStream("myfont.ttf");
+ 
+			Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			awtFont2 = awtFont2.deriveFont(24f); // set font size
+			font2 = new TrueTypeFont(awtFont2, antiAlias);
+                        //http://ninjacave.com/slickutil3
+		}
+            */
+            
+            ttf = new TrueTypeFont(font, true);
+            playerfile = new SaveMyFile();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        playerfile = new SaveMyFile();
+       
     }
 
     @Override

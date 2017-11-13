@@ -15,6 +15,7 @@ import org.newdawn.slick.Graphics;
 //import java.lang.Math.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.Font;
 
 /**
  * Actor class is to encap the actor methods and data
@@ -390,7 +391,14 @@ public class Actor {
                 } else { //show damage
                     g.setColor(Color.red);
                 }
-                g.drawString(this.action_msg, pdx + 50, pdy);
+                //g.pushTransform();
+                //g.translate(-100, -100);
+                //g.scale(2.0f, 2.0f);
+                //h.ttf.drawString(pdx  + 50, pdy, this.action_msg);
+                h.ttf.drawString(pdx  + 50, pdy, this.action_msg, Color.red);
+                //h.ttf.d
+                //g.drawString(this.action_msg, pdx  + 50, pdy );
+                //g.popTransform();                
             }
         }
     }

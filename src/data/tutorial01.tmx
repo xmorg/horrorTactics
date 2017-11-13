@@ -7,6 +7,7 @@
   <property name="event_spotted_m1" value="Takeshi: Go on ahead! ill take care of these losers!"/>
   <property name="event_spotted_p" value="prt_player_00.png"/>
   <property name="event_spotted_p1" value="prt_player_00.png"/>
+  <property name="followers" value="1"/>
   <property name="mapname" value="tutorial01.tmx"/>
   <property name="nextmap" value="class_school01.tmx"/>
   <property name="planning_0" value="Hello Class. Today we will learn the basics."/>

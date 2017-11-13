@@ -685,8 +685,8 @@ public class MyTiledMap extends TiledMap {
     }
 
     public void set_party_min_renderables() {
-        int current_min_y = 0;
-        int current_min_x = 0;
+        int current_min_y = this.player.tiley; 
+        int current_min_x = this.player.tilex;
         int current_max_y = 0;
         int current_max_x = 0;
         if (this.player.tiley < current_min_y) {
@@ -702,16 +702,16 @@ public class MyTiledMap extends TiledMap {
             current_max_x = this.player.tilex;
         }
         for (int i = 0; i < this.follower_max; i++) {
-            if (this.follower[i].tiley < current_min_y) {
+            if (this.follower[i].visible && this.follower[i].tiley < current_min_y) {
                 current_min_y = this.follower[i].tiley;
             }
-            if (this.follower[i].tilex < current_min_x) {
+            if (this.follower[i].visible && this.follower[i].tilex < current_min_x) {
                 current_min_x = this.follower[i].tilex;
             }
-            if (this.follower[i].tiley > current_max_y) {
+            if (this.follower[i].visible && this.follower[i].tiley > current_max_y) {
                 current_max_y = this.follower[i].tiley;
             }
-            if (this.follower[i].tilex > current_max_x) {
+            if (this.follower[i].visible && this.follower[i].tilex > current_max_x) {
                 current_max_x = this.follower[i].tilex;
             }
         }
@@ -719,6 +719,11 @@ public class MyTiledMap extends TiledMap {
         this.render_min_x = current_min_x;
         this.render_max_y = current_max_y;
         this.render_max_x = current_max_x;
+        System.out.print(
+                "render_min_x:"+ this.render_min_x+ 
+                " render_min_y:"+this.render_min_y + 
+                " render_max_x:"+this.render_max_x+ 
+                " render_max_y:" +this.render_max_y  );
     }
 
     void mouse_over_actor(int x, int y) {
