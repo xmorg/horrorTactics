@@ -73,8 +73,6 @@ public class HorrorTactics extends BasicGame {
     String game_state = "title start"; //title start, title ingame, tactical,conversation,cutscene
     String fullscreen_toggle = "Yes";
     String sound_toggle = "Yes";
-    //java.awt.Font UIFont1;
-    //org.newdawn.slick.UnicodeFont uniFont;
     TrueTypeFont ttf;
     
 
