@@ -8,6 +8,8 @@ package horrortactics;
 
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
+import java.io.InputStream;
+import org.newdawn.slick.util.ResourceLoader;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -74,10 +76,11 @@ public class HorrorTactics extends BasicGame {
     //java.awt.Font UIFont1;
     //org.newdawn.slick.UnicodeFont uniFont;
     TrueTypeFont ttf;
-    java.awt.Font font;
+    
 
     public HorrorTactics(String gamename) {
         super(gamename);
+        
         try {
 
             //Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
@@ -94,7 +97,9 @@ public class HorrorTactics extends BasicGame {
 		}
             */
             
-            ttf = new TrueTypeFont(font, true);
+            //ttf = new TrueTypeFont(font, true);
+            
+            
             playerfile = new SaveMyFile();
             
         } catch (Exception e) {
@@ -154,6 +159,18 @@ public class HorrorTactics extends BasicGame {
         level_up_icon = new Image("data/level_up_icon.png");
         music = new Music("data/soundeffects/anxiety_backwards.ogg");
 
+        try {
+            //InputStream inputStream = ResourceLoader.getResourceAsStream("data/School_Writing.ttf");
+            InputStream inputStream = ResourceLoader.getResourceAsStream("data/FantasqueSansMono-Bold.ttf");
+            //java.awt.Font awtFont = new java.awt.Font(inputStream, java.awt.Font.BOLD, 24);
+            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream);
+            awtFont = awtFont.deriveFont(48f);
+            //awtFont.deriveFont(bold)
+            ttf = new TrueTypeFont(awtFont, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     @Override

@@ -349,6 +349,8 @@ public class Actor {
         //Rectangle health_bar_s = new Rectangle(0,0,0,0);
         //int x = (int)(((double)a/(double)b) * 100);
         Color lg = new Color(0, 0, 0, 80);
+        Color textcolor = Color.white;
+        
         int ph = (int) (((double) this.health_points / (double) this.health_points_max) * 100 / 2);
         if (this.isAtTileXY(x, y) == true) {
             int pdx = h.screen_x + h.draw_x + this.draw_x;
@@ -388,14 +390,18 @@ public class Actor {
             if (this.action_msg_timer > 0) {
                 if (this.action_msg.equalsIgnoreCase("miss")) {
                     g.setColor(Color.white);
+                    textcolor = Color.white;
                 } else { //show damage
                     g.setColor(Color.red);
+                    textcolor = Color.red;
                 }
                 //g.pushTransform();
                 //g.translate(-100, -100);
                 //g.scale(2.0f, 2.0f);
                 //h.ttf.drawString(pdx  + 50, pdy, this.action_msg);
-                h.ttf.drawString(pdx  + 50, pdy, this.action_msg, Color.red);
+                h.ttf.drawString(pdx  + 50-2, pdy+2, this.action_msg, Color.black);
+                h.ttf.drawString(pdx  + 50, pdy, this.action_msg, textcolor);
+                
                 //h.ttf.d
                 //g.drawString(this.action_msg, pdx  + 50, pdy );
                 //g.popTransform();                
