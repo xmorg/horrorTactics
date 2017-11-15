@@ -48,6 +48,9 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_2.png" width="2000" height="2048"/>
+ </tileset>
  <layer name="background_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3SQQoAIAgFUcltdP/jdgGFnwhRzGK2PkHdzJzo81ahaM4IUl11n253CmU2bv9f4b55X1zdPa3rr7I9cet2NAMXF/eO21HmbkVS3kcQDgAA
@@ -55,7 +58,7 @@
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC8WW0Q7DIAhF/Zv2ZQ+1bsm2/v93LTyYtISLgCy9iUlF4QyHxK2Ust00vsUn2l8Nfmi9cyN6Bv1muTOa4dabuBa/UV0hn8r2VfCNYmmx0RrFXU/zD9jHfWa5ZH8YWGfxGo9yZ4Vqb3TO70kOuuPZ+XKfKJfXcheqZR4res4NrHVRvS8sHo9POhxcsu8DruSjza1crgN8R7nSPSW7t56z+pVXEjfSnzO4ve4as1vvkXWg37Ezuydfsq2D9VEMC7ePl7BXupsertbLWsG9w5KvFltb28v1f9Fykzh97u1X2jvV8p6M9klNEjerX62CXYuZVc8Z3AXsi55zRr7/Gtr74AdtjvwqEA4AAA==
+   H4sIAAAAAAAAC8WWzQ6DMAjHeRu97GB1S7b5Gjv6/q+xcCCpDGihZP4Tkn7hr1SKLgBwXGRv8AnXlw4/bZ64Ed2DfqPcEY1wy0XcpXONZBYX5wtbX5R2bdLePmzc4uJzX1X/pod18pG4XK14veI5/i8ul5Z7rXN+DnK0O54dL/eJcnkuk7Rc5tzoOW/KHAnvx8T2yveO2h1c9FkbXMnH6vdyuXalHeVKNQF9vPmcEW+k7kvcSH3O4FLe1TnquUe9pu2jzlFvvDg2V23+ncnKZ7IH/MYj3U0PV6tl6LOBXju086hl1UmLu8L5vVixSRzqe+uV9Z/a8z8ZrZOWJG5WvZqFceuZWfmcwZ2EdSPnnBHvFfYFFtoomRAOAAA=
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">

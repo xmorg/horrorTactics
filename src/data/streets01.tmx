@@ -72,7 +72,7 @@
  </layer>
  <layer name="walls_layer" width="60" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2YTQ6CMBBGu9J4DXeIBjFBVngEE5fe/yK2YSZMhk4LpVRsfMmXhvDjPFpKRameWuemU5I8AnLRqeCa3cJgHXVASks6NVBDrZQQX8pSX1rb3BjOrJ4TuyaHu9whU325tw/puFBfA3X2+W4F85xRF7ON957vw/2I1B9b9l1Cq8a+tvvCua5cV2ye0Np8kal9zOeBLRLTV8I3BlKOEeprsD2/rvH8a6BvAy33zcnV4PNtVF74xnNuvog0X+U2npG/b09u8zPiWt/Pff/y92k14ZjUGMeWRFpnc7DumGurnc4BkoKOtanZq8F3TWf+n/pbvrR/Q30LiAvbt4SXkPeM0POOjvDfKCJG+o6D+QCdHH/VwBIAAA==
+   H4sIAAAAAAAAC+2YTQ6CMBBGZ6XxGu4QDdYEWdUjmLh04f2vYRs6YTL2B0qp2PiSL90U6KNDKQD0CJWLSk1yi8hJpTHnlDOD43hFpLZEwoAwY6XE+FLm+iIxvpojG8+B+XK4y9VkrC/3DuHqF+uroc4h37Vg88F7H/J1zceafefQwaevgGG9cnFeeFypuZvW5ouMnWO+DqyRlL4uQjWQs0aor8b2/Prq+ddA39a03LckV03It4WyCNVzab6Ia70qrZ6Rv29Paesz4tvfT33/8vdpM6JPbrRjRyJg2n4y5d5qo7IzyYFkbW62MPgu6cy/qb/lS+c31rcy8WH7l/Bw5Dkh9Li9J/waVcK4/uNg3o3dv13AEgAA
   </data>
  </layer>
  <layer name="actors_layer" width="60" height="20">
