@@ -69,6 +69,9 @@
  <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
   <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
+ <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_2.png" width="2000" height="2048"/>
+ </tileset>
  <layer name="background_layer" width="50" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3DQQ0AAAwDodNU/+ImYx9IWDVVVVX19QGnj3lvoA8AAA==
@@ -76,7 +79,7 @@
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1W2w7DIAgldpt92f//buuDCWWAKDibbCc5aRUFTrxgAoB0ckNMg32S/Vvc4Yq3kNOOqNlbc0GI2wPqKzl8eVDiZtR+ka/2z/laqSPS1yodFD3rkeG6lkXDc1JeM5FJu+h4rEgEPvdB73pQX3c55z3g9pVFh3Rft+zcWDwn+r6ycAO9xlE7HdPS4QGugxLrOG8crs9TB6kvi79ZOqJg1YHv5rqHJH+cTdIRTSmvCnw3173PQbNJOqLepxYdd6n5HLT3LjfWG2sWfl1H1DkfxUgN1uphr+1PGw+HIC6aoA8AAA==
+   H4sIAAAAAAAAC+1W7Q7DIAgkdlv7Zw+593+JzR8mlHEKFmeT7pJLqyhw8QMTEaUPF8bU2Yfsv+JGezxBThtjzd6aSyBuwQv0c0hfyTBnBHLclbUf4lv713zN1BHpa5YOCc96rLRfy6zhPiivkVhFO+u4zUiEvveBdz2kr7Occw+0fWXRge7rll0by+dE31cWLlSvcdIux7R0HAGvg4hlnISlVvE4Wh+qg16gem7Jwxsn2qf0ZdHB7+ayh5A/zYZ0RBPlVcDv5rL3NdRsSEfU+9Si4yw1X0PtvauNPRprFK6uI+qc96KnBtfqodf2p41vvUBXRKAPAAA=
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">

@@ -103,7 +103,7 @@
  </layer>
  <layer name="walls_layer" width="40" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NiYGBgGiGYGQnjU8fOgABsDKiAA0ojq+dAks/CQiPLSyOxmdD4+EAGiXpw+YcUwIRkLyl60IEMDnUwjAzY0OgsBtwAm13kAFLcR8icNKq4iDAgNvzQ0y817CUmPVEj/REyH5c4Pvuw5V9K3YEtP6KXC8jixJpLrTKPlmUqAI1LQPpABgAA
+   H4sIAAAAAAAAC2NiYGBgGiGYGQnjU8fOgABsDKiAA0ojq+dAks/CQiPLSyOxmdD4+EAGiXpw+YcUwIRkLyl60IEMDnUwjAzY0OgsBtwAm13kAELuKyXBnDQquYkQIDb80NMvNewlJj1RI/0RMh+XOD77sOVfSt2BLT+ilwvI4sSaS60yj5ZlKgDrTXXYQAYAAA==
   </data>
  </layer>
  <layer name="actors_layer" width="40" height="10">
