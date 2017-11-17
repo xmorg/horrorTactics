@@ -67,12 +67,12 @@
  </tileset>
  <layer name="background_layer" width="50" height="12" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNmYGAwxoMthwjG54dRf9Afu2DBFjjEicWU6KfU7lE8ePFwSVdD0R9WgxQTKkeHSrk66o/BhUn1BwDZh+WSYAkAAA==
+   H4sIAAAAAAAACzNmYGAwxoMthwjG54dRf9Afu2DBFjjEicWU6KfU7lE8ePFwSVcD6Q9ysdUgxYTK0aFSro76Y3BhUv0BAE0BkutgCQAA
   </data>
  </layer>
  <layer name="walls_layer" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYGBAFBKOIMCPhOqJJEItPr3RULFoqDp0PjZ91AYRNDIXF6CVP+gNRoI/wsnEyGaTqjeSgF5k90biEB8Fo2AUYAIAwLWBkGAJAAA=
+   H4sIAAAAAAAAC2NgGAWjYGBAOhBHQXEElE5H48NwJFRPJBY5UvRGQ8WioeqikfTi0kdtEEEjc3EBWvmD3mAk+CMcCceg8fFhZLNJ1Q/SI4amF1l/JA7z8fkjjQJMqX4QjsXjtqEEAgfaAVQCw8UfpKYrAMgGVgJgCQAA
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="12">
