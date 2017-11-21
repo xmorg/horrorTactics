@@ -245,7 +245,19 @@ public class ActorMap {
                         m.monster[monster_loop].name = pname;
                         m.monster[monster_loop].max_turns_till_revival = 2;
                         monster_loop++;
-                    } else if (pname.equalsIgnoreCase("butcher")) {
+                    } else if (pname.equalsIgnoreCase("zombie3")) {
+                        try {
+                            m.monster[monster_loop].changeActorSpritesheet("data/monster12", 218, 313);
+                        } catch (SlickException e) {
+                        }
+                        m.monster[monster_loop].tilex = x;
+                        m.monster[monster_loop].tiley = y;
+                        m.monster[monster_loop].setActorMoving(false);
+                        m.monster[monster_loop].visible = true;
+                        m.monster[monster_loop].name = pname;
+                        m.monster[monster_loop].max_turns_till_revival = 2;
+                        monster_loop++;
+                    }  else if (pname.equalsIgnoreCase("butcher")) {
                         try {
                             m.monster[monster_loop].changeActorSpritesheet("data/monster07", 218, 313);
                         } catch (SlickException e) {

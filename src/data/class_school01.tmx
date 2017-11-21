@@ -4,8 +4,10 @@
   <property name="event_spotted" value="pear monster"/>
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
+  <property name="hint" value="Some monsters resurrect after a few turns."/>
   <property name="mapname" value="class_school01.tmx"/>
   <property name="nextmap" value="apartment1.tmx"/>
+  <property name="obj" value="You left your cellphone in the locker room."/>
   <property name="planning_0" value="I have to get my cell phone."/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="It should be in the locker room on the second pillar, right side."/>

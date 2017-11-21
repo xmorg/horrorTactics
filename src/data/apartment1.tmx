@@ -2,8 +2,10 @@
 <map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="followers" value="0"/>
+  <property name="hint" value="Invisible or ghostly enemies are very hard to hit!"/>
   <property name="mapname" value="apartment1.tmx"/>
   <property name="nextmap" value="streets01.tmx"/>
+  <property name="obj" value="Something is in your apartment. Escape!"/>
   <property name="planning_0" value="Hello? Anyone there?"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="Hello?"/>

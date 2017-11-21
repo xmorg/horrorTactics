@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="60" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
+  <property name="hint" value="Zombie apocalypse! Officer Ayano has a gun."/>
   <property name="mapname" value="streets01.tmx"/>
   <property name="nextmap" value="butcher_shop01.tmx"/>
+  <property name="obj" value="Get to the end of the street."/>
   <property name="planning_0" value="Officer : Citizen! What are you doing outside?!?  There's a curfew!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="There's something in my house... I cant go back!"/>
@@ -54,6 +56,11 @@
     <property name="actor_name" value="zombie2"/>
    </properties>
   </tile>
+  <tile id="11">
+   <properties>
+    <property name="actor_name" value="zombie3"/>
+   </properties>
+  </tile>
   <tile id="13">
    <properties>
     <property name="event_exit" value="exit"/>
@@ -77,7 +84,7 @@
  </layer>
  <layer name="actors_layer" width="60" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglGADLyIUONJBXv80PBwByPBjzAASkOk+teVFg6hIxhJ8QsC5PjXmUp2k1L+UKOsAgFSyytHKtk7CkbBKMAPCLVZqFUGjIJRMApGwWAAAIS6/VnAEgAA
+   H4sIAAAAAAAAC2NgGAWjYBSMglGADLyIUONJBXv80PBwByPBjzAASkOk+teVFg6hIxhu8etDQJ4c/zqT4xAsgJDbkAE1yioQILW8cqSSvaNgFIwC/IBQm4VaZcAoGAWjYBQMBgAAfCFuJMASAAA=
   </data>
  </layer>
 </map>

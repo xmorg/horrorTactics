@@ -656,6 +656,17 @@ public class Actor {
             g.drawString(LevelUpControls + "Willpower: " + this.stat_will, x + 200, y + 160);
             g.drawString(LevelUpControls + "Luck: " + this.stat_luck, x + 200, y + 180);
             g.drawString(LevelUpControls + "Exp: " + this.exp_points, x + 200, y + 200);
+            
+            
+            g.setColor(Color.black);
+            g.drawString("Objective: " +ht.map.objective, r.getX()-1, r.getY()+r.getHeight()+32+1);
+            g.setColor(Color.white);
+            g.drawString("Objective: " +ht.map.objective, r.getX(), r.getY()+r.getHeight()+32);
+            
+            g.setColor(Color.black);
+            g.drawString("Hint: " +ht.map.hint, r.getX()-1, r.getY()+r.getHeight()+64+1);
+            g.setColor(Color.white);
+            g.drawString("Hint: " +ht.map.hint, r.getX(), r.getY()+r.getHeight()+64);
         } else if (ht.popup_window.equalsIgnoreCase("items")) {
             //draw it
             g.setColor(c);
@@ -663,6 +674,16 @@ public class Actor {
             sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
             g.drawString(this.name + "'s Items", x + 200, y + 20);
+            
+            g.setColor(Color.black);
+            g.drawString("Objective: " +ht.map.objective, r.getX()-1, r.getY()+r.getHeight()+32+1);
+            g.setColor(Color.white);
+            g.drawString("Objective: " +ht.map.objective, r.getX(), r.getY()+r.getHeight()+32);
+            
+            g.setColor(Color.black);
+            g.drawString("Hint: " +ht.map.hint, r.getX()-1, r.getY()+r.getHeight()+64+1);
+            g.setColor(Color.white);
+            g.drawString("Hint: " +ht.map.hint, r.getX(), r.getY()+r.getHeight()+64);
 
             if (ht.map.RequiresGoal.equalsIgnoreCase("yes")
                     && ht.map.EventGoal_ran == true) {
@@ -674,11 +695,13 @@ public class Actor {
                 //int pdy = screen_y + draw_y;
                 /* + this.draw_y - 230;*/
                 ht.map.mission_goal.draw(x+200, y+200);
+                
             }
 
         } else {
             //do nothing.
         }
+        
     }
 
     void onLevelUp() {

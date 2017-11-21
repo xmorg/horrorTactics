@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="12" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="event_spotted" value="pear monster"/>
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
-  <property name="hint" value="Dont get bitten."/>
+  <property name="hint" value="Some monsters resurrect after a few turns."/>
   <property name="mapname" value="class_school01.tmx"/>
   <property name="nextmap" value="apartment1.tmx"/>
-  <property name="obj" value="Zombies and subways are a bad combination.  Escape."/>
+  <property name="obj" value="You left your cellphone in the locker room."/>
   <property name="planning_0" value="I have to get my cell phone."/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="It should be in the locker room on the second pillar, right side."/>
@@ -24,6 +24,7 @@
   <tile id="0">
    <properties>
     <property name="actor_name" value="player"/>
+    <property name="costume" value="player00"/>
    </properties>
   </tile>
   <tile id="1">
@@ -55,9 +56,15 @@
   </tile>
   <tile id="14">
    <properties>
-    <property name="event_goal" value="cell phone"/>
+    <property name="event_goal" value="yes"/>
+    <property name="event_goal_graphic" value="mission_cellphone.png"/>
     <property name="event_goal_m" value="I got it! Lets get out of here."/>
     <property name="event_goal_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="weapon_name" value="knife"/>
    </properties>
   </tile>
  </tileset>
@@ -67,19 +74,22 @@
  <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
   <image source="walls250x512_2.png" width="2000" height="2048"/>
  </tileset>
- <layer name="background_layer" width="50" height="12" opacity="0.99">
+ <tileset firstgid="113" name="walls250x512_3" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_3.png" width="2000" height="2048"/>
+ </tileset>
+ <layer name="background_layer" width="50" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNmYGAwxoMthwjG54dRf9Afu2DBFjjEicWU6KfU7lE8ePFwSVcD6Q9ysdUgxYTK0aFSro76Y3BhUv0BAE0BkutgCQAA
+   H4sIAAAAAAAAC+3DQQ0AAAwDodNU/+ImYx9IWDVVVVX19QGnj3lvoA8AAA==
   </data>
  </layer>
- <layer name="walls_layer" width="50" height="12">
+ <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2T0QqAIAxF/Yr+q6dc5mv9/x9UMOEynDFMI/DAoWG7kwU5Nxj0gS5X8IDaizMveglmyHeWbOCzwH0BslrubXyjuRqt9uhNbg8C/4K2R3ou7Ab1k64if2cmkcU8KfPTv4jurIPaak02GTPfuEQs+CWzsX/s0Rbr/Scz6ScTYAkAAA==
+   H4sIAAAAAAAAC91X0Q6DIAzs435zv4Cb+LJ/33wgqV0PWqHBeMlFpdj2ArSaiCj9uDAmw1gCbNkjudERH6BjY6zZW+8SiFvwBOMc0lcyvBOBPW5mz6u41u41XzN1jPQ1S4eEZz0yHddy1/AOyisSWTzvOl4zEqH/feBdD+nrKufcA21fWXSgeq3ZUf/QfI6uVxYupPdFZJdzWjp6wPsgYpknYelVPI42hvqgF6ifW/LwxhntU/qy6OC1uewZDciGdIwmyquA1+YzOjRo5+rsmFXHVXq+htr3rja3N1YU7qjj4cijtg+RLfLbtqcmoP+9mf+Cd+EXfUki4qAPAAA=
   </data>
  </layer>
- <layer name="actors_layer" width="50" height="12">
+ <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYOCBDhX1UmIWpXZTWz2tzRlqdo+CUTAKRsFQAQD4xn97YAkAAA==
+   H4sIAAAAAAAAC+3VMQoAIQxE0VxFsbHRvf/pVnvtAh/kP0g9M1UilOGjCxx0OL/C+VnaukGXSFDijR3bKzskcegfeTPpApIk1A8W6J/ZoA8AAA==
   </data>
  </layer>
 </map>

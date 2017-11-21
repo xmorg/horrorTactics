@@ -108,8 +108,8 @@ public class HorrorTactics extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-        map = new MyTiledMap("data/apartment1.tmx", 0, 0);
-        //map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
+        //map = new MyTiledMap("data/apartment1.tmx", 0, 0);
+        map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
         //map = new MyTiledMap("data/butcher_shop01.tmx", 0, 0);
         //map = new MyTiledMap("data/streets01.tmx", 0, 0);
         msa = new MouseActions();
@@ -513,7 +513,7 @@ public class HorrorTactics extends BasicGame {
             this.map.player.drawPopupWindow(this, g); //who is currently selected?
         }
     }
-
+    
     public void render_character_busts(GameContainer gc, Graphics g) {
         //render character busts while conversation is going on.
         Color black = new Color(0, 0, 0, 180);

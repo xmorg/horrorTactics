@@ -17,10 +17,7 @@
  <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32" columns="8">
   <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
- <tileset firstgid="33" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
-  <image source="walls250x512.png" width="2000" height="2048"/>
- </tileset>
- <tileset firstgid="65" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -62,19 +59,25 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="49" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512.png" width="2000" height="2048"/>
+ </tileset>
+ <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_2.png" width="2000" height="2048"/>
+ </tileset>
  <layer name="background_layer" width="8" height="40" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+NkYGDgHIJYEA3jEh+ueCT5dThjQvGILc0Tyhek5CNuApiDxpiLACa3XMBXViBjAOFPej4ABQAA
+   H4sIAAAAAAAAC+NkYGDgHIJYEA3jEh+ueCT5dThjQvGILc0Tyhek5CNuApiDxpiLACa3XMBXViBjAOFPej4ABQAA
   </data>
  </layer>
  <layer name="walls_layer" width="8" height="40">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA82TUQrAIAxDex1FXO9/OhEUQtBUt58FZJuv0RpcMrM0BmrOOcxVevoYxdYqC4bfyjtrHWpZKfCf8l0fkR/7Qzlw5Y/O33mm/XDdziubqD7iOeDcn9N7lI/K9ySf2/v1Zn3l5/My+7L/Dd/lF/X/CK7YX3Tz/6yyUHenqwEGHN6XAAUAAA==
+   H4sIAAAAAAAAC82SUQrAMAhDvVZH6XKW3f8Qo1AhiMZ9Tijb+ozadMPMxlkcvgfaW+GJs6blMRPG34/Qeq73R8JHo//KUeR1ep6PA8SVfuc9gm92hX5cd+uX1TEbHutn+jg/wnvnj/L3iz+qR/f/dNzrVxHvFwnrzq/utzs/z1/5h2Sf+S24Yn8J5R8CR6Kp9O7nC81fjjQABQAA
   </data>
  </layer>
  <layer name="actors_layer" width="8" height="40" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+NkYGDgpDF2IiDvAsR+eOQdCchzEiE/igcnHgWjYCABAF3o1CYABQAA
+   H4sIAAAAAAAAC+NkYGDgpDFWIiCvAsR6eOQVCchzEiE/igcnHgWjYCABALV3v5kABQAA
   </data>
  </layer>
 </map>

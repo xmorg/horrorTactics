@@ -5,7 +5,7 @@
  */
 package horrortactics;
 
-import java.util.concurrent.ThreadLocalRandom;
+//import java.util.concurrent.ThreadLocalRandom;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet; //lets bring in their spritesheet
 //import org.newdawn.slick.tiled.TileSet;
@@ -43,6 +43,8 @@ public class MyTiledMap extends TiledMap {
     String mapname = "none";
     String old_turn_order = null;    //monster, player
     String log_msg = "";
+    String objective = "";
+    String hint = "";
     String[] planning = new String[20];
     Image selected_green, selected_yellow;
     Image[] charbusts = new Image[20];
@@ -116,6 +118,8 @@ public class MyTiledMap extends TiledMap {
          }*/
         this.next_map = this.getMapProperty("nextmap", "none");
         this.mapname = this.getMapProperty("mapname", "none");  //load the mapname (to save later)
+        this.objective = this.getMapProperty("obj", "none"); //objective
+        this.hint = this.getMapProperty("hint", "none"); //hint
         this.RequiresGoal = this.getMapProperty("req_goal", "no");
         this.EventSpotted = this.getMapProperty("event_spotted", "none");
         this.EventSpotted1 = this.getMapProperty("event_spotted1", "none");
