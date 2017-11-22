@@ -83,7 +83,7 @@
    <properties>
     <property name="event_goal" value="yes"/>
     <property name="event_goal_graphic" value="mission_papers.png"/>
-    <property name="event_goal_m" value="Here there are.  Lets get back to class."/>
+    <property name="event_goal_m" value="Here they are.  Lets get back to class."/>
     <property name="event_goal_p" value="prt_player_00.png"/>
    </properties>
   </tile>
