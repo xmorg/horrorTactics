@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="left-down" width="40" height="10" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="left-down" width="40" height="10" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="event_spotted" value="tutor_bully0"/>
   <property name="event_spotted1" value="tutor_bully0"/>
@@ -16,7 +16,7 @@
   <property name="planning_0_p" value="prt_teacher_00.png"/>
   <property name="planning_1" value="Riku, can you go to my office and get my papers?"/>
   <property name="planning_1_p" value="prt_teacher_00.png"/>
-  <property name="planning_2" value="My office is down the hall to the left."/>
+  <property name="planning_2" value="My office is down the hall."/>
   <property name="planning_2_p" value="prt_teacher_00.png"/>
   <property name="planning_3" value="Takeshi: Ill go with you!"/>
   <property name="planning_3_p" value="prt_fatboy_00.png"/>
@@ -99,17 +99,17 @@
  </tileset>
  <layer name="background_layer" width="40" height="10" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNiYGAwGsWjeBSP4lE8iknEANXr5TFABgAA
+   H4sIAAAAAAAAAzNiYGAwGsWjeBSP4lE8iknEANXr5TFABgAA
   </data>
  </layer>
  <layer name="walls_layer" width="40" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NiYGBgGiGYGQnjU8fOgABsDKiAA0ojq+dAks/CQiPLSyOxmdD4+EAGiXpw+YcUwIRkLyl60IEMDnUwjAzY0OgsBtwAm13kAELuKyXBnDQquYkQIDb80NMvNewlJj1RI/0RMh+XOD77sOVfSt2BLT+ilwvI4sSaS60yj5ZlKgDrTXXYQAYAAA==
+   H4sIAAAAAAAAA2NiYGBgGiGYGQnjU8fOgABsDKiAA0ojq+dAks/CQiPLSyOxmdD4+EAGiXpw+YcUwIRkLyl60IEMDnUwjAzY0OgsBtwAm13kAELuKyXBnDQquYkQIDb80NMvNewlJj1RI/0RMh+XOD77sOVfSt2BLT+ilwvI4sSaS60yj5ZlKgDrTXXYQAYAAA==
   </data>
  </layer>
  <layer name="actors_layer" width="40" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAX0AKpk6NGkuivoC/SpZI4iFjE9KplNK0DIfVp0cQVuMNjDbxQMDQAASy8dJ0AGAAA=
+   H4sIAAAAAAAAA2NgGAX0AKpk6NGkuivoC/SpZI4iFjE9KplNK0DIfVp0cQVuMNjDbxQMDQAASy8dJ0AGAAA=
   </data>
  </layer>
 </map>
