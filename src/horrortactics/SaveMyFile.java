@@ -62,7 +62,8 @@ public class SaveMyFile {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                System.out.println(scanner.nextLine()); //we have the file
+                //parse the string?
             }
             scanner.close();
         } catch (FileNotFoundException e) {

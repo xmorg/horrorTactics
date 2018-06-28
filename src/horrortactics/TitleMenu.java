@@ -39,6 +39,7 @@ public class TitleMenu {
     Rectangle slot1; // = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
     Rectangle slot2; // = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
     Rectangle slot3; // = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
+    SaveMyFile savefile; // savefile = new SaveMyFile(); //to get the functions.
     
     public TitleMenu (HorrorTactics ht) throws SlickException  {
         menu_state = "newgame";
@@ -62,7 +63,7 @@ public class TitleMenu {
         slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
         slot2 = new Rectangle(popup.getX(), popup.getY()+35+103, popup.getWidth(), 100);
         slot3 = new Rectangle(popup.getX(), popup.getY()+35+206, popup.getWidth(), 100);
-           
+        savefile = new SaveMyFile(); //to get the functions.
     }
     public void render(HorrorTactics ht, Graphics g) {
         int tx = ht.mouse_x;
@@ -119,6 +120,16 @@ public class TitleMenu {
                 //gc.exit();
             } else if(show_window.equalsIgnoreCase("load")) { //define a button here
                 show_window = "none";
+                //if clicked on where? load what?
+                if(this.slot1.contains(x, y)) { //you clicked to load save 1
+                    this.savefile.readFile("Save1.txt");
+                }
+                else if (this.slot2.contains(x, y)) { //you clicked to load save 2
+                    this.savefile.readFile("Save2.txt");
+                }
+                else if (this.slot3.contains(x, y)) { //you click to load save 3
+                    this.savefile.readFile("Save3.txt");
+                }
             } else if(show_window.equalsIgnoreCase("save")) { //define a button here
                 //You wanted to save the game at slot ?
                 if(this.slot1.contains(x, y)) {
@@ -155,8 +166,7 @@ public class TitleMenu {
                         newgame_rect.getY()+newgame_rect.getHeight()+10
                 );
             } else if(loadgame_rect.contains(x,y)) {
-                //load game
-                //g.setColor(Color.red);
+                //load game //g.setColor(Color.red);
                 g.drawLine(
                         loadgame_rect.getX(), 
                         loadgame_rect.getY()+loadgame_rect.getHeight(), 
@@ -164,8 +174,7 @@ public class TitleMenu {
                         loadgame_rect.getY()+loadgame_rect.getHeight()
                 );
             } else if(options_rect.contains(x, y)) {
-                //display options
-                //g.setColor(Color.red);
+                //display options //g.setColor(Color.red);
                 g.drawLine(
                         options_rect.getX(), 
                         options_rect.getY()+options_rect.getHeight(), 
@@ -173,8 +182,7 @@ public class TitleMenu {
                         options_rect.getY()+options_rect.getHeight()
                 );
             } else if(credits_rect.contains(x, y)) {
-                //display credits
-                //g.setColor(Color.red);
+                //display credits //g.setColor(Color.red);
                 g.drawLine(
                         credits_rect.getX(), 
                         credits_rect.getY()+credits_rect.getHeight(), 
