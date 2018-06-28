@@ -1,0 +1,1 @@
+butcher_shop01.tmx;player{Riku;0;0;}follower{Officer Ayano;0;0;}follower{Takeshi;0;0;}follower{none;0;0;}follower{none;0;0;}monster{butcher;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}

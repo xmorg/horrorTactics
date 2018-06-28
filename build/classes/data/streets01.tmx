@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="left-down" width="60" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
+ <properties>
+  <property name="hint" value="Zombie apocalypse! Officer Ayano has a gun."/>
+  <property name="mapname" value="streets01.tmx"/>
+  <property name="nextmap" value="butcher_shop01.tmx"/>
+  <property name="obj" value="Get to the end of the street."/>
+  <property name="planning_0" value="Officer : Citizen! What are you doing outside?!?  There's a curfew!"/>
+  <property name="planning_0_p" value="prt_player_00.png"/>
+  <property name="planning_1" value="There's something in my house... I cant go back!"/>
+  <property name="planning_1_p" value="prt_player_00.png"/>
+  <property name="planning_2" value="Officer: Nevermind that! the streets are crawling with phychos!"/>
+  <property name="planning_3" value="Officer: Alright, stay behind me! We need to get back to the station."/>
+  <property name="req_goal" value="no"/>
+ </properties>
+ <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
+  <tile id="0">
+   <properties>
+    <property name="event_spotted" value="iman"/>
+    <property name="event_spotted_m" value="Hello?!?!"/>
+    <property name="event_spotted_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="33" name="walls250x512" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512.png" width="2000" height="2048"/>
+ </tileset>
+ <tileset firstgid="65" name="actor_grid" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+  <image source="actor_grid.png" width="872" height="1248"/>
+  <tile id="0">
+   <properties>
+    <property name="actor_name" value="player"/>
+    <property name="costume" value="player01"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="actor_name" value="Officer Ayano"/>
+    <property name="weapon" value="pistol"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="actor_name" value="Takeshi"/>
+    <property name="health_bonus" value="2"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="actor_name" value="zombie1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="actor_name" value="zombie2"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="actor_name" value="zombie3"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="event_exit" value="exit"/>
+    <property name="event_exit_m" value="The streets are blocked! Hurry, into the butcher shop!"/>
+    <property name="event_exit_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512_2.png" width="2000" height="2048"/>
+ </tileset>
+ <layer name="background_layer" width="60" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WwQqAIAwGYCEr7db7v2yXhJBpovvdqB3+k8n8HKnBORc+mpOI9JrMa15Ob6x8v93j3PFZHUSNWPE+k3upOSMpeVvmcfS85t1B3lWp92/91fb/cntnnp1SSdZFwVrMi/NSYwcovXU4vdRdhHoH+M46SG86m7nvIk337ywv1V9pb+u+j3ql+vu2F+j3xiyvhpgX570Aw0OlEMASAAA=
+  </data>
+ </layer>
+ <layer name="walls_layer" width="60" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YTQ6CMBBGu9J4DXeIRmuCrPAOLl248f6HsA1tmIwz/YMCNr7kSzcV59mxFITokSpXlRrknpCTytlcsxsZW8crITWRTgxIUyskxRcy1teS4qs5onoOyBeDXW4mob7Y2wc3L9VXA519vmuB8rG/vc+XW481+46hFd++Ugz7Fcclc125oHwtoWuM9wGKd0xRGa8zhS+HrweW6JHWjNT/19XPv0pjRuxboquG822IuSXA9XPJvtR+VWo//317St2fXef72Psvvp+eA+aEMtV5RTu2IFLEnSdDzlahbFR2JnPQoXFutmLwzemMn6mX8oXrm+pbmbig3iU8mDwjAj+3dwR/RzVhuPc4Nh9UBCUOwBIAAA==
+  </data>
+ </layer>
+ <layer name="actors_layer" width="60" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglGADLyIUONJBXv80PBwByPBjzAASkOk+teVFg6hIxhu8etDQJ4c/zqT4xAsgJDbkAE1yioQILW8cqSSvaNgFIwC/IBQm4VaZcAoGAWjYBQMBgAAfCFuJMASAAA=
+  </data>
+ </layer>
+</map>

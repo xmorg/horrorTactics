@@ -18,6 +18,7 @@ Tutorial Text
  "The Teacher's office is the second door on the right."
 
 TODO's [art]
+- BUG stop all sounds (walk sounds) when new scene loads.
 - smooth out player's animation
 - takeshi's back animation looks bad.
 - policewoman needs attack and back animations

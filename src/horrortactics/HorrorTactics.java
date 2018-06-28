@@ -10,10 +10,10 @@ package horrortactics;
 //import java.util.logging.Logger;
 import java.io.InputStream;
 import org.newdawn.slick.util.ResourceLoader;
-import java.awt.FontFormatException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.awt.FontFormatException;
+//import java.io.IOException;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -23,10 +23,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Music;
-import org.newdawn.slick.SpriteSheet;
+//import org.newdawn.slick.SpriteSheet;
 //import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
+//import org.newdawn.slick.UnicodeFont;
+//import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.TrueTypeFont;
 
 /**
@@ -276,7 +276,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 100 + map.player.stat_speed - 1 + map.player.getMovePenalty();
+            map.player.action_points = 10 + map.player.stat_speed - 1 + map.player.getMovePenalty();
             //check for level up
             map.player.onLevelUp();
             for (int i = 0; i < map.follower_max; i++) {
