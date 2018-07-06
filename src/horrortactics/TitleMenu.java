@@ -123,12 +123,27 @@ public class TitleMenu {
                 //if clicked on where? load what?
                 if(this.slot1.contains(x, y)) { //you clicked to load save 1
                     this.savefile.readFile("Save1.txt");
+                    try {
+                        ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save1.txt") );
+                    }catch(SlickException e ){
+                        
+                    }
                 }
                 else if (this.slot2.contains(x, y)) { //you clicked to load save 2
                     this.savefile.readFile("Save2.txt");
+                    try {
+                        ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save2.txt") );
+                    }catch(SlickException e ){
+                        
+                    }
                 }
                 else if (this.slot3.contains(x, y)) { //you click to load save 3
                     this.savefile.readFile("Save3.txt");
+                    try {
+                        ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save3.txt") );
+                    }catch(SlickException e ){
+                        
+                    }
                 }
             } else if(show_window.equalsIgnoreCase("save")) { //define a button here
                 //You wanted to save the game at slot ?

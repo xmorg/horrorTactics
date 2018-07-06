@@ -31,12 +31,12 @@ public class SaveMyFile {
     }
 
     public void saveActorData(Actor a, String a_type, BufferedWriter out) throws java.lang.Exception {
-        //out.write(mapname + ";");
-        out.write(a_type + "{"+a.name + ";");
-        out.write(Integer.toString(a.draw_x)+";");
-        out.write(Integer.toString(a.draw_y)+";");
+        //Fix, it should be a_type,a.name,....   ; is for the first split and , is for the second split
+        out.write(a_type + ","+a.name + ",");
+        out.write(Integer.toString(a.draw_x)+",");
+        out.write(Integer.toString(a.draw_y)+",");
         //more stuff.
-        out.write("}");
+        out.write(";");
     }
     public void savePlayerMapData(HorrorTactics ht, String slot) { //save your progress
         try { //putting the relevent map, player, follower, monster info into a file.
@@ -93,5 +93,40 @@ public class SaveMyFile {
             }
         }
         return "none"; // there was no map
+    }
+    public void checkMapSettingsInSaveFile(HorrorTactics ht, String filename) //if a save file exist, get the mapname
+    {
+        //example of what the save file looks like.
+        //butcher_shop01.tmx;player{Riku;0;0;}follower{Officer Ayano;0;0;}follower{Takeshi;0;0;}follower{none;0;0;}follower{none;0;0;}monster{butcher;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}
+        String filedata;
+        //String mapname;
+        File f = new File(filename);
+        if (f.exists() && !f.isDirectory()) {
+            try {
+                int i=0;
+                Scanner scanner = new Scanner(f);
+                filedata = scanner.next();
+                String t[] = filedata.split(";");
+                //mapname = t[0];
+                //map=0;player=1 i=1+(iteratthrough1+i to map.follower_max,follower=2,follower=3-5, monster=6-
+                //monster= i, i= 1+map.follower_max to 1+map.follower_max+map.monster_max
+                //String p[] = t[i].split(",");
+                //NOTE!~ we assume that the current map has already been loaded at this point and can access follower_max and monster_max
+                //^- there is no delination between monsters/followers in the parsing. although type,name,stats and you can test for "type"
+                for(i=0; i < ht.map.follower_max; i++) { //loop through each follower
+                    //for each follower, 
+                    String p[] = t[i+2].split(","); //split the split string
+                    //now for p
+                    
+                }
+                for(i=0; i < ht.map.monster_max; i++) { //loop through each monster
+                    String m[] = t[i+2+ht.map.follower_max].split(","); //split the split string
+                }
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        //return "none"; // there was no map
     }
 }
