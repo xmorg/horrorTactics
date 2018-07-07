@@ -125,6 +125,8 @@ public class TitleMenu {
                     this.savefile.readFile("Save1.txt");
                     try {
                         ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save1.txt") );
+                        this.savefile.checkMapSettingsInSaveFile(ht, "Save1.txt");
+                        ht.game_state = "tactical";
                     }catch(SlickException e ){
                         
                     }
@@ -133,6 +135,8 @@ public class TitleMenu {
                     this.savefile.readFile("Save2.txt");
                     try {
                         ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save2.txt") );
+                        this.savefile.checkMapSettingsInSaveFile(ht, "Save2.txt");
+                        ht.game_state = "tactical";
                     }catch(SlickException e ){
                         
                     }
@@ -141,6 +145,8 @@ public class TitleMenu {
                     this.savefile.readFile("Save3.txt");
                     try {
                         ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save3.txt") );
+                        this.savefile.checkMapSettingsInSaveFile(ht, "Save2.txt");
+                        ht.game_state = "tactical";
                     }catch(SlickException e ){
                         
                     }

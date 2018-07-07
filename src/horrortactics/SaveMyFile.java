@@ -23,7 +23,7 @@ public class SaveMyFile {
         try {
             FileWriter fstream = new FileWriter("Save" + slot + ".txt");
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write("Hello Java");
+            //out.write("Hello Java");
             out.close();
         } catch (Exception e) {//Catch exception if any
             System.err.println("Error: " + e.getMessage());
@@ -33,9 +33,21 @@ public class SaveMyFile {
     public void saveActorData(Actor a, String a_type, BufferedWriter out) throws java.lang.Exception {
         //Fix, it should be a_type,a.name,....   ; is for the first split and , is for the second split
         out.write(a_type + ","+a.name + ",");
-        out.write(Integer.toString(a.draw_x)+",");
-        out.write(Integer.toString(a.draw_y)+",");
-        //more stuff.
+        out.write(Integer.toString(a.tilex)+","); //tilex/y
+        out.write(Integer.toString(a.tiley)+","); //more stuff.        
+        out.write(Boolean.toString(a.dead)+","); //boolean dead;        
+        out.write(Integer.toString(a.health_points)+",");//int health_points, 
+        out.write(Integer.toString(a.health_points_max)+",");//health_points_max; //lose all heath and die
+        out.write(Integer.toString(a.fatigue_points)+",");//int fatigue_points, 
+        out.write(Integer.toString(a.fatigue_points_max)+",");//fatigue_points_max;
+        out.write(Integer.toString(a.mental_points)+",");//int mental_points, 
+        out.write(Integer.toString(a.mental_points_max)+",");//mental_points_max; //lose all mental, and get an attack penalty.        
+        out.write(Integer.toString(a.stat_str)+",");//int stat_str, //health(on level up) and damage
+        out.write(Integer.toString(a.stat_speed)+",");//stat_speed, //movement and dodge
+        out.write(Integer.toString(a.stat_will)+",");//stat_will, //fatigue and health (on level up)
+        out.write(Integer.toString(a.stat_luck)+",");//stat_luck; //chance to dodge / chance to hit
+        out.write(Integer.toString(a.exp_level)+",");//int exp_level, 
+        out.write(Integer.toString(a.exp_points)+",");//exp_points; //level up = exp_level+1 * exp_level+1*10
         out.write(";");
     }
     public void savePlayerMapData(HorrorTactics ht, String slot) { //save your progress
@@ -97,7 +109,7 @@ public class SaveMyFile {
     public void checkMapSettingsInSaveFile(HorrorTactics ht, String filename) //if a save file exist, get the mapname
     {
         //example of what the save file looks like.
-        //butcher_shop01.tmx;player{Riku;0;0;}follower{Officer Ayano;0;0;}follower{Takeshi;0;0;}follower{none;0;0;}follower{none;0;0;}monster{butcher;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}monster{none;0;0;}
+        //tutorial01.tmx;player,Riku,9,7,;follower,Takeshi,10,2,;follower,none,0,0,;follower,none,0,0,;follower,none,0,0,;monster,tutor_bully1,23,2,;monster,tutor_bully0,22,5,;monster,none,0,0,;monster,none,0,0,;monster,none,0,0,;monster,none,0,0,;monster,none,0,0,;monster,none,0,0,;monster,none,0,0,;monster,none,0,0,;
         String filedata;
         //String mapname;
         File f = new File(filename);
@@ -113,14 +125,18 @@ public class SaveMyFile {
                 //String p[] = t[i].split(",");
                 //NOTE!~ we assume that the current map has already been loaded at this point and can access follower_max and monster_max
                 //^- there is no delination between monsters/followers in the parsing. although type,name,stats and you can test for "type"
+                String r[] = t[1].split(","); //player,Riku,9,7,
+                if( r[0].equalsIgnoreCase("player") ){ //its Riku
+                    this.loadActorFromParsedData(ht.map.player, t[1]);
+                }
                 for(i=0; i < ht.map.follower_max; i++) { //loop through each follower
                     //for each follower, 
-                    String p[] = t[i+2].split(","); //split the split string
-                    //now for p
-                    
+                    //String p[] = t[i+2].split(","); //split the split string
+                    this.loadActorFromParsedData(ht.map.follower[i], t[i+2]);                    
                 }
                 for(i=0; i < ht.map.monster_max; i++) { //loop through each monster
-                    String m[] = t[i+2+ht.map.follower_max].split(","); //split the split string
+                    //String m[] = t[i+2+ht.map.follower_max].split(","); //split the split string
+                    this.loadActorFromParsedData(ht.map.monster[i], t[i+2+ht.map.follower_max]);
                 }
                 scanner.close();
             } catch (FileNotFoundException e) {
@@ -128,5 +144,26 @@ public class SaveMyFile {
             }
         }
         //return "none"; // there was no map
+    }
+    public void loadActorFromParsedData(Actor a, String data) {
+        String r[] = data.split(",");
+        a.name = r[1]; //Actor.name
+        a.tilex = Integer.parseInt(r[2]); //Actor.tilex
+        a.tiley = Integer.parseInt(r[3]); //Actor.tiley
+                    //more stuff
+        a.dead = Boolean.valueOf(r[4]);//out.write(Boolean.toString(a.dead)+","); //boolean dead;        
+        a.health_points = Integer.parseInt(r[5]); //out.write(Integer.toString(a.health_points)+",");//int health_points, 
+        a.health_points_max = Integer.parseInt(r[6]); //out.write(Integer.toString(a.health_points_max)+",");//health_points_max;
+        a.fatigue_points = Integer.parseInt(r[7]);//out.write(Integer.toString(a.fatigue_points)+",");//int fatigue_points, 
+        a.fatigue_points_max = Integer.parseInt(r[8]);//out.write(Integer.toString(a.fatigue_points_max)+",");//fatigue_points_max;
+        a.mental_points = Integer.parseInt(r[9]);//out.write(Integer.toString(a.mental_points)+",");//int mental_points, 
+        a.mental_points_max = Integer.parseInt(r[10]);//out.write(Integer.toString(a.mental_points_max)+",");//mental_points_max; //lose all mental, and get an attack penalty.        
+        a.stat_str = Integer.parseInt(r[11]);//out.write(Integer.toString(a.stat_str)+",");//int stat_str, //health(on level up) and damage
+        a.stat_speed = Integer.parseInt(r[12]);//out.write(Integer.toString(a.stat_speed)+",");//stat_speed, //movement and dodge
+        a.stat_will = Integer.parseInt(r[13]);//out.write(Integer.toString(a.stat_will)+",");//stat_will, //fatigue and health (on level up)
+        a.stat_luck = Integer.parseInt(r[14]);//out.write(Integer.toString(a.stat_luck)+",");//stat_luck; //chance to dodge / chance to hit
+        a.exp_level = Integer.parseInt(r[15]);//out.write(Integer.toString(a.exp_level)+",");//int exp_level, 
+        a.exp_points = Integer.parseInt(r[16]);//out.write(Integer.toString(a.exp_points)+",");//exp_points; //level up = exp_level+1 * exp_level+1*10
+        //out.write(";");
     }
 }
