@@ -667,24 +667,20 @@ public class Actor {
             g.drawString("Hint: " +ht.map.hint, r.getX()-1, r.getY()+r.getHeight()+64+1);
             g.setColor(Color.white);
             g.drawString("Hint: " +ht.map.hint, r.getX(), r.getY()+r.getHeight()+64);
-        } else if (ht.popup_window.equalsIgnoreCase("items")) {
-            //draw it
+        } else if (ht.popup_window.equalsIgnoreCase("items")) { //draw it            
             g.setColor(c);
             g.fill(r);
             sprites.getSubImage(0, 0).draw(x - 30, y + 50);
             g.setColor(Color.white);
-            g.drawString(this.name + "'s Items", x + 200, y + 20);
-            
+            g.drawString(this.name + "'s Items", x + 200, y + 20);            
             g.setColor(Color.black);
             g.drawString("Objective: " +ht.map.objective, r.getX()-1, r.getY()+r.getHeight()+32+1);
             g.setColor(Color.white);
-            g.drawString("Objective: " +ht.map.objective, r.getX(), r.getY()+r.getHeight()+32);
-            
+            g.drawString("Objective: " +ht.map.objective, r.getX(), r.getY()+r.getHeight()+32);            
             g.setColor(Color.black);
             g.drawString("Hint: " +ht.map.hint, r.getX()-1, r.getY()+r.getHeight()+64+1);
             g.setColor(Color.white);
             g.drawString("Hint: " +ht.map.hint, r.getX(), r.getY()+r.getHeight()+64);
-
             if (ht.map.RequiresGoal.equalsIgnoreCase("yes")
                     && ht.map.EventGoal_ran == true) {
                 //&& x == this.map.draw_goal_x

@@ -127,6 +127,8 @@ public class TitleMenu {
                         ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save1.txt") );
                         this.savefile.checkMapSettingsInSaveFile(ht, "Save1.txt");
                         ht.game_state = "tactical";
+                        ht.translateToTile(ht.map.player.tilex, ht.map.player.tiley);
+                        //After loading you need to scroll to the player
                     }catch(SlickException e ){
                         
                     }
@@ -137,8 +139,9 @@ public class TitleMenu {
                         ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save2.txt") );
                         this.savefile.checkMapSettingsInSaveFile(ht, "Save2.txt");
                         ht.game_state = "tactical";
+                        ht.translateToTile(ht.map.player.tilex, ht.map.player.tiley);
+                        //After loading you need to scroll to the player
                     }catch(SlickException e ){
-                        
                     }
                 }
                 else if (this.slot3.contains(x, y)) { //you click to load save 3
@@ -147,8 +150,9 @@ public class TitleMenu {
                         ht.loadNewMap( "data/"+this.savefile.checkForMapInSaveFile("Save3.txt") );
                         this.savefile.checkMapSettingsInSaveFile(ht, "Save2.txt");
                         ht.game_state = "tactical";
+                        ht.translateToTile(ht.map.player.tilex, ht.map.player.tiley);
+                        //After loading you need to scroll to the player
                     }catch(SlickException e ){
-                        
                     }
                 }
             } else if(show_window.equalsIgnoreCase("save")) { //define a button here
@@ -261,11 +265,8 @@ public class TitleMenu {
             g.setColor(Color.white);
             //see if the slots exist (filenames) then post a pic of they do.
             renderSaveSlot(ht, g, "Save1.txt");
-            g.drawString("Save Slot 1", slot1.getX()+10, slot1.getY()+10);
             renderSaveSlot(ht, g, "Save2.txt");
-            g.drawString("Save Slot 2", slot2.getX()+10, slot2.getY()+10);
             renderSaveSlot(ht, g, "Save3.txt");
-            g.drawString("Save Slot 3", slot3.getX()+10, slot3.getY()+10);
         }
     }
     
@@ -280,17 +281,29 @@ public class TitleMenu {
         return slot1;
     }
     public void renderSaveSlot(HorrorTactics ht, Graphics g, String f) {
-        if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
+        if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("tutorial01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_tutorial01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("First Class", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("class_school01.tmx")) { //"Save1ps.txt"
             g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("After class nightmare", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
+        }else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("apartment1.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("Invisible", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
         } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("streets01.tmx")) { //"Save1ps.txt"
             g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
-        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("tutorial01.tmx")) { //"Save1ps.txt"
-            g.drawImage(ht.prev_tutorial01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
-        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("class_school01.tmx")) { //"Save1ps.txt"
-            g.drawImage(ht.prev_tutorial01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
-        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("butcher_shop01.tmx")) {
-            g.drawImage(ht.prev_butcher_shop01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("Zombie apocalypse", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("butcher_shop01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("Dead meat", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
+        } else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("subway01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("Zombie line", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
+        }  else if(ht.playerfile.checkForMapInSaveFile(f).equalsIgnoreCase("poolside01.tmx")) { //"Save1ps.txt"
+            g.drawImage(ht.prev_streets01, getSaveSlot(f).getX(), getSaveSlot(f).getY());
+            g.drawString("Drowned Girls", getSaveSlot(f).getX()+10, getSaveSlot(f).getY()+10);
         }
+        
     //prev_tutorial01
     }
 }

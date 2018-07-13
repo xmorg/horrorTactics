@@ -6,6 +6,7 @@
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="hint" value="Some monsters resurrect after a few turns."/>
   <property name="mapname" value="class_school01.tmx"/>
+  <property name="maptitle" value="After class nightmare"/>
   <property name="nextmap" value="apartment1.tmx"/>
   <property name="obj" value="You left your cellphone in the locker room."/>
   <property name="planning_0" value="I have to get my cell phone."/>

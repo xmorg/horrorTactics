@@ -5,7 +5,8 @@
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="mapname" value="butcher_shop01.tmx"/>
-  <property name="nextmap" value="apartment1.tmx"/>
+  <property name="maptitle" value="Dead meat"/>
+  <property name="nextmap" value="subway01.tmx"/>
   <property name="planning_0" value="We can't go back! They're everywhere!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="The door, in the back."/>

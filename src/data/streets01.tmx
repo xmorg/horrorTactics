@@ -3,6 +3,7 @@
  <properties>
   <property name="hint" value="Zombie apocalypse! Officer Ayano has a gun."/>
   <property name="mapname" value="streets01.tmx"/>
+  <property name="maptitle" value="Zombie apocalypse"/>
   <property name="nextmap" value="butcher_shop01.tmx"/>
   <property name="obj" value="Get to the end of the street."/>
   <property name="planning_0" value="Officer : Citizen! What are you doing outside?!?  There's a curfew!"/>

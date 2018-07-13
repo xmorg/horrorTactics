@@ -5,6 +5,7 @@
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="mapname" value="class_school01.tmx"/>
+  <property name="maptitle" value="The howling"/>
   <property name="nextmap" value="apartment1.tmx"/>
   <property name="planning_0" value="I have to get my cell phone."/>
   <property name="planning_0_p" value="prt_player_00.png"/>

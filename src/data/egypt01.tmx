@@ -8,6 +8,7 @@
   <property name="event_spotted_p" value="prt_player_00.png"/>
   <property name="event_spotted_p1" value="prt_player_00.png"/>
   <property name="mapname" value="tutorial01.tmx"/>
+  <property name="maptitle" value="All wrapped up"/>
   <property name="nextmap" value="class_school01.tmx"/>
   <property name="planning_0" value="Hello Class. Today we will learn the basics."/>
   <property name="planning_0_p" value="prt_teacher_00.png"/>
@@ -84,17 +85,17 @@
  </tileset>
  <layer name="background_layer" width="30" height="30" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DAQ0AAAzDoGqbf1EXckhYNVVVVd89TPrWihAOAAA=
+   H4sIAAAAAAAAC+3DAQ0AAAzDoGqbf1EXckhYNVVVVd89TPrWihAOAAA=
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA92UUQ7DIAiGeXVX6MM8wW7Q+1+rfZiJoYA/iGtWEhKjwCcKFCIqN2k99UNXaWdt/RZsuL3HjgRuf0ZsjcSLciVbT7z9q6u42n6Ui+T3r9wKMjzckQ/3k/oM5Vr2kh3XDbCxVON68rGEz4iXw2+WG/XLzPeX3N7f+87Wn49qYaaPZmrVW9eZXOmPkbfb2H417iXF13JC76MJnyVIHHR+jLjI3RDJmll9LC93VvqayOKiNryGkP8dcZD+inClHquKHyoZ9byKu0Lu5Ebq5Kl6ALOpsJAQDgAA
+   H4sIAAAAAAAAC92UUQ7DIAiGeXVX6MM8wW7Q+1+rfZiJoYA/iGtWEhKjwCcKFCIqN2k99UNXaWdt/RZsuL3HjgRuf0ZsjcSLciVbT7z9q6u42n6Ui+T3r9wKMjzckQ/3k/oM5Vr2kh3XDbCxVON68rGEz4iXw2+WG/XLzPeX3N7f+87Wn49qYaaPZmrVW9eZXOmPkbfb2H417iXF13JC76MJnyVIHHR+jLjI3RDJmll9LC93VvqayOKiNryGkP8dcZD+inClHquKHyoZ9byKu0Lu5Ebq5Kl6ALOpsJAQDgAA
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3NAQ0AIAwDsFkh5P4tXsZCaA00AXjHLb2n9E7pBQD+sPmwAtMQDgAA
+   H4sIAAAAAAAAC+3NAQ0AIAwDsFkh5P4tXsZCaA00AXjHLb2n9E7pBQD+sPmwAtMQDgAA
   </data>
  </layer>
 </map>

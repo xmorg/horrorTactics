@@ -677,4 +677,10 @@ public class HorrorTactics extends BasicGame {
         map = new MyTiledMap(newmap, 0, 0); //setup a new map
         map.actormap.getActorLocationFromTMX(map); //get the actor info
     }
+    
+    public void translateToTile(int tx, int ty)//center tile x/y on the screen?
+    {
+        this.draw_x -= this.map.getIsoXToScreen(tx, ty)-(this.screen_width/3);
+        this.draw_y -= this.map.getIsoYToScreen(tx, ty)-(this.screen_height-200);
+    }
 }

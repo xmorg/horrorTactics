@@ -40,6 +40,7 @@ public class MyTiledMap extends TiledMap {
     int selected_follower = 0;
     String turn_order = null;  //monster, player
     String next_map = "none";
+    String maptitle = "unknown map";
     String mapname = "none";
     String old_turn_order = null;    //monster, player
     String log_msg = "";
@@ -52,7 +53,7 @@ public class MyTiledMap extends TiledMap {
     String EventSpotted = "none";
     Image EventSpotted_p = null;
     String EventSpotted_m = "none";
-    boolean EventSpotted_ran = false;
+    boolean EventSpotted_ran = false; //SAVEME!
     String EventSpotted1 = "none";  //TODO: make a loop like in planning.
     Image EventSpotted_p1 = null;   //LOOP: through like in planning during, 
     String EventSpotted_m1 = "none"; //render_character_busts
@@ -117,6 +118,7 @@ public class MyTiledMap extends TiledMap {
          this.charbusts[i] = new Image("data/" + this.getMapProperty("planning_" + i + "_p", "prt_player_00.png"));
          }*/
         this.next_map = this.getMapProperty("nextmap", "none");
+        this.maptitle = this.getMapProperty("maptitle", "unkown map");
         this.mapname = this.getMapProperty("mapname", "none");  //load the mapname (to save later)
         this.objective = this.getMapProperty("obj", "none"); //objective
         this.hint = this.getMapProperty("hint", "none"); //hint
