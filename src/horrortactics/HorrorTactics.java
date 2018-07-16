@@ -569,7 +569,7 @@ public class HorrorTactics extends BasicGame {
         this.render_walls_layer(gc, g);      //render walls (and actors!)
         this.render_game_ui(gc, g);
         this.render_character_busts(gc, g); //bring up the busts, and talk
-        g.drawString("Game Over", gc.getScreenWidth() - 100, gc.getScreenHeight() - 12);
+        g.drawString("Game Over", gc.getScreenWidth()/2 - 100, gc.getScreenHeight()/2 - 12);
     }
 
     public boolean wall_intersect_player(int x, int y, int screen_x, int screen_y) {

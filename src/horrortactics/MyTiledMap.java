@@ -664,14 +664,6 @@ public class MyTiledMap extends TiledMap {
                 monster[this.current_monster_moving].tiley
                 + monster[this.current_monster_moving].facing_y) == false) {
             //see if monster can move around tiles
-            
-            
-            
-            
-            // set a new destination?
-            
-            
-            
             //set back to the original desination?
             this.current_monster_moving++;
         } else if (this.monster[this.current_monster_moving].action_points <= 0) {
@@ -725,11 +717,11 @@ public class MyTiledMap extends TiledMap {
         this.render_min_x = current_min_x;
         this.render_max_y = current_max_y;
         this.render_max_x = current_max_x;
-        System.out.print(
-                "render_min_x:"+ this.render_min_x+ 
-                " render_min_y:"+this.render_min_y + 
-                " render_max_x:"+this.render_max_x+ 
-                " render_max_y:" +this.render_max_y  );
+        //System.out.print(
+        //        "render_min_x:"+ this.render_min_x+ 
+        //        " render_min_y:"+this.render_min_y + 
+        //        " render_max_x:"+this.render_max_x+ 
+        //        " render_max_y:" +this.render_max_y  );
     }
 
     void mouse_over_actor(int x, int y) {

@@ -76,7 +76,7 @@ public class SaveMyFile {
         }
     }
 
-    public void readFile(String fileName) {
+    public boolean readFile(String fileName) {
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
@@ -85,8 +85,10 @@ public class SaveMyFile {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     public String checkForMapInSaveFile(String filename) //if a save file exist, get the mapname
