@@ -599,9 +599,11 @@ public class HorrorTactics extends BasicGame {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new HorrorTactics("Horror Tactics"));
 
-            appgc.setDisplayMode(appgc.getScreenWidth(),
+            appgc.setDisplayMode( //1024, 768, false
+                    appgc.getScreenWidth(),
                     appgc.getScreenHeight(),
-                    true);
+                    true
+            );
             appgc.setTargetFrameRate(60); //trying to slow down fast computers.
             appgc.start();
 
