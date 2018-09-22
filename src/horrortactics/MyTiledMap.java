@@ -219,12 +219,15 @@ public class MyTiledMap extends TiledMap {
 
     public boolean monsterfollowerInTile(int x, int y) {
         for (int i = 0; i < this.monster_max; i++) {
-            if (x == monster[i].tilex && y == monster[i].tiley) {
+            if (x == monster[i].tilex && y == monster[i].tiley
+                    && monster[i].dead == false) {
                 return true;
             }
         }
         for (int i = 0; i < this.follower_max; i++) {
-            if (x == follower[i].tilex && y == follower[i].tiley) {
+            if (x == follower[i].tilex && y == follower[i].tiley
+                    && follower[i].dead == false) { //you can step over dead enemies
+                        //ai hack, our ai is so bad that we will allow realism!
                 return true;
             }
         }
@@ -443,8 +446,10 @@ public class MyTiledMap extends TiledMap {
             } else {
                 System.out.println("t is not null, found " + t.name);
             }
-            monster[this.current_monster_moving].onAttack(ht);
-            monster[this.current_monster_moving].onActorAttackActor(ht, t);
+            if (t.dead == false) {
+                monster[this.current_monster_moving].onAttack(ht);
+                monster[this.current_monster_moving].onActorAttackActor(ht, t);
+            }
             //player at the monster destination is not null
 
         } else {
@@ -593,7 +598,7 @@ public class MyTiledMap extends TiledMap {
                         int best_distance = this.getDistanceOfActors2(player, monster[i]);
                         int try_distance = 0;
                         for (int d = 0; d < this.follower_max; d++) {
-                            if (follower[d].visible == true) {
+                            if (follower[d].visible == true && follower[d].dead == false) { //check if visible and alive(9/22/2018)
                                 try_distance = this.getDistanceOfActors2(follower[d], monster[i]);
                                 if (try_distance < best_distance) {
                                     monster[i].tiledestx = follower[d].tilex;
