@@ -81,7 +81,7 @@ public class SaveMyFile {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine()); //we have the file
+                System.out.println(scanner.nextLine()+"\n"); //we have the file
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -154,6 +154,7 @@ public class SaveMyFile {
         //return "none"; // there was no map
     }
     public void loadActorFromParsedData(MyTiledMap m, Actor a, String data) {
+        System.out.println(data +"\n");
         String r[] = data.split(",");
         a.name = r[1]; //Actor.name
         a.tilex = Integer.parseInt(r[2]); //Actor.tilex
