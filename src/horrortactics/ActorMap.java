@@ -119,7 +119,7 @@ public class ActorMap {
                         } catch (SlickException e) {
                         }
 
-                    } else if (pname.equals("Officer Ayano")) {
+                    } else if (pname.equals("Officer_Ayano")) {
                         try {
                             m.follower[follower_loop].changeActorSpritesheet("data/police01", 218, 313);
                             m.follower[follower_loop].tilex = x;
@@ -169,7 +169,7 @@ public class ActorMap {
                         m.monster[monster_loop].max_turns_till_revival = 100;
                         m.monster[monster_loop].swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg");
                         monster_loop++;
-                    } else if (pname.equals("pear monster")) {
+                    } else if (pname.equals("pear_monster")) {
                         try {
                             m.monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313);
                         } catch (SlickException e) {
@@ -271,7 +271,7 @@ public class ActorMap {
                         m.monster[monster_loop].name = pname;
                         m.monster[monster_loop].max_turns_till_revival = 99;
                         monster_loop++;
-                    }else if (pname.equals("invisible man")) {
+                    }else if (pname.equals("invisible_man")) {
                         System.out.println("we got to the invnisible man");
                         try {
                             m.monster[monster_loop].changeActorSpritesheet("data/monster06", 218, 313);
