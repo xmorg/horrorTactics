@@ -327,20 +327,12 @@ public class MyTiledMap extends TiledMap {
     public boolean isActorTouchingActor(Actor a, Actor b, int x, int y) {
         //a=monster, b=player //x, and y not used?
         if (a.tilex - 1 == b.tilex && a.tiley == b.tiley) {
-            //a.tiledestx = b.tilex;
-            //a.tiledesty = b.tiley;
             return true;
         } else if (a.tilex + 1 == b.tilex && a.tiley == b.tiley) {
-            //a.tiledestx = b.tilex;
-            //a.tiledesty = b.tiley;
             return true;
         } else if (a.tilex == b.tilex && a.tiley - 1 == b.tiley) {
-            //a.tiledestx = b.tilex;
-            //a.tiledesty = b.tiley;
             return true;
         } else if (a.tilex == b.tilex && a.tiley + 1 == b.tiley) {
-            //a.tiledestx = b.tilex;
-            //a.tiledesty = b.tiley;
             return true; //you are touching the player.
         }
         return false;
@@ -391,7 +383,9 @@ public class MyTiledMap extends TiledMap {
             return true;
         }
         for (int i = 0; i < this.follower_max; i++) {
-            if (this.isActorTouchingActor(a, this.follower[i], a.tilex, a.tiley)) { //you are touching the player.
+            if (this.isActorTouchingActor(a, this.follower[i], a.tilex, a.tiley) 
+                    && this.follower[i].dead == false) { //you are touching the player.
+                //avoid touching a dead follower and attacking player from afar.
                 return true;
             } //returned true, and set monster dest to the victims tilex,tily
         }
