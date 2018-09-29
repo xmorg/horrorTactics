@@ -4,7 +4,7 @@ Survive your worst fears! The player faces a seamingly endless array of spooky s
 TODO's [code]
 players team does not regenerate health after the next level.
 player does not regenerate fatigue on rest.
-right click to scroll screen
+
 make a game over screen for render_game_over
 annoying "none" still shows up on conversation
 
@@ -13,6 +13,7 @@ BUG stop all sounds (walk sounds) when new scene loads.
 
 
 DONE:
+right click to scroll screen
 attacks need to subtract action points.
 monsters get stuck on walls sometimes
 Monsters still attack dead units.

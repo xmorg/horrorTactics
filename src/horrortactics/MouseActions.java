@@ -292,7 +292,7 @@ public class MouseActions {
 
             }
         }
-        if (input.isMouseButtonDown(0) && ht.map.turn_order.equalsIgnoreCase("player")
+        if (input.isMouseButtonDown(1) && ht.map.turn_order.equalsIgnoreCase("player")
                 && this.endTurnButtonWasPressed(ht) == false) {
             if (mouse_x > ht.last_mouse_x) {
                 ht.draw_x += scrollspeed;
