@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="left-down" width="40" height="10" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" orientation="isometric" renderorder="left-down" width="40" height="10" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="event_spotted" value="tutor_bully0"/>
   <property name="event_spotted1" value="tutor_bully0"/>
@@ -10,6 +10,7 @@
   <property name="followers" value="1"/>
   <property name="hint" value="If Riku dies, you lose.  Use other allies to protect you."/>
   <property name="mapname" value="tutorial01.tmx"/>
+  <property name="maptitle" value="First Class"/>
   <property name="nextmap" value="class_school01.tmx"/>
   <property name="obj" value="Get the papers for your teacher."/>
   <property name="planning_0" value="Hello Class. Today we will learn the basics."/>
@@ -99,17 +100,17 @@
  </tileset>
  <layer name="background_layer" width="40" height="10" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAzNiYGAwGsWjeBSP4lE8iknEANXr5TFABgAA
+   H4sIAAAAAAAACzNiYGAwGsWjeBSP4lE8iknEANXr5TFABgAA
   </data>
  </layer>
  <layer name="walls_layer" width="40" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NiYGBgGiGYGQnjU8fOgABsDKiAA0ojq+dAks/CQiPLSyOxmdD4+EAGiXpw+YcUwIRkLyl60IEMDnUwjAzY0OgsBtwAm13kAELuKyXBnDQquYkQIDb80NMvNewlJj1RI/0RMh+XOD77sOVfSt2BLT+ilwvI4sSaS60yj5ZlKgDrTXXYQAYAAA==
+   H4sIAAAAAAAAC2NiYGBgGiGYGQnjU8fOgABsDKiAA0ojq+dAks/CQiPLSyOxmdD4+EAGiXpw+YcUwIRkLyl60IEMDnUwjAzY0OgsBtwAm13kAELuKyXBnDQquYkQIDb80NMvNewlJj1RI/0RMh+XOD77sOVfSt2BLT+ilwvI4sSaS60yj5ZlKgDrTXXYQAYAAA==
   </data>
  </layer>
  <layer name="actors_layer" width="40" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAX0AKpk6NGkuivoC/SpZI4iFjE9KplNK0DIfVp0cQVuMNjDbxQMDQAASy8dJ0AGAAA=
+   H4sIAAAAAAAAC2NgGAX0AKpk6NGkuivoC/SpZI4iFjE9KplNK0DIfVp0cQVuMNjDbxQMDQAASy8dJ0AGAAA=
   </data>
  </layer>
 </map>

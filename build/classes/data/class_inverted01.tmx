@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="left-down" width="50" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="event_spotted" value="pear monster"/>
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="hint" value="Some monsters resurrect after a few turns."/>
   <property name="mapname" value="class_school01.tmx"/>
+  <property name="maptitle" value="the Other Side"/>
   <property name="nextmap" value="apartment1.tmx"/>
   <property name="obj" value="You left your cellphone in the locker room."/>
   <property name="planning_0" value="I have to get my cell phone."/>
@@ -79,17 +80,17 @@
  </tileset>
  <layer name="background_layer" width="50" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3DQQ0AAAwDodNU/+ImYx9IWDVVVVX19QGnj3lvoA8AAA==
+   H4sIAAAAAAAAC+3DQQ0AAAwDodNU/+ImYx9IWDVVVVX19QGnj3lvoA8AAA==
   </data>
  </layer>
  <layer name="walls_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA91XUQ7DIAjlc9fcFew2+7O7L36YUMZTqBKbvoS0igIvKmgiogRkYyL7enOQPlJ2OuILeOxMWvreXAJ+K56gn0PaSoY5ESh+M2t/xLf1r9layWOmrVU8JDzrkem4loXDOyiuSGTRLjxeKwKh/33gXQ9p6yrn3ANtX1l4oHyt6VH90GzOzlcW2Uivi0gvx/R4jIDXQSR1nISlVnE/Wh+qg16gem6Jw+tntk1py8KD5+a6ZzQgHeIxW1BcFTw3n+GhQTtXZ/usPK5S8zW07rva2FFfUbgjj4cjjtY+RLrIu+1ITkDvvZVvwbvID88oQE+gDwAA
+   H4sIAAAAAAAAC91XUQ7DIAjlc9fcFew2+7O7L36YUMZTqBKbvoS0igIvKmgiogRkYyL7enOQPlJ2OuILeOxMWvreXAJ+K56gn0PaSoY5ESh+M2t/xLf1r9layWOmrVU8JDzrkem4loXDOyiuSGTRLjxeKwKh/33gXQ9p6yrn3ANtX1l4oHyt6VH90GzOzlcW2Uivi0gvx/R4jIDXQSR1nISlVnE/Wh+qg16gem6Jw+tntk1py8KD5+a6ZzQgHeIxW1BcFTw3n+GhQTtXZ/usPK5S8zW07rva2FFfUbgjj4cjjtY+RLrIu+1ITkDvvZVvwbvID88oQE+gDwAA
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VMQoAIQxE0VxFsbHRvf/pVnvtAh/kP0g9M1UilOGjCxx0OL/C+VnaukGXSFDijR3bKzskcegfeTPpApIk1A8W6J/ZoA8AAA==
+   H4sIAAAAAAAAC+3VMQoAIQxE0VxFsbHRvf/pVnvtAh/kP0g9M1UilOGjCxx0OL/C+VnaukGXSFDijR3bKzskcegfeTPpApIk1A8W6J/ZoA8AAA==
   </data>
  </layer>
 </map>

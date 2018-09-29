@@ -2,10 +2,11 @@
 <map version="1.0" orientation="isometric" renderorder="left-down" width="20" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="event_spotted" value="pear monster"/>
-  <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
+  <property name="event_spotted_m" value="He'll kill us!"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="mapname" value="butcher_shop01.tmx"/>
-  <property name="nextmap" value="apartment1.tmx"/>
+  <property name="maptitle" value="Dead meat"/>
+  <property name="nextmap" value="subway01.tmx"/>
   <property name="planning_0" value="We can't go back! They're everywhere!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
   <property name="planning_1" value="The door, in the back."/>
@@ -14,13 +15,13 @@
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="no"/>
  </properties>
- <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+ <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32">
   <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
- <tileset firstgid="33" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="33" name="walls_image" tilewidth="250" tileheight="512" tilecount="32">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="65" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="65" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -81,17 +82,17 @@
  </tileset>
  <layer name="background_layer" width="20" height="20" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+NkYGDgHAKYjwI8Us1DZ1NiHro7B5t5QyE+Rs0bNY9c8wYrBgBgQlrrQAYAAA==
+   H4sIAAAAAAAAA+NkYGDgHAKYjwI8Us1DZ1NiHro7B5t5QyE+Rs0bNY9c8wYrBgBgQlrrQAYAAA==
   </data>
  </layer>
  <layer name="walls_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZT0zyYO5EBrnDCFx8wjM08bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAG3ikdhABgAA
+   H4sIAAAAAAAAAzNiYGAwGkHYlAETmAOxLhZxXTQ1MMBHhHnYAC5xQubhAhZkuo9UwAc1B0ZT0zyYO5EBrnDCFx8wjM08bHELAhY4xJHNwWYeLkBt85ABrvjFFX4WDLjDkRz3YTOLmPRMrn8H2jxiww4GBrpcGygMAG3ikdhABgAA
   </data>
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAXUAI5UNs+VAr1+WMScSdDvTYR5lIDBbt4oGAWjgDgAAIITDQFABgAA
+   H4sIAAAAAAAAA2NgGAXUAI5UNs+VAr1+WMScSdDvTYR5lIDBbt4oGAWjgDgAAIITDQFABgAA
   </data>
  </layer>
 </map>

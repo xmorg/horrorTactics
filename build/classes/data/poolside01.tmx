@@ -2,6 +2,7 @@
 <map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="50" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="mapname" value="poolside01.tmx"/>
+  <property name="maptitle" value="Drowned girls"/>
   <property name="nextmap" value="poolside01.tmx"/>
  </properties>
  <tileset firstgid="1" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
