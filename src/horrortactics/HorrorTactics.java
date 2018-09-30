@@ -217,11 +217,13 @@ public class HorrorTactics extends BasicGame {
             if (map.player.expForExitReached == false) {
                 map.player.exp_points += 3;
                 map.player.expForExitReached = true;
+                map.player.health_points = map.player.health_points_max;
             }
             for (int i = 0; i < map.follower_max; i++) {
                 if (map.follower[i].dead == false) {
                     if (map.follower[i].expForExitReached == false) {
                         map.follower[i].exp_points += 3;
+                        map.follower[i].health_points = map.follower[1].health_points_max;
                         map.follower[i].expForExitReached = true;
                     }
                 }

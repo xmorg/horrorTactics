@@ -48,6 +48,7 @@
     <property name="event_exit" value="exit"/>
     <property name="event_exit_m" value="The door!"/>
     <property name="event_exit_p" value="prt_player_00.png"/>
+    <property name="loadout" value="no"/>
    </properties>
   </tile>
  </tileset>

@@ -51,15 +51,15 @@ public class Trigger {
                 //assuming this exists?
                 if(m.EventGoal_ran == false) {
                     m.EventGoal_p = new Image("data/" + m.getTileProperty(gid,"event_goal_p", "prt_player_00.png"));
-                    m.EventGoal_m = m.getTileProperty(gid,"event_goal_m", "none");
+                    m.EventGoal_m = m.getTileProperty(gid,"event_goal_m", "end");
                     m.EventGoal_ran = true;
                     m.old_turn_order = m.turn_order;
                     m.turn_order = "goal reached";
                 }
             }
-        }  else if (!m.getTileProperty(gid, "event_exit", "none").equals("none")) {
+        }  else if (!m.getTileProperty(gid, "event_exit", "end").equals("end")) {
             //you stepped on teh event goal, run charbust?
-            m.active_trigger.updateTrigger("event_exit",m.getTileProperty(gid, "event_exit", "none") );
+            m.active_trigger.updateTrigger("event_exit",m.getTileProperty(gid, "event_exit", "end") );
             if (m.active_trigger.name.equalsIgnoreCase("exit")) { //still blank.
                 //System.out.println("reached event goal");
                 //assuming this exists?
@@ -67,7 +67,7 @@ public class Trigger {
                     //event goal equals none, or (event goal != none and ran = true)                    
                     if(m.RequiresGoal.equalsIgnoreCase("yes") && m.EventGoal_ran == true ) {
                         m.EventExit_p = new Image("data/" + m.getTileProperty(gid,"event_goal_p", "prt_player_00.png"));
-                        m.EventExit_m = m.getTileProperty(gid,"event_goal_m", "none");
+                        m.EventExit_m = m.getTileProperty(gid,"event_goal_m", "end");
                         m.EventExit_ran = true;
                         m.old_turn_order = m.turn_order;
                         //System.out.println("if(m.RequiresGoal.equalsIgnoreCase(\"yes\") && m");

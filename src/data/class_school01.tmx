@@ -5,6 +5,7 @@
   <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
   <property name="hint" value="Some monsters resurrect after a few turns."/>
+  <property name="loadout" value="yes"/>
   <property name="mapname" value="class_school01.tmx"/>
   <property name="maptitle" value="After class nightmare"/>
   <property name="nextmap" value="apartment1.tmx"/>
