@@ -395,16 +395,9 @@ public class Actor {
                     g.setColor(Color.red);
                     textcolor = Color.red;
                 }
-                //g.pushTransform();
-                //g.translate(-100, -100);
-                //g.scale(2.0f, 2.0f);
-                //h.ttf.drawString(pdx  + 50, pdy, this.action_msg);
+
                 h.ttf.drawString(pdx  + 50-2, pdy+2, this.action_msg, Color.black);
-                h.ttf.drawString(pdx  + 50, pdy, this.action_msg, textcolor);
-                
-                //h.ttf.d
-                //g.drawString(this.action_msg, pdx  + 50, pdy );
-                //g.popTransform();                
+                h.ttf.drawString(pdx  + 50, pdy, this.action_msg, textcolor);              
             }
         }
     }
@@ -827,8 +820,8 @@ public class Actor {
             defender.health_points -= damage_roll;
             if (defender.health_points <= 0) {
                 defender.dead = true;
-                defender.action_msg = " " + damage_roll + " ";
-                defender.action_msg_timer = 200;
+                this.action_msg = " " + damage_roll + " ";
+                this.action_msg_timer = 200;
                 defender.turns_till_revival = 0; //do we revive?
                 ht.map.log_msg = this.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage, killing " + defender.name;
                 defender.snd_died.play();
@@ -841,8 +834,8 @@ public class Actor {
             //defender.snd_washit.play();
         } else {
             //miss
-            defender.action_msg = "Miss";
-            defender.action_msg_timer = 200;
+            this.action_msg = "Miss";
+            this.action_msg_timer = 200;
             if (target_parryroll + defender.parryscore > actor_attackroll) {
                 ht.map.log_msg = this.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore + ") but the attack was parried.";
             } else {

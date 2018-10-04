@@ -38,15 +38,15 @@ public class HorrorTactics extends BasicGame {
     /**
      * @param gamename the command line arguments
      */
-    public Input input;
-    MyTiledMap map;
-    private MouseActions msa;
+    public Input input; //input class
+    MyTiledMap map;     //map class for current map
+    private MouseActions msa; //key and mouse actions
     private KeyActions ksa;
-    int draw_x, draw_y = 0;
+    int draw_x, draw_y = 0;   //draw offset for screen?
     /* offset for camera scrolling*/
     int screen_x, screen_y;
     /* where on the screen?*/
-    int mouse_x, mouse_y = 0;
+    int mouse_x, mouse_y = 0; //where the mouse is?
     int last_mouse_x, last_mouse_y;
     int mouse_tile_x, mouse_tile_y = 0;
     int fps = 0;
@@ -218,12 +218,16 @@ public class HorrorTactics extends BasicGame {
                 map.player.exp_points += 3;
                 map.player.expForExitReached = true;
                 map.player.health_points = map.player.health_points_max;
+                map.player.fatigue_points = map.player.fatigue_points_max;
+                map.player.snd_footsteps.stop();
             }
             for (int i = 0; i < map.follower_max; i++) {
                 if (map.follower[i].dead == false) {
                     if (map.follower[i].expForExitReached == false) {
                         map.follower[i].exp_points += 3;
-                        map.follower[i].health_points = map.follower[1].health_points_max;
+                        map.follower[i].health_points = map.follower[i].health_points_max;
+                        map.follower[i].fatigue_points = map.follower[i].fatigue_points_max;
+                        map.follower[i].snd_footsteps.stop();
                         map.follower[i].expForExitReached = true;
                     }
                 }
