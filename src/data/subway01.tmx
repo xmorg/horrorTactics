@@ -17,10 +17,10 @@
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
- <tileset firstgid="1" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="1" name="walls_image" tilewidth="250" tileheight="512" tilecount="32">
   <image source="walls250x512.png" width="2000" height="2048"/>
  </tileset>
- <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+ <tileset firstgid="33" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16">
   <image source="actor_grid.png" width="872" height="1248"/>
   <tile id="0">
    <properties>
@@ -32,9 +32,21 @@
     <property name="actor_name" value="Yukari"/>
    </properties>
   </tile>
+  <tile id="2">
+   <properties>
+    <property name="actor_name" value="Officer_Ayano"/>
+    <property name="weapon" value="pistol"/>
+   </properties>
+  </tile>
   <tile id="3">
    <properties>
     <property name="actor_name" value="Ichi"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="actor_name" value="Takeshi"/>
+    <property name="health_bonus" value="3"/>
    </properties>
   </tile>
   <tile id="8">
@@ -62,25 +74,25 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32" columns="8">
+ <tileset firstgid="49" name="tiles250x129" tilewidth="250" tileheight="130" tilecount="32">
   <image source="tiles250x129.png" width="2000" height="520"/>
  </tileset>
- <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+ <tileset firstgid="81" name="walls250x512_2" tilewidth="250" tileheight="512" tilecount="32">
   <image source="walls250x512_2.png" width="2000" height="2048"/>
  </tileset>
  <layer name="background_layer" width="50" height="12" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNmYGAwxoMthwjG54dRf9Afu2DBFjjEicWU6KfU7lE8ePFwSVcD6Q9ysdUgxYTK0aFSro76Y3BhUv0BAE0BkutgCQAA
+   H4sIAAAAAAAAAzNmYGAwxoMthwjG54dRf9Afu2DBFjjEicWU6KfU7lE8ePFwSVcD6Q9ysdUgxYTK0aFSro76Y3BhUv0BAE0BkutgCQAA
   </data>
  </layer>
  <layer name="walls_layer" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2T0QqAIAxF/Yr+q6dc5mv9/x9UMOEynDFMI/DAoWG7kwU5Nxj0gS5X8IDaizMveglmyHeWbOCzwH0BslrubXyjuRqt9uhNbg8C/4K2R3ou7Ab1k64if2cmkcU8KfPTv4jurIPaak02GTPfuEQs+CWzsX/s0Rbr/Scz6ScTYAkAAA==
+   H4sIAAAAAAAAA+2TQQqAMAwE8wpvPsqTrbVX/f8PVEhhCWkl1CpCBwZDzEZykKjTeZ5R6fnTBdyhdqLnxKyHHfKdJRu4F3guQFbLaXfU4hrsLNHqjrfR7vDgX8jdkZ4zu0J9J1Xkr8wgspj3mf3pX0Q3lqC2WpNNRrIRC37JZJzvd7TF+v0DVVHJ62AJAAA=
   </data>
  </layer>
  <layer name="actors_layer" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYOCBDhX1UmIWpXZTWz2tzRlqdo+CUTAKRsFQAQD4xn97YAkAAA==
+   H4sIAAAAAAAAA2NgGB5ADwseimCouhsdkOoPHQrsQtdLiVmU2k1t9bQ2Z6jZPQpGwUgGimh81QFxBfWA8kA7gMYAAOBE6YNgCQAA
   </data>
  </layer>
 </map>

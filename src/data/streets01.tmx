@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="isometric" renderorder="left-down" width="60" height="20" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
+  <property name="event_spotted" value="zombie"/>
+  <property name="event_spotted_m" value="Keep Going! Don't Stop!"/>
+  <property name="event_spotted_p" value="prt_fpolice_00.png"/>
   <property name="hint" value="Zombie apocalypse! Officer Ayano has a gun."/>
   <property name="mapname" value="streets01.tmx"/>
   <property name="maptitle" value="Zombie apocalypse"/>
