@@ -180,24 +180,18 @@ public class HorrorTactics extends BasicGame {
         ksa.getKeyActions(gc, input, this); //Do keyboard actions
         map.updateMapXY(draw_x, draw_y);
         actor_move_timer++;
-
         map.resetAttackAniFrame();
-
         if (this.game_state.equalsIgnoreCase("exit")) {
-            //GAMEEXIT
-            //playerfile.saveData(this, "1");
             gc.exit();
         } else if (this.game_state.equalsIgnoreCase("title start") || this.game_state.equalsIgnoreCase("title ingame")) {
             if (!music.playing()) {
                 music.play();
             }
-            //System.out.println("trying to play music");
         } else {
             if (music.playing()) {
                 music.stop();
             }
         }
-
         if (actor_move_timer >= this.fps) {
             this.actor_move_timer = 0;
         }
@@ -263,11 +257,12 @@ public class HorrorTactics extends BasicGame {
             }
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (this.actor_move_timer == 0) {
-                //if (map.player.selected == true) {
                 map.player.onMoveActor(map, gc.getFPS());//this.getMyDelta(gc));
-                //} else {
                 map.onFollowerMoving(gc, this, delta);
-                //}
+                if(map.player.action_points <= 0 && map.getFollowersCanMove() == false) {
+                    //make it the monster turn automatically
+                    map.turn_order = "start monster";
+                }
             }
             if (this.map.active_trigger.name.equals("none")) { //not already stepped in it
                 map.active_trigger.onSteppedOnTrigger(map, this.map.player.tilex, this.map.player.tiley);
@@ -278,7 +273,7 @@ public class HorrorTactics extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 10 + map.player.stat_speed - 1 + map.player.getMovePenalty();
+            map.player.action_points = 6 + map.player.stat_speed - 1 + map.player.getMovePenalty();
             //check for level up
             map.player.onLevelUp();
             for (int i = 0; i < map.follower_max; i++) {

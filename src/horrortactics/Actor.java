@@ -310,13 +310,14 @@ public class Actor {
     }
 
     public void setActorMoving(boolean ismoving) {
+        this.updateActorDirection();
         if (ismoving == false) {
             this.set_draw_xy(0, 0);
             snd_footsteps.stop();
         }
         this.move_action = ismoving;
         if (this.move_action == true) {
-            this.updateActorDirection();
+            //this.updateActorDirection(); //moved up
         } //north or south
 
     }

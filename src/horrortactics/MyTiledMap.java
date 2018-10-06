@@ -159,7 +159,7 @@ public class MyTiledMap extends TiledMap {
 
     //public Actor getFollowerByXy(int x, int y)
     public void setFollowerDirectives() {
-        //loop through your monsters and set a path for them to follow
+        //loop through your followers and set a path for them to follow
         //if they are controllable, they shall already have destinations.
         this.current_follower_moving = 0;
         for (int i = 0; i < this.follower_max; i++) {
@@ -291,7 +291,7 @@ public class MyTiledMap extends TiledMap {
     }
 
     public boolean getAnyActorMoving() //is anyone moving? return true
-    { ///hack, if you are dead you are not moving!
+    { //if you are dead you are not moving!
         boolean m = false;
         if (this.player.getActorMoving() == true) {
             System.out.print("player was still moving");
@@ -467,13 +467,29 @@ public class MyTiledMap extends TiledMap {
         //if (this.getPassableTile(this.monster[i], i, i))
         return true; //all conditions are good.
     }
-
+    public boolean getFollowersCanMove() {
+       int total_action_points = 0;
+       
+       for (int i = 0; i < this.follower_max; i++) {
+            //this.follower[i].onMoveActor(this, gc.getFPS());
+            this.follower[i].action_points += total_action_points;
+        }
+       
+       if(total_action_points == 0) { //false means no one can move
+           return false;
+       }
+       return true;
+    }
     public void onFollowerMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         //this.follower[this.current_follower_moving].onMoveActor(
         //        this, gc.getFPS());
+        
         for (int i = 0; i < this.follower_max; i++) {
             this.follower[i].onMoveActor(this, gc.getFPS());
+            //this.follower[i].action_points += total_action_points;
         }
+        
+        
         //if (this.follower[this.current_follower_moving].dead == true) {
         //    this.current_monster_moving++;
         //}
