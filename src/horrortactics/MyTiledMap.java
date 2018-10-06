@@ -468,17 +468,15 @@ public class MyTiledMap extends TiledMap {
         return true; //all conditions are good.
     }
     public boolean getFollowersCanMove() {
-       int total_action_points = 0;
-       
+       int total_action_points = 0;       
        for (int i = 0; i < this.follower_max; i++) {
             //this.follower[i].onMoveActor(this, gc.getFPS());
-            this.follower[i].action_points += total_action_points;
-        }
-       
-       if(total_action_points == 0) { //false means no one can move
-           return false;
+            total_action_points += this.follower[i].action_points;
+        }       
+       if(total_action_points > 0) { //false means no one can move
+           return true;
        }
-       return true;
+       return false;
     }
     public void onFollowerMoving(GameContainer gc, HorrorTactics ht, int delta) { //taken from update.
         //this.follower[this.current_follower_moving].onMoveActor(
