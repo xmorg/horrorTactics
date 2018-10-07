@@ -10,5 +10,6 @@ package horrortactics;
  * @author tcooper
  */
 public class Hints {
-    
+    boolean toggle; //true its on, false its off;
+    //each map will have a hint_0, hint_1, hint_turn_0, hint_turn_1, etc
 }

@@ -111,7 +111,7 @@
  </layer>
  <layer name="actors_layer" width="40" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAX0AKpk6NGkuivoC/SpZI4iFjE9KplNK0DIfVp0cQVuMNjDbxQMDQAASy8dJ0AGAAA=
+   H4sIAAAAAAAAA2NgGAWDFWjS0S5VGpipTyVzFLGI6VHJbFoBQu7ToosrcIPBHn6jYGgAAAqoDzpABgAA
   </data>
  </layer>
 </map>
