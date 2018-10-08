@@ -40,6 +40,7 @@ public class HorrorTactics extends BasicGame {
      */
     public Input input; //input class
     MyTiledMap map;     //map class for current map
+    Settings settings;
     private MouseActions msa; //key and mouse actions
     private KeyActions ksa;
     int draw_x, draw_y = 0;   //draw offset for screen?
@@ -112,6 +113,7 @@ public class HorrorTactics extends BasicGame {
         map = new MyTiledMap("data/tutorial01.tmx", 0, 0);
         //map = new MyTiledMap("data/butcher_shop01.tmx", 0, 0);
         //map = new MyTiledMap("data/streets01.tmx", 0, 0);
+        settings = new Settings(); //how do we save them?
         msa = new MouseActions();
         ksa = new KeyActions();
         titlemenu = new TitleMenu(this);
@@ -200,8 +202,7 @@ public class HorrorTactics extends BasicGame {
             this.game_state = "game over";
         }
         if (map.turn_order.equalsIgnoreCase("game over")) { //update
-            //this.game_state = "game over";
-            //map.turn_order = "";
+            
         } else if (map.turn_order.equalsIgnoreCase("planning")) { //update
             //planning phase.  Show a dialogue.
             //Accept clicks through the dialogue

@@ -45,10 +45,10 @@ public class TitleMenu {
         menu_state = "newgame";
         show_window = "none";
         title_image = new Image("data/title1_01.jpg"); //placeholder for title
-        title_text = new Image("data/title_text.jpg");
-        title_text_save = new Image("data/title_text_save.jpg");
-        title_text_load = new Image("data/title_text_load.jpg");
-        title_text_resume = new Image("data/title_text_resume.jpg");
+        title_text = new Image("data/title_text.jpg"); 
+        title_text_save = new Image("data/title_text_save.jpg");  //depriciated? resume, new, save, options, credits, exit
+        title_text_load = new Image("data/title_text_load.jpg");  //new, load, optsion, credits, exit
+        title_text_resume = new Image("data/title_text_resume2.jpg"); //resume, load, save, options, exit
         menux = 10;
         menuy = ht.screen_height / 2;
         menuw = this.title_text_load.getWidth();
@@ -92,9 +92,10 @@ public class TitleMenu {
         //Options, 28, 238, 334x66
         //Credits, 28, 324
         //Exit, 28, 414
-        Rectangle newgame_rect = new Rectangle(menux + 28, menuy + 24, 334, 66);
-        Rectangle loadgame_rect = new Rectangle(menux + 28, menuy + 146, 334, 66);
+        Rectangle newgame_rect = new Rectangle(menux + 28, menuy + 24, 334, 66); //new, resume
+        Rectangle loadgame_rect = new Rectangle(menux + 28, menuy + 146, 334, 66); //load or save
         Rectangle options_rect = new Rectangle(menux + 28, menuy + 238, 334, 66);
+        Rectangle savegame_rect = new Rectangle(menux + 28, menuy + 238, 334, 66);
         Rectangle credits_rect = new Rectangle(menux + 28, menuy + 324, 334, 66);
         Rectangle exit_rect = new Rectangle(menux + 28, menuy + 414, 334, 66);
         //Rectangle slot1 = new Rectangle(popup.getX(), popup.getY()+35, popup.getWidth(), 100);
@@ -108,6 +109,9 @@ public class TitleMenu {
                 this.show_window = "load";
             } else if (loadgame_rect.contains(x, y) && show_window.equalsIgnoreCase("none") && ht.game_state.equalsIgnoreCase("title ingame")) {
                 //save game
+                this.show_window = "load";
+            } else if (savegame_rect.contains(x, y) && show_window.equalsIgnoreCase("none") && ht.game_state.equalsIgnoreCase("title ingame")) {
+                //save game
                 this.show_window = "save";
             } else if (options_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 //display options
@@ -115,10 +119,12 @@ public class TitleMenu {
             } else if (credits_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
                 //display credits
                 this.show_window = "credits";
-            } else if (exit_rect.contains(x, y) && show_window.equalsIgnoreCase("none")) {
+            } else if (exit_rect.contains(x, y) && show_window.equalsIgnoreCase("none") && ht.game_state.equalsIgnoreCase("title ingame")) {
+                //exit the game
+                ht.setGameState("title start");
+            }else if (exit_rect.contains(x, y) && show_window.equalsIgnoreCase("none") && ht.game_state.equalsIgnoreCase("title start")) {
                 //exit the game
                 ht.setGameState("exit");
-                //gc.exit();
             } else if (show_window.equalsIgnoreCase("load")) { //define a button here
                 show_window = "none";
                 if (this.slot1.contains(x, y)) { //you clicked to load save 1
