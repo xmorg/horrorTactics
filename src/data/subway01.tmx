@@ -2,18 +2,18 @@
 <map version="1.0" orientation="isometric" renderorder="left-down" width="50" height="12" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
   <property name="event_spotted" value="pear monster"/>
-  <property name="event_spotted_m" value="Eeek! Whats that?!?"/>
+  <property name="event_spotted_m" value="Here they come!"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
-  <property name="hint" value="Dont get bitten."/>
+  <property name="hint" value="Check for a way up in the front of the train."/>
   <property name="mapname" value="subway01.tmx"/>
   <property name="maptitle" value="Zombie line"/>
   <property name="nextmap" value="poolside01.tmx"/>
   <property name="obj" value="Zombies and subways are a bad combination.  Escape."/>
-  <property name="planning_0" value="I have to get my cell phone."/>
+  <property name="planning_0" value="Oh no! the subway is wrecked!"/>
   <property name="planning_0_p" value="prt_player_00.png"/>
-  <property name="planning_1" value="It should be in the locker room on the second pillar, right side."/>
+  <property name="planning_1" value="We cant go back now! there are more of those things!"/>
   <property name="planning_1_p" value="prt_player_00.png"/>
-  <property name="planning_2" value="Yukari: Ok lets hurry! I dont like dark places."/>
+  <property name="planning_2" value="Just keep going! Maybe there is an Exit!"/>
   <property name="planning_2_p" value="prt_yukari_00.png"/>
   <property name="req_goal" value="yes"/>
  </properties>
@@ -51,7 +51,17 @@
   </tile>
   <tile id="8">
    <properties>
-    <property name="actor_name" value="pear monster"/>
+    <property name="actor_name" value="zombie1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="actor_name" value="zombie2"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="actor_name" value="zombie3"/>
    </properties>
   </tile>
   <tile id="12">
@@ -92,7 +102,7 @@
  </layer>
  <layer name="actors_layer" width="50" height="12">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGB5ADwseimCouhsdkOoPHQrsQtdLiVmU2k1t9bQ2Z6jZPQpGwUgGimh81QFxBfWA8kA7gMYAAOBE6YNgCQAA
+   H4sIAAAAAAAAA2NgGB5ADwseimCouhsdkOoPHQrs0qSiWaQCUu3SGiB7qQnQw3sUjIJRQB+giMZXHRBXUA8oD7QDaAwAx2HOP2AJAAA=
   </data>
  </layer>
 </map>
