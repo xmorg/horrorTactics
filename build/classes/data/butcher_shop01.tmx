@@ -4,6 +4,7 @@
   <property name="event_spotted" value="pear monster"/>
   <property name="event_spotted_m" value="He'll kill us!"/>
   <property name="event_spotted_p" value="prt_yukari_00.png"/>
+  <property name="loadout" value="yes"/>
   <property name="mapname" value="butcher_shop01.tmx"/>
   <property name="maptitle" value="Dead meat"/>
   <property name="nextmap" value="subway01.tmx"/>
@@ -92,7 +93,7 @@
  </layer>
  <layer name="actors_layer" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAXUAI5UNs+VAr1+WMScSdDvTYR5lIDBbt4oGAWjgDgAAIITDQFABgAA
+   H4sIAAAAAAAAA2NgGAXUAI5UNs+VTH1+UIwOnEgww5sI88gFg928UTAKRgHxAAAv9re7QAYAAA==
   </data>
  </layer>
 </map>

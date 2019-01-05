@@ -56,7 +56,7 @@ public class Actor {
     Sound snd_footsteps;
     Sound snd_swing_hit, snd_swing_miss;
     Sound snd_washit, snd_dodging, snd_died;
-    String weapon;
+    String weapon; //do you have a weapon?
     //your stats.
     int health_points, health_points_max; //lose all heath and die
     int fatigue_points, fatigue_points_max; //lose all fatigue and get a action point penalty, and dodge penalty.
@@ -113,7 +113,7 @@ public class Actor {
         snd_washit = new Sound("data/soundeffects/guy_hit1.ogg");
         snd_dodging = new Sound("data/soundeffects/guy_dodging1.ogg");
         snd_died = new Sound("data/soundeffects/guy_die1.ogg");
-        weapon = "none";
+        weapon = "none"; //"none" "knife" "cleaver" "sword" "pistol"
         health_points = 5;
         health_points_max = 5;
         fatigue_points = 5;
@@ -383,6 +383,10 @@ public class Actor {
                     this.getSpriteframe(this.player_club_sprite).draw(pdx, pdy, h.scale_x);
                 } else if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("cleaver")) {
                     this.getSpriteframe(this.player_cleaver_sprite).draw(pdx, pdy, h.scale_x);
+                } else if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("sword")) {
+                    
+                } else if (this.name.equalsIgnoreCase("Riku") && this.weapon.equalsIgnoreCase("gun")) {
+                    
                 }
 
             } else { //draw actor dead
@@ -405,6 +409,7 @@ public class Actor {
 
     public void drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y, Graphics g) {
         this.drawActor(h, m, x, y, g);
+        //weapons are drawn in draw actor becaues of acess to pdx/pdy
     }
 
     public void setActorActionPoints(int ap) {
