@@ -531,7 +531,11 @@ public class Actor {
 
         //try to check tilex/tiley for an event?
     }
-
+    public void onUseActionPoints(MyTiledMap m) {
+        if ( m.free_move == false ) {
+            this.action_points--;
+        }
+    }
     public void onMoveWest(MyTiledMap m, int delta) {
         this.setActiorDirection(getWest());
         this.draw_x -= 2 * this.speed;//(a.speed * delta) * 2; //a.speed;//delta * a.speed;
@@ -542,7 +546,8 @@ public class Actor {
             this.tilex--; //westr.
             m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
-            this.action_points--;
+            //this.action_points--;
+            this.onUseActionPoints(m);
             this.updateActorDirection();
         }
     }
@@ -558,7 +563,8 @@ public class Actor {
             m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
             //a.setAnimationFrame(0);
-            this.action_points--;
+            //this.action_points--;
+            this.onUseActionPoints(m);
             //this.tiledestx = this.tilex;
             this.updateActorDirection();
         }
@@ -575,7 +581,8 @@ public class Actor {
             m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
             //a.setAnimationFrame(0);
-            this.action_points--;
+            //this.action_points--;
+            this.onUseActionPoints(m);
             //this.tiledesty = this.tiley;
             this.updateActorDirection();
         }
@@ -592,7 +599,8 @@ public class Actor {
             this.tiley--; //north.
             m.active_trigger.name = "none"; //you are in a new tile and all triggers are reset.
             this.set_draw_xy(0, 0);
-            this.action_points--;
+            //this.action_points--;
+            this.onUseActionPoints(m);
             //this.tiledesty = this.tiley;
             this.updateActorDirection();
         }

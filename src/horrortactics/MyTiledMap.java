@@ -38,7 +38,8 @@ public class MyTiledMap extends TiledMap {
     int pixel_dest_y = -1;
     int light_level = 2; //default light level
     int selected_follower = 0;
-    String turn_order = null;  //monster, player
+    boolean free_move = false;
+    String turn_order = null;  //monster, player, freemove
     String next_map = "none";
     String maptitle = "unknown map";
     String mapname = "none";
