@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="left-down" width="14" height="14" tilewidth="250" tileheight="129" infinite="0" nextlayerid="7" nextobjectid="1">
+ <properties>
+  <property name="event_spotted" value="pear monster"/>
+  <property name="event_spotted_m" value="He'll kill us!"/>
+  <property name="event_spotted_p" value="prt_yukari_00.png"/>
+  <property name="loadout" value="yes"/>
+  <property name="mapname" value="butcher_shop01.tmx"/>
+  <property name="maptitle" value="Dead meat"/>
+  <property name="nextmap" value="subway01.tmx"/>
+  <property name="planning_0" value="We can't go back! They're everywhere!"/>
+  <property name="planning_0_p" value="prt_player_00.png"/>
+  <property name="planning_1" value="The door, in the back."/>
+  <property name="planning_1_p" value="prt_player_00.png"/>
+  <property name="planning_2" value="The butcher! Hes gone crazy!"/>
+  <property name="planning_2_p" value="prt_yukari_00.png"/>
+  <property name="req_goal" value="no"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_image" tilewidth="250" tileheight="129" tilecount="32" columns="8">
+  <image source="tiles250x129.png" width="2000" height="520"/>
+ </tileset>
+ <tileset firstgid="33" name="walls_image" tilewidth="250" tileheight="512" tilecount="32" columns="8">
+  <image source="walls250x512.png" width="2000" height="2048"/>
+ </tileset>
+ <tileset firstgid="65" name="actors_tiles" tilewidth="218" tileheight="312" tilecount="16" columns="4">
+  <image source="actor_grid.png" width="872" height="1248"/>
+  <tile id="0">
+   <properties>
+    <property name="actor_name" value="player"/>
+    <property name="costume" value="player01"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="actor_name" value="Yukari"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="actor_name" value="Officer Ayano"/>
+    <property name="weapon" value="pistol"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="actor_name" value="Ichi"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="actor_name" value="Takeshi"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="actor_name" value="pear monster"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="actor_name" value="butcher"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="audio_trigger" value="trapped_girl"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="event_exit" value="exit"/>
+    <property name="event_exit_m" value="end"/>
+    <property name="event_exit_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="event_goal" value="cell phone"/>
+    <property name="event_goal_m" value="I got it! Lets get out of here."/>
+    <property name="event_goal_p" value="prt_player_00.png"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="4" name="background_layer" width="14" height="14" opacity="0.99">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACuNjYGDgGwDMQwQe1Teqj94YAO+CpiwQAwAA
+  </data>
+ </layer>
+ <layer id="5" name="walls_layer" width="14" height="14">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACrNlYGAwIxHbArEpA+nAlEJ9NnS2b1Tf0NUHSqPkpGsAcfOu8RADAAA=
+  </data>
+ </layer>
+ <layer id="6" name="actors_layer" width="14" height="14">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACmNgIB/4UCA2VIEzDnEfHGwQcAViR9o4Z0AAreNzINMLAJJXWicQAwAA
+  </data>
+ </layer>
+</map>
