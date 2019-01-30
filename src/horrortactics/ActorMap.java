@@ -288,7 +288,24 @@ public class ActorMap {
                         m.monster[monster_loop].stat_luck = 5; //hard to hit, and hits often!
                         //set dodge scores
                         monster_loop++;
-                    }// add more monsters here;
+                    }else if (pname.equals("shadowninja")) {
+                        System.out.println("we got to shadowninja");
+                        try {
+                            m.monster[monster_loop].changeActorSpritesheet("data/monster13", 218, 313);
+                        } catch (SlickException e) {
+                            System.out.println("something is wrong.");
+                        }
+                        m.monster[monster_loop].tilex = x;
+                        m.monster[monster_loop].tiley = y;
+                        m.monster[monster_loop].setActorMoving(false);
+                        m.monster[monster_loop].visible = true;
+                        m.monster[monster_loop].name = pname;
+                        m.monster[monster_loop].max_turns_till_revival = 4;
+                        m.monster[monster_loop].shadow = false;
+                        m.monster[monster_loop].stat_luck = 2; //hard to hit, and hits often!
+                        //set dodge scores
+                        monster_loop++;
+                    }// add more monsters here;// add more monsters here;
                 }
             }
             for (int i = 0; i < 5; i++) {
