@@ -2,7 +2,10 @@
 Survive your worst fears! The player faces a seamingly endless array of spooky scenarios.  It all started on that first night, when she went back to the school to get her cell phone from her locker. The classrooms where crawling with a shambling pear shaped monster.  After surviving her first "encounter", the player returned to school the next day to find everything was normal, like it never happened.  Except her friends.  Any friend who dies, seems to have never existed!  The next night ...
 
 TODO's [code]
-players team does not regenerate health after the next level.
+Dead monster sprites change direction in monster turn
+Actors can stll face away from the attack targets
+It alwasys seems to be the monster's turn when loading a saved game
+players team does not regenerate health after the next level.[fixed?]
 player does not regenerate fatigue on rest.
 
 make a game over screen for render_game_over
