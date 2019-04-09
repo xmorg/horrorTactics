@@ -681,6 +681,7 @@ public class HorrorTactics extends BasicGame {
     public void loadNewMap(String newmap) throws SlickException {
         map = new MyTiledMap(newmap, 0, 0); //setup a new map
         map.actormap.getActorLocationFromTMX(map); //get the actor info
+        this.popup_window = "none"; //bug with kaleb where popup window still up
     }
     
     public void translateToTile(int tx, int ty)//center tile x/y on the screen?
