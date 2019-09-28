@@ -1,0 +1,76 @@
+#/usr/bin/python3
+
+import pygame
+from pygame.locals import *
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+from files.primitives import shapes
+
+#mesh = pymesh.load_mesh("dungeonquart01.obj")
+yrot = 0
+
+def draw():
+    s = shapes()
+    #glEnable(GL_LIGHTING);
+    #glEnable(GL_LIGHT0);
+    glEnable(GL_DEPTH_TEST);
+    
+    #glEnable(GL_LIGHT1) 
+    glColorMaterial ( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE )
+    #glTranslatef(1, 3, 1, 1)
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+
+    glColor3f(0.5, 0.5, 0.5)
+    #left
+    glColor3f(0.4, 0.4, 0.4)
+    s.cube_at(-2,0,-2)
+    glColor3f(0.5, 0.5, 0.5)
+    s.cube_at(-2,0,0)
+    
+    #right
+    
+    glColor3f(0.4, 0.4, 0.4)
+    s.cube_at(2,0,-2)
+    glColor3f(0.5, 0.5, 0.5)
+    s.cube_at(2,0,0)
+
+    
+    #center
+    glColor3f(0.3, 0.3, 0.3)
+    s.cube_at(0,0,-4)
+    glColor3f(0.4, 0.4, 0.4)
+
+    #bottom
+    s.cube_at(0,-2,-2)
+    s.cube_at(0,-2, 0)
+
+    #top
+    s.cube_at(0,2,-2)
+    s.cube_at(0,2, 0)
+    
+    pygame.display.flip()
+    pygame.time.wait(10)
+def input():
+    key = pygame.key.get_pressed()
+    if key[pygame.K_ESCAPE]:
+        pygame.event.post(QUIT)
+    if key[pygame.K_RIGHT]:
+        yrot = yrot +15
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+    glTranslatef(0.0, 0.0, -2.5)
+    glRotatef(0, 0,yrot,0)
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                #quit()
+        input()
+        draw()
+main()
