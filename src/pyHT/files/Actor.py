@@ -1,5 +1,7 @@
 #Horror TActics, python edition
 import pyglet
+from files.slickWrap import Color
+from files.slickWrap import Rectangle
 
 ##*
 # * Actor class is to encap the actor methods and data
@@ -7,32 +9,6 @@ import pyglet
 # * @author tcooper
 # */
 
-class Rectangle():
-    def __init__(self, x, y, w, h):
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
-    def setBounds(self, x, y, w, h):
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
-    def getBoundsT(self): #return bounds as a tupple
-        return (self.x, self.y, self.w, self.h)
-class Color():
-    def __init__(self, r, g, b, a):
-        self.red = r
-        self.green = g
-        self.blue = b
-        self.alpha = a
-    def white(self): #set all values to white (decimal)
-        self.red = 1
-        self.green = 1
-        self.blue = 1
-        self.alpha = 1
-    def getValuesT(self): #return all values as a tuple
-        return (self.red, self.green, self.blue, self.alpha)
 
 class Actor():
     def __init__(self, s, sx, sy): #Actor(String s, int sx, int sy) throws SlickException:

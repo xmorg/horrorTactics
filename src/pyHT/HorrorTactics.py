@@ -7,6 +7,8 @@
 #package horrortactics
 
 import pyglet
+from files.slickWrap import Color
+from files.slickWrap import Rectangle
 
 #/**
 # *
@@ -46,7 +48,7 @@ class HorrorTactics: # extends BasicGame {
         self.playersave = Actor()
         self.titlemenu = TitleMenu()
         self.playerfile = SaveMyFile()
-        #self.music = Music()
+        #self.music = self.music()
         self.game_state = "title start" #title start, title ingame, tactical,conversation,cutscene
         self.fullscreen_toggle = "Yes"
         self.sound_toggle = "Yes"
@@ -88,76 +90,72 @@ class HorrorTactics: # extends BasicGame {
         self.screen_height = gc.getScreenHeight()
         self.screen_width = gc.getScreenWidth()
 
-        self.draw_x = self.map.getIsoXToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_width / 2
-        self.draw_y = self.map.getIsoYToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_height / 2
+        self.draw_x = self.map.getIsoXToScreen(self.self.map.player.tilex, self.self.map.player.tiley) * -1 + self.screen_width / 2
+        self.draw_y = self.map.getIsoYToScreen(self.self.map.player.tilex, self.self.map.player.tiley) * -1 + self.screen_height / 2
 
         self.lastframe = gc.getTime()
 
         self.button_items = pyglet.resource.image("data/button_items.png")
-        button_profile = pyglet.resource.image("data/button_profile.png")
-        button_endturn = pyglet.resource.image("data/button_endturn2.png")
-        button_menu = pyglet.resource.image("data/button_menu.png")
-        button_shadow = pyglet.resource.image("data/button_shadow.png")
-        button_punch = pyglet.resource.image("data/button_punch.png")
-        effect_biff = pyglet.resource.image("data/soundeffects/biff.png")
-        effect_wiff = pyglet.resource.image("data/soundeffects/wiff.png")
-        effect_shrack = pyglet.resource.image("data/soundeffects/shrack.png")
+        self.button_profile = pyglet.resource.image("data/button_profile.png")
+        self.button_endturn = pyglet.resource.image("data/button_endturn2.png")
+        self.button_menu = pyglet.resource.image("data/button_menu.png")
+        self.button_shadow = pyglet.resource.image("data/button_shadow.png")
+        self.button_punch = pyglet.resource.image("data/button_punch.png")
+        self.effect_biff = pyglet.resource.image("data/soundeffects/biff.png")
+        self.effect_wiff = pyglet.resource.image("data/soundeffects/wiff.png")
+        self.effect_shrack = pyglet.resource.image("data/soundeffects/shrack.png")
         
-        prev_streets01 = pyglet.resource.image("data/prev_streets01.jpg")
-        prev_apartment1 = pyglet.resource.image("data/prev_apartment1.jpg")
-        prev_tutorial01 = pyglet.resource.image("data/prev_tutorial01.jpg")
-        prev_butcher_shop01 = pyglet.resource.image("data/prev_butcher_shop01.jpg")
+        self.prev_streets01 = pyglet.resource.image("data/prev_streets01.jpg")
+        self.prev_apartment1 = pyglet.resource.image("data/prev_apartment1.jpg")
+        self.prev_tutorial01 = pyglet.resource.image("data/prev_tutorial01.jpg")
+        self.prev_butcher_shop01 = pyglet.resource.image("data/prev_butcher_shop01.jpg")
         
-        enemy_moving_message = pyglet.resource.image("data/enemy_moving.png")
-        myfilter = Color(1f, 1f, 1f, 1f)
-        myfiltert = Color(0.5f, 0.5f, 0.5f, 0.5f)
-        myfilterd = Color(0.2f, 0.2f, 0.2f, 0.8f) #for darkness/fog
-        last_mouse_x = 0#input.getMouseX()
-        last_mouse_y = 0#input.getMouseY()
-        playersave = Actor("data/player00", 218, 313) #to carry over the player.
-        level_up_icon = pyglet.resource.image("data/level_up_icon.png")
-        music = new Music("data/soundeffects/anxiety_backwards.ogg")
+        self.enemy_moving_message = pyglet.resource.image("data/enemy_moving.png")
+        self.myfilter = Color(1, 1, 1, 1)
+        self.myfiltert = Color(0.5, 0.5, 0.5, 0.5)
+        self.myfilterd = Color(0.2, 0.2, 0.2, 0.8) #for darkness/fog
+        self.last_mouse_x = 0#input.getMouseX()
+        self.last_mouse_y = 0#input.getMouseY()
+        self.playersave = Actor("data/player00", 218, 313) #to carry over the player.
+        self.level_up_icon = pyglet.resource.image("data/level_up_icon.png")
+        self.music = pyglet.media.load("data/soundeffects/anxiety_backwards.ogg", streaming=False)
 
-        try {
+        #try:
+            #TODO: Fonts
             #InputStream inputStream = ResourceLoader.getResourceAsStream("data/School_Writing.ttf")
-            InputStream inputStream = ResourceLoader.getResourceAsStream("data/FantasqueSansMono-Bold.ttf")
+            #InputStream inputStream = ResourceLoader.getResourceAsStream("data/FantasqueSansMono-Bold.ttf")
             #java.awt.Font awtFont = new java.awt.Font(inputStream, java.awt.Font.BOLD, 24)
-            java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream)
-            awtFont = awtFont.deriveFont(48f)
+            #java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream)
+            #awtFont = awtFont.deriveFont(48f)
             #awtFont.deriveFont(bold)
-            ttf = new TrueTypeFont(awtFont, false)
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
+            #ttf = new TrueTypeFont(awtFont, false)
+        #} catch (Exception e) {
+        #    e.printStackTrace()
+        #}
         
-    }
 
-    @Override
-    public void update(GameContainer gc, int delta) throws SlickException {
-        Input input = gc.getInput()
-        mouse_x = input.getMouseX()
-        mouse_y = input.getMouseY()
-        msa.mouseWasClicked(input, map, this) #Do mouse actions
-        ksa.getKeyActions(gc, input, this) #Do keyboard actions
-        map.updateMapXY(draw_x, draw_y)
-        actor_move_timer++
-        map.resetAttackAniFrame()
-        if (self.game_state.equalsIgnoreCase("exit")) {
+    def update(self, gc, delta): # throws SlickException {
+        self.input = gc.getInput()
+        self.mouse_x = input.getMouseX()
+        self.mouse_y = input.getMouseY()
+        self.msa.mouseWasClicked(input, map, this) #Do mouse actions
+        self.ksa.getKeyActions(gc, input, this) #Do keyboard actions
+        self.map.updateMapXY(draw_x, draw_y)
+        self.actor_move_timer = self.actor_move_timer+1
+        self.map.resetAttackAniFrame()
+        if (self.game_state.equalsIgnoreCase("exit")): # {
             gc.exit()
-        } else if (self.game_state.equalsIgnoreCase("title start") || self.game_state.equalsIgnoreCase("title ingame")) {
-            if (!music.playing()) {
-                music.play()
-            }
-        } else {
-            if (music.playing()) {
-                music.stop()
-            }
-        }
-        if (actor_move_timer >= self.fps) {
+        elif (self.game_state.equalsIgnoreCase("title start") or self.game_state.equalsIgnoreCase("title ingame")): # {
+            if (self.music.playing() == False): # {
+                self.music.play()
+        else:
+            if (self.music.playing()):
+                self.music.stop()
+        if (self.actor_move_timer >= self.fps) {
             self.actor_move_timer = 0
         }
-        if (map.player.dead == true && self.game_state.equalsIgnoreCase("tactical")) {
-            map.turn_order = "game over"
+        if (self.map.player.dead == true and self.game_state.equalsIgnoreCase("tactical")) {
+            self.map.turn_order = "game over"
             self.game_state = "game over"
         }
         if (map.turn_order.equalsIgnoreCase("game over")) { #update
@@ -168,21 +166,21 @@ class HorrorTactics: # extends BasicGame {
             #after the last click, accept
         } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
             #exit has been reached, transition map.  Do not set unless
-            if (map.player.expForExitReached == false) {
-                map.player.exp_points += 3
-                map.player.expForExitReached = true
-                map.player.health_points = map.player.health_points_max
-                map.player.fatigue_points = map.player.fatigue_points_max
-                map.player.snd_footsteps.stop()
+            if (self.map.player.expForExitReached == false) {
+                self.map.player.exp_points += 3
+                self.map.player.expForExitReached = true
+                self.map.player.health_points = self.map.player.health_points_max
+                self.map.player.fatigue_points = self.map.player.fatigue_points_max
+                self.map.player.snd_footsteps.stop()
             }
-            for (int i = 0 i < map.follower_max i++) {
-                if (map.follower[i].dead == false) {
-                    if (map.follower[i].expForExitReached == false) {
-                        map.follower[i].exp_points += 3
-                        map.follower[i].health_points = map.follower[i].health_points_max
-                        map.follower[i].fatigue_points = map.follower[i].fatigue_points_max
-                        map.follower[i].snd_footsteps.stop()
-                        map.follower[i].expForExitReached = true
+            for (int i = 0 i < self.map.follower_max i++) {
+                if (self.map.follower[i].dead == false) {
+                    if (self.map.follower[i].expForExitReached == false) {
+                        self.map.follower[i].exp_points += 3
+                        self.map.follower[i].health_points = self.map.follower[i].health_points_max
+                        self.map.follower[i].fatigue_points = self.map.follower[i].fatigue_points_max
+                        self.map.follower[i].snd_footsteps.stop()
+                        self.map.follower[i].expForExitReached = true
                     }
                 }
             }
@@ -193,43 +191,43 @@ class HorrorTactics: # extends BasicGame {
             #change map here  map = new MyTiledMap("data/class_school01.tmx", 0, 0)
             #map.getActorLocationFromTMX()
             try {
-                self.map.player.copyActorStats(playersave)
+                self.self.map.player.copyActorStats(playersave)
                 self.map = new MyTiledMap("data/" + n_mapname, 0, 0)
                 #we lose player info Here.  
                 map.actormap.getActorLocationFromTMX(map) #actor location?
-                self.playersave.copyActorStats(map.player)
+                self.playersave.copyActorStats(self.map.player)
                 self.map.turn_order = "planning"
                 map.mouse_over_tile_x = 1
                 map.mouse_over_tile_y = 1
-                draw_x = map.getIsoXToScreen(map.player.tilex, map.player.tiley) * -1 + self.screen_width / 2
-                draw_y = map.getIsoYToScreen(map.player.tilex, map.player.tiley) * -1 + self.screen_height / 2
+                draw_x = map.getIsoXToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_width / 2
+                draw_y = map.getIsoYToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_height / 2
             } catch (SlickException e) {
                 System.out.println("cant load new map " + n_mapname)
             }
         } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
-            if (map.player.expForGoal == false) {
-                map.player.exp_points += 3
-                map.player.expForGoal = true
+            if (self.map.player.expForGoal == false) {
+                self.map.player.exp_points += 3
+                self.map.player.expForGoal = true
             }
-            for (int i = 0 i < map.follower_max i++) {
-                if (map.follower[i].dead == false) {
-                    if (map.player.expForGoal == false) {
-                        map.follower[i].exp_points += 3
-                        map.follower[i].expForGoal = true
+            for (int i = 0 i < self.map.follower_max i++) {
+                if (self.map.follower[i].dead == false) {
+                    if (self.map.player.expForGoal == false) {
+                        self.map.follower[i].exp_points += 3
+                        self.map.follower[i].expForGoal = true
                     }
                 }
             }
         } else if (map.turn_order.equalsIgnoreCase("player")) {
             if (self.actor_move_timer == 0) {
-                map.player.onMoveActor(map, gc.getFPS())#self.getMyDelta(gc))
+                self.map.player.onMoveActor(map, gc.getFPS())#self.getMyDelta(gc))
                 map.onFollowerMoving(gc, this, delta)
-                if(map.player.action_points <= 0 && map.getFollowersCanMove() == false) {
+                if(self.map.player.action_points <= 0 and map.getFollowersCanMove() == false) {
                     #make it the monster turn automatically
                     map.turn_order = "start monster"
                 }
             }
             if (self.map.active_trigger.name.equals("none")) { #not already stepped in it
-                map.active_trigger.onSteppedOnTrigger(map, self.map.player.tilex, self.map.player.tiley)
+                map.active_trigger.onSteppedOnTrigger(map, self.self.map.player.tilex, self.self.map.player.tiley)
             } # how do we make it null again?
         } else if (map.turn_order.equalsIgnoreCase("start follower")) { #
             self.map.setFollowerDirectives()
@@ -237,11 +235,11 @@ class HorrorTactics: # extends BasicGame {
         } else if (map.turn_order.equalsIgnoreCase("follower")) {
 
         } else if (map.turn_order.equalsIgnoreCase("start player")) {
-            map.player.action_points = 6 + map.player.stat_speed - 1 + map.player.getMovePenalty()
+            self.map.player.action_points = 6 + self.map.player.stat_speed - 1 + self.map.player.getMovePenalty()
             #check for level up
-            map.player.onLevelUp()
-            for (int i = 0 i < map.follower_max i++) {
-                map.follower[i].onLevelUp()
+            self.map.player.onLevelUp()
+            for (int i = 0 i < self.map.follower_max i++) {
+                self.map.follower[i].onLevelUp()
             }
             #give followers action points.
             self.map.setFollowerDirectives()
@@ -268,7 +266,7 @@ class HorrorTactics: # extends BasicGame {
             render_tactical_base(gc, g)
         } else if (game_state.equalsIgnoreCase("cutscene")) {
             self.render_cutscene(gc, g) #animations?
-        } else if (game_state.equalsIgnoreCase("title start") || game_state.equalsIgnoreCase("title ingame")) {
+        } else if (game_state.equalsIgnoreCase("title start") or game_state.equalsIgnoreCase("title ingame")) {
             #self.render_title(gc, g)
             self.titlemenu.render(this, g)
         } else if (game_state.equalsIgnoreCase("game over")) {
@@ -321,10 +319,10 @@ class HorrorTactics: # extends BasicGame {
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert)
             } else #inside cannot be dark
             {
-                if (x < map.player.tilex - map.light_level
-                        || x > map.player.tilex + map.light_level
-                        || y < map.player.tiley - map.light_level
-                        || y > map.player.tiley + map.light_level) {
+                if (x < self.map.player.tilex - self.map.light_level
+                        or x > self.map.player.tilex + self.map.light_level
+                        or y < self.map.player.tiley - self.map.light_level
+                        or y > self.map.player.tiley + self.map.light_level) {
                     if (self.getTileToBeRendered(x, y)) {
                         map.getTileImage(x, y, walls_layer).draw(
                                 screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd)
@@ -334,18 +332,18 @@ class HorrorTactics: # extends BasicGame {
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter)
                 }
             }
-            if (y == map.selected_tile_y && x == map.selected_tile_x && self.map.turn_order.equalsIgnoreCase("player")) {
+            if (y == map.selected_tile_y and x == map.selected_tile_x and self.map.turn_order.equalsIgnoreCase("player")) {
                 #map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
                 map.selected_green.draw(screen_x + draw_x, screen_y + draw_y)
             }
-            if (y == map.player.tiledesty && x == map.player.tiledestx
-                    && map.player.getActorMoving()) {
+            if (y == self.map.player.tiledesty and x == self.map.player.tiledestx
+                    and self.map.player.getActorMoving()) {
                 map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
             }
-            for (int i = 0 i < map.follower_max i++) {
-                if (y == map.follower[i].tiledesty
-                        && x == map.follower[i].tiledestx #){
-                        && map.follower[i].getActorMoving()) {
+            for (int i = 0 i < self.map.follower_max i++) {
+                if (y == self.map.follower[i].tiledesty
+                        and x == self.map.follower[i].tiledestx #){
+                        and self.map.follower[i].getActorMoving()) {
                     map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
                 }
             }
@@ -363,7 +361,7 @@ class HorrorTactics: # extends BasicGame {
                 screen_x = (x - y) * map.TILE_WIDTH_HALF
                 /*Calculate screen/x/y*/
                 screen_y = (x + y) * map.TILE_HEIGHT_HALF
-                if (x >= 0 && y >= 0 && x <= mw && y <= mh) {
+                if (x >= 0 and y >= 0 and x <= mw and y <= mh) {
                     /*loop through tiles */
                     mouse_x = gc.getInput().getMouseX()
                     /*get mouse coords*/
@@ -372,8 +370,8 @@ class HorrorTactics: # extends BasicGame {
                     /*screen x/y+drawing offset*/
                     int sy = screen_y + draw_y + 30
                     /*compare mouse to sx*/
-                    if (mouse_x >= sx && mouse_x <= sx + 250 - 30
-                            && mouse_y >= sy && mouse_y <= sy + 130 - 30) {
+                    if (mouse_x >= sx and mouse_x <= sx + 250 - 30
+                            and mouse_y >= sy and mouse_y <= sy + 130 - 30) {
                         map.mouse_over_tile_x = x
                         map.mouse_over_tile_y = y
                         #is there someone in mouse over tile?
@@ -381,16 +379,16 @@ class HorrorTactics: # extends BasicGame {
                         #map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                         #        screen_x + draw_x, screen_y + draw_y, scale_x)
                     }
-                    map.player.drawPlayer(this, map, x, y, g)
+                    self.map.player.drawPlayer(this, map, x, y, g)
                     /*Draw your player*/
                     map.drawMonsters(this, x, y, g)
                     /*map.monster[0].drawActor(this, map, x, y)*/
                     map.drawFollowers(this, x, y, g)
                     /*draw your followers*/
                     if (self.map.RequiresGoal.equalsIgnoreCase("yes")
-                            && self.map.EventGoal_ran == false
-                            && x == self.map.draw_goal_x
-                            && y == self.map.draw_goal_y) {
+                            and self.map.EventGoal_ran == false
+                            and x == self.map.draw_goal_x
+                            and y == self.map.draw_goal_y) {
                         /*bug? better have an image*/
                         int pdx = screen_x + draw_x
                         /* + self.draw_x*/
@@ -420,19 +418,19 @@ class HorrorTactics: # extends BasicGame {
     public void render_game_ui(GameContainer gc, Graphics g) {
         int mouseovervar
         mouseovervar = getMouseOverBottomButtons(this)
-        map.player.iconImage.draw(5, 50)
-        if (map.player.newLevelUp == true) { #level_up_icon
+        self.map.player.iconImage.draw(5, 50)
+        if (self.map.player.newLevelUp == true) { #level_up_icon
             self.level_up_icon.draw(5, 50)
         }
-        g.drawString("Action: " + Integer.toString(map.player.action_points),
+        g.drawString("Action: " + Integer.toString(self.map.player.action_points),
                 5, 50 + 75)
-        for (int i = 0 i < self.map.follower_max i++) {
-            if (self.map.follower[i].visible == true) {
-                self.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)))
-                if (map.follower[i].newLevelUp == true) {
+        for (int i = 0 i < self.self.map.follower_max i++) {
+            if (self.self.map.follower[i].visible == true) {
+                self.self.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)))
+                if (self.map.follower[i].newLevelUp == true) {
                     self.level_up_icon.draw(5, 50 + (100 * (i + 1)))
                 }
-                g.drawString("Action: " + Integer.toString(map.follower[i].action_points),
+                g.drawString("Action: " + Integer.toString(self.map.follower[i].action_points),
                         #5, 50 + 75)# (100 * (i + 1) + 75))
                         5, 50 + (100 * (i + 1)) + 75)
             }
@@ -445,7 +443,7 @@ class HorrorTactics: # extends BasicGame {
         button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10)
         button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10)
         button_shadow.draw(gc.getScreenWidth() -mouseovervar, gc.getScreenHeight() - 64 - 10) #button_shadow
-        g.drawString("Player At:" + map.player.tilex + "X" + map.player.tiley + "mouse at:"
+        g.drawString("Player At:" + self.map.player.tilex + "X" + self.map.player.tiley + "mouse at:"
                 + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
                 + map.turn_order + " mm: " + map.current_monster_moving + "/"
                 + map.monster[map.current_monster_moving].action_points + " dst:"
@@ -463,15 +461,15 @@ class HorrorTactics: # extends BasicGame {
         }
         #check for a follower selected
         boolean foundselected = false
-        for (int i = 0 i < map.follower_max i++) {
-            if (map.follower[i].selected == true) {
+        for (int i = 0 i < self.map.follower_max i++) {
+            if (self.map.follower[i].selected == true) {
                 foundselected = true
-                self.map.follower[i].drawPopupWindow(this, g)
+                self.self.map.follower[i].drawPopupWindow(this, g)
                 break
             }
         }
         if (foundselected == false) {
-            self.map.player.drawPopupWindow(this, g) #who is currently selected?
+            self.self.map.player.drawPopupWindow(this, g) #who is currently selected?
         }
     }
     
@@ -534,10 +532,10 @@ class HorrorTactics: # extends BasicGame {
     }
 
     public boolean wall_intersect_player(int x, int y, int screen_x, int screen_y) {
-        #int x = map.player.tilex - 4 x < map.player.tilex + 4 x++
+        #int x = self.map.player.tilex - 4 x < self.map.player.tilex + 4 x++
         for (int ly = 0 ly < 4 ly++) {
             for (int lx = 0 lx < 4 lx++) {
-                if (x == map.player.tilex + lx && y == map.player.tiley + ly) {
+                if (x == self.map.player.tilex + lx and y == self.map.player.tiley + ly) {
                     return true
                 }
             }
@@ -619,18 +617,18 @@ class HorrorTactics: # extends BasicGame {
 
     public boolean getTileToBeFiltered(int x, int y) { #if its outside 2 steps
         if (getTileToBeRendered(x, y)) {
-            /*for (int i = 0 i < map.follower_max i++) {
-                if (x < map.follower[i].tilex - 2
-                        || x > map.follower[i].tilex + 2
-                        || y < map.follower[i].tiley - 2
-                        || y > map.follower[i].tiley + 2) {
+            /*for (int i = 0 i < self.map.follower_max i++) {
+                if (x < self.map.follower[i].tilex - 2
+                        or x > self.map.follower[i].tilex + 2
+                        or y < self.map.follower[i].tiley - 2
+                        or y > self.map.follower[i].tiley + 2) {
                     return false
                 } 
             }*/
-            if (x < map.player.tilex - 3
-                    || x > map.player.tilex + 3
-                    || y < map.player.tiley - 3
-                    || y > map.player.tiley + 3) {
+            if (x < self.map.player.tilex - 3
+                    or x > self.map.player.tilex + 3
+                    or y < self.map.player.tiley - 3
+                    or y > self.map.player.tiley + 3) {
                 return true
             }
         }
