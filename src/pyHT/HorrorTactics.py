@@ -1,4 +1,4 @@
-#/*
+##/*
 # * To change this license header, choose License Headers in Project Properties.
 # * To change this template file, choose Tools | Templates
 # * and open the template in the editor.
@@ -10,12 +10,12 @@ import pyglet
 from files.slickWrap import Color
 from files.slickWrap import Rectangle
 
-#/**
+##/**
 # *
 # * @author tcooper
 # */
 
-class HorrorTactics: # extends BasicGame {
+class HorrorTactics: # extends BasicGame: 
     def __init__(self):
         self.input = Input() #input class
         
@@ -23,10 +23,10 @@ class HorrorTactics: # extends BasicGame {
         self.ksa = KeyActions() # ksa
         self.draw_x = 0
         self.draw_y = 0   #draw offset for screen?
-        #/* offset for camera scrolling*/
+        ##/* offset for camera scrolling*/
         self.screen_x = 0
         self.screen_y = 0
-        #/* where on the screen?*/
+        ##/* where on the screen?*/
         self.mouse_x = 0
         self.mouse_y = 0 #where the mouse is?
         self.last_mouse_x = 0
@@ -61,7 +61,7 @@ class HorrorTactics: # extends BasicGame {
         #Image prev_streets01,prev_apartment1, prev_tutorial01, prev_butcher_shop01
         #InputStream inputStream	= ResourceLoader.getResourceAsStream("myfont.ttf")
  
-		#Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream)
+		#Font awtFont2 = Font.createFont(Font.TrueTYPE_FONT, inputStream)
 		#awtFont2 = awtFont2.deriveFont(24f) # set font size
 		#font2 = new TrueTypeFont(awtFont2, antiAlias)
         #moved to init
@@ -69,17 +69,17 @@ class HorrorTactics: # extends BasicGame {
         #self.settings = Settings() # settings
 
         #@Override
-    def init(self): #, GameContainer gc): # throws SlickException {
+    def init(self): #, GameContainer gc): # throws SlickException: 
         self.map = MyTiledMap("data/dojo01.tmx", 0, 0)
-        #map = new MyTiledMap("data/tutorial01.tmx", 0, 0)
-        #map = new MyTiledMap("data/butcher_shop01.tmx", 0, 0)
-        #map = new MyTiledMap("data/streets01.tmx", 0, 0)
+        #self.map = MyTiledMap("data/tutorial01.tmx", 0, 0)
+        #self.map = MyTiledMap("data/butcher_shop01.tmx", 0, 0)
+        #self.map = MyTiledMap("data/streets01.tmx", 0, 0)
         self.settings = Settings() #how do we save them?
         self.msa = MouseActions()
         self.ksa = KeyActions()
         self.titlemenu = TitleMenu(this)
         #input = new Input(gc.getHeight())
-        self.map.actormap.getActorLocationFromTMX(map)
+        self.mapactorself.map.getActorLocationFromTMX(map)
         self.fps = gc.getFPS()
         self.actor_move_timer = 0
         self.lastTime = 0
@@ -90,8 +90,8 @@ class HorrorTactics: # extends BasicGame {
         self.screen_height = gc.getScreenHeight()
         self.screen_width = gc.getScreenWidth()
 
-        self.draw_x = self.map.getIsoXToScreen(self.self.map.player.tilex, self.self.map.player.tiley) * -1 + self.screen_width / 2
-        self.draw_y = self.map.getIsoYToScreen(self.self.map.player.tilex, self.self.map.player.tiley) * -1 + self.screen_height / 2
+        self.draw_x = self.map.getIsoXToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_width / 2
+        self.draw_y = self.map.getIsoYToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_height / 2
 
         self.lastframe = gc.getTime()
 
@@ -125,316 +125,278 @@ class HorrorTactics: # extends BasicGame {
             #InputStream inputStream = ResourceLoader.getResourceAsStream("data/School_Writing.ttf")
             #InputStream inputStream = ResourceLoader.getResourceAsStream("data/FantasqueSansMono-Bold.ttf")
             #java.awt.Font awtFont = new java.awt.Font(inputStream, java.awt.Font.BOLD, 24)
-            #java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TRUETYPE_FONT, inputStream)
+            #java.awt.Font awtFont = java.awt.Font.createFont(java.awt.Font.TrueTYPE_FONT, inputStream)
             #awtFont = awtFont.deriveFont(48f)
             #awtFont.deriveFont(bold)
-            #ttf = new TrueTypeFont(awtFont, false)
-        #} catch (Exception e) {
+            #ttf = new TrueTypeFont(awtFont, False)
+        # catch (Exception e): 
         #    e.printStackTrace()
-        #}
+        #
         
 
-    def update(self, gc, delta): # throws SlickException {
+    def update(self, gc, delta): # throws SlickException: 
         self.input = gc.getInput()
         self.mouse_x = input.getMouseX()
         self.mouse_y = input.getMouseY()
         self.msa.mouseWasClicked(input, map, this) #Do mouse actions
         self.ksa.getKeyActions(gc, input, this) #Do keyboard actions
-        self.map.updateMapXY(draw_x, draw_y)
+        self.mapupdateMapXY(draw_x, draw_y)
         self.actor_move_timer = self.actor_move_timer+1
-        self.map.resetAttackAniFrame()
-        if (self.game_state.equalsIgnoreCase("exit")): # {
+        self.mapresetAttackAniFrame()
+        if (self.game_state == "exit"): #: 
             gc.exit()
-        elif (self.game_state.equalsIgnoreCase("title start") or self.game_state.equalsIgnoreCase("title ingame")): # {
-            if (self.music.playing() == False): # {
+        elif (self.game_state == "title start" or self.game_state == "title ingame"):
+            if (self.music.playing() == False): #: 
                 self.music.play()
         else:
             if (self.music.playing()):
                 self.music.stop()
-        if (self.actor_move_timer >= self.fps) {
+        if (self.actor_move_timer >= self.fps):
             self.actor_move_timer = 0
-        }
-        if (self.map.player.dead == true and self.game_state.equalsIgnoreCase("tactical")) {
+        if (self.map.player.dead == True and self.game_state == "tactical"):
             self.map.turn_order = "game over"
             self.game_state = "game over"
-        }
-        if (map.turn_order.equalsIgnoreCase("game over")) { #update
-            
-        } else if (map.turn_order.equalsIgnoreCase("planning")) { #update
+        if (self.map.turn_order == "game over"): #update
+            n = None
+        elif (self.map.turn_order == "planning"):  #update
+            n = None #why is this here?
             #planning phase.  Show a dialogue.
             #Accept clicks through the dialogue
             #after the last click, accept
-        } else if (map.turn_order.equalsIgnoreCase("exit reached")) {
-            #exit has been reached, transition map.  Do not set unless
-            if (self.map.player.expForExitReached == false) {
+        elif (self.map.turn_order == "exit reached"):
+            #exit has been reached, transition self.map  Do not set unless
+            if (self.map.player.expForExitReached == False):
                 self.map.player.exp_points += 3
-                self.map.player.expForExitReached = true
+                self.map.player.expForExitReached = True
                 self.map.player.health_points = self.map.player.health_points_max
                 self.map.player.fatigue_points = self.map.player.fatigue_points_max
-                self.map.player.snd_footsteps.stop()
-            }
-            for (int i = 0 i < self.map.follower_max i++) {
-                if (self.map.follower[i].dead == false) {
-                    if (self.map.follower[i].expForExitReached == false) {
+                self.map.player.snd_footsteps.stop() #for x in range(0, 3):
+            for i in range(0, self.map.follower_max):  #for x in range(0, 3):
+                if (self.map.follower[i].dead == False):
+                    if (self.map.follower[i].expForExitReached == False):
                         self.map.follower[i].exp_points += 3
                         self.map.follower[i].health_points = self.map.follower[i].health_points_max
                         self.map.follower[i].fatigue_points = self.map.follower[i].fatigue_points_max
                         self.map.follower[i].snd_footsteps.stop()
-                        self.map.follower[i].expForExitReached = true
-                    }
-                }
-            }
+                        self.map.follower[i].expForExitReached = True
             #goal has been reached , or goal = none
-
-        } else if (map.turn_order.equalsIgnoreCase("change map")) {
-            String n_mapname = self.map.next_map
+        elif (self.map.turn_order == "change map"):
+            n_mapname = self.mapnext_map #local String n_mapname = 
             #change map here  map = new MyTiledMap("data/class_school01.tmx", 0, 0)
-            #map.getActorLocationFromTMX()
-            try {
-                self.self.map.player.copyActorStats(playersave)
-                self.map = new MyTiledMap("data/" + n_mapname, 0, 0)
+            #self.map.getActorLocationFromTMX()
+            try:
+                self.map.player.copyActorStats(playersave)
+                self.map = MyTiledMap("data/" + n_mapname, 0, 0)
                 #we lose player info Here.  
-                map.actormap.getActorLocationFromTMX(map) #actor location?
+                self.mapactorself.map.getActorLocationFromTMX(map) #actor location?
                 self.playersave.copyActorStats(self.map.player)
                 self.map.turn_order = "planning"
-                map.mouse_over_tile_x = 1
-                map.mouse_over_tile_y = 1
-                draw_x = map.getIsoXToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_width / 2
-                draw_y = map.getIsoYToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_height / 2
-            } catch (SlickException e) {
-                System.out.println("cant load new map " + n_mapname)
-            }
-        } else if (map.turn_order.equalsIgnoreCase("goal reached")) {
-            if (self.map.player.expForGoal == false) {
+                self.mapmouse_over_tile_x = 1
+                self.mapmouse_over_tile_y = 1
+                draw_x = self.map.getIsoXToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_width / 2
+                draw_y = self.map.getIsoYToScreen(self.map.player.tilex, self.map.player.tiley) * -1 + self.screen_height / 2
+            except:
+                print("cant load new map " + n_mapname)
+        elif (self.map.turn_order == "goal reached"):
+            if (self.map.player.expForGoal == False):
                 self.map.player.exp_points += 3
-                self.map.player.expForGoal = true
-            }
-            for (int i = 0 i < self.map.follower_max i++) {
-                if (self.map.follower[i].dead == false) {
-                    if (self.map.player.expForGoal == false) {
+                self.map.player.expForGoal = True
+            for i in range(0, self.map.follower_max): #for (int i = 0 i < self.map.follower_max i++): 
+                if (self.map.follower[i].dead == False):
+                    if (self.map.player.expForGoal == False):
                         self.map.follower[i].exp_points += 3
-                        self.map.follower[i].expForGoal = true
-                    }
-                }
-            }
-        } else if (map.turn_order.equalsIgnoreCase("player")) {
-            if (self.actor_move_timer == 0) {
-                self.map.player.onMoveActor(map, gc.getFPS())#self.getMyDelta(gc))
-                map.onFollowerMoving(gc, this, delta)
-                if(self.map.player.action_points <= 0 and map.getFollowersCanMove() == false) {
+                        self.map.follower[i].expForGoal = True
+        elif (self.map.turn_order == "player"):
+            if (self.actor_move_timer == 0):
+                self.map.player.onMoveActor(self.map, gc.getFPS())#self.getMyDelta(gc))
+                self.maponFollowerMoving(gc, this, delta)
+                if(self.map.player.action_points <= 0 and self.map.getFollowersCanMove() == False):
                     #make it the monster turn automatically
-                    map.turn_order = "start monster"
-                }
-            }
-            if (self.map.active_trigger.name.equals("none")) { #not already stepped in it
-                map.active_trigger.onSteppedOnTrigger(map, self.self.map.player.tilex, self.self.map.player.tiley)
-            } # how do we make it null again?
-        } else if (map.turn_order.equalsIgnoreCase("start follower")) { #
-            self.map.setFollowerDirectives()
-            map.turn_order = "follower"
-        } else if (map.turn_order.equalsIgnoreCase("follower")) {
+                    self.map.turn_order = "start monster"
+            if (self.mapactive_trigger.name == "none"): #not already stepped in it
+                self.mapactive_trigger.onSteppedOnTrigger(self.map, self.map.player.tilex, self.map.player.tiley)
+                # how do we make it null again?
+        elif (self.map.turn_order == "start follower"): #
+            self.mapsetFollowerDirectives()
+            self.map.turn_order = "follower"
+        #elif (self.map.turn_order == ("follower")): 
 
-        } else if (map.turn_order.equalsIgnoreCase("start player")) {
+        elif (self.map.turn_order == "start player"):
             self.map.player.action_points = 6 + self.map.player.stat_speed - 1 + self.map.player.getMovePenalty()
             #check for level up
             self.map.player.onLevelUp()
-            for (int i = 0 i < self.map.follower_max i++) {
+            for i in range(0, self.map.follower_max): #for (int i = 0 i < self.map.follower_max i++): 
                 self.map.follower[i].onLevelUp()
-            }
             #give followers action points.
             self.map.setFollowerDirectives()
-            map.turn_order = "player"
+            self.map.turn_order = "player"
 
-        } else if (map.turn_order.equalsIgnoreCase("start monster")) {
+        elif (self.map.turn_order == "start monster"):
             self.map.setMonsterDirectives()
-            map.turn_order = "monster"
-        } else if (map.turn_order.equalsIgnoreCase("monster")) {
-            if (self.actor_move_timer == 0) {
-                map.resetAttackAniFrame()
-                map.onMonsterMoving(gc, this, delta) #wrapper for onMoveActor
-            }
-        }
-        map.onUpdateActorActionText()
-    }
+            self.map.turn_order = "monster"
+        elif (self.map.turn_order == ("monster")): 
+            if (self.actor_move_timer == 0): 
+                self.map.resetAttackAniFrame()
+                self.map.onMonsterMoving(gc, self, delta) #wrapper for onMoveActor
+        self.map.onUpdateActorActionText()
 
-    @Override
-    public void render(GameContainer gc, Graphics g) throws SlickException {
-        if (game_state.equalsIgnoreCase("tactical")) {
+    #def render(gc, g): # throws SlickException:
+    def render(gc, g): #what args do we need?
+        if (self.game_state == ("tactical")): 
             render_tactical_base(gc, g)
-        } else if (game_state.equalsIgnoreCase("conversation")) {
+        elif (self.game_state == ("conversation")): 
             g.scale(scale_x, scale_x) #scale the same
             render_tactical_base(gc, g)
-        } else if (game_state.equalsIgnoreCase("cutscene")) {
+        elif (self.game_state == ("cutscene")): 
             self.render_cutscene(gc, g) #animations?
-        } else if (game_state.equalsIgnoreCase("title start") or game_state.equalsIgnoreCase("title ingame")) {
+        elif (self.game_state == ("title start") or self.game_state == ("title ingame")): 
             #self.render_title(gc, g)
             self.titlemenu.render(this, g)
-        } else if (game_state.equalsIgnoreCase("game over")) {
+        elif (self.game_state == ("game over")): 
             self.render_game_over(gc, g)  #its game over for your kind
-        }
-    }
-
-    public void render_tactical_base(GameContainer gc, Graphics g) {
+    def render_tactical_base(gc, g):
         g.scale(scale_x, scale_x) #scale the same
         self.render_background_layer(gc, g) #render floor
         self.render_walls_layer(gc, g)      #render walls (and actors!)
         self.render_game_ui(gc, g)
         self.render_character_busts(gc, g)
-    }
 
-    public void render_background_layer(GameContainer gc, Graphics g) {
-        int background_layer = map.getLayerIndex("background_layer")
-        map.set_party_min_renderables()
-        for (int y = map.render_min_y - 4 y < map.render_max_y + 4 y++) {
-            for (int x = map.render_min_x - 4 x < map.render_max_x + 4 x++) {
-                screen_x = (x - y) * map.TILE_WIDTH_HALF
-                screen_y = (x + y) * map.TILE_HEIGHT_HALF
-                try {
-                    if (self.getTileToBeRendered(x, y)) {
-                        if (self.getTileToBeFiltered(x, y)) {#if its outside 2 steps
+    def render_background_layer(gc, g): 
+        background_layer = self.map.getLayerIndex("background_layer")
+        self.mapset_party_min_renderables()
+        for y in range(self.map.render_min_y - 4, self.map.render_max_y):#(int y = self.map.render_min_y - 4 y < self.map.render_max_y + 4 y++): 
+            for x in range(self.map_render_min_x -4, self.map.render_max_x + 4): #for (int x = self.map.render_min_x - 4 x < self.map.render_max_x + 4 x++): 
+                self.screen_x = (x - y) * self.mapTILE_WIDTH_HALF
+                self.screen_y = (x + y) * self.mapTILE_HEIGHT_HALF
+                try: 
+                    if (self.getTileToBeRendered(x, y)): 
+                        if (self.getTileToBeFiltered(x, y)): #if its outside 2 steps
                             #java.lang.ArrayIndexOutOfBoundsException: 20 
-                            try {
-                                Image xi = map.getTileImage(x, y, background_layer)
-                                #map.getTileImage(x, y, background_layer).draw(
+                            try: 
+                                xi = self.map.getTileImage(x, y, background_layer) #Image
+                                #self.map.getTileImage(x, y, background_layer).draw(
                                 xi.draw(screen_x + draw_x, screen_y + draw_y, scale_x, self.myfilterd)
-                            } catch (ArrayIndexOutOfBoundsException ae) {
-                            }
-                        } else { #draw normal
-                            map.getTileImage(x, y, background_layer).draw(
+                            except: # catch (ArrayIndexOutOfBoundsException ae): 
+                                print("Block the bug: xi.draw())") # # block the bug.
+                        else:  #draw normal
+                            self.map.getTileImage(x, y, background_layer).draw(
                                     screen_x + draw_x, screen_y + draw_y, scale_x)
-                        }
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                } # block the bug.
-            }
-        }
-    }
+                except: # catch (ArrayIndexOutOfBoundsException e): 
+                    print("Block the bug: try if(xi.draw)") # # block the bug.
 
-    public void render_wall_by_wall(GameContainer gc, Graphics g, int x, int y) {
-        int walls_layer = map.getLayerIndex("walls_layer")
-        try {
-            if (map.getTileImage(x, y, walls_layer) == null) {
-            } else if (self.wall_intersect_player(x, y, screen_x, screen_y) == true) {
-                map.getTileImage(x, y, walls_layer).draw(
+    def render_wall_by_wall(gc, g, x, y): 
+        walls_layer = self.map.getLayerIndex("walls_layer")
+        try: 
+            if (self.map.getTileImage(x, y, walls_layer) == False):
+                print("self.map.getTileImage(x, y, walls_layer) == False)")
+            elif (self.wall_intersect_player(x, y, screen_x, screen_y) == True): 
+                self.map.getTileImage(x, y, walls_layer).draw(
                         screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfiltert)
-            } else #inside cannot be dark
-            {
-                if (x < self.map.player.tilex - self.map.light_level
-                        or x > self.map.player.tilex + self.map.light_level
-                        or y < self.map.player.tiley - self.map.light_level
-                        or y > self.map.player.tiley + self.map.light_level) {
-                    if (self.getTileToBeRendered(x, y)) {
-                        map.getTileImage(x, y, walls_layer).draw(
+            else: #inside cannot be dark
+                if (x < self.map.player.tilex - self.maplight_level 
+                        or x > self.map.player.tilex + self.maplight_level  
+                        or y < self.map.player.tiley - self.maplight_level  
+                        or y > self.map.player.tiley + self.maplight_level): 
+                    if (self.getTileToBeRendered(x, y)): 
+                        self.map.getTileImage(x, y, walls_layer).draw(
                                 screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilterd)
-                    }
-                } else {
-                    map.getTileImage(x, y, walls_layer).draw(
+                else: 
+                    self.map.getTileImage(x, y, walls_layer).draw(
                             screen_x + draw_x, screen_y + draw_y - 382, scale_x, myfilter)
-                }
-            }
-            if (y == map.selected_tile_y and x == map.selected_tile_x and self.map.turn_order.equalsIgnoreCase("player")) {
-                #map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
-                map.selected_green.draw(screen_x + draw_x, screen_y + draw_y)
-            }
+            if (y == self.mapselected_tile_y and x == self.mapselected_tile_x and self.map.turn_order == "player"): 
+                #self.map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
+                self.mapselected_green.draw(screen_x + draw_x, screen_y + draw_y)
             if (y == self.map.player.tiledesty and x == self.map.player.tiledestx
-                    and self.map.player.getActorMoving()) {
-                map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
-            }
-            for (int i = 0 i < self.map.follower_max i++) {
+                    and self.map.player.getActorMoving()): 
+                self.map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
+            for i in range(0, self.map.follower_max):#for (int i = 0 i < self.map.follower_max i++): 
                 if (y == self.map.follower[i].tiledesty
                         and x == self.map.follower[i].tiledestx #){
-                        and self.map.follower[i].getActorMoving()) {
-                    map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y)
-                }
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
-    }
-
-    public void render_walls_layer(GameContainer gc, Graphics g) {
-        int mw = map.getTileWidth()
-        int mh = map.getTileHeight()
-        for (int y = map.render_min_y - 4 y < map.render_max_y + 4 y++) {
-            /*Y Loop*/
-            for (int x = map.render_min_x - 4 x < map.render_max_x + 4 x++) {
-                /* X Loop*/
-                screen_x = (x - y) * map.TILE_WIDTH_HALF
-                /*Calculate screen/x/y*/
-                screen_y = (x + y) * map.TILE_HEIGHT_HALF
-                if (x >= 0 and y >= 0 and x <= mw and y <= mh) {
-                    /*loop through tiles */
-                    mouse_x = gc.getInput().getMouseX()
-                    /*get mouse coords*/
-                    mouse_y = gc.getInput().getMouseY()
-                    int sx = screen_x + draw_x + 30
-                    /*screen x/y+drawing offset*/
-                    int sy = screen_y + draw_y + 30
-                    /*compare mouse to sx*/
+                        and self.map.follower[i].getActorMoving()): 
+                    self.map.selected_yellow.draw(screen_x + draw_x, screen_y + draw_y) 
+        except: #
+             print("ArrayIndexOutOfBoundsException e")
+    def render_walls_layer(gc, g): 
+        mw = self.map.getTileWidth()
+        mh = self.map.getTileHeight()
+        for y in range(self.map.render_min_y - 4, self.map.render_max_y + 4):#for (int y = self.map.render_min_y - 4 y < self.map.render_max_y + 4 y++): 
+            ##/*Y Loop*/
+            for x in range(self.map.render_min_x -4, self.map.render_max +4):#for (int x = self.map.render_min_x - 4 x < self.map.render_max_x + 4 x++): 
+                #/* X Loop*/
+                self.screen_x = (x - y) * self.map.TILE_WIDTH_HALF
+                #/*Calculate screen/x/y*/
+                self.screen_y = (x + y) * self.mapTILE_HEIGHT_HALF
+                if (x >= 0 and y >= 0 and x <= mw and y <= mh): 
+                    #/*loop through tiles */
+                    self.mouse_x = gc.getInput().getMouseX()
+                    #/*get mouse coords*/
+                    self.mouse_y = gc.getInput().getMouseY()
+                    sx = screen_x + self.draw_x + 30
+                    #/*screen x/y+drawing offset*/
+                    sy = screen_y + self.draw_y + 30
+                    #/*compare mouse to sx*/
                     if (mouse_x >= sx and mouse_x <= sx + 250 - 30
-                            and mouse_y >= sy and mouse_y <= sy + 130 - 30) {
-                        map.mouse_over_tile_x = x
-                        map.mouse_over_tile_y = y
+                            and mouse_y >= sy and mouse_y <= sy + 130 - 30): 
+                        self.mapmouse_over_tile_x = x
+                        self.mapmouse_over_tile_y = y
                         #is there someone in mouse over tile?
-                        map.mouse_over_actor(x, y) #render the selector.
-                        #map.tiles250x129.getSubImage(0, 0, 250, 130).draw(
+                        self.mapmouse_over_actor(x, y) #render the selector.
+                        #self.maptiles250x129.getSubImage(0, 0, 250, 130).draw(
                         #        screen_x + draw_x, screen_y + draw_y, scale_x)
-                    }
-                    self.map.player.drawPlayer(this, map, x, y, g)
-                    /*Draw your player*/
-                    map.drawMonsters(this, x, y, g)
-                    /*map.monster[0].drawActor(this, map, x, y)*/
-                    map.drawFollowers(this, x, y, g)
-                    /*draw your followers*/
-                    if (self.map.RequiresGoal.equalsIgnoreCase("yes")
-                            and self.map.EventGoal_ran == false
-                            and x == self.map.draw_goal_x
-                            and y == self.map.draw_goal_y) {
-                        /*bug? better have an image*/
-                        int pdx = screen_x + draw_x
-                        /* + self.draw_x*/
-                        int pdy = screen_y + draw_y
-                        /* + self.draw_y - 230*/
-                        self.map.mission_goal.draw(pdx, pdy)
-                    }
-                    if (self.getTileToBeRendered(x, y)) {
+                    
+                    self.map.player.drawPlayer(this, self.map, x, y, g)
+                    #/*Draw your player*/
+                    self.mapdrawMonsters(this, x, y, g)
+                    #/*self.mapmonster[0].drawActor(this, map, x, y)*/
+                    self.mapdrawFollowers(this, x, y, g)
+                    #/*draw your followers*/
+                    if (self.mapRequiresGoal == ("yes")
+                            and self.mapEventGoal_ran == False
+                            and x == self.mapdraw_goal_x
+                            and y == self.mapdraw_goal_y): 
+                        #/*bug? better have an image*/
+                        pdx = self.screen_x + self.draw_x
+                        #/* + self.draw_x*/
+                        pdy = self.screen_y + self.draw_y
+                        #/* + self.draw_y - 230*/
+                        self.mapmission_goal.draw(pdx, pdy)
+                    
+                    if (self.getTileToBeRendered(x, y)): 
                         render_wall_by_wall(gc, g, x, y) #ArrayIndexOutOfBoundsException
-                    }
-                }
-            }
-        }
-    }
-
-    #public void render_game_ui(GameContainer gc, Graphics g, )
-    public int getMouseOverBottomButtons(HorrorTactics ht) {
-        #if(ht.map.m)
-        if( msa.menuButtonWasOver(ht) ) {return 100}
-        else if( msa.endTurnButtonWasOver(ht) ) {return 200}
-        else if( msa.profileButtonWasOver(ht)) { return 300 }
-        else if( msa.itemsButtonWasOver(ht) ) {return 400}
-        else {
+    #def render_game_ui(gc, g, )
+    def getMouseOverBottomButtons(ht): 
+        #if(ht.self.mapm)
+        if( self.msa.menuButtonWasOver(ht) ): 
+            return 100
+        elif ( self.msa.endTurnButtonWasOver(ht) ): 
+            return 200
+        elif ( self.msa.profileButtonWasOver(ht)):
+            return 300 
+        elif ( self.msa.itemsButtonWasOver(ht) ): 
+            return 400
+        else: 
             return -100
-        }
-    }
-    public void render_game_ui(GameContainer gc, Graphics g) {
-        int mouseovervar
+        
+    
+    def render_game_ui(gc, g): 
         mouseovervar = getMouseOverBottomButtons(this)
         self.map.player.iconImage.draw(5, 50)
-        if (self.map.player.newLevelUp == true) { #level_up_icon
+        if (self.map.player.newLevelUp == True):  #level_up_icon
             self.level_up_icon.draw(5, 50)
-        }
+        
         g.drawString("Action: " + Integer.toString(self.map.player.action_points),
                 5, 50 + 75)
-        for (int i = 0 i < self.self.map.follower_max i++) {
-            if (self.self.map.follower[i].visible == true) {
-                self.self.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)))
-                if (self.map.follower[i].newLevelUp == true) {
+        for (int i = 0 i < self.map.follower_max i++): 
+            if (self.map.follower[i].visible == True): 
+                self.map.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)))
+                if (self.map.follower[i].newLevelUp == True): 
                     self.level_up_icon.draw(5, 50 + (100 * (i + 1)))
-                }
+                
                 g.drawString("Action: " + Integer.toString(self.map.follower[i].action_points),
                         #5, 50 + 75)# (100 * (i + 1) + 75))
                         5, 50 + (100 * (i + 1)) + 75)
-            }
-        }
+            
+        
         g.setColor(myfilterd)
         g.fillOval(5, 50 + 75, 12, 14)
         g.setColor(myfilter)
@@ -444,84 +406,84 @@ class HorrorTactics: # extends BasicGame {
         button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10)
         button_shadow.draw(gc.getScreenWidth() -mouseovervar, gc.getScreenHeight() - 64 - 10) #button_shadow
         g.drawString("Player At:" + self.map.player.tilex + "X" + self.map.player.tiley + "mouse at:"
-                + map.mouse_over_tile_x + "x" + map.mouse_over_tile_y + " Turn: "
-                + map.turn_order + " mm: " + map.current_monster_moving + "/"
-                + map.monster[map.current_monster_moving].action_points + " dst:"
-                + map.monster[map.current_monster_moving].tiledestx + ","
-                + map.monster[map.current_monster_moving].tiledesty,
+                + self.mapmouse_over_tile_x + "x" + self.mapmouse_over_tile_y + " Turn: "
+                + self.map.turn_order + " mm: " + self.mapcurrent_monster_moving + "/"
+                + self.mapmonster[self.mapcurrent_monster_moving].action_points + " dst:"
+                + self.mapmonster[self.mapcurrent_monster_moving].tiledestx + ","
+                + self.mapmonster[self.mapcurrent_monster_moving].tiledesty,
                 200, 10)#might crash?
-        g.drawString(self.map.log_msg, 200, 10 + 14)
-        #g.drawString("Trigger Check: " + map.trigger_check, 500, 100)
-        if (self.map.turn_order.equalsIgnoreCase("monster")) {
+        g.drawString(self.maplog_msg, 200, 10 + 14)
+        #g.drawString("Trigger Check: " + self.maptrigger_check, 500, 100)
+        if (self.map.turn_order == ("monster")): 
             self.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2)
             #The enemy is moving, show which enemy.(so people dont get bored)
-            for (int mi = 0 mi < self.map.current_monster_moving mi++) {
-                self.map.monster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92 * mi + 2), gc.getHeight() / 2 + 92)
-            }
-        }
+            for (int mi = 0 mi < self.mapcurrent_monster_moving mi++): 
+                self.mapmonster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92 * mi + 2), gc.getHeight() / 2 + 92)
+            
+        
         #check for a follower selected
-        boolean foundselected = false
-        for (int i = 0 i < self.map.follower_max i++) {
-            if (self.map.follower[i].selected == true) {
-                foundselected = true
-                self.self.map.follower[i].drawPopupWindow(this, g)
+        boolean foundselected = False
+        for (int i = 0 i < self.map.follower_max i++): 
+            if (self.map.follower[i].selected == True): 
+                foundselected = True
+                self.map.follower[i].drawPopupWindow(this, g)
                 break
-            }
-        }
-        if (foundselected == false) {
-            self.self.map.player.drawPopupWindow(this, g) #who is currently selected?
-        }
-    }
+            
+        
+        if (foundselected == False): 
+            self.map.player.drawPopupWindow(this, g) #who is currently selected?
+        
     
-    public void render_character_busts(GameContainer gc, Graphics g) {
+    
+    def render_character_busts(gc, g): 
         #render character busts while conversation is going on.
         Color black = new Color(0, 0, 0, 180)
         Color white = new Color(255, 255, 255, 255)
-        if (self.map.turn_order.equalsIgnoreCase("planning")) {
-            self.map.charbusts[self.map.planevent].draw(-100, gc.getScreenHeight() - 600)
+        if (self.map.turn_order == ("planning")): 
+            self.mapcharbusts[self.mapplanevent].draw(-100, gc.getScreenHeight() - 600)
             g.setColor(black)
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
             g.setColor(white)
-            #self.uniFont.drawString(400, gc.getScreenHeight() - 100, self.map.planning[self.map.planevent], Color.white )
-            g.drawString(self.map.planning[self.map.planevent], 400, gc.getScreenHeight() - 100)
-        } else if (self.map.turn_order.equalsIgnoreCase("event spotted")) {
+            #self.uniFont.drawString(400, gc.getScreenHeight() - 100, self.mapplanning[self.mapplanevent], Color.white )
+            g.drawString(self.mapplanning[self.mapplanevent], 400, gc.getScreenHeight() - 100)
+        elif (self.map.turn_order == ("event spotted")): 
             #null pointer if there is no event spotted
-            map.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600)
+            self.mapEventSpotted_p.draw(-100, gc.getScreenHeight() - 600)
             g.setColor(black)
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
             g.setColor(white)
-            #uniFont.drawString(400, gc.getScreenHeight() - 100, map.EventSpotted_m, Color.white)
-            #set all monsters to spotted true (if false)
-            g.drawString(map.EventSpotted_m, 400, gc.getScreenHeight() - 100)
-            for (int i = 0 i < map.monster_max i++) {
-                map.monster[i].spotted_enemy = true
-            }
-        } else if (self.map.turn_order.equalsIgnoreCase("goal reached")) {
-            self.map.EventGoal_p.draw(-100, gc.getScreenHeight() - 600)
+            #uniFont.drawString(400, gc.getScreenHeight() - 100, self.mapEventSpotted_m, Color.white)
+            #set all monsters to spotted True (if False)
+            g.drawString(self.mapEventSpotted_m, 400, gc.getScreenHeight() - 100)
+            for (int i = 0 i < self.mapmonster_max i++): 
+                self.mapmonster[i].spotted_enemy = True
+            
+        elif (self.map.turn_order == ("goal reached")): 
+            self.mapEventGoal_p.draw(-100, gc.getScreenHeight() - 600)
             g.setColor(black)
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
             g.setColor(white)
-            #uniFont.drawString(400, gc.getScreenHeight() - 100, self.map.EventGoal_m, Color.white)
-            g.drawString(self.map.EventGoal_m, 400, gc.getScreenHeight() - 100)
-        } else if (self.map.turn_order.equalsIgnoreCase("exit reached")) {
-            self.map.EventExit_p.draw(-100, gc.getScreenHeight() - 600)
+            #uniFont.drawString(400, gc.getScreenHeight() - 100, self.mapEventGoal_m, Color.white)
+            g.drawString(self.mapEventGoal_m, 400, gc.getScreenHeight() - 100)
+        elif (self.map.turn_order == ("exit reached")): 
+            self.mapEventExit_p.draw(-100, gc.getScreenHeight() - 600)
             g.setColor(black)
             g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
             g.setColor(white)
-            #uniFont.drawString(400, gc.getScreenHeight() - 100, self.map.EventExit_m, Color.white)
-            g.drawString(self.map.EventExit_m, 400, gc.getScreenHeight() - 100)
-        }
-    }
+            #uniFont.drawString(400, gc.getScreenHeight() - 100, self.mapEventExit_m, Color.white)
+            g.drawString(self.mapEventExit_m, 400, gc.getScreenHeight() - 100)
+        
+    
 
-    public void render_event_bubbles(GameContainer gc, Graphics g) {
+    def render_event_bubbles(gc, g): 
         #conversation bubbles, triggered by events
-    }
+    
 
-    public void render_cutscene(GameContainer gc, Graphics g) {
+    def render_cutscene(gc, g): 
         #render cutscenes
-    }
+    
 
-    public void render_game_over(GameContainer gc, Graphics g) {#yoo dyied!
+    def render_game_over(gc, g): #yoo dyied!
         #g.clear() #fade to black
         g.scale(scale_x, scale_x) #scale the same
         self.render_background_layer(gc, g) #render floor
@@ -529,121 +491,121 @@ class HorrorTactics: # extends BasicGame {
         self.render_game_ui(gc, g)
         self.render_character_busts(gc, g) #bring up the busts, and talk
         g.drawString("Game Over", gc.getScreenWidth()/2 - 100, gc.getScreenHeight()/2 - 12)
-    }
+    
 
-    public boolean wall_intersect_player(int x, int y, int screen_x, int screen_y) {
+    public boolean wall_intersect_player(int x, int y, int screen_x, int screen_y): 
         #int x = self.map.player.tilex - 4 x < self.map.player.tilex + 4 x++
-        for (int ly = 0 ly < 4 ly++) {
-            for (int lx = 0 lx < 4 lx++) {
-                if (x == self.map.player.tilex + lx and y == self.map.player.tiley + ly) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
+        for (int ly = 0 ly < 4 ly++): 
+            for (int lx = 0 lx < 4 lx++): 
+                if (x == self.map.player.tilex + lx and y == self.map.player.tiley + ly): 
+                    return True
+                
+            
+        
+        return False
+    
 
-    public int getMyDelta(GameContainer gc) {
+    public int getMyDelta(GameContainer gc): 
         long time = gc.getTime()
         int tdelta = (int) (time - self.lastframe)
         self.lastframe = time
-        if (tdelta == 0) {
+        if (tdelta == 0): 
             return 1
-        }
+        
         return tdelta
-    }
+    
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args): 
+        try: 
             AppGameContainer appgc
             appgc = new AppGameContainer(new HorrorTactics("Horror Tactics"))
 
             
-            appgc.setDisplayMode( #1024, 768, false
+            appgc.setDisplayMode( #1024, 768, False
                     appgc.getScreenWidth(),
                     appgc.getScreenHeight(),
-                    true
+                    True
             )
             appgc.setTargetFrameRate(60) #trying to slow down fast computers.
             appgc.start()
 
-        } catch (SlickException ex) {
-        }
-    }
+         catch (SlickException ex): 
+        
+    
 
-    public void setGameState(String state) {
-        game_state = state
-    }
+    def setGameState(String state): 
+        self.game_state = state
+    
 
-    public MyTiledMap getCurrentMap() {
+    public MyTiledMap getCurrentMap(): 
         return self.map
-    }
+    
 
-    public Image getComicActionStrImage(String a) {
-        if (a.equalsIgnoreCase("Dodge")) {
+    public Image getComicActionStrImage(String a): 
+        if (a == ("Dodge")): 
             return self.effect_wiff
-        } else if (a.equalsIgnoreCase("Dead")) {
+        elif (a == ("Dead")): 
             return self.effect_shrack
             #return self.effect_biff
-        } else {
+         else: 
             return self.effect_wiff
-        }
-    }
+        
+    
 
-    /*public int getActiveMonsters() {
+    #/*public int getActiveMonsters(): 
      int am = 0
-     for (int i = 0 i < map.monster_max i++) {
-     if (map.monster[i].visible == true) {
+     for (int i = 0 i < self.mapmonster_max i++): 
+     if (self.mapmonster[i].visible == True): 
      am++
-     }
-     }
+     
+     
      return am 
-     }*/
-    public boolean getTileToBeRendered(int x, int y) {
-        if (x < 0) {
-            return false
-        }
-        if (y < 0) {
-            return false
-        }
-        if (x > map.getWidth()) {
-            return false
-        }
-        if (y > map.getHeight()) {
-            return false
-        }
-        return true
-    }
+     */
+    public boolean getTileToBeRendered(int x, int y): 
+        if (x < 0): 
+            return False
+        
+        if (y < 0): 
+            return False
+        
+        if (x > self.map.getWidth()): 
+            return False
+        
+        if (y > self.map.getHeight()): 
+            return False
+        
+        return True
+    
 
-    public boolean getTileToBeFiltered(int x, int y) { #if its outside 2 steps
-        if (getTileToBeRendered(x, y)) {
-            /*for (int i = 0 i < self.map.follower_max i++) {
+    public boolean getTileToBeFiltered(int x, int y):  #if its outside 2 steps
+        if (getTileToBeRendered(x, y)): 
+            #/*for (int i = 0 i < self.map.follower_max i++): 
                 if (x < self.map.follower[i].tilex - 2
                         or x > self.map.follower[i].tilex + 2
                         or y < self.map.follower[i].tiley - 2
-                        or y > self.map.follower[i].tiley + 2) {
-                    return false
-                } 
-            }*/
+                        or y > self.map.follower[i].tiley + 2): 
+                    return False
+                 
+            */
             if (x < self.map.player.tilex - 3
                     or x > self.map.player.tilex + 3
                     or y < self.map.player.tiley - 3
-                    or y > self.map.player.tiley + 3) {
-                return true
-            }
-        }
-        return false
-    }
-
-    public void loadNewMap(String newmap) throws SlickException {
-        map = new MyTiledMap(newmap, 0, 0) #setup a new map
-        map.actormap.getActorLocationFromTMX(map) #get the actor info
-        self.popup_window = "none" #bug with kaleb where popup window still up
-    }
+                    or y > self.map.player.tiley + 3): 
+                return True
+            
+        
+        return False
     
-    public void translateToTile(int tx, int ty)#center tile x/y on the screen?
-    {
+
+    def loadNewMap(String newmap) throws SlickException: 
+        map = new MyTiledMap(newmap, 0, 0) #setup a new map
+        self.mapactorself.map.getActorLocationFromTMX(map) #get the actor info
+        self.popup_window = "none" #bug with kaleb where popup window still up
+    
+    
+    def translateToTile(int tx, int ty)#center tile x/y on the screen?
+   : 
         self.draw_x -= self.map.getIsoXToScreen(tx, ty)-(self.screen_width/3)
         self.draw_y -= self.map.getIsoYToScreen(tx, ty)-(self.screen_height-200)
-    }
-}
+    
+
