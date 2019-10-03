@@ -1,6 +1,15 @@
 #/usr/bin/python3
 
-import pyglet
+#import pyglet
+from files.techWrap import HtImage
+from files.MyTiledMap import MyTiledMap
+from files.SaveMyFile import SaveMyFile
+from files.Settings import Settings
+from files.MouseActions import MouseActions
+from files.KeyActions import KeyActions
+from files.TitleMenu import TitleMenu
+
+
 
 class HorrorTactics:
     #input = Input() #input class
@@ -41,32 +50,32 @@ class HorrorTactics:
         #TrueTypeFont ttf;
         
         # ##################def init(self): #gamecontainer
-        self.map = MyTiledMap("data/dojo01.tmx", 0, 0)
+        self.tiledmap = MyTiledMap("data/dojo01.tmx", 0, 0)
         self.settings = Settings() #//how do we save them?
         self.msa = MouseActions()
         self.ksa = KeyActions()
-        self.titlemenu = TitleMenu(this)
-        self.map.actormap.getActorLocationFromTMX(map)
+        self.titlemenu = TitleMenu()
+        self.tiledmap.actormap.getActorLocationFromTMX(map)
         #self.fps = gc.getFPS(); #gyglet get fps
         self.actor_move_timer = 0
         self.lastTime = 0
         self.lastframe = 0
         self.turn_count = 0
         self.currentTime = gc.getTime(); #HorrorTactics.java Line 127
-        self.button_items = pyglet.resource.image('data/button_items.png')#HorrorTActics.java Line 137
-        self.button_profile = pyglet.resource.image("data/button_profile.png")
-        self.button_endturn = pyglet.resource.image("data/button_endturn2.png")
-        self.button_menu = pyglet.resource.image("data/button_menu.png")
-        self.button_shadow = pyglet.resource.image("data/button_shadow.png")
-        self.button_punch = pyglet.resource.image("data/button_punch.png")
-        self.effect_biff = pyglet.resource.image("data/soundeffects/biff.png")
-        self.effect_wiff = pyglet.resource.image("data/soundeffects/wiff.png")
-        self.effect_shrack = pyglet.resource.image("data/soundeffects/shrack.png")        
-        self.prev_streets01 = pyglet.resource.image("data/prev_streets01.jpg")
-        self.prev_apartment1 = pyglet.resource.image("data/prev_apartment1.jpg")
-        self.prev_tutorial01 = pyglet.resource.image("data/prev_tutorial01.jpg")
-        self.prev_butcher_shop01 = pyglet.resource.image("data/prev_butcher_shop01.jpg")        
-        self.enemy_moving_message = pyglet.resource.image("data/enemy_moving.png")
+        self.button_items = HtImage('data/button_items.png')#HorrorTActics.java Line 137
+        self.button_profile = HtImage("data/button_profile.png")
+        self.button_endturn = HtImage("data/button_endturn2.png")
+        self.button_menu = HtImage("data/button_menu.png")
+        self.button_shadow = HtImage("data/button_shadow.png")
+        self.button_punch = HtImage("data/button_punch.png")
+        self.effect_biff = HtImage("data/soundeffects/biff.png")
+        self.effect_wiff = HtImage("data/soundeffects/wiff.png")
+        self.effect_shrack = HtImage("data/soundeffects/shrack.png")        
+        self.prev_streets01 = HtImage("data/prev_streets01.jpg")
+        self.prev_apartment1 = HtImage("data/prev_apartment1.jpg")
+        self.prev_tutorial01 = HtImage("data/prev_tutorial01.jpg")
+        self.prev_butcher_shop01 = HtImage("data/prev_butcher_shop01.jpg")        
+        self.enemy_moving_message = HtImage("data/enemy_moving.png")
         
 def main():
     print("the main")

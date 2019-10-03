@@ -1,7 +1,0 @@
-
-
-
-class textures:
-    def load_texture(self, file, t):
-        TextureImage1 = file
-        

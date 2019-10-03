@@ -1,7 +1,11 @@
 #Horror TActics, python edition
+
 import pyglet
-from files.slickWrap import Color
-from files.slickWrap import Rectangle
+from files.techWrap import Color
+from files.techWrap import Rectangle
+from files.techWrap import HtImage
+
+
 
 ##*
 # * Actor class is to encap the actor methods and data
@@ -12,8 +16,8 @@ from files.slickWrap import Rectangle
 
 class Actor():
     def __init__(self, s, sx, sy): #Actor(String s, int sx, int sy) throws SlickException:
-        self.spriteImage = pyglet.resource.image(s + ".png")
-        self.iconImage = pyglet.resource.image(s + "_i.png")
+        self.spriteImage = HtImage(s + ".png")
+        self.iconImage = HtImage(s + "_i.png")
         #sprites = new SpriteSheet(spriteImage, sx, sy)
         #new_sprite = pyglet.sprite.Sprite(img=resources.player_image, x=785-i*30, y=585, batch=batch)
         self.tilex = 0 ##our tile position in X
@@ -75,8 +79,8 @@ class Actor():
         self.shadow = True
     #def changeActorSpriteSheetX
     def changeActorSpritesheet(self, s, sx, sy): #throws SlickException:
-        self.spriteImage = pyglet.resource.image(s + ".png")
-        self.iconImage = pyglet.resource.image(s + "_i.png")
+        self.spriteImage = HtImage(s + ".png")
+        self.iconImage = HtImage(s + "_i.png")
         #sprites = new SpriteSheet(spriteImage, sx, sy)
     def getSpriteframe(self): #throws SlickException
         #TODO: how to pyglet spritesheets work?        
@@ -234,28 +238,24 @@ class Actor():
         #int ph = (int) (((double) self.health_points / (double) self.health_points_max) * 100 / 2)
         ph = (self.health_points / self.health_points_max) * 100 / 2
         if (self.isAtTileXY(x, y) == True):
-            int pdx = h.screen_x + h.draw_x + self.draw_x
-            int pdy = h.screen_y + h.draw_y + self.draw_y - 230
+            pdx = h.screen_x + h.draw_x + self.draw_x
+            pdy = h.screen_y + h.draw_y + self.draw_y - 230
             if (self.selected == True and h.map.turn_order.equalsIgnoreCase("player") ): #draw the selection if True
 
                 try: #draw select box
                     m.selected_green.draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y)
                     m.tiles250x129.getSubImage(0, 0, 250, 130).draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y)
-                } catch (NullPointerException n):
-                }
-            }
+                except: #} catch (NullPointerException n):
+                    print("caught and exception")
             if (self.dead == False): #draw actor
                 if (self.ismouse_over == True):
                     drawHealthBar(g, Color.blue, pdx + 12, pdy + 12, self.mental_points, self.mental_points_max)
                     drawHealthBar(g, Color.green, pdx + 6, pdy + 6, self.fatigue_points, self.fatigue_points_max)
                     drawHealthBar(g, Color.red, pdx, pdy, self.health_points, self.health_points_max)
-
-                }
-                if(self.shadow): # what if monster has no shadow!?!?!
+                if(self.shadow == True): # what if monster has no shadow!?!?!
                     g.setColor(lg)
                     g.fillOval(pdx + 50, pdy + self.sprites.getSprite(0, 0).getHeight() - 50, 100, 50)
                     g.setColor(Color.white)
-                }
                 self.getSpriteframe().draw(pdx, pdy, h.scale_x)#draw actual actor
                 if (self.name.equalsIgnoreCase("Riku") and self.weapon.equalsIgnoreCase("knife")):
                     self.getSpriteframe(self.player_knife_sprite).draw(pdx, pdy, h.scale_x)
