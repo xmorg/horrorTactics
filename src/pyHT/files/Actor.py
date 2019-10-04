@@ -263,29 +263,22 @@ class Actor():
                     self.getSpriteframe(self.player_club_sprite).draw(pdx, pdy, h.scale_x)
                 elif (self.name.equalsIgnoreCase("Riku") and self.weapon.equalsIgnoreCase("cleaver")):
                     self.getSpriteframe(self.player_cleaver_sprite).draw(pdx, pdy, h.scale_x)
-                elif (self.name.equalsIgnoreCase("Riku") and self.weapon.equalsIgnoreCase("sword")):
-                    
-                elif (self.name.equalsIgnoreCase("Riku") and self.weapon.equalsIgnoreCase("gun")):
-                    
-                }
-
-            } else: #draw actor dead
+                #elif (self.name.equalsIgnoreCase("Riku") and self.weapon.equalsIgnoreCase("sword")):
+                    #draw sword
+                #elif (self.name.equalsIgnoreCase("Riku") and self.weapon.equalsIgnoreCase("gun")):
+                    #draw gun
+            else: #draw actor dead
                 self.getDeadSpriteframe().draw(pdx, pdy, h.scale_x)
-            }
             if (self.action_msg_timer > 0):
                 if (self.action_msg.equalsIgnoreCase("miss")):
                     g.setColor(Color.white)
                     textcolor = Color.white
-                } else: #show damage
+                else: #show damage
                     g.setColor(Color.red)
                     textcolor = Color.red
-                }
 
                 h.ttf.drawString(pdx  + 50-2, pdy+2, self.action_msg, Color.black)
                 h.ttf.drawString(pdx  + 50, pdy, self.action_msg, textcolor)              
-            }
-        }
-    }
 
     def drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y, Graphics g):
         self.drawActor(h, m, x, y, g)
