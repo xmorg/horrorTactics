@@ -8,7 +8,7 @@ Created on Mon Sep 30 14:38:45 2019
 
 import pyglet
 from pyglet import Clock
-
+from pyglet.window import key
 
 class Rectangle():
     def __init__(self, x, y, w, h):
@@ -43,13 +43,35 @@ class HtImage():
         self.data.blit(x,y,0)
     def draw3d(self,x,y,z):
         self.data.blit(x,y,z)
+class HtSound(): #sound and music
+    def __init__(self, filename):
+        self.data = pyglet.media.load(filename)
+class HtKeys():
+    def __init__(self):
+        self.keys = key #.KeyStateHandler()
+        self.handler = key.KeyStateHandler()
+
+class HtWindow():
+    def __init__(self):
+        self.window = pyglet.window.Window()
         
 class HtFont():
     def __init__(self, fontname):
         self.font = fontname #init pyglet
 class HtTime():
     def __init__(self):
-        
+        self.time = 0
+    def getFPS(self):
+        return 0
+    def getTime(self):
+        return 0
+class HtWindow():
+    def __init__(self):
+        self.screen = pyglet.window.Screen()
+    def getScreenHeight(self): #(self):
+        return self.screen.height
+    def getScreenWidth(self):
+        return self.screen.width
         
         
         

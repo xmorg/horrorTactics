@@ -8,9 +8,20 @@
 
 #import pyglet
 from files.techWrap import Color
-from files.techWrap import Rectangle
+#from files.techWrap import Rectangle
 from files.techWrap import HtImage
 from files.techWrap import HtTime
+from files.techWrap import HtWindow
+from files.techWrap import HtSound
+
+from files.MyTiledMap import MyTiledMap
+from files.MouseActions import MouseActions
+from files.KeyActions import KeyActions
+from files.Actor import Actor #        self.playersave = Actor()
+from files.TitleMenu import TitleMenu #        self.titlemenu = TitleMenu()
+from files.SaveMyFile import SaveMyFile #        self.playerfile = SaveMyFile()
+from files.Settings import Settings
+
 
 ##/**
 # *
@@ -19,8 +30,7 @@ from files.techWrap import HtTime
 
 class HorrorTactics: # extends BasicGame: 
     def __init__(self):
-        self.input = Input() #input class
-        
+        #self.input = Input() #input class        
         self.msa = MouseActions() # msa #key and mouse actions
         self.ksa = KeyActions() # ksa
         self.draw_x = 0
@@ -54,24 +64,6 @@ class HorrorTactics: # extends BasicGame:
         self.game_state = "title start" #title start, title ingame, tactical,conversation,cutscene
         self.fullscreen_toggle = "Yes"
         self.sound_toggle = "Yes"
-        #TrueTypeFont ttf
-        #move these buttons to UI?
-        #Image button_endturn, button_menu, button_punch, button_items, button_profile, button_shadow
-        #Image effect_biff, effect_wiff, effect_shrack
-        #Image enemy_moving_message
-        #Image level_up_icon #level_up_icon.png
-        #Image prev_streets01,prev_apartment1, prev_tutorial01, prev_butcher_shop01
-        #InputStream inputStream	= ResourceLoader.getResourceAsStream("myfont.ttf")
- 
-		#Font awtFont2 = Font.createFont(Font.TrueTYPE_FONT, inputStream)
-		#awtFont2 = awtFont2.deriveFont(24f) # set font size
-		#font2 = new TrueTypeFont(awtFont2, antiAlias)
-        #moved to init
-        #self.tiledmap. = MyTiledMap() # map     #map class for current map
-        #self.settings = Settings() # settings
-
-        #@Override
-    def init(self): #, GameContainer gc): # throws SlickException: 
         self.tiledmap = MyTiledMap("data/dojo01.tmx", 0, 0)
         #self.tiledmap. = MyTiledMap("data/tutorial01.tmx", 0, 0)
         #self.tiledmap. = MyTiledMap("data/butcher_shop01.tmx", 0, 0)
@@ -79,24 +71,31 @@ class HorrorTactics: # extends BasicGame:
         self.settings = Settings() #how do we save them?
         self.msa = MouseActions()
         self.ksa = KeyActions()
-        self.titlemenu = TitleMenu(this)
+        self.titlemenu = TitleMenu()
         #input = new Input(gc.getHeight())
         self.tiledmap.actorself.tiledmap.getActorLocationFromTMX(map)
-        self.fps = gc.getFPS()
+        self.fps = HtTime.getFPS()
         self.actor_move_timer = 0
         self.lastTime = 0
         self.lastframe = 0
         self.turn_count = 0
-        self.currentTime = gc.getTime()
-
-        self.screen_height = gc.getScreenHeight()
-        self.screen_width = gc.getScreenWidth()
+        self.currentTime = HtTime.getTime()
+        self.screen = HtWindow()
+        self.screen_height = self.screen.getScreenHeight()
+        self.screen_width = self.screen.getScreenWidth()
 
         self.draw_x = self.tiledmap.getIsoXToScreen(self.tiledmap.player.tilex, self.tiledmap.player.tiley) * -1 + self.screen_width / 2
         self.draw_y = self.tiledmap.getIsoYToScreen(self.tiledmap.player.tilex, self.tiledmap.player.tiley) * -1 + self.screen_height / 2
 
-        self.lastframe = gc.getTime()
-
+        self.lastframe = HtTime.getTime()
+        
+        #move these buttons to UI?
+        #Image button_endturn, button_menu, button_punch, button_items, button_profile, button_shadow
+        #Image effect_biff, effect_wiff, effect_shrack
+        #Image enemy_moving_message
+        #Image level_up_icon #level_up_icon.png
+        #Image prev_streets01,prev_apartment1, prev_tutorial01, prev_butcher_shop01
+        #InputStream inputStream	= ResourceLoader.getResourceAsStream("myfont.ttf")
         self.button_items = HtImage("data/button_items.png")
         self.button_profile = HtImage("data/button_profile.png")
         self.button_endturn = HtImage("data/button_endturn2.png")
@@ -120,7 +119,7 @@ class HorrorTactics: # extends BasicGame:
         self.last_mouse_y = 0#input.getMouseY()
         self.playersave = Actor("data/player00", 218, 313) #to carry over the player.
         self.level_up_icon = HtImage("data/level_up_icon.png")
-        self.music = pyglet.media.load("data/soundeffects/anxiety_backwards.ogg", streaming=False)
+        self.music = HtSound("data/soundeffects/anxiety_backwards.ogg")
 
         #try:
             #TODO: Fonts
@@ -134,14 +133,16 @@ class HorrorTactics: # extends BasicGame:
         # catch (Exception e): 
         #    e.printStackTrace()
         #
-        
 
     def update(self, gc, delta): # throws SlickException: 
-        self.input = gc.getInput()
+        #self.input = gc.getInput()
+        #game_window.push_handlers(player_ship.key_handler)
+        #self.ksa.kactions.handler.
         self.mouse_x = input.getMouseX()
         self.mouse_y = input.getMouseY()
-        self.msa.mouseWasClicked(input, map, this) #Do mouse actions
-        self.ksa.getKeyActions(gc, input, this) #Do keyboard actions
+        self.msa.mouseWasClicked(self.input, self.tiledmap) #Do mouse actions
+        
+        self.ksa.on_key_press(self, None) #Do keyboard actions
         self.tiledmap.updateMapXY(draw_x, draw_y)
         self.actor_move_timer = self.actor_move_timer+1
         self.tiledmap.resetAttackAniFrame()
@@ -500,62 +501,40 @@ class HorrorTactics: # extends BasicGame:
     
 
     def getMyDelta(): 
-        long time = gc.getTime()
-        int tdelta = (int) (time - self.lastframe)
+        time = HtTime.getTime()
+        tdelta = (time - self.lastframe)
         self.lastframe = time
         if (tdelta == 0): 
-            return 1
-        
+            return 1        
         return tdelta
     
 
-    public static void main(String[] args): 
-        try: 
-            AppGameContainer appgc
-            appgc = new AppGameContainer(new HorrorTactics("Horror Tactics"))
-
-            
-            appgc.setDisplayMode( #1024, 768, False
-                    appgc.getScreenWidth(),
-                    appgc.getScreenHeight(),
-                    True
-            )
-            appgc.setTargetFrameRate(60) #trying to slow down fast computers.
-            appgc.start()
-
-         catch (SlickException ex): 
+    def main(args):
+        try:
+            HtApp.StartApp()
+        except:
+            print("cant start app: some reason?")
         
-    
+    def setGameState(state): 
+        self.game_state = state    
 
-    def setGameState(String state): 
-        self.game_state = state
-    
+    def getCurrentMap():  #public MyTiledMap
+        return self.tiledmap    
 
-    public MyTiledMap getCurrentMap(): 
-        return self.tiledmap.
-    
-
-    public Image getComicActionStrImage(String a): 
-        if (a == ("Dodge")): 
+    def getComicActionStrImage(a): #public Image HtImage
+        if (a == ("Dodge")):
             return self.effect_wiff
-        elif (a == ("Dead")): 
-            return self.effect_shrack
-            #return self.effect_biff
-         else: 
+        elif (a == ("Dead")):
+            return self.effect_shrack  #return self.effect_biff
+        else:
             return self.effect_wiff
-        
-    
-
     #/*public int getActiveMonsters(): 
-     int am = 0
-     for (int i = 0 i < self.tiledmap.monster_max i++): 
-     if (self.tiledmap.monster[i].visible == True): 
-     am++
-     
-     
-     return am 
-     */
-    public boolean getTileToBeRendered(int x, int y): 
+    # int am = 0
+    # for (int i = 0 i < self.tiledmap.monster_max i++): 
+    # if (self.tiledmap.monster[i].visible == True): 
+    # am++
+    # return am 
+    def getTileToBeRendered(x, y):
         if (x < 0): 
             return False
         
@@ -567,39 +546,31 @@ class HorrorTactics: # extends BasicGame:
         
         if (y > self.tiledmap.getHeight()): 
             return False
-        
         return True
     
-
-    public boolean getTileToBeFiltered(int x, int y):  #if its outside 2 steps
+    def getTileToBeFiltered( x,  y):  #if its outside 2 steps
         if (getTileToBeRendered(x, y)): 
             #/*for (int i = 0 i < self.tiledmap.follower_max i++): 
-                if (x < self.tiledmap.follower[i].tilex - 2
-                        or x > self.tiledmap.follower[i].tilex + 2
-                        or y < self.tiledmap.follower[i].tiley - 2
-                        or y > self.tiledmap.follower[i].tiley + 2): 
-                    return False
-                 
-            */
+            #    if (x < self.tiledmap.follower[i].tilex - 2
+            #            or x > self.tiledmap.follower[i].tilex + 2
+            #            or y < self.tiledmap.follower[i].tiley - 2
+            #            or y > self.tiledmap.follower[i].tiley + 2): 
+            #        return False
+            #     
+            #*/
             if (x < self.tiledmap.player.tilex - 3
                     or x > self.tiledmap.player.tilex + 3
                     or y < self.tiledmap.player.tiley - 3
                     or y > self.tiledmap.player.tiley + 3): 
                 return True
-            
-        
         return False
-    
 
-    def loadNewMap(String newmap) throws SlickException: 
-        map = new MyTiledMap(newmap, 0, 0) #setup a new map
-        self.tiledmap.actorself.tiledmap.getActorLocationFromTMX(map) #get the actor info
+    def loadNewMap(newmap): #throws SlickException: 
+        self.tiledmap = MyTiledMap(newmap, 0, 0) #setup a new map
+        self.tiledmap.actorself.tiledmap.getActorLocationFromTMX(self.tildmap) #get the actor info
         self.popup_window = "none" #bug with kaleb where popup window still up
     
     
-    def translateToTile(int tx, int ty)#center tile x/y on the screen?
-   : 
+    def translateToTile(tx, ty): #center tile x/y on the screen?
         self.draw_x -= self.tiledmap.getIsoXToScreen(tx, ty)-(self.screen_width/3)
         self.draw_y -= self.tiledmap.getIsoYToScreen(tx, ty)-(self.screen_height-200)
-    
-
