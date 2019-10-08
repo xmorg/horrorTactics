@@ -4,6 +4,7 @@ import pyglet
 from files.techWrap import Color
 from files.techWrap import Rectangle
 from files.techWrap import HtImage
+from files.techWrap import HtSound
 
 
 
@@ -52,12 +53,12 @@ class Actor():
         self.attack_timer = 0
         self.storyline_died = 0
         ##no try catch!
-        self.snd_footsteps = pyglet.media.load("data/soundeffects/steps_hallway.ogg")
-        self.snd_swing_miss = pyglet.media.load("data/soundeffects/swing_miss.ogg")
-        self.snd_swing_hit  = pyglet.media.load("data/soundeffects/punch_hit.ogg")
-        self.snd_washit = pyglet.media.load("data/soundeffects/guy_hit1.ogg")
-        self.snd_dodging = pyglet.media.load("data/soundeffects/guy_dodging1.ogg")
-        self.snd_died = pyglet.media.load("data/soundeffects/guy_die1.ogg")
+        self.snd_footsteps = HtSound("data/soundeffects/steps_hallway.ogg")
+        self.snd_swing_miss = HtSound("data/soundeffects/swing_miss.ogg")
+        self.snd_swing_hit  = HtSound("data/soundeffects/punch_hit.ogg")
+        self.snd_washit = HtSound("data/soundeffects/guy_hit1.ogg")
+        self.snd_dodging = HtSound("data/soundeffects/guy_dodging1.ogg")
+        self.snd_died = HtSound("data/soundeffects/guy_die1.ogg")
         self.weapon = "none" #"none" "knife" "cleaver" "sword" "pistol"
         self.health_points = 5
         self.health_points_max = 5
@@ -280,24 +281,19 @@ class Actor():
                 h.ttf.drawString(pdx  + 50-2, pdy+2, self.action_msg, Color.black)
                 h.ttf.drawString(pdx  + 50, pdy, self.action_msg, textcolor)              
 
-    def drawPlayer(HorrorTactics h, MyTiledMap m, int x, int y, Graphics g):
-        self.drawActor(h, m, x, y, g)
+    def drawPlayer(horrortactics, tiledmap, x, y, agraphics):
+        self.drawActor(horrortactics, tiledmap, x, y, agraphics)
         #weapons are drawn in draw actor becaues of acess to pdx/pdy
-    }
 
-    def setActorActionPoints(int ap):
-        action_points = ap
-        if (action_points <= 0):
+    def setActorActionPoints(ap):
+        self.action_points = ap
+        if ( self.action_points <= 0):
             setActorMoving(False)
-        }
-    }
 
     def resetActorActionPoints(self):
-        action_points = max_action_points
-    }
+        self.action_points = self.max_action_points
 
-    def onAttack(HorrorTactics ht#, Actor target*/):
-
+    def onAttack(horrortactics, target): #HorrorTactics ht#, Actor target*/):
         #self.tiledestx = ht.map.selected_tile_x  #monsters have to attack too, remove code.
         #self.tiledesty = ht.map.selected_tile_y
         self.updateActorDirection()
@@ -306,55 +302,47 @@ class Actor():
         self.tiledestx = self.tilex
         self.tiledesty = self.tiley
         #who is at x/y?
-        Actor t = ht.map.getAllPlayersAtXy(ht.map.selected_tile_x, ht.map.selected_tile_y)
+        m = horrortactics.tiledmap
+        t = m.getAllPlayersAtXy(m.selected_tile_x, m.selected_tile_y)
+        
         if (t == null):
-            System.out.println("woa something is wrong monster target is null")
-        } else:
-            System.out.println("t is not null, found " + t.name)
+            print("woa something is wrong monster target is null")
+        else:
+            print("t is not null, found " + t.name)
             #check range #note, what about ranged units? 
             #isActorTouchingActor is a temporary hack, because/we need to check range.
             #check action points
-            if (self.action_points >= 3 and ht.map.isActorTouchingActor(this, t, tilex, tiley) and self.dead == False):
-                onActorAttackActor(ht, t)
+            if (self.action_points >= 3 and m.isActorTouchingActor(t, self.tilex, self.tiley) and self.dead == False):
+                onActorAttackActor(horrortactics, t)
                 #self.setAnimationFrame(4)
                 #self.attack_timer = 25
             elif (self.action_points >= 3 and self.attack_range > 1 and self.dead == False):
-                onActorAttackActor(ht, t)
-            }
-        }
-
-    }
+                onActorAttackActor(horrortactics, t)
 
     def stopMoving(self):
         self.tiledestx = self.tilex
         self.tiledesty = self.tiley
         self.move_action = False
-    }
-
-    def onMoveActor(MyTiledMap m, int fps):
-        int f = fps #gc.getFPS()
+    def onMoveActor(tiledmap, fps):
+        f = fps #gc.getFPS()
         if (self.getActorMoving() == True
                 and self.dead == False
                 #and self.spotted_enemy == True
-                and m.getPassableTile(this, self.tilex + self.facing_x, self.tiley + self.facing_y) == True
-                and m.getPlayerFacingMonster(this) == False
+                and tiledmap.getPassableTile(this, self.tilex + self.facing_x, self.tiley + self.facing_y) == True
+                and tiledmap.getPlayerFacingMonster(self) == False
                 and self.direction == getNorth()):
-            self.onMoveNorth(m, f)
-            if (!snd_footsteps.playing()):
+            self.onMoveNorth(tiledmap, f)
+            if (snd_footsteps.playing() == False):
                 snd_footsteps.loop()
                 #footsteps.play()
-            }
         elif (self.getActorMoving() == True
                 and self.dead == False
-                #and self.spotted_enemy == True
-                and m.getPassableTile(this, self.tilex + self.facing_x, self.tiley + self.facing_y) == True
-                and m.getPlayerFacingMonster(this) == False
+                and tiledmap.getPassableTile(this, self.tilex + self.facing_x, self.tiley + self.facing_y) == True
+                and tiledmap.getPlayerFacingMonster(this) == False
                 and self.direction == getSouth()):
             self.onMoveSouth(m, f)
-            if (!snd_footsteps.playing()):
-                snd_footsteps.loop()
-                #footsteps.play()
-            }
+            if (self.snd_footsteps.playing() == False):
+                self.snd_footsteps.loop()
         elif (self.getActorMoving() == True
                 and self.dead == False
                 #and self.spotted_enemy == True
@@ -362,10 +350,9 @@ class Actor():
                 and m.getPlayerFacingMonster(this) == False
                 and self.direction == getEast()):
             self.onMoveEast(m, f)
-            if (!snd_footsteps.playing()):
+            if (self.snd_footsteps.playing() == False):
                 snd_footsteps.loop()
                 #footsteps.play()
-            }
         elif (self.getActorMoving() == True
                 and self.dead == False
                 #and self.spotted_enemy == True
@@ -373,66 +360,49 @@ class Actor():
                 and m.getPlayerFacingMonster(this) == False
                 and self.direction == getWest()):
             self.onMoveWest(m, f)
-            if (!snd_footsteps.playing()):
+            if (self.snd_footsteps.playing() == False):
                 snd_footsteps.loop()
                 #footsteps.play()
-            }
-        }
-
-        if (m.getPassableTile(this,
-                self.tilex + self.facing_x,
-                self.tiley + self.facing_y) == False):
+        if (tiledmap.getPassableTile(this, self.tilex + self.facing_x, self.tiley + self.facing_y) == False):
             self.setActorMoving(False) #That means you monsters!
             self.setAnimationFrame(0) #just be sure you are not still moving if you touch a wall
-        }
 
         if (self.tilex == self.tiledestx and self.tiley == self.tiledesty):
             #System.out.println("Arrived at destination")
             self.setActorMoving(False)
             self.setAnimationFrame(0)
-        }
 
         if (self.action_points <= 0):
             self.action_points = 0
             self.setActorMoving(False)
             self.setAnimationFrame(0)
-        }
-
         if (self.attack_timer > 0):
             self.setAnimationFrame(4) #just in case it got set to 0
-        }
-
         #try to check tilex/tiley for an event?
-    }
-    def onUseActionPoints(MyTiledMap m):
+    def onUseActionPoints(m):
         if ( m.free_move == False ):
-            self.action_points--
-        }
-    }
-    def onMoveWest(MyTiledMap m, int delta):
+            self.action_points = self.action_points - 1
+    def onMoveWest(m, delta):
         self.setActiorDirection(getWest())
         self.draw_x -= 2 * self.speed#(a.speed * delta) * 2 #a.speed#delta * a.speed
         self.draw_y -= 1 * self.speed#(a.speed * delta)
         self.set_draw_xy(self.draw_x, self.draw_y)
         self.onWalkAnimation(delta)
         if (Math.abs(self.draw_x) >= m.TILE_WIDTH_HALF):
-            self.tilex-- #westr.
+            self.tilex = self.tilex - 1 #westr.
             m.active_trigger.name = "none" #you are in a new tile and all triggers are reset.
             self.set_draw_xy(0, 0)
             #self.action_points--
             self.onUseActionPoints(m)
             self.updateActorDirection()
-        }
-    }
-
-    def onMoveEast(MyTiledMap m, int delta):
+    def onMoveEast(m, delta): #m=MyTiledMap
         self.setActiorDirection(getEast())
         self.draw_x += 2 * self.speed#(a.speed * delta) * 2 #a.speed#delta * a.speed
         self.draw_y += 1 * self.speed#(a.speed * delta)
         self.set_draw_xy(self.draw_x, self.draw_y)
         self.onWalkAnimation(delta)
         if (self.draw_x >= m.TILE_WIDTH_HALF):
-            self.tilex++ #westr.
+            self.tilex+=1 #westr.
             m.active_trigger.name = "none" #you are in a new tile and all triggers are reset.
             self.set_draw_xy(0, 0)
             #a.setAnimationFrame(0)
@@ -440,17 +410,14 @@ class Actor():
             self.onUseActionPoints(m)
             #self.tiledestx = self.tilex
             self.updateActorDirection()
-        }
-    }
-
-    def onMoveSouth(MyTiledMap m, int delta):
+    def onMoveSouth(m, delta):
         self.setActiorDirection(getSouth()) #south/1
         self.draw_y += 1 * self.speed#(a.speed * delta) #a.speed
         self.draw_x -= 2 * self.speed#(a.speed * delta) * 2
         self.set_draw_xy(self.draw_x, self.draw_y)
         self.onWalkAnimation(delta)
         if (self.draw_y >= Math.abs(m.TILE_HEIGHT_HALF)):
-            self.tiley++ #south.
+            self.tiley+=1 #south.
             m.active_trigger.name = "none" #you are in a new tile and all triggers are reset.
             self.set_draw_xy(0, 0)
             #a.setAnimationFrame(0)
@@ -458,10 +425,7 @@ class Actor():
             self.onUseActionPoints(m)
             #self.tiledesty = self.tiley
             self.updateActorDirection()
-        }
-    }
-
-    def onMoveNorth(MyTiledMap m, int delta):
+    def onMoveNorth(m, delta):
         self.setActiorDirection(getNorth())#north
         self.draw_y -= 1 * self.speed#(a.speed * delta)#a.speed
         self.draw_x += 2 * self.speed#(a.speed * delta) * 2#a.speed*2
@@ -469,50 +433,37 @@ class Actor():
         self.set_draw_xy(self.draw_x, self.draw_y)
         self.onWalkAnimation(delta)
         if (Math.abs(self.draw_y) >= m.TILE_HEIGHT_HALF):
-            self.tiley-- #north.
+            self.tiley -=1 #north.
             m.active_trigger.name = "none" #you are in a new tile and all triggers are reset.
             self.set_draw_xy(0, 0)
             #self.action_points--
             self.onUseActionPoints(m)
             #self.tiledesty = self.tiley
             self.updateActorDirection()
-        }
-    }
-
     def getNorth(self):
         return 2
-    }
-
     def getSouth(self):
         return 1
-    }
-
     def getEast(self):
         return 0
-    }
-
     def getWest(self):
         return 3
-    }
-
-    def drawPopupWindow(HorrorTactics ht, Graphics g):
-        int w = 400
-        int h = 400
-        int x = ht.screen_width / 2 - w / 2
-        int y = ht.screen_height / 2 - h / 2
-        String LevelUpControls
-        Color c = new Color(10, 10, 10, 245)
-        Rectangle r = new Rectangle(0, 0, 0, 0)
-        Rectangle s = new Rectangle(0, 0, 0, 0)
+    def drawPopupWindow(ht, g): #HorrorTactics ht, Graphics g
+        w = 400
+        h = 400
+        x = ht.screen_width / 2 - w / 2
+        y = ht.screen_height / 2 - h / 2
+        LevelUpControls = ""
+        c = HtColor(10, 10, 10, 245)
+        r = Rectangle(0, 0, 0, 0)
+        s = Rectangle(0, 0, 0, 0)
         r.setBounds(x, y, w, h)
         s.setBounds(x - 1, y - 1, w + 2, h + 2)
         if (ht.popup_window.equalsIgnoreCase("profile")):
-
             if (self.newLevelUp == True):
                 LevelUpControls = "[+] "
-            } else:
+            else:
                 LevelUpControls = ""
-            }
             #draw it
             #Note is level up == True?
             g.setColor(Color.white)
@@ -528,7 +479,6 @@ class Actor():
             g.drawString("Stress: " + self.mental_points + "/" + self.mental_points_max, x + 200, y + 100)
             if (self.newLevelUp == True): #green means you can click on a [+] #no mouse contorls yet.
                 g.setColor(Color.green)
-            }
             #int x = ht.screen_width / 2 - w / 2
             #int y = ht.screen_height / 2 - h / 2
             g.drawString(LevelUpControls + "Strength: " + self.stat_str, x + 200, y + 120)
@@ -571,24 +521,16 @@ class Actor():
                 #int pdy = screen_y + draw_y
                 # + self.draw_y - 230*/
                 ht.map.mission_goal.draw(x+200, y+200)
-                
-            }
-
-        } else:
+        else:
             #do nothing.
-        }
-        
-    }
-
-    void onLevelUp(self):
+            donothing=1
+    def onLevelUp(self):
         #int exp_level, exp_points #level up = exp_level+1 * exp_level+1*10
         if ((self.exp_points >= (self.exp_level + 1) * (exp_level + 1) * 10) and self.newLevelUp == False): #there was a level up.
             self.newLevelUp = True
-            self.exp_level++
-        } #wait for point distrib before setting to False (not implemented)
-    }
-
-    void copyActorStats(Actor a):
+            self.exp_level+=1
+            #wait for point distrib before setting to False (not implemented)
+    def copyActorStats(a):
         a.name = self.name
         a.exp_level = self.exp_level
         a.exp_points = self.exp_points
@@ -598,53 +540,45 @@ class Actor():
         a.stat_will = self.stat_will
         a.health_points_max = self.health_points_max
         a.health_points = self.health_points
-    }
 
-    void swapSoundEffects(String footsteps, String miss, String hit, String washit, String dodge, String died):
-        #snd_footsteps = pyglet.media.load("data/soundeffects/steps_hallway.ogg")
-         snd_swing_miss = pyglet.media.load("data/soundeffects/swing_miss.ogg")
-         snd_swing_hit = pyglet.media.load("data/soundeffects/punch_hit.ogg")
-         snd_washit = pyglet.media.load("data/soundeffects/guy_hit1.ogg")
-         snd_dodging = pyglet.media.load("data/soundeffects/guy_dodging1.ogg")
-         snd_died = pyglet.media.load("data/soundeffects/guy_die1.ogg")*/
-        String mpath = "data/soundeffects/"
-        if (!footsteps.isEmpty()):
+    def swapSoundEffects(footsteps, miss, hit, washit, dodge, died):
+        #snd_footsteps = HtSound("data/soundeffects/steps_hallway.ogg")
+        snd_swing_miss = HtSound("data/soundeffects/swing_miss.ogg")
+        snd_swing_hit = HtSound("data/soundeffects/punch_hit.ogg")
+        snd_washit = HtSound("data/soundeffects/guy_hit1.ogg")
+        snd_dodging = HtSound("data/soundeffects/guy_dodging1.ogg")
+        snd_died = HtSound("data/soundeffects/guy_die1.ogg")
+        mpath = "data/soundeffects/"
+        if (footsteps.isEmpty() == False):
+           try:
+               self.snd_footsteps = HtSound(mpath + footsteps)
+           except:
+               print("no sound for footsteps")
+        if (miss.isEmpty() == False):
             try:
-                self.snd_footsteps = pyglet.media.load(mpath + footsteps)
-            } catch (SlickException e):
-            }
-        }
-        if (!miss.isEmpty()):
+                self.snd_swing_miss = HtSound(mpath + miss)
+            except:
+                print("no sound for swing/miss")
+        if (hit.isEmpty() == False):
             try:
-                self.snd_swing_miss = pyglet.media.load(mpath + miss)
-            } catch (SlickException e):
-            }
-        }
-        if (!hit.isEmpty()):
+                self.snd_swing_hit = HtSound(mpath + hit)
+            except:
+                print("no sound for swing/hit")
+        if (washit.isEmpty() == False):
             try:
-                self.snd_swing_hit = pyglet.media.load(mpath + hit)
-            } catch (SlickException e):
-            }
-        }
-        if (!washit.isEmpty()):
+                self.snd_washit = HtSound(mpath + washit)
+            except:
+                print("no sound for was hit")
+        if (dodge.isEmpty() == False):
             try:
-                self.snd_washit = pyglet.media.load(mpath + washit)
-            } catch (SlickException e):
-            }
-        }
-        if (!dodge.isEmpty()):
+                self.snd_dodging = HtSound(mpath + dodge)
+            except:
+                print("no sound for dodging")
+        if (died.isEmpty() == False):
             try:
-                self.snd_dodging = pyglet.media.load(mpath + dodge)
-            } catch (SlickException e):
-            }
-        }
-        if (!died.isEmpty()):
-            try:
-                self.snd_died = pyglet.media.load(mpath + died)
-            } catch (SlickException e):
-            }
-        }
-    }
+                self.snd_died = HtSound(mpath + died)
+            except:
+                print("no sound for died")
 
     def getAttackPenalty(self): #check scores and get a hit penalty
         if (self.mental_points < 3):
@@ -653,9 +587,7 @@ class Actor():
             return -2
         elif (self.mental_points <= 0):
             return -3 #you are totally wasted
-        }
         return 0
-    }
 
     def getMovePenalty(self): #check scores and get a move penalty
         if (self.fatigue_points <= 3):
@@ -664,9 +596,7 @@ class Actor():
             return -2
         elif (self.fatigue_points <= 0):
             return -3
-        }
         return 0
-    }
 
     def getDodgePenalty(self): #check scores and get a dodge penalty
         if (self.fatigue_points <= 3):
@@ -675,74 +605,73 @@ class Actor():
             return -2
         elif (self.fatigue_points <= 0):
             return -3
-        }
         return 0
-    }
 
     def getDodgeBonus(self): #check scores and get a dodge bonus
         if (self.stat_speed > 1):
             return self.stat_speed - 2
-        } else:
+        else:
             return 0
-        }
-    }
 
-    def onActorAttackActor(HorrorTactics ht, Actor defender):
-        int target_parryroll
-        int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + self.stat_luck - 1 + self.getAttackPenalty()
-        int target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + defender.stat_luck - 1 + defender.getDodgePenalty() #luck
-                + defender.getDodgeBonus() #speed
-        int damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + self.stat_str - 1
+    def onActorAttackActor(self, ht, defender):
+        #int target_parryroll
+        actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + \
+            self.stat_luck - 1 + self.getAttackPenalty()
+        target_dodgeroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + \
+            defender.stat_luck - 1 + defender.getDodgePenalty() + \
+            defender.getDodgeBonus() #speed
+        damage_roll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + \
+            self.stat_str - 1
         #int target_saveroll = ThreadLocalRandom.current().nextInt(1, 6 + 1)
-        System.out.println("target check " + defender.name)
+        print("target check", defender.name)
         self.setAnimationFrame(4)
         self.attack_timer = 25
         if (defender.canparry):
             target_parryroll = ThreadLocalRandom.current().nextInt(1, 6 + 1)
-        } else:
+        else:
             target_parryroll = 0
-        }
-        if (actor_attackroll > target_dodgeroll and actor_attackroll > target_parryroll + defender.parryscore):
-            #hit
-            defender.health_points -= damage_roll
+        if (actor_attackroll > target_dodgeroll and \
+                actor_attackroll > target_parryroll + defender.parryscore):
+            defender.health_points -= damage_roll #hit
             if (defender.health_points <= 0):
                 defender.dead = True
                 self.action_msg = " " + damage_roll + " "
                 self.action_msg_timer = 200
                 defender.turns_till_revival = 0 #do we revive?
-                ht.map.log_msg = self.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage, killing " + defender.name
+                ht.map.log_msg = self.name + " attacks " + defender.name +\
+                    "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" +\
+                    target_dodgeroll + ") and hits for " + damage_roll +\
+                    " points of damage, killing " + defender.name
                 defender.snd_died.play()
                 self.exp_points += 3
-            } else:
-                ht.map.log_msg = self.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" + target_dodgeroll + ") and hits for " + damage_roll + " points of damage."
+            else:
+                ht.map.log_msg = self.name + " attacks " + defender.name +\
+                    "(1d6 =" + actor_attackroll + ")" + ",(1d6 =" +\
+                    target_dodgeroll + ") and hits for " + damage_roll +\
+                    " points of damage."
                 defender.snd_washit.play()
-            }
             self.snd_swing_hit.play()
             #defender.snd_washit.play()
-        } else:
-            #miss
+        else:
             self.action_msg = "Miss"
             self.action_msg_timer = 200
             if (target_parryroll + defender.parryscore > actor_attackroll):
-                ht.map.log_msg = self.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_parryroll + " + " + defender.parryscore + ") but the attack was parried."
-            } else:
-                ht.map.log_msg = self.name + " attacks " + defender.name + "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + ") and misses"
-            }
+                ht.map.log_msg =self.name + " attacks " + defender.name + \
+                    "(1d6 =" +actor_attackroll +",(1d6 =" + target_parryroll + \
+                    " + " + defender.parryscore + ") but the attack was parried."
+            else:
+                ht.map.log_msg = self.name + " attacks " + defender.name +\
+                    "(1d6 =" + actor_attackroll + ",(1d6 =" + target_dodgeroll + \
+                    ") and misses"
             self.snd_swing_miss.play()
             defender.snd_dodging.play()
-        }
         #we already checke for action points, not remove them
         self.action_points -= 3
         self.fatigue_points -= 1
         if (self.fatigue_points < 0):
             self.fatigue_points = 0
-        }
         defender.fatigue_points -= 1
         if (defender.fatigue_points < 0):
             defender.fatigue_points = 0
-        }
         if (self.action_points < 0):
             self.action_points = 0
-        }
-    }
-}
