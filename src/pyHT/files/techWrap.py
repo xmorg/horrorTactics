@@ -8,7 +8,7 @@ Created on Mon Sep 30 14:38:45 2019
 
 import pyglet
 from pyglet import gl
-from pyglet import Clock
+from pyglet import clock
 from pyglet.window import key
 
 
@@ -94,3 +94,9 @@ class Graphics():
     def setColor(self, c):
         self.current_color = c
         gl.glColor(self.current_color.red, self.current_color.green, self.current_color.blue, self.current_color.alpha)
+class HtApp():
+    def __init__(self):
+        #self.screen = HtWindow()
+        self.screen = HtWindow()
+    def run_app(self):
+        pyglet.app.run()
