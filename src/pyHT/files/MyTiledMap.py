@@ -1,6 +1,9 @@
 #hello
 
 from files.techWrap import HtImage
+from files.Trigger import Trigger
+from files.Actor import Actor
+from files.ActorMap import ActorMap
 
 class MyTiledMap: # extends TiledMap {
     def __init__(self, ref, draw_x, draw_y):
@@ -140,7 +143,7 @@ class MyTiledMap: # extends TiledMap {
                     if (self.EventSpotted_ran == False):
                         self.EventSpotted_ran = True #they are "spotted"
                         #run event spotted
-                        System.out.println("debug: event spotted ran")
+                        print("debug: event spotted ran")
                         self.old_turn_order = self.turn_order
                         self.turn_order = "event spotted"
 
@@ -164,8 +167,8 @@ class MyTiledMap: # extends TiledMap {
                     and self.monster[i].dead == False):
                 return True
         for i in range(0, self.monster_max): #(int i = 0 i < self.follower_max i+=1):
-            if (x == follower[i].tilex and y == follower[i].tiley
-                    and follower[i].dead == False): #you can step over dead enemies
+            if (x == self.follower[i].tilex and y == self.follower[i].tiley \
+                    and self.follower[i].dead == False): #you can step over dead enemies
                         #ai hack, our ai is so bad that we will allow realism!
                 return True
         return False
@@ -174,27 +177,27 @@ class MyTiledMap: # extends TiledMap {
         #True=go, False = stop
         #int tdestx = a.tilex+a.facing_x
         #int tdesty = a.tiley+a.facing_y
-        walls_layer = getLayerIndex("walls_layer")
-        if (getTileImage(x, y, walls_layer) == None): #There are no walls.
+        walls_layer = self.getLayerIndex("walls_layer")
+        if (self.getTileImage(x, y, walls_layer) == None): #There are no walls.
             if (self.turn_order.equals("monster")): #does monster collide with someone.
                 if (self.monsterfollowerInTile(x, y) == True):
                     return False #encountered a monster or follower?
                 if (x == self.player.tilex and y == self.player.tiley):
                     return False #found player.
             return True #There are no walls.
-        #System.out.println("Encountered a wall")
+        #print("Encountered a wall")
         return False#there are walls
 
     #return False #there might be a wall
     def onClickOnMap(self, mouse_tile_x, mouse_tile_y): #given Mouse Pixels, decide what to do
         #did we click on the players rectangle as it is rendered in the map
-        if (mouse_tile_x == player.tilex and mouse_tile_y == player.tiley):
+        if (mouse_tile_x == self.player.tilex and mouse_tile_y == self.player.tiley):
             #if(pixelX >= 0 and pixelY >=0 and pixelX <= 128 and pixelY <=128)
             #{ #you clicked on player now set the player to selected, and mode to
-            if (player.isSelected() == False):
-                player.onSelectActor(True) #omg you selected an actor!
-            elif:
-                player.onSelectActor(False)
+            if (self.player.isSelected() == False):
+                self.player.onSelectActor(True) #omg you selected an actor!
+            else:
+                self.player.onSelectActor(False)
 
     def getScreenToIsoX(self, screenx, screeny, ht): #(int screenx, int screeny, HorrorTactics ht)
         isoX = (screenx / self.TILE_WIDTH_HALF + screeny / self.TILE_HEIGHT_HALF) / 2
@@ -210,35 +213,31 @@ class MyTiledMap: # extends TiledMap {
         posY = (x + y) * 130 / 2
         return posY
 
-    self getAnyActorMoving(self) #is anyone moving? return True
+    def getAnyActorMoving(self): #is anyone moving? return True
         m = False
         if (self.player.getActorMoving() == True):
-            System.out.print("player was still moving")
+            print("player was still moving")
             if (self.player.dead == False):
                 return True
-        elif:
+        else:
             m = False
         for i in range(0, self.monster_max): #(int i = 0 i < monster_max i+=1):
             if (self.monster[i].dead == False and self.monster[i].getActorMoving() == True):
                 print("Monster [" + i + "] was still moving\n")
                 if (self.monster[i].dead == False):
                     return True
-            elif:
+            else:
                 m = False
-        for (int i = 0 i < follower_max i+=1):
+        for i in range(0, self.follower_max):  #(int i = 0 i < follower_max i+=1):
             if (self.follower[i].getActorMoving() == True):
-                System.out.print("Follower [" + i + "] was still moving\n")
+                print("Follower [" , i , "] was still moving\n")
                 if (self.follower[i].dead == False):
                     return True
-                }
-            } else {
+            else:
                 m = False
-            }
-        }
         return m
-    }
 
-    public boolean isActorTouchingActor(Actor a, Actor b, int x, int y):
+    def isActorTouchingActor(self, a, b, x, y): #Actor a, Actor b, int x, int y
         #a=monster, b=player #x, and y not used?
         if (a.tilex - 1 == b.tilex and a.tiley == b.tiley):
             return True
@@ -248,333 +247,244 @@ class MyTiledMap: # extends TiledMap {
             return True
         elif(a.tilex == b.tilex and a.tiley + 1 == b.tiley):
             return True #you are touching the player.
-        }
         return False
-    }
 
-    public boolean isPlayerTouchingMonster():
-        for (int i = 0 i < self.monster_max i+=1): #for(int i)
-            if (self.isActorTouchingActor(player, monster[i], player.tilex, player.tiley)):
+    def isPlayerTouchingMonster(self):
+        for i in range(0, self.monster_max): #(int i = 0 i < self.monster_max i+=1): #for(int i)
+            if (self.isActorTouchingActor(self.player, self.monster[i], self.player.tilex, self.player.tiley)):
                 return True
-            }
-        }
         return False
-    }
 
-    public boolean getPlayerFacingMonInDir(Actor p, Actor m, int direction, int x, int y):
-        if (p.direction == direction
-                and p.tilex + x == m.tilex
+    def getPlayerFacingMonInDir(self, p, m, direction, x, y): #Actor p, Actor m, int direction, int x, int y
+        if (p.direction == direction \
+                and p.tilex + x == m.tilex \
                 and p.tiley + y == m.tiley):
             return True
-        }
         return False
-    }
 
-    public boolean getPlayerFacingMonster(Actor p):
+    def getPlayerFacingMonster(self, p):
         if (self.isPlayerTouchingMonster() == True):
-            for (int i = 0 i < self.monster_max i+=1):
-                if (getPlayerFacingMonInDir(p, monster[i], p.getEast(), 1, 0)):
+            for i in range(0, self.monster_max): #for (int i = 0 i < self.monster_max i+=1):
+                if (self.getPlayerFacingMonInDir(p, self.monster[i], p.getEast(), 1, 0)):
                     return True
-                }
-                if (getPlayerFacingMonInDir(p, monster[i], p.getWest(), -1, 0)):
+                if (self.getPlayerFacingMonInDir(p, self.monster[i], p.getWest(), -1, 0)):
                     return True
-                }
-                if (getPlayerFacingMonInDir(p, monster[i], p.getNorth(), 0, -1)):
+                if (self.getPlayerFacingMonInDir(p, self.monster[i], p.getNorth(), 0, -1)):
                     return True
-                }
-                if (getPlayerFacingMonInDir(p, monster[i], p.getSouth(), 0, 1)):
+                if (self.getPlayerFacingMonInDir(p, self.monster[i], p.getSouth(), 0, 1)):
                     return True
-                }
                 return False
-            }
-        }
         return False
-    }
 
-    public boolean isMonsterTouchingYou(Actor a):
+    def isMonsterTouchingYou(self, a):
         #given tilex, tiley, return True if any items in grid are touching you.
         if (self.isActorTouchingActor(a, self.player, a.tilex, a.tiley)):#you are touching the player.
             return True
-        }
-        for (int i = 0 i < self.follower_max i+=1):
-            if (self.isActorTouchingActor(a, self.follower[i], a.tilex, a.tiley) 
+        for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
+            if (self.isActorTouchingActor(a, self.follower[i], a.tilex, a.tiley) \
                     and self.follower[i].dead == False): #you are touching the player.
                 #avoid touching a dead follower and attacking player from afar.
                 return True
-            } #returned True, and set monster dest to the victims tilex,tily
-        }
+                #returned True, and set monster dest to the victims tilex,tily
         return False #nobody touching monster, 
-    }
 
-    public boolean getActorAtXy(Actor a, int x, int y):
+    def getActorAtXy(self, a, x, y):
         if (a.tilex == x and a.tiley == y):
             return True
-        } else {
+        else:
             return False
-        }
-    }
 
-    Actor getAllPlayersAtXy(int x, int y):
-        Actor t
-        t = None
-        if (self.getActorAtXy(player, x, y)):
-            t = player
-        }
-        for (int i = 0 i < self.follower_max i+=1):
-            if (self.getActorAtXy(follower[i], x, y)):
+    def getAllPlayersAtXy(self, x, y):
+        t = None #Actor
+        if (self.getActorAtXy(self.player, x, y)):
+            t = self.player
+        for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
+            if (self.getActorAtXy(self.follower[i], x, y)):
                 t = self.follower[i]
-            }
-        }
-        for (int i = 0 i < self.monster_max i+=1):
-            if (self.getActorAtXy(monster[i], x, y)):
+        for i in range(0, self.monster_max): #(int i = 0 i < self.monster_max i+=1):
+            if (self.getActorAtXy(self.monster[i], x, y)):
                 t = self.monster[i]
-            }
-        }
         return t #found nothing
-    }
 
-    Actor getAllMonstersAtXy(int x, int y):
-        for (int i = 0 i < self.monster_max i+=1):
-            if (self.getActorAtXy(monster[i], x, y)):
+    def getAllMonstersAtXy(self, x, y):
+        for i in range(0, self.monster_max):
+            if (self.getActorAtXy(self.monster[i], x, y)):
                 return self.monster[i]
-            } else {
+            else:
                 return None
-            }
-        }
         return None
-    }
 
-    public void onMonsterCanAttack(GameContainer gc, HorrorTactics ht):
-        if (self.isMonsterTouchingYou(monster[self.current_monster_moving])):
-            Actor t = self.getAllPlayersAtXy(
-                    monster[self.current_monster_moving].tiledestx,
-                    monster[self.current_monster_moving].tiledesty)
+    def onMonsterCanAttack(self, gc, ht):
+        if (self.isMonsterTouchingYou(self.monster[self.current_monster_moving])):
+            t = self.getAllPlayersAtXy(
+                    self.monster[self.current_monster_moving].tiledestx,
+                    self.monster[self.current_monster_moving].tiledesty)
             if (t == None):
-                System.out.println("woa something is wrong monster target is None")
-            } else {
-                System.out.println("t is not None, found " + t.name)
-            }
+                print("woa something is wrong monster target is None")
+            else:
+                print("t is not None, found " + t.name)
             if (t.dead == False):
-                monster[self.current_monster_moving].onAttack(ht)
-                monster[self.current_monster_moving].onActorAttackActor(ht, t)
-            }
-            #player at the monster destination is not None
-
-        } else {
-            System.out.println("Monster " + self.current_monster_moving + " found nobody there?")
-        }#nobody was there.
-    }
-
-    public boolean getMonsterIsMoving(int i):
+                self.monster[self.current_monster_moving].onAttack(ht)
+                self.monster[self.current_monster_moving].onActorAttackActor(ht, t)
+                #player at the monster destination is not None
+        else:
+            print("Monster " + self.current_monster_moving + " found nobody there?")
+    def getMonsterIsMoving(self, i):
         if (self.monster[i].action_points <= 0):
             return False
-        }
         if (self.monster[i].visible == False):
             return False
-        }
         if (self.monster[i].dead == True):
             return False
-        }
+        
         if (self.monster[i].getActorMoving() == False):
             return False
-        }
+        
         #if (self.getPassableTile(self.monster[i], i, i))
         return True #all conditions are good.
-    }
-    public boolean getFollowersCanMove():
-       int total_action_points = 0       
-       for (int i = 0 i < self.follower_max i+=1):
+    
+    def getFollowersCanMove(self):
+       total_action_points = 0       
+       for i in range(0, self.follower_max):
             #self.follower[i].onMoveActor(self, gc.getFPS())
             total_action_points += self.follower[i].action_points
-        }       
+               
        if(total_action_points > 0): #False means no one can move
            return True
-       }
+       
        return False
-    }
-    public void onFollowerMoving(GameContainer gc, HorrorTactics ht, int delta): #taken from update.
+    
+    def onFollowerMoving(self, gc, ht, delta): #taken from update.
         #self.follower[self.current_follower_moving].onMoveActor(
-        #        self, gc.getFPS())
-        
-        for (int i = 0 i < self.follower_max i+=1):
+        #        self, gc.getFPS())      
+        for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
             self.follower[i].onMoveActor(self, gc.getFPS())
             #self.follower[i].action_points += total_action_points
-        }
-        
-        
-        #if (self.follower[self.current_follower_moving].dead == True):
-        #    self.current_monster_moving+=1
-        #}
-        #if (self.follower[self.current_follower_moving].getActorMoving()
-        #        == False):
-        #Why did follower stop? (because you turn him to attack)
-        #self.whyDidMonsterStop(gc, ht)
-        #}
-        #if (self.current_follower_moving >= self.follower_max):
-        #    self.current_follower_moving = 0
-        #self.turn_order = "start player"
-        #we still start monster in another way.
-        #}
-    }
-
-    public void onMonsterMoving(GameContainer gc, HorrorTactics ht, int delta): #taken from update.
+    def onMonsterMoving(self, gc, ht, delta): #taken from update.
         if (monster[0].spotted_enemy == True):
             self.monster[self.current_monster_moving].onMoveActor(
                     self, gc.getFPS())
             if (self.monster[self.current_monster_moving].dead == True):
                 self.current_monster_moving+=1
-            }
+            
             if (self.monster[self.current_monster_moving].getActorMoving()
                     == False):
                 self.whyDidMonsterStop(gc, ht)
-            }
+            
             if (self.current_monster_moving >= self.monster_max):
                 self.current_monster_moving = 0
                 self.turn_order = "start player"
-            }
-        } else {
+            
+        else:
             #self.current_monster_moving = 0
             self.monster[self.current_monster_moving].stopMoving()
             self.current_monster_moving+=1
             if (self.current_monster_moving >= self.monster_max):
                 self.current_monster_moving = 0
                 self.turn_order = "start player"
-            }
-        }
-    }
-
-    void onUpdateActorActionText():
-        if (player.action_msg_timer > 0):
-            player.action_msg_timer--
-        }
-        for (int i = 0 i < self.follower_max i+=1):
-            if (follower[i].action_msg_timer > 0):
-                follower[i].action_msg_timer--
-            }
-        }
-        for (int i = 0 i < self.monster_max i+=1):
-            if (monster[i].action_msg_timer > 0):
-                monster[i].action_msg_timer--
-            }
-        }
-    }
-
+    def onUpdateActorActionText(self):
+        if (self.player.action_msg_timer > 0):
+            self.player.action_msg_timer+=1
+        for i in range(0, self.follower_max):
+            if (self.follower[i].action_msg_timer > 0):
+                self.follower[i].action_msg_timer-=1
+        for i in range(0, self.monster_max ):
+            if (self.monster[i].action_msg_timer > 0):
+                self.monster[i].action_msg_timer-=1
     #map.monster[0].drawActor(self, map, x, y)
-    public int getDistanceOfActors2(Actor a, Actor b):
-        int xs = (a.tilex - b.tilex) * (a.tilex - b.tilex)
-        int ys = (a.tiley - b.tiley) * (a.tiley - b.tiley)
+    def getDistanceOfActors2(self, a, b):
+        xs = (a.tilex - b.tilex) * (a.tilex - b.tilex)
+        ys = (a.tiley - b.tiley) * (a.tiley - b.tiley)
 
-        double dsr = Math.sqrt(xs + ys)
-        int distance = (int) dsr
+        dsr = Math.sqrt(xs + ys)
+        distance = dsr
         return distance
-    }
+    
 
-    public int getMaxFollowers():
-        int count = 0
+    def getMaxFollowers(self):
+        count = 0
         #if(player)#assume player is alive
-        for (int i = 0 i < self.follower_max i+=1):
-            if (follower[i].visible and follower[i].dead == False):
+        for i in range(0, self.follower_max):
+            if (self.follower[i].visible and self.follower[i].dead == False):
                 count+=1
-            }
-        }
         return count
-    }
-
-    public void setMonsterDirectives():
+    
+    def setMonsterDirectives(self):
         #loop through your monsters and set a path for them to follow
         #directive types: random,randomuntilspotted,beeline,
-        int proposed_x, proposed_y
+        #int proposed_x, proposed_y
         self.current_monster_moving = 0
-        int max_active_followers = self.getMaxFollowers()
-        for (int i = 0 i < self.monster_max i+=1):
-            if (monster[i].visible == True and monster[i].dead == False): #there was a monster here(and alive)
-                monster[i].action_points = 6 #update action points
-                monster[i].setActorMoving(True)
-                monster[i].setActorDestination(monster[i].tilex, monster[i].tiley)#there initial destination is their pos
-            } else {
-                monster[i].setActorMoving(False)
-                monster[i].action_points = 0
-            }
-            if (monster[i].max_turns_till_revival > 0 and monster[i].dead == True):
-                if (monster[i].turns_till_revival >= monster[i].max_turns_till_revival):
-                    monster[i].dead = False
-                    monster[i].turns_till_revival = 0
-                } else {
-                    monster[i].turns_till_revival+=1
-                }
-            }
-        }
-        for (int i = 0 i < self.monster_max i+=1):
-            if (monster[i].visible == True): #there was a monster here.
-                monster[i].action_points = 6 #update action points
-                if (monster[i].directive_type.equalsIgnoreCase("beeline")):
+        self.max_active_followers = self.getMaxFollowers()
+        for i in range(0, self.monster_max):
+            if (self.monster[i].visible == True and self.monster[i].dead == False): #there was a monster here(and alive)
+                self.monster[i].action_points = 6 #update action points
+                self.monster[i].setActorMoving(True)
+                self.monster[i].setActorDestination(self.monster[i].tilex, self.monster[i].tiley)#there initial destination is their pos
+            else:
+                self.monster[i].setActorMoving(False)
+                self.monster[i].action_points = 0
+            
+            if (self.monster[i].max_turns_till_revival > 0 and self.monster[i].dead == True):
+                if (self.monster[i].turns_till_revival >= self.monster[i].max_turns_till_revival):
+                    self.monster[i].dead = False
+                    self.monster[i].turns_till_revival = 0
+                else: # {
+                    self.monster[i].turns_till_revival+=1
+        for i in range(0, self.monster_max):
+            if (self.monster[i].visible == True): #there was a monster here.
+                self.monster[i].action_points = 6 #update action points
+                if (self.monster[i].directive_type.equalsIgnoreCase("beeline")):
                     #how can we make the monster's dest to the next to player/not the players location
                     #self will prvent a forced stop.  How do we calulate the shortest distance to travel
                     #Euclidian plane? find the shortest distance, then make the route
-                    System.out.print("Spotted player: " + monster[i].spotted_enemy + "\n")
+                    print("Spotted player: " + self.monster[i].spotted_enemy + "\n")
                     #int actor_attackroll = ThreadLocalRandom.current().nextInt(1, 6 + 1) + self.stat_luck - 1 + self.getAttackPenalty()
                     #int targetActor = ThreadLocalRandom.current().nextInt(0, max_active_followers)
-                    if (monster[i].spotted_enemy == True): # you must spot the enemy to beline
-                        monster[i].tiledestx = player.tilex
-                        monster[i].tiledesty = player.tiley
-                        int best_distance = self.getDistanceOfActors2(player, monster[i])
-                        int try_distance = 0
-                        for (int d = 0 d < self.follower_max d+=1):
-                            if (follower[d].visible == True and follower[d].dead == False): #check if visible and alive(9/22/2018)
-                                try_distance = self.getDistanceOfActors2(follower[d], monster[i])
+                    if (self.monster[i].spotted_enemy == True): # you must spot the enemy to beline
+                        self.monster[i].tiledestx = self.player.tilex
+                        self.monster[i].tiledesty = self.player.tiley
+                        best_distance = self.getDistanceOfActors2(self.player, self.monster[i])
+                        try_distance = 0
+                        for d in range(0, self.follower_max):
+                            if (self.follower[d].visible == True and self.follower[d].dead == False): #check if visible and alive(9/22/2018)
+                                try_distance = self.getDistanceOfActors2(self.follower[d], self.follower[i])
                                 if (try_distance < best_distance):
-                                    monster[i].tiledestx = follower[d].tilex
-                                    monster[i].tiledesty = follower[d].tiley
-                                }
-                            }
-                        }
-                    } else {
-                        monster[i].tiledestx = monster[i].tilex
-                        monster[i].tiledesty = monster[i].tiley
-                    }
-                elif(monster[i].directive_type.equalsIgnoreCase("random")): #randomly move around.
-                    for (int count = 0 count < 6 count+=1):
-                        proposed_y = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random())
-                        proposed_x = (int) Math.floor(Math.random()) - (int) Math.floor(Math.random())
-                        System.out.print("proposed_x: " + Integer.toString(proposed_x)
-                                + " proposed_y: " + Integer.toString(proposed_y))
-                        if (self.getPassableTile(monster[i], monster[i].tilex + proposed_x,
-                                monster[i].tiley + proposed_y) == True):
-                            monster[i].setActorDestination(monster[i].tilex + proposed_x,
-                                    monster[i].tiley + proposed_y)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public void resetAttackAniFrame():
-        for (int i = 0 i < self.monster_max i+=1):
+                                    self.monster[i].tiledestx = self.follower[d].tilex
+                                    self.monster[i].tiledesty = self.follower[d].tiley
+                    else: # else {
+                        self.monster[i].tiledestx = self.monster[i].tilex
+                        self.monster[i].tiledesty = self.monster[i].tiley
+                    
+                elif(self.monster[i].directive_type.equalsIgnoreCase("random")): #randomly move around.
+                    for count in range(0, 5): #(int count = 0 count < 6 count+=1):
+                        #cast to int the floor of math.random
+                        proposed_y = Math.floor(Math.random()) - Math.floor(Math.random())
+                        proposed_x = Math.floor(Math.random()) - Math.floor(Math.random())
+                        print("proposed_x: " ,  proposed_x, " proposed_y: " , proposed_y)
+                        if (self.getPassableTile(self.monster[i], self.monster[i].tilex + proposed_x,
+                                self.monster[i].tiley + proposed_y) == True):
+                            self.monster[i].setActorDestination(self.monster[i].tilex + proposed_x,
+                                    self.monster[i].tiley + proposed_y)            
+    def resetAttackAniFrame(self):
+        for i in range(0, self.monster_max ):
             if (self.monster[i].attack_timer > 0):
-                self.monster[i].attack_timer--
+                self.monster[i].attack_timer-=1
                 #self.monster[i].setAnimationFrame(0)
             elif(self.monster[i].getAnimationFrame() == 4):
                 self.monster[i].setAnimationFrame(0)
-            }
-        }
-        for (int i = 0 i < self.follower_max i+=1):
+        for i in range(0, self.follower_max ):
             if (self.follower[i].attack_timer > 0):
-                self.follower[i].attack_timer--
+                self.follower[i].attack_timer-=1
                 #self.monster[i].setAnimationFrame(0)
             elif(self.follower[i].getAnimationFrame() == 4):
                 self.follower[i].setAnimationFrame(0)
-            }
-        }
         if (self.player.attack_timer > 0):
-            self.player.attack_timer--
+            self.player.attack_timer-=1
         elif(self.player.getAnimationFrame() == 4):
             self.player.setAnimationFrame(0)
-        }
-    }
 
-    public void whyDidMonsterStop(GameContainer gc, HorrorTactics ht):
-        System.out.println("Monster stopped with remaining AP")
+    def whyDidMonsterStop(self, gc, ht):
+        print("Monster stopped with remaining AP")
         if (self.monster[self.current_monster_moving].visible == False):
             self.current_monster_moving+=1
         elif(self.monster[self.current_monster_moving].dead == True):
@@ -585,11 +495,11 @@ class MyTiledMap: # extends TiledMap {
             #self.monster[self.current_monster_moving].setAnimationFrame(0)
             #we can also try doing self at the beginning of update.
             self.current_monster_moving+=1
-        elif(self.getPassableTile(monster[self.current_monster_moving],
-                monster[self.current_monster_moving].tilex
-                + monster[self.current_monster_moving].facing_x,
-                monster[self.current_monster_moving].tiley
-                + monster[self.current_monster_moving].facing_y) == False):
+        elif(self.getPassableTile(self.monster[self.current_monster_moving],
+                self.monster[self.current_monster_moving].tilex
+                + self.monster[self.current_monster_moving].facing_x,
+                self.monster[self.current_monster_moving].tiley
+                + self.monster[self.current_monster_moving].facing_y) == False):
             #see if monster can move around tiles
             #set back to the original desination?
             self.current_monster_moving+=1
@@ -601,76 +511,68 @@ class MyTiledMap: # extends TiledMap {
         elif(self.monster[self.current_monster_moving].getActorMoving() == False):
             #generic stop
             self.current_monster_moving+=1
-        } else {#you stopped and cant do anything anyways
-            System.out.println("Monster had not enough points to attack")
+        else: # {#you stopped and cant do anything anyways
+            print("Monster had not enough points to attack")
             self.monster[self.current_monster_moving].action_points = 0
             self.current_monster_moving+=1
-        }
+        
         #allmonstersmoved = False
-    }
+    
 
-    public void set_party_min_renderables():
-        int current_min_y = self.player.tiley 
-        int current_min_x = self.player.tilex
-        int current_max_y = 0
-        int current_max_x = 0
+    def set_party_min_renderables(self):
+        current_min_y = self.player.tiley 
+        current_min_x = self.player.tilex
+        current_max_y = 0
+        current_max_x = 0
         if (self.player.tiley < current_min_y):
             current_min_y = self.player.tiley
-        }
+        
         if (self.player.tilex < current_min_x):
             current_min_y = self.player.tilex
-        }
+        
         if (self.player.tiley > current_max_y):
             current_max_y = self.player.tiley
-        }
+        
         if (self.player.tilex > current_max_x):
             current_max_x = self.player.tilex
-        }
-        for (int i = 0 i < self.follower_max i+=1):
+        
+        for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
             if (self.follower[i].visible and self.follower[i].tiley < current_min_y):
                 current_min_y = self.follower[i].tiley
-            }
+            
             if (self.follower[i].visible and self.follower[i].tilex < current_min_x):
                 current_min_x = self.follower[i].tilex
-            }
+            
             if (self.follower[i].visible and self.follower[i].tiley > current_max_y):
                 current_max_y = self.follower[i].tiley
-            }
+            
             if (self.follower[i].visible and self.follower[i].tilex > current_max_x):
                 current_max_x = self.follower[i].tilex
-            }
-        }
+            
+        
         self.render_min_y = current_min_y
         self.render_min_x = current_min_x
         self.render_max_y = current_max_y
         self.render_max_x = current_max_x
-        #System.out.print(
+        #print(
         #        "render_min_x:"+ self.render_min_x+ 
         #        " render_min_y:"+self.render_min_y + 
         #        " render_max_x:"+self.render_max_x+ 
         #        " render_max_y:" +self.render_max_y  )
-    }
+    
 
-    void mouse_over_actor(int x, int y):
+    def mouse_over_actor(self, x, y):
         if (self.player.tilex == x and self.player.tiley == y):
             self.player.ismouse_over = True
-        } else {
+        else: # {
             self.player.ismouse_over = False
-        }
-        for (int i = 0 i < self.follower_max i+=1):
+        for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
             if (self.follower[i].tilex == x and self.follower[i].tiley == y):
                 self.follower[i].ismouse_over = True
-            } else {
+            else: # {
                 self.follower[i].ismouse_over = False
-            }
-        }
-        for (int i = 0 i < self.monster_max i+=1):
+        for i in range(0, self.monster_max): #(int i = 0 i < self.monster_max i+=1):
             if (self.monster[i].tilex == x and self.monster[i].tiley == y):
                 self.monster[i].ismouse_over = True
-            } else {
+            else: # {
                 self.monster[i].ismouse_over = False
-            }
-        }
-
-    }
-}

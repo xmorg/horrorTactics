@@ -9,10 +9,13 @@
 #import org.newdawn.slick.Image
 #import org.newdawn.slick.SlickException
 
-from files.techWrap import Image
+from files.techWrap import HtImage as Image
+#from files.techWrap import Image
 from files.Actor import Actor
 from files.npcs.Yukari import Yukari
 from files.npcs.Miyu import Miyu
+from files.npcs.Ichi import Ichi
+
 
 #/**
 # *
@@ -27,34 +30,33 @@ class ActorMap: # {
         monster_loop = 0
         follower_loop = 0
         actor_layer = m.getLayerIndex("actors_layer")
-        for i in range(0, m.monster_max): #(int i = 0 i < m.monster_max i++):
+        for i in range(0, m.monster_max): #(int i = 0 i < m.monster_max i+=1):
             try:
                 m.monster[i] = Actor("data/monster00", 218, 313)
                 m.monster[i].visible = False #default
             except:
                 print("exception: cant make a monster")
-        for i in range(0, m.follower_max): #(int i = 0 i < m.follower_max i++):
+        for i in range(0, m.follower_max): #(int i = 0 i < m.follower_max i+=1):
             try:
                 m.follower[i] = Actor("data/girl01", 218, 313)
                 m.follower[i].visible = False
                 m.follower[i].direction = m.follower[i].getEast()
             except: # except:
                 print("cannot create a follower")
-        for y in range(0, m.getHeight()): #(int y = 0 y < m.getHeight() y++):
-            for x in range(0, m.getWidth()): #(int x = 0 x < m.getWidth() x++):
+        for y in range(0, m.getHeight()): #(int y = 0 y < m.getHeight() y+=1):
+            for x in range(0, m.getWidth()): #(int x = 0 x < m.getWidth() x+=1):
                 gid = m.getTileId(x, y, actor_layer)
                 if (gid > 0):
-                    #System.out.println(this.getTileId(x, y, actor_layer))
+                    #print(this.getTileId(x, y, actor_layer))
                     pname = m.getTileProperty(gid, "actor_name", "none")
                     weapon = m.getTileProperty(gid, "weapon", "none")
-                    actor_spotted = m.getTileProperty(gid, "actor_spotted", "true")
+                    actor_spotted = m.getTileProperty(gid, "actor_spotted", "True")
                     mission_goal = m.getTileProperty(gid, "event_goal", "no")
                     if (mission_goal.equalsIgnoreCase("yes")):
                         m.mission_goal = Image("data/" + m.getTileProperty(gid, "event_goal_graphic", "papers.png"))
                         #set the X/y
                         m.draw_goal_x = x
                         m.draw_goal_y = y
-                    
                     if (pname.equals("player")):
                         m.player.tilex = x
                         m.player.tiley = y
@@ -90,7 +92,7 @@ class ActorMap: # {
                             m.follower[follower_loop].changeActorSpritesheet("data/boy01", 218, 313)
                             m.follower[follower_loop].tilex = x
                             m.follower[follower_loop].tiley = y
-                            m.follower[follower_loop].visible = true
+                            m.follower[follower_loop].visible = True
                             m.follower[follower_loop].name = pname
                             follower_loop+=1
                         except:
@@ -100,7 +102,7 @@ class ActorMap: # {
                             m.follower[follower_loop].changeActorSpritesheet("data/police01", 218, 313)
                             m.follower[follower_loop].tilex = x
                             m.follower[follower_loop].tiley = y
-                            m.follower[follower_loop].visible = true
+                            m.follower[follower_loop].visible = True
                             m.follower[follower_loop].name = pname
                             m.follower[follower_loop].attack_range = 2
                             #if(weapon)
@@ -123,189 +125,177 @@ class ActorMap: # {
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 100
                         monster_loop+=1
                     elif (pname.equals("tutor_bully1")):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/girl03", 218, 313)
-                         except:
+                        except:
                              print("")
                         if (actor_spotted.equalsIgnoreCase("False")):
                             m.monster[monster_loop].spotted_enemy = False
-                         else {
-                            m.monster[monster_loop].spotted_enemy = true
-                        
+                        else: # {
+                            m.monster[monster_loop].spotted_enemy = True
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 100
                         m.monster[monster_loop].swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg")
-                        monster_loop++
-                     elif (pname.equals("pear_monster")):
+                        monster_loop+=1
+                    elif (pname == "pear_monster"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313)
-                         except:
-                        
+                        except:
+                            print("cant / changeActorSpritesheet")
                         if (actor_spotted.equalsIgnoreCase("False")):
                             m.monster[monster_loop].spotted_enemy = False
-                         else {
-                            m.monster[monster_loop].spotted_enemy = true
+                        else: # {
+                            m.monster[monster_loop].spotted_enemy = True
                         
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 4
                         m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
                                 "pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg")
-                        monster_loop++
-                     elif (pname.equals("butcher")):
+                        monster_loop+=1
+                    elif (pname == "butcher"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster07", 218, 313)
-                         except:
+                        except:
+                            print("cant m.monster[monster_loop].changeActorSpritesheet /data/monster07  ")
                         
                         if (actor_spotted.equalsIgnoreCase("False")):
                             m.monster[monster_loop].spotted_enemy = False
-                         else {
-                            m.monster[monster_loop].spotted_enemy = true
+                        else: # {
+                            m.monster[monster_loop].spotted_enemy = True
                         
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 0
                         m.monster[monster_loop].health_points_max = 20
                         m.monster[monster_loop].health_points = 20
                         m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
                                 "pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg")
-                        monster_loop++
-                     elif (pname.equals("skeleton")):
+                        monster_loop+=1
+                    elif (pname == "skeleton"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster05", 218, 313)
-                         except:
+                        except:
                              print("cannot change actor spritesheet")
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 0
-                        monster_loop++
-                     elif (pname.equalsIgnoreCase("zombie1")):
+                        monster_loop+=1
+                    elif (pname.equalsIgnoreCase("zombie1")):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster10", 218, 313)
-                         except:
-                        
+                        except:
+                            print("cannot change actor spritesheet") 
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 2
-                        monster_loop++
-                     elif (pname.equalsIgnoreCase("zombie2")):
+                        monster_loop+=1
+                    elif (pname.equalsIgnoreCase("zombie2")):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster11", 218, 313)
-                         except:
-                        
+                        except:
+                            print("cannot change actor spritesheet")
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 2
-                        monster_loop++
-                     elif (pname.equalsIgnoreCase("zombie3")):
+                        monster_loop+=1
+                    elif (pname.equalsIgnoreCase("zombie3")):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster12", 218, 313)
-                         except:
-                        
+                        except:
+                            print("cannot change actor spritesheet")
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 2
-                        monster_loop++
-                      elif (pname.equalsIgnoreCase("butcher")):
+                        monster_loop+=1
+                    elif (pname == "butcher"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster07", 218, 313)
-                         except:
-                        
+                        except:
+                            print("cannot change actor spritesheet")
                         m.monster[monster_loop].health_points = 15 #boss!
                         m.monster[monster_loop].health_points_max = 15
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 99
-                        monster_loop++
+                        monster_loop+=1
                     elif (pname.equals("invisible_man")):
-                        System.out.println("we got to the invnisible man")
+                        print("we got to the invnisible man")
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster06", 218, 313)
-                         except:
-                            System.out.println("something is wrong.")
+                        except:
+                            print("something is wrong.")
                         
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 4
                         m.monster[monster_loop].shadow = False
                         m.monster[monster_loop].stat_luck = 5 #hard to hit, and hits often!
                         #set dodge scores
-                        monster_loop++
+                        monster_loop+=1
                     elif (pname.equals("shadowninja")):
-                        System.out.println("we got to shadowninja")
+                        print("we got to shadowninja")
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster13", 218, 313)
-                         except:
-                            System.out.println("something is wrong.")
-                        
+                        except:
+                            print("something is wrong.")
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = true
+                        m.monster[monster_loop].visible = True
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 4
                         m.monster[monster_loop].shadow = False
                         m.monster[monster_loop].stat_luck = 2 #hard to hit, and hits often!
                         #set dodge scores
-                        monster_loop++
+                        monster_loop+=1
                     # add more monsters here# add more monsters here
-                
-            
-            for (int i = 0 i < 5 i++):
+            for i in range(0, 5): #(int i = 0 i < 5 i+=1):
                 m.planning[i] = m.getMapProperty("planning_" + i, "end")
                 if (m.planning[i].equalsIgnoreCase("end")):
                     m.maxplanevent = i #last one
-                
-                m.charbusts[i] = new Image("data/" + m.getMapProperty("planning_" + i + "_p", "prt_player_00.png"))
-            
-        
-
-        for (int i = 0 i < 5 i++):
+                m.charbusts[i] = Image("data/" + m.getMapProperty("planning_" + i + "_p", "prt_player_00.png"))
+        for i in range(0, 5):
             m.planning[i] = m.getMapProperty("planning_" + i, "end")
             if (m.planning[i].equalsIgnoreCase("end")):
-                m.maxplanevent = i - 1 #last one
-            
-            m.charbusts[i] = new Image("data/" + m.getMapProperty("planning_" + i + "_p", "prt_player_00.png"))
-        
+                m.maxplanevent = i - 1 #last one       
+            m.charbusts[i] = Image("data/" + m.getMapProperty("planning_" + i + "_p", "prt_player_00.png"))  
         m.next_map = m.getMapProperty("nextmap", "none")
         m.RequiresGoal = m.getMapProperty("req_goal", "no")
         m.EventSpotted = m.getMapProperty("event_spotted", "none")
-        if (!m.EventSpotted.equalsIgnoreCase("none")): #if not none, load the event spotted
+        if (m.EventSpotted != "none"): #if not none, load the event spotted
             m.EventSpotted_m = m.getMapProperty("event_spotted_m", "none")
-            m.EventSpotted_p = new Image("data/" + m.getMapProperty("event_spotted_p", "prt_player_00.png"))
-        
-    
-
+            m.EventSpotted_p = Image("data/" + m.getMapProperty("event_spotted_p", "prt_player_00.png"))

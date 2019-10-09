@@ -9,7 +9,7 @@
 #import pyglet
 from files.techWrap import Color
 #from files.techWrap import Rectangle
-from files.techWrap import HtImage
+from files.techWrap import HtImage as Image
 from files.techWrap import HtTime
 #from files.techWrap import HtWindow
 from files.techWrap import HtSound
@@ -91,29 +91,29 @@ class HorrorTactics: # extends BasicGame:
         #Image level_up_icon #level_up_icon.png
         #Image prev_streets01,prev_apartment1, prev_tutorial01, prev_butcher_shop01
         #InputStream inputStream	= ResourceLoader.getResourceAsStream("myfont.ttf")
-        self.button_items = HtImage("data/button_items.png")
-        self.button_profile = HtImage("data/button_profile.png")
-        self.button_endturn = HtImage("data/button_endturn2.png")
-        self.button_menu = HtImage("data/button_menu.png")
-        self.button_shadow = HtImage("data/button_shadow.png")
-        self.button_punch = HtImage("data/button_punch.png")
-        self.effect_biff = HtImage("data/soundeffects/biff.png")
-        self.effect_wiff = HtImage("data/soundeffects/wiff.png")
-        self.effect_shrack = HtImage("data/soundeffects/shrack.png")
+        self.button_items = Image("data/button_items.png")
+        self.button_profile = Image("data/button_profile.png")
+        self.button_endturn = Image("data/button_endturn2.png")
+        self.button_menu = Image("data/button_menu.png")
+        self.button_shadow = Image("data/button_shadow.png")
+        self.button_punch = Image("data/button_punch.png")
+        self.effect_biff = Image("data/soundeffects/biff.png")
+        self.effect_wiff = Image("data/soundeffects/wiff.png")
+        self.effect_shrack = Image("data/soundeffects/shrack.png")
         
-        self.prev_streets01 = HtImage("data/prev_streets01.jpg")
-        self.prev_apartment1 = HtImage("data/prev_apartment1.jpg")
-        self.prev_tutorial01 = HtImage("data/prev_tutorial01.jpg")
-        self.prev_butcher_shop01 = HtImage("data/prev_butcher_shop01.jpg")
+        self.prev_streets01 = Image("data/prev_streets01.jpg")
+        self.prev_apartment1 = Image("data/prev_apartment1.jpg")
+        self.prev_tutorial01 = Image("data/prev_tutorial01.jpg")
+        self.prev_butcher_shop01 = Image("data/prev_butcher_shop01.jpg")
         
-        self.enemy_moving_message = HtImage("data/enemy_moving.png")
+        self.enemy_moving_message = Image("data/enemy_moving.png")
         self.myfilter = Color(1, 1, 1, 1)
         self.myfiltert = Color(0.5, 0.5, 0.5, 0.5)
         self.myfilterd = Color(0.2, 0.2, 0.2, 0.8) #for darkness/fog
         self.last_mouse_x = 0#input.getMouseX()
         self.last_mouse_y = 0#input.getMouseY()
         self.playersave = Actor("data/player00", 218, 313) #to carry over the player.
-        self.level_up_icon = HtImage("data/level_up_icon.png")
+        self.level_up_icon = Image("data/level_up_icon.png")
         self.music = HtSound("data/soundeffects/anxiety_backwards.ogg")
         self.app = HtApp()
 
@@ -456,12 +456,6 @@ class HorrorTactics: # extends BasicGame:
             g.setColor(white)
             #uniFont.drawString(400, gc.getScreenHeight() - 100, self.tiledmap.EventExit_m, Color.white)
             g.drawString(self.tiledmap.EventExit_m, 400, gc.getScreenHeight() - 100)
-        
-    #def render_event_bubbles(self):#conversation bubbles, triggered by events
-    #    zz=None
-    #def render_cutscene(self): #gc, g): 
-    #render cutscenes
-    #    zz=None
 
     def render_game_over(self, gc, g): #yoo dyied!
         #g.clear() #fade to black
@@ -492,7 +486,7 @@ class HorrorTactics: # extends BasicGame:
         self.game_state = state    
     def getCurrentMap(self):  #public MyTiledMap
         return self.tiledmap
-    def getComicActionStrImage(self, a): #public Image HtImage
+    def getComicActionStrImage(self, a): #public Image Image
         if (a == ("Dodge")):
             return self.effect_wiff
         elif (a == ("Dead")):
