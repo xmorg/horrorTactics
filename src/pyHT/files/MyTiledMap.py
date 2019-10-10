@@ -11,8 +11,12 @@ class MyTiledMap: # extends TiledMap {
         self.follower_max = 4
         #self.tiles250x129 = None #HtImage()
         self.walls250x512 = None #HtImage()
-        self.tilesheet
-        self.wallsheet = None #SpriteSheet
+        #import pyglet
+        #ball_image = pyglet.image.load('ball.png')
+        #ball = pyglet.sprite.Sprite(ball_image, x=50, y=50)
+        #public SpriteSheet tilesheet, wallsheet = null;
+        #self.tilesheet
+        #self.wallsheet = None #SpriteSheet
         self.tileWidth = 2 #what is the default?
         self.tileHeight = 2
         self.TILE_WIDTH_HALF = self.tileWidth / 2
@@ -203,7 +207,7 @@ class MyTiledMap: # extends TiledMap {
         isoX = (screenx / self.TILE_WIDTH_HALF + screeny / self.TILE_HEIGHT_HALF) / 2
         return isoX
     def getScreenToIsoY(self, screenx, screeny, ht): #(int screenx, int screeny, HorrorTactics ht):
-        isoY = (screeny / TILE_HEIGHT_HALF - (screenx / TILE_WIDTH_HALF)) / 2
+        isoY = (screeny / self.TILE_HEIGHT_HALF - (screenx / self.TILE_WIDTH_HALF)) / 2
         return isoY
     def getIsoXToScreen(self, x, y):
         posX = (x - y) * (250 / 2)
@@ -361,7 +365,7 @@ class MyTiledMap: # extends TiledMap {
             self.follower[i].onMoveActor(self, gc.getFPS())
             #self.follower[i].action_points += total_action_points
     def onMonsterMoving(self, gc, ht, delta): #taken from update.
-        if (monster[0].spotted_enemy == True):
+        if (self.monster[0].spotted_enemy == True):
             self.monster[self.current_monster_moving].onMoveActor(
                     self, gc.getFPS())
             if (self.monster[self.current_monster_moving].dead == True):

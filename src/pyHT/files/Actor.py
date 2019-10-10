@@ -1,9 +1,9 @@
 #Horror TActics, python edition
 
-import pyglet
+#import pyglet
 from files.techWrap import Color
 from files.techWrap import Rectangle
-from files.techWrap import HtImage
+from files.techWrap import HtImage as Image
 from files.techWrap import HtSound
 
 
@@ -17,8 +17,8 @@ from files.techWrap import HtSound
 
 class Actor():
     def __init__(self, s, sx, sy): #Actor(String s, int sx, int sy) throws SlickException:
-        self.spriteImage = HtImage(s + ".png")
-        self.iconImage = HtImage(s + "_i.png")
+        self.spriteImage = Image(s + ".png")
+        self.iconImage = Image(s + "_i.png")
         #sprites = new SpriteSheet(spriteImage, sx, sy)
         #new_sprite = pyglet.sprite.Sprite(img=resources.player_image, x=785-i*30, y=585, batch=batch)
         self.tilex = 0 ##our tile position in X
@@ -53,12 +53,12 @@ class Actor():
         self.attack_timer = 0
         self.storyline_died = 0
         ##no try catch!
-        self.snd_footsteps = HtSound("data/soundeffects/steps_hallway.ogg")
-        self.snd_swing_miss = HtSound("data/soundeffects/swing_miss.ogg")
-        self.snd_swing_hit  = HtSound("data/soundeffects/punch_hit.ogg")
-        self.snd_washit = HtSound("data/soundeffects/guy_hit1.ogg")
-        self.snd_dodging = HtSound("data/soundeffects/guy_dodging1.ogg")
-        self.snd_died = HtSound("data/soundeffects/guy_die1.ogg")
+        self.snd_footsteps = HtSound("data/soundeffects/steps_hallway.wav")
+        self.snd_swing_miss = HtSound("data/soundeffects/swing_miss.wav")
+        self.snd_swing_hit  = HtSound("data/soundeffects/punch_hit.wav")
+        self.snd_washit = HtSound("data/soundeffects/guy_hit1.wav")
+        self.snd_dodging = HtSound("data/soundeffects/guy_dodging1.wav")
+        self.snd_died = HtSound("data/soundeffects/guy_die1.wav")
         self.weapon = "none" #"none" "knife" "cleaver" "sword" "pistol"
         self.health_points = 5
         self.health_points_max = 5
@@ -80,8 +80,8 @@ class Actor():
         self.shadow = True
     #def changeActorSpriteSheetX
     def changeActorSpritesheet(self, s, sx, sy): #throws SlickException:
-        self.spriteImage = HtImage(s + ".png")
-        self.iconImage = HtImage(s + "_i.png")
+        self.spriteImage = Image(s + ".png")
+        self.iconImage = Image(s + "_i.png")
         #sprites = new SpriteSheet(spriteImage, sx, sy)
     def getSpriteframe(self): #throws SlickException
         #TODO: how to pyglet spritesheets work?        
@@ -147,7 +147,7 @@ class Actor():
         return posY
 
     def isAtTileXY(self, x, y):
-        if (tilex == x and tiley == y):
+        if (self.tilex == x and self.tiley == y):
             return True
         return False
 
@@ -205,7 +205,7 @@ class Actor():
         self.updateActorDirection()
         if (ismoving == False):
             self.set_draw_xy(0, 0)
-            snd_footsteps.stop()
+            self.snd_footsteps.stop()
         self.move_action = ismoving
         #if (self.move_action == True):
         #    #self.updateActorDirection() #moved up
@@ -225,34 +225,33 @@ class Actor():
             health_bar_s.setBounds(x + 29, y + 29, 12, 52)
             agraphics.setColor(Color.black)
             agraphics.fill(health_bar_s)
-            agraphics.setColor(c)
+            #agraphics.setColor(c)
             agraphics.fill(health_bar)
             agraphics.setColor(Color.white)
             #g.drawString(self.health_points+"/"+self.health_points_max+"/"+ph, x+30,y+30)
     #def drawActor(HorrorTactics h, MyTiledMap m, int x, int y, agraphics):
-    def drawActor(self, mytiledmap, x, y, agraphics):
-        health_bar = Rectangle(0,0,0,0)
-        health_bar_s = Rectangle(0,0,0,0)
+    def drawActor(self, ht, x, y, g): #g = agraphics
+        self.health_bar = Rectangle(0,0,0,0)
+        self.health_bar_s = Rectangle(0,0,0,0)
         #int x = (int)(((double)a/(double)b) * 100)
         lg = Color(0, 0, 0, 0.8)
         textcolor = Color(1,1,1,1) #white
         #int ph = (int) (((double) self.health_points / (double) self.health_points_max) * 100 / 2)
-        ph = (self.health_points / self.health_points_max) * 100 / 2
+        #ph = (self.health_points / self.health_points_max) * 100 / 2
         if (self.isAtTileXY(x, y) == True):
-            pdx = h.screen_x + h.draw_x + self.draw_x
-            pdy = h.screen_y + h.draw_y + self.draw_y - 230
-            if (self.selected == True and h.map.turn_order.equalsIgnoreCase("player") ): #draw the selection if True
-
+            pdx = ht.screen_x + ht.draw_x + self.draw_x
+            pdy = ht.screen_y + ht.draw_y + self.draw_y - 230
+            if (self.selected == True and ht.map.turn_order == "player"): #draw the selection if True
                 try: #draw select box
-                    m.selected_green.draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y)
-                    m.tiles250x129.getSubImage(0, 0, 250, 130).draw(h.screen_x + h.draw_x, h.screen_y + h.draw_y)
+                    ht.tiledmap.selected_green.draw(ht.screen_x + ht.draw_x, ht.screen_y + ht.draw_y)
+                    ht.tiledmap.tiles250x129.getSubImage(0, 0, 250, 130).draw(ht.screen_x + ht.draw_x, ht.screen_y + ht.draw_y)
                 except: #} catch (NullPointerException n):
                     print("caught and exception")
             if (self.dead == False): #draw actor
                 if (self.ismouse_over == True):
-                    drawHealthBar(g, Color.blue, pdx + 12, pdy + 12, self.mental_points, self.mental_points_max)
-                    drawHealthBar(g, Color.green, pdx + 6, pdy + 6, self.fatigue_points, self.fatigue_points_max)
-                    drawHealthBar(g, Color.red, pdx, pdy, self.health_points, self.health_points_max)
+                    self.drawHealthBar(g, Color.blue, pdx + 12, pdy + 12, self.mental_points, self.mental_points_max)
+                    self.drawHealthBar(g, Color.green, pdx + 6, pdy + 6, self.fatigue_points, self.fatigue_points_max)
+                    self.drawHealthBar(g, Color.red, pdx, pdy, self.health_points, self.health_points_max)
                 if(self.shadow == True): # what if monster has no shadow!?!?!
                     g.setColor(lg)
                     g.fillOval(pdx + 50, pdy + self.sprites.getSprite(0, 0).getHeight() - 50, 100, 50)

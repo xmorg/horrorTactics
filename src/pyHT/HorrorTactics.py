@@ -25,7 +25,8 @@ from files.Settings import Settings
 
 class HorrorTactics: # extends BasicGame: 
     def __init__(self):
-        #self.input = Input() #input class        
+        #self.input = Input() #input class    
+        self.modpath = "../data/"
         self.msa = MouseActions() # msa #key and mouse actions
         self.ksa = KeyActions() # ksa
         self.draw_x = 0
@@ -52,14 +53,14 @@ class HorrorTactics: # extends BasicGame:
         self.turn_count = 0
         self.popup_window = "none"
         #Color myfilter, myfiltert, myfilterd Make a slickwraperobjbs
-        self.playersave = Actor("player", 1, 1)
-        self.titlemenu = TitleMenu()
+        #self.playersave = Actor(self.modpath + "player", 1, 1)
+        self.titlemenu = TitleMenu(self) #ht
         self.playerfile = SaveMyFile()
         #self.music = self.music()
         self.game_state = "title start" #title start, title ingame, tactical,conversation,cutscene
         self.fullscreen_toggle = "Yes"
         self.sound_toggle = "Yes"
-        self.tiledmap = MyTiledMap("data/dojo01.tmx", 0, 0)
+        self.tiledmap = MyTiledMap("../data/dojo01.tmx", 0, 0)
         #self.tiledmap. = MyTiledMap("data/tutorial01.tmx", 0, 0)
         #self.tiledmap. = MyTiledMap("data/butcher_shop01.tmx", 0, 0)
         #self.tiledmap. = MyTiledMap("data/streets01.tmx", 0, 0)
