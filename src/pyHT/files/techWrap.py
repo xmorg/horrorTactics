@@ -10,6 +10,7 @@ import pyglet
 from pyglet import gl
 from pyglet import clock
 from pyglet.window import key
+from pyglet.resource import image as Image
 
 
 class Rectangle():
@@ -45,7 +46,7 @@ class Color():
         return (self.red, self.green, self.blue, self.alpha)
 class HtImage():
     def __init__(self, filename):
-        self.data = pyglet.image(filename)
+        self.data = Image(filename)  #pyglet.image(filename)
     def draw(self,x,y ): #draw the image
         self.data.blit(x,y,0)
     def draw3d(self,x,y,z):
