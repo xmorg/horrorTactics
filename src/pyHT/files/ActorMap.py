@@ -23,8 +23,8 @@ from files.npcs.Ichi import Ichi
 # */
 class ActorMap: # {
     def __init__(self):     ##publicActorMap
-        tiles = None
-    def getActorLocationFromTMX(m): #MyTiledMap
+        self.tiles = None
+    def getActorLocationFromTMX(self, m): #MyTiledMap
         ##We do not get stats, only locations.
         ##note, how do we carry followers from map to map? (or will we ever?)
         monster_loop = 0
