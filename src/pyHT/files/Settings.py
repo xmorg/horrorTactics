@@ -1,23 +1,20 @@
-/*
- * The point of this class is to give the user hint/tips on how to play the game
- * The hints can be turned off by a toggle in the HorrorTactcis Class.
- * Each map has its own hint
- */
-package horrortactics;
+#/*
+# * The point of this class is to give the user hint/tips on how to play the game
+# * The hints can be turned off by a toggle in the HorrorTactcis Class.
+# * Each map has its own hint
+# */
+#package horrortactics;
 
-/**
- *
- * @author tcooper
- */
-public class Settings {
-    public boolean toggle_hints; //true its on, false its off;
-    public boolean tottle_fullscreen; //fullscreen or windowed
-    public boolean toggle_sound;
-    public Settings() {
-        //set defaults, again, how to save them?
-        this.toggle_hints = true;
-        this.toggle_sound = true;
-        this.tottle_fullscreen = true;
-    }
-    
-}
+#/**
+# *
+# * @author tcooper
+# */
+class Settings: # {
+    def __init__(self):
+        self.toggle_hints = True
+        self.toggle_fullscreen = True
+        self.toggle_sound = True
+    def set_settings1(self, hints, fs, sound):
+        self.toggle_hints = hints
+        self.toggle_fullscreen = fs
+        self.toggle_sound = sound

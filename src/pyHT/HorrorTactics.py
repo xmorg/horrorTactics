@@ -52,7 +52,7 @@ class HorrorTactics: # extends BasicGame:
         self.turn_count = 0
         self.popup_window = "none"
         #Color myfilter, myfiltert, myfilterd Make a slickwraperobjbs
-        self.playersave = Actor()
+        self.playersave = Actor("player", 1, 1)
         self.titlemenu = TitleMenu()
         self.playerfile = SaveMyFile()
         #self.music = self.music()
