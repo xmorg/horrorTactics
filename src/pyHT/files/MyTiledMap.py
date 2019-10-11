@@ -1,7 +1,7 @@
 #hello
 
 
-from files.techWrap import HtImage
+from files.techWrap import HtImage as Image
 #from files.techWrap import HtTiled
 from files.Trigger import Trigger
 from files.Actor import Actor
@@ -14,8 +14,8 @@ class MyTiledMap(): # extends TiledMap {
     def __init__(self, ref, draw_x, draw_y):
         self.monster_max = 10
         self.follower_max = 4
-        #self.tiles250x129 = None #HtImage()
-        self.walls250x512 = None #HtImage()
+        #self.tiles250x129 = None #Image()
+        self.walls250x512 = None #Image()
         #import pyglet
         #ball_image = pyglet.image.load('ball.png')
         #ball = pyglet.sprite.Sprite(ball_image, x=50, y=50)
@@ -46,8 +46,8 @@ class MyTiledMap(): # extends TiledMap {
         self.objective = ""
         self.hint = ""
         self.planning = ""
-        #HtImage selected_green, selected_yellow
-        #Image[] charbusts = HtImage[20]
+        #Image selected_green, selected_yellow
+        #Image[] charbusts = Image[20]
         self.EventSpotted = "none"
         self.EventSpotted_p = None #image event spotted
         self.EventSpotted_m = "none"
@@ -76,12 +76,12 @@ class MyTiledMap(): # extends TiledMap {
         self.turn_order = "title"   #monster, player, planning, cutscene #make it planning after you start a new game
         self.active_trigger = Trigger("none", "none")
 
-        self.tiles250x129 = HtImage("data/tiles250x129.png")
-        self.selected_green = HtImage("data/selected_green.png")
-        self.selected_yellow = HtImage("data/selected_yellow.png")
+        self.tiles250x129 = Image("data/tiles250x129.png")
+        self.selected_green = Image("data/selected_green.png")
+        self.selected_yellow = Image("data/selected_yellow.png")
         self.player = Actor("data/player00", 218, 313)
-        self.follower = [] #Actor[] follower = new Actor[follower_max]
-        self.monster = []  #Actor[] monster = new Actor[monster_max]
+        self.follower = [] #range(self.follower_max) #Actor[] follower = new Actor[follower_max]
+        self.monster = [] #range(self.monster_max)  #Actor[] monster = new Actor[monster_max]
         self.actormap = ActorMap()
         self.m_draw_x = draw_x
         self.m_draw_y = draw_y
@@ -93,7 +93,7 @@ class MyTiledMap(): # extends TiledMap {
         self.render_min_x = 0
         self.render_max_y = 0
         self.render_max_x = 0
-        self.next_map = self.tileddata.getMapProperty("nextmap", "none")
+        self.next_map = self.getMapProperty("nextmap", "none")
         self.maptitle = self.getMapProperty("maptitle", "unkown map")
         self.mapname = self.getMapProperty("mapname", "none")  #load the mapname (to save later)
         self.objective = self.getMapProperty("obj", "none") #objective
@@ -103,17 +103,38 @@ class MyTiledMap(): # extends TiledMap {
         self.EventSpotted1 = self.getMapProperty("event_spotted1", "none")
         if (self.EventSpotted == "none"): # { #if not none, load the event spotted
             self.EventSpotted_m = self.getMapProperty("event_spotted_m", "none")
-            self.EventSpotted_p = HtImage("data/" + self.getMapProperty("event_spotted_p", "prt_player_00.png"))
+            self.EventSpotted_p = Image("data/" + self.getMapProperty("event_spotted_p", "prt_player_00.png"))
             if (self.EventSpotted1 == "none"):
                 self.EventSpotted_m1 = self.getMapProperty("event_spotted_m1", "none")
-                self.EventSpotted_p1 = HtImage("data/" + self.getMapProperty("event_spotted_p1", "prt_player_00.png"))
+                self.EventSpotted_p1 = Image("data/" + self.getMapProperty("event_spotted_p1", "prt_player_00.png"))
         else:
             self.EventSpotted_m = self.getMapProperty("event_spotted_m", "end.")
-            self.EventSpotted_p = HtImage("data/" + self.getMapProperty("event_spotted_p", "prt_player_00.png"))
+            self.EventSpotted_p = Image("data/" + self.getMapProperty("event_spotted_p", "prt_player_00.png"))
 
+    def getMapProperty(self, s, sn):
+        p = self.tileddata.properties
+        #print(p)
+        for i in range(0, len(p)):
+            currentProp = p[i]   #print(currentProp.name, "->", currentProp.value)
+            if currentProp.name == s:
+                return currentProp.value
+        return "none"
+    def getLayerIndex(self, name):
+        #find the number of the layer called "name"
+        #the map has a list of layor objects, with .name ?
+        p = self.tileddata.layers
+        for i in range(0, len(p)):
+            currentLayer = p[i]
+            #print(currentLayer.name) #debug
+            if currentLayer.name == name:
+                return currentLayer.name
+        return "background_layer"
+    def getWidth(self):
+        return self.tileddata.width
+    def getHeight(self):
+        return self.tileddata.height
     def getDrawX(self):
         return self.m_draw_x
-
     def getDrawY(self):
         return self.m_draw_x
 

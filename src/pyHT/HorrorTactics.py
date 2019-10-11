@@ -67,9 +67,9 @@ class HorrorTactics: # extends BasicGame:
         self.settings = Settings() #how do we save them?
         self.msa = MouseActions()
         self.ksa = KeyActions()
-        self.titlemenu = TitleMenu()
+        self.titlemenu = TitleMenu(self)
         #input = new Input(gc.getHeight())
-        self.tiledmap.actorself.tiledmap.getActorLocationFromTMX(map)
+        self.tiledmap.actormap.getActorLocationFromTMX(self.tiledmap)
         self.fps = HtTime.getFPS()
         self.actor_move_timer = 0
         self.lastTime = 0

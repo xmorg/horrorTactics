@@ -24,25 +24,33 @@ from files.npcs.Ichi import Ichi
 class ActorMap: # {
     def __init__(self):     ##publicActorMap
         self.tiles = None
+        #self.monster = []
+        #self.follower = []
     def getActorLocationFromTMX(self, m): #MyTiledMap
         ##We do not get stats, only locations.
         ##note, how do we carry followers from map to map? (or will we ever?)
         monster_loop = 0
         follower_loop = 0
+        
         actor_layer = m.getLayerIndex("actors_layer")
         for i in range(0, m.monster_max): #(int i = 0 i < m.monster_max i+=1):
-            try:
-                m.monster[i] = Actor("data/monster00", 218, 313)
-                m.monster[i].visible = False #default
-            except:
-                print("exception: cant make a monster")
+            m.monster.append( Actor("data/monster00", 218, 313) )
+            m.monster[i].visible = False #default
+            #try:
+            #    m.monster[i] = Actor("data/monster00", 218, 313)
+            #    m.monster[i].visible = False #default
+            #except:
+            #    print("ActorMap: exception: cant make a monster monster00")
         for i in range(0, m.follower_max): #(int i = 0 i < m.follower_max i+=1):
-            try:
-                m.follower[i] = Actor("data/girl01", 218, 313)
-                m.follower[i].visible = False
-                m.follower[i].direction = m.follower[i].getEast()
-            except: # except:
-                print("cannot create a follower")
+            m.follower.append(Actor("data/girl01", 218, 313))
+            m.follower[i].visible = False
+            m.follower[i].direction = m.follower[i].getEast()
+            #try:
+            #    m.follower[i] = Actor("data/girl01", 218, 313)
+            #    m.follower[i].visible = False
+            #    m.follower[i].direction = m.follower[i].getEast()
+            #except: # except:
+            #    print("ActorMap: exception: cannot create a follower girl01")
         for y in range(0, m.getHeight()): #(int y = 0 y < m.getHeight() y+=1):
             for x in range(0, m.getWidth()): #(int x = 0 x < m.getWidth() x+=1):
                 gid = m.getTileId(x, y, actor_layer)
