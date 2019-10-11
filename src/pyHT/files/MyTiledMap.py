@@ -1,11 +1,16 @@
 #hello
 
+
 from files.techWrap import HtImage
+#from files.techWrap import HtTiled
 from files.Trigger import Trigger
 from files.Actor import Actor
 from files.ActorMap import ActorMap
 
-class MyTiledMap: # extends TiledMap {
+from tmx import TileMap #TilMap
+
+
+class MyTiledMap(): # extends TiledMap {
     def __init__(self, ref, draw_x, draw_y):
         self.monster_max = 10
         self.follower_max = 4
@@ -17,6 +22,8 @@ class MyTiledMap: # extends TiledMap {
         #public SpriteSheet tilesheet, wallsheet = null;
         #self.tilesheet
         #self.wallsheet = None #SpriteSheet
+        self.tileddata = TileMap.load(ref)
+        
         self.tileWidth = 2 #what is the default?
         self.tileHeight = 2
         self.TILE_WIDTH_HALF = self.tileWidth / 2
@@ -86,8 +93,7 @@ class MyTiledMap: # extends TiledMap {
         self.render_min_x = 0
         self.render_max_y = 0
         self.render_max_x = 0
-        
-        self.next_map = self.getMapProperty("nextmap", "none")
+        self.next_map = self.tileddata.getMapProperty("nextmap", "none")
         self.maptitle = self.getMapProperty("maptitle", "unkown map")
         self.mapname = self.getMapProperty("mapname", "none")  #load the mapname (to save later)
         self.objective = self.getMapProperty("obj", "none") #objective

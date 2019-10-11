@@ -60,10 +60,10 @@ class HorrorTactics: # extends BasicGame:
         self.game_state = "title start" #title start, title ingame, tactical,conversation,cutscene
         self.fullscreen_toggle = "Yes"
         self.sound_toggle = "Yes"
-        self.tiledmap = MyTiledMap("../data/dojo01.tmx", 0, 0)
-        #self.tiledmap. = MyTiledMap("data/tutorial01.tmx", 0, 0)
-        #self.tiledmap. = MyTiledMap("data/butcher_shop01.tmx", 0, 0)
-        #self.tiledmap. = MyTiledMap("data/streets01.tmx", 0, 0)
+        #self.tiledmap = MyTiledMap("../data/dojo01.tmx", 0, 0)
+        self.tiledmap = MyTiledMap("data/tutorial01.tmx", 0, 0)
+        #self.tiledmap = MyTiledMap("data/butcher_shop01.tmx", 0, 0)
+        #self.tiledmap = MyTiledMap("data/streets01.tmx", 0, 0)
         self.settings = Settings() #how do we save them?
         self.msa = MouseActions()
         self.ksa = KeyActions()

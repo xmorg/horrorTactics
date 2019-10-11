@@ -7,11 +7,19 @@ Created on Mon Sep 30 14:38:45 2019
 """
 
 import pyglet
+
+#https://git.savannah.nongnu.org/git/python-tmx.git
+#Doc: http://www.nongnu.org/python-tmx/doc/
+# clone and run python3 setup.py install
+#from tmx import TiledMap
+#import tmx
 from pyglet import gl
 from pyglet import clock
 from pyglet.window import key
 from pyglet.resource import image as Image
 
+#from tmx import TileMap
+        
 class SpriteSheet:
     def __init__(self):
         self.i = 0
@@ -64,8 +72,7 @@ class HtImage:
     def getWidth(self):
         return self.data.width
     def getHeight(self):
-        return self.data.height
-        
+        return self.data.height     
 class HtSound: #sound and music
     #EOS_PAUSE='pause',#EOS_LOOP='loop', #EOS_NEXT='next',#EOS_STOP='stop'
     def __init__(self, filename):
