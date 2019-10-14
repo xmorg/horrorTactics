@@ -60,12 +60,12 @@ class ActorMap: # {
                     weapon = m.getTileProperty(gid, "weapon", "none")
                     actor_spotted = m.getTileProperty(gid, "actor_spotted", "True")
                     mission_goal = m.getTileProperty(gid, "event_goal", "no")
-                    if (mission_goal.equalsIgnoreCase("yes")):
+                    if (mission_goal == "yes"):
                         m.mission_goal = Image("data/" + m.getTileProperty(gid, "event_goal_graphic", "papers.png"))
                         #set the X/y
                         m.draw_goal_x = x
                         m.draw_goal_y = y
-                    if (pname.equals("player")):
+                    if (pname == "player"):
                         m.player.tilex = x
                         m.player.tiley = y
                         m.player.name = "Riku" #pname
@@ -74,21 +74,21 @@ class ActorMap: # {
                         # elif (this.getTileProperty(gid, "actor_name", "none").equals("pear monster")):
                         #void swapSoundEffects(String footsteps, String miss, String hit, String washit, String dodge, String died):
                         m.player.swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg")
-                    elif (pname.equals("Yukari")): #little nerd girl
+                    elif (pname == "Yukari"): #little nerd girl
                         try:
                             m.follower[follower_loop] = Yukari(x, y)
                             m.follower[follower_loop].set_base_stats()
                             follower_loop +=1
                         except:
                             print("cannot change sprite, yukari")
-                    elif (pname.equals("Miyu")): #kendo girl
+                    elif (pname == "Miyu"): #kendo girl
                         try:
                             m.follower[follower_loop] = Miyu(x, y)
                             m.follower[follower_loop].set_base_stats()
                             follower_loop+=1
                         except:
                              print("cannot change sprite for actor Miyu")
-                    elif (pname.equals("Ichi")): #slim boy
+                    elif (pname == "Ichi"): #slim boy
                         try:
                             m.follower[follower_loop] = Ichi(x, y)
                             m.follower[follower_loop].set_base_stats()
@@ -105,7 +105,7 @@ class ActorMap: # {
                             follower_loop+=1
                         except:
                             print("cannot change sprite for actor Takeshi")
-                    elif (pname.equals("Officer_Ayano")):
+                    elif (pname == "Officer_Ayano"):
                         try:
                             m.follower[follower_loop].changeActorSpritesheet("data/police01", 218, 313)
                             m.follower[follower_loop].tilex = x
@@ -120,7 +120,7 @@ class ActorMap: # {
                             follower_loop+=1
                         except:
                             print("cannot change sprite Officer Ayano")
-                    elif (pname.equals("tutor_bully0")):
+                    elif (pname == "tutor_bully0"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/boy00", 218, 313)
                         except:
@@ -129,7 +129,6 @@ class ActorMap: # {
                             m.monster[monster_loop].spotted_enemy = False
                         else:
                             m.monster[monster_loop].spotted_enemy = True
-                        
                         m.monster[monster_loop].tilex = x
                         m.monster[monster_loop].tiley = y
                         m.monster[monster_loop].setActorMoving(False)
@@ -137,7 +136,7 @@ class ActorMap: # {
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 100
                         monster_loop+=1
-                    elif (pname.equals("tutor_bully1")):
+                    elif (pname == "tutor_bully1"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/girl03", 218, 313)
                         except:
@@ -207,7 +206,7 @@ class ActorMap: # {
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 0
                         monster_loop+=1
-                    elif (pname.equalsIgnoreCase("zombie1")):
+                    elif (pname ==  "zombie1"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster10", 218, 313)
                         except:
@@ -219,7 +218,7 @@ class ActorMap: # {
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 2
                         monster_loop+=1
-                    elif (pname.equalsIgnoreCase("zombie2")):
+                    elif (pname == "zombie2"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster11", 218, 313)
                         except:
@@ -231,7 +230,7 @@ class ActorMap: # {
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 2
                         monster_loop+=1
-                    elif (pname.equalsIgnoreCase("zombie3")):
+                    elif (pname == "zombie3"):
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster12", 218, 313)
                         except:
@@ -257,7 +256,7 @@ class ActorMap: # {
                         m.monster[monster_loop].name = pname
                         m.monster[monster_loop].max_turns_till_revival = 99
                         monster_loop+=1
-                    elif (pname.equals("invisible_man")):
+                    elif (pname == "invisible_man"):
                         print("we got to the invnisible man")
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster06", 218, 313)
@@ -274,7 +273,7 @@ class ActorMap: # {
                         m.monster[monster_loop].stat_luck = 5 #hard to hit, and hits often!
                         #set dodge scores
                         monster_loop+=1
-                    elif (pname.equals("shadowninja")):
+                    elif (pname == "shadowninja"):
                         print("we got to shadowninja")
                         try:
                             m.monster[monster_loop].changeActorSpritesheet("data/monster13", 218, 313)
@@ -291,13 +290,16 @@ class ActorMap: # {
                         #set dodge scores
                         monster_loop+=1
                     # add more monsters here# add more monsters here
-            for i in range(0, 5): #(int i = 0 i < 5 i+=1):
-                m.planning[i] = m.getMapProperty("planning_" + i, "end")
+            for i in range(0, m.maxplanevent): #(int i = 0 i < 5 i+=1):
+                s = "planning_"+str(i)
+                m.planning[i].append( m.getMapProperty( s, "end") )
+                print("m.playning[", i,"]")
                 if (m.planning[i].equalsIgnoreCase("end")):
-                    m.maxplanevent = i #last one
+                    break
+                    #m.maxplanevent = i #last one
                 m.charbusts[i] = Image("data/" + m.getMapProperty("planning_" + i + "_p", "prt_player_00.png"))
-        for i in range(0, 5):
-            m.planning[i] = m.getMapProperty("planning_" + i, "end")
+        for i in range(0, m.maxplanevent):
+            m.planning[i].append( m.getMapProperty("planning_" + i, "end"))
             if (m.planning[i].equalsIgnoreCase("end")):
                 m.maxplanevent = i - 1 #last one       
             m.charbusts[i] = Image("data/" + m.getMapProperty("planning_" + i + "_p", "prt_player_00.png"))  

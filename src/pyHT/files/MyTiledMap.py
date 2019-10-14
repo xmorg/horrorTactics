@@ -7,7 +7,10 @@ from files.Trigger import Trigger
 from files.Actor import Actor
 from files.ActorMap import ActorMap
 
-from tmx import TileMap #TilMap
+from files.tmx import TileMap #TilMap
+from files.tmx import Layer   #the layer on the tilemap
+from files.tmx import LayerTile #the tile on the layer
+from files.tmx import Tile
 
 
 class MyTiledMap(): # extends TiledMap {
@@ -45,7 +48,7 @@ class MyTiledMap(): # extends TiledMap {
         self.log_msg = ""
         self.objective = ""
         self.hint = ""
-        self.planning = ""
+        self.planning = list() #None
         #Image selected_green, selected_yellow
         #Image[] charbusts = Image[20]
         self.EventSpotted = "none"
@@ -110,7 +113,22 @@ class MyTiledMap(): # extends TiledMap {
         else:
             self.EventSpotted_m = self.getMapProperty("event_spotted_m", "end.")
             self.EventSpotted_p = Image("data/" + self.getMapProperty("event_spotted_p", "prt_player_00.png"))
-
+    def getTileId(self, x, y, layer): #xy on the actor's layer.
+        #File "/home/tcooper/devel/horrorTactics/src/pyHT/files/ActorMap.py", line 56, in getActorLocationFromTMX
+        #gid = m.getTileId(x, y, actor_layer)
+        #AttributeError: 'MyTiledMap' object has no attribute 'getTileId'
+        t = self.getLayerByName(layer).tiles #now we have the layer, l
+        #print(t) #prints a bunch of "LayerTile" objects.
+        tid = t[x*y]
+        #print(tid, " ", tid.gid)
+        #for i in range(0,len())
+        return tid.gid
+    def getTileProperty(self, gid, tname, arg):
+        #File "/home/tcooper/devel/horrorTactics/src/pyHT/files/ActorMap.py", line 59, in getActorLocationFromTMX
+        #pname = m.getTileProperty(gid, "actor_name", "none")
+        #AttributeError: 'MyTiledMap' object has no attribute 'getTileProperty'
+        
+        return 1
     def getMapProperty(self, s, sn):
         p = self.tileddata.properties
         #print(p)
@@ -129,6 +147,12 @@ class MyTiledMap(): # extends TiledMap {
             if currentLayer.name == name:
                 return currentLayer.name
         return "background_layer"
+    def getLayerByName(self, name):
+        p = self.tileddata.layers
+        for i in range(0, len(p)):
+            currentLayer = p[i]
+            if currentLayer.name == name:
+                return p[i] #return the whole layer.
     def getWidth(self):
         return self.tileddata.width
     def getHeight(self):
