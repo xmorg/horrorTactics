@@ -15,7 +15,10 @@ from files.Actor import Actor
 from files.npcs.Yukari import Yukari
 from files.npcs.Miyu import Miyu
 from files.npcs.Ichi import Ichi
-
+from files.npc.OfficerAyano import OfficerAyano
+from files.npc.TutorBully01 import TutorBully0
+from files.npc.TutorBully01 import TutorBully1
+from files.npc.Takeshi import Takeshi
 
 #/**
 # *
@@ -97,61 +100,35 @@ class ActorMap: # {
                              print("cannot change sprite for actor Ichi")
                     elif (pname == "Takeshi"): #fat boy
                         try:
-                            m.follower[follower_loop].changeActorSpritesheet("data/boy01", 218, 313)
-                            m.follower[follower_loop].tilex = x
-                            m.follower[follower_loop].tiley = y
-                            m.follower[follower_loop].visible = True
-                            m.follower[follower_loop].name = pname
+                            m.follower[follower_loop] = Takeshi()
+                            m.follower[follower_loop].set_base_states(x,y)
                             follower_loop+=1
                         except:
                             print("cannot change sprite for actor Takeshi")
                     elif (pname == "Officer_Ayano"):
                         try:
-                            m.follower[follower_loop].changeActorSpritesheet("data/police01", 218, 313)
-                            m.follower[follower_loop].tilex = x
-                            m.follower[follower_loop].tiley = y
-                            m.follower[follower_loop].visible = True
-                            m.follower[follower_loop].name = pname
-                            m.follower[follower_loop].attack_range = 2
-                            #if(weapon)
-                            #m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
-                                #"pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg")
-                            m.follower[follower_loop].swapSoundEffects("", "pistol_shotl.ogg", "pistol_shotl.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg")
+                            m.follower[follower_loop] = OfficerAyano()
+                            m.follower[follower_loop].set_base_states(x,y)                            
                             follower_loop+=1
                         except:
                             print("cannot change sprite Officer Ayano")
                     elif (pname == "tutor_bully0"):
                         try:
-                            m.monster[monster_loop].changeActorSpritesheet("data/boy00", 218, 313)
+                            m.monster[monster_loop] = TutorBully0()
+                            m.monster[monster_loop].set_base_stats(x,y)
                         except:
                             print("cannot change sprite Tutor Bully")
+                        monster_loop+=1
+                    elif (pname == "tutor_bully1"):
+                        try:
+                            m.monster[monster_loop] = TutorBully1()
+                            m.monster[monster_loop].set_base_states(x,y)
+                        except:
+                             print("Cannot create Actor, Tutor Bully 1")
                         if (actor_spotted == "False"):
                             m.monster[monster_loop].spotted_enemy = False
                         else:
                             m.monster[monster_loop].spotted_enemy = True
-                        m.monster[monster_loop].tilex = x
-                        m.monster[monster_loop].tiley = y
-                        m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = True
-                        m.monster[monster_loop].name = pname
-                        m.monster[monster_loop].max_turns_till_revival = 100
-                        monster_loop+=1
-                    elif (pname == "tutor_bully1"):
-                        try:
-                            m.monster[monster_loop].changeActorSpritesheet("data/girl03", 218, 313)
-                        except:
-                             print("")
-                        if (actor_spotted.equalsIgnoreCase("False")):
-                            m.monster[monster_loop].spotted_enemy = False
-                        else: # {
-                            m.monster[monster_loop].spotted_enemy = True
-                        m.monster[monster_loop].tilex = x
-                        m.monster[monster_loop].tiley = y
-                        m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = True
-                        m.monster[monster_loop].name = pname
-                        m.monster[monster_loop].max_turns_till_revival = 100
-                        m.monster[monster_loop].swapSoundEffects("", "girl_attack1.ogg", "girl_attack1.ogg", "girl_hit2.ogg", "girl_dodging1.ogg", "girl_hit1.ogg")
                         monster_loop+=1
                     elif (pname == "pear_monster"):
                         try:
