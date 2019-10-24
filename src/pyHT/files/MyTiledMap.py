@@ -7,7 +7,11 @@ from files.Trigger import Trigger
 from files.Actor import Actor
 from files.ActorMap import ActorMap
 
-from tmx import TileMap #TilMap
+from files.tmx import TileMap #TilMap
+from files.tmx import Layer   #the layer on the tilemap
+from files.tmx import LayerTile #the tile on the layer
+from files.tmx import Tile
+import Math
 
 
 class MyTiledMap(): # extends TiledMap {
@@ -45,7 +49,7 @@ class MyTiledMap(): # extends TiledMap {
         self.log_msg = ""
         self.objective = ""
         self.hint = ""
-        self.planning = ""
+        self.planning = list() #None
         #Image selected_green, selected_yellow
         #Image[] charbusts = Image[20]
         self.EventSpotted = "none"
@@ -110,7 +114,22 @@ class MyTiledMap(): # extends TiledMap {
         else:
             self.EventSpotted_m = self.getMapProperty("event_spotted_m", "end.")
             self.EventSpotted_p = Image("data/" + self.getMapProperty("event_spotted_p", "prt_player_00.png"))
-
+    def getTileId(self, x, y, layer): #xy on the actor's layer.
+        #File "/home/tcooper/devel/horrorTactics/src/pyHT/files/ActorMap.py", line 56, in getActorLocationFromTMX
+        #gid = m.getTileId(x, y, actor_layer)
+        #AttributeError: 'MyTiledMap' object has no attribute 'getTileId'
+        t = self.getLayerByName(layer).tiles #now we have the layer, l
+        #print(t) #prints a bunch of "LayerTile" objects.
+        tid = t[x*y]
+        #print(tid, " ", tid.gid)
+        #for i in range(0,len())
+        return tid.gid
+    def getTileProperty(self, gid, tname, arg):
+        #File "/home/tcooper/devel/horrorTactics/src/pyHT/files/ActorMap.py", line 59, in getActorLocationFromTMX
+        #pname = m.getTileProperty(gid, "actor_name", "none")
+        #AttributeError: 'MyTiledMap' object has no attribute 'getTileProperty'
+        
+        return 1
     def getMapProperty(self, s, sn):
         p = self.tileddata.properties
         #print(p)
@@ -129,6 +148,12 @@ class MyTiledMap(): # extends TiledMap {
             if currentLayer.name == name:
                 return currentLayer.name
         return "background_layer"
+    def getLayerByName(self, name):
+        p = self.tileddata.layers
+        for i in range(0, len(p)):
+            currentLayer = p[i]
+            if currentLayer.name == name:
+                return p[i] #return the whole layer.
     def getWidth(self):
         return self.tileddata.width
     def getHeight(self):
@@ -163,7 +188,6 @@ class MyTiledMap(): # extends TiledMap {
         for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
             if (self.follower[i].visible == True): #just to be sure
                 self.follower[i].drawActor(ht, self, x, y, g)
-
     def drawMonsters(self, ht,  x,  y, g):
         #map.monster[0].drawActor(self, map, x, y)
         for i in range(0, self.monster_max): #(int i = 0 i < self.monster_max i+=1):
@@ -177,7 +201,6 @@ class MyTiledMap(): # extends TiledMap {
                         print("debug: event spotted ran")
                         self.old_turn_order = self.turn_order
                         self.turn_order = "event spotted"
-
     def setMonsterToActorDestination(self, monster, player): #Actor monster, Actor player
         if (player.tilex == monster.tilex and player.tiley > monster.tiley):
             monster.tiledestx = player.tilex - 1
@@ -191,7 +214,6 @@ class MyTiledMap(): # extends TiledMap {
         elif(player.tilex < monster.tilex and player.tiley == monster.tiley):
             monster.tiledestx = player.tilex
             monster.tiledesty = player.tiley + 1
-
     def monsterfollowerInTile(self, x, y):
         for i in range(0, self.monster_max): #for (int i = 0 i < self.monster_max i+=1):
             if (x == self.monster[i].tilex and y == self.monster[i].tiley
@@ -203,7 +225,6 @@ class MyTiledMap(): # extends TiledMap {
                         #ai hack, our ai is so bad that we will allow realism!
                 return True
         return False
-
     def getPassableTile(self, a, x, y): #Actor a, int x, int y
         #True=go, False = stop
         #int tdestx = a.tilex+a.facing_x
@@ -217,9 +238,7 @@ class MyTiledMap(): # extends TiledMap {
                     return False #found player.
             return True #There are no walls.
         #print("Encountered a wall")
-        return False#there are walls
-
-    #return False #there might be a wall
+        return False#there are walls  #return False #there might be a wall
     def onClickOnMap(self, mouse_tile_x, mouse_tile_y): #given Mouse Pixels, decide what to do
         #did we click on the players rectangle as it is rendered in the map
         if (mouse_tile_x == self.player.tilex and mouse_tile_y == self.player.tiley):
@@ -229,7 +248,6 @@ class MyTiledMap(): # extends TiledMap {
                 self.player.onSelectActor(True) #omg you selected an actor!
             else:
                 self.player.onSelectActor(False)
-
     def getScreenToIsoX(self, screenx, screeny, ht): #(int screenx, int screeny, HorrorTactics ht)
         isoX = (screenx / self.TILE_WIDTH_HALF + screeny / self.TILE_HEIGHT_HALF) / 2
         return isoX
@@ -239,11 +257,9 @@ class MyTiledMap(): # extends TiledMap {
     def getIsoXToScreen(self, x, y):
         posX = (x - y) * (250 / 2)
         return posX
-
     def getIsoYToScreen(self, x, y):
         posY = (x + y) * 130 / 2
         return posY
-
     def getAnyActorMoving(self): #is anyone moving? return True
         m = False
         if (self.player.getActorMoving() == True):
@@ -267,7 +283,6 @@ class MyTiledMap(): # extends TiledMap {
             else:
                 m = False
         return m
-
     def isActorTouchingActor(self, a, b, x, y): #Actor a, Actor b, int x, int y
         #a=monster, b=player #x, and y not used?
         if (a.tilex - 1 == b.tilex and a.tiley == b.tiley):
