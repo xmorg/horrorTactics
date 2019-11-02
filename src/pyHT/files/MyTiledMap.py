@@ -11,7 +11,7 @@ from files.tmx import TileMap #TilMap
 from files.tmx import Layer   #the layer on the tilemap
 from files.tmx import LayerTile #the tile on the layer
 from files.tmx import Tile
-import Math
+import math
 
 
 class MyTiledMap(): # extends TiledMap {

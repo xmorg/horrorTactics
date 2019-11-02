@@ -15,10 +15,11 @@ from files.Actor import Actor
 from files.npcs.Yukari import Yukari
 from files.npcs.Miyu import Miyu
 from files.npcs.Ichi import Ichi
-from files.npc.OfficerAyano import OfficerAyano
-from files.npc.TutorBully01 import TutorBully0
-from files.npc.TutorBully01 import TutorBully1
-from files.npc.Takeshi import Takeshi
+from files.npcs.OfficerAyano import OfficerAyano
+from files.npcs.TutorBully0 import TutorBully0
+from files.npcs.TutorBully1 import TutorBully1
+from files.npcs.Takeshi import Takeshi
+from files.npcs.PearMonster import PearMonster
 
 #/**
 # *
@@ -131,23 +132,12 @@ class ActorMap: # {
                             m.monster[monster_loop].spotted_enemy = True
                         monster_loop+=1
                     elif (pname == "pear_monster"):
-                        try:
-                            m.monster[monster_loop].changeActorSpritesheet("data/monster00", 218, 313)
-                        except:
-                            print("cant / changeActorSpritesheet")
+                        m.monster[monster_loop] = PearMonster()
+                        m.monster[monster_loop].set_base_stats(x,y)
                         if (actor_spotted.equalsIgnoreCase("False")):
                             m.monster[monster_loop].spotted_enemy = False
                         else: # {
-                            m.monster[monster_loop].spotted_enemy = True
-                        
-                        m.monster[monster_loop].tilex = x
-                        m.monster[monster_loop].tiley = y
-                        m.monster[monster_loop].setActorMoving(False)
-                        m.monster[monster_loop].visible = True
-                        m.monster[monster_loop].name = pname
-                        m.monster[monster_loop].max_turns_till_revival = 4
-                        m.monster[monster_loop].swapSoundEffects("", "pear_attack1.ogg",
-                                "pear_attack1.ogg", "pear_hit1.ogg", "pear_dodged1.ogg", "pear_died1.ogg")
+                            m.monster[monster_loop].spotted_enemy = True                        
                         monster_loop+=1
                     elif (pname == "butcher"):
                         try:

@@ -99,9 +99,9 @@ class HtFont:
 class HtTime:
     def __init__(self):
         self.time = 0
-    def getFPS(self):
+    def getFPS():
         return 0
-    def getTime(self):
+    def getTime():
         return 0
 class HtWindow:
     def __init__(self):

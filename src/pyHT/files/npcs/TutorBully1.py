@@ -8,7 +8,7 @@ Created on Tue Oct  8 06:52:14 2019
 
 from files.Actor import Actor
 
-class TutorBully01(Actor):
+class TutorBully1(Actor):
     def set_base_stats(self, x, y):
         self.changeActorSpritesheet("data/girl03", 218, 313)
         self.name = "tutor_bully1"

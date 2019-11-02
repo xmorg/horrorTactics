@@ -6,7 +6,7 @@
 # */
 #package horrortactics
 
-#import pyglet
+import pyglet
 from files.techWrap import Color
 #from files.techWrap import Rectangle
 from files.techWrap import HtImage as Image
@@ -77,8 +77,16 @@ class HorrorTactics: # extends BasicGame:
         self.turn_count = 0
         self.currentTime = HtTime.getTime()
         #self.screen = HtWindow()
-        self.screen_height = self.screen.getScreenHeight()
-        self.screen_width = self.screen.getScreenWidth()
+        
+        self.window = pyglet.window.Window(fullscreen=True, visible=False)
+        #platform = pyglet.window.get_platform()
+        #display = platform.get_default_display()
+        #screen = display.get_default_screen()
+        #screen_width = screen.width
+        #screen_height = screen.height
+        
+        self.screen_height = self.window.height #getScreenHeight()
+        self.screen_width = self.window.width #getScreenWidth()
 
         self.draw_x = self.tiledmap.getIsoXToScreen(self.tiledmap.player.tilex, self.tiledmap.player.tiley) * -1 + self.screen_width / 2
         self.draw_y = self.tiledmap.getIsoYToScreen(self.tiledmap.player.tilex, self.tiledmap.player.tiley) * -1 + self.screen_height / 2
@@ -115,7 +123,7 @@ class HorrorTactics: # extends BasicGame:
         self.last_mouse_y = 0#input.getMouseY()
         self.playersave = Actor("data/player00", 218, 313) #to carry over the player.
         self.level_up_icon = Image("data/level_up_icon.png")
-        self.music = HtSound("data/soundeffects/anxiety_backwards.ogg")
+        self.music = HtSound("data/soundeffects/anxiety_backwards.wav")
         self.app = HtApp()
 
         #try:
