@@ -113,7 +113,7 @@ class HorrorTactics: # extends BasicGame:
         self.level_up_icon = Image("data/level_up_icon.png")
         self.music = HtSound("data/soundeffects/anxiety_backwards.wav")
         self.app = HtApp() #pyglet.app.run()
-
+        self.app.run_app()
         #try:
             #TODO: Fonts
             #InputStream inputStream = ResourceLoader.getResourceAsStream("data/School_Writing.ttf")

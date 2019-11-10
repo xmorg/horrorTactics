@@ -105,8 +105,9 @@ class HtTime:
         return 0
 class HtWindow:
     def __init__(self):
-        self.screen = pyglet.window.Screen() #AttributeError: module 'pyglet.window' has no attribute 'Screen'
         self.window = pyglet.window.Window()
+        #self.screen = pyglet.window.Screen() #AttributeError: module 'pyglet.window' has no attribute 'Screen'
+        #self.window.set_fullscreen()
     def getScreenHeight(self): #(self):
         return self.screen.height
     def getScreenWidth(self):
