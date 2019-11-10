@@ -105,7 +105,7 @@ class HtTime:
         return 0
 class HtWindow:
     def __init__(self):
-        self.screen = pyglet.window.Screen()
+        self.screen = pyglet.window.Screen() #AttributeError: module 'pyglet.window' has no attribute 'Screen'
         self.window = pyglet.window.Window()
     def getScreenHeight(self): #(self):
         return self.screen.height
@@ -117,6 +117,17 @@ class Graphics:
     def setColor(self, c):
         self.current_color = c
         gl.glColor(self.current_color.red, self.current_color.green, self.current_color.blue, self.current_color.alpha)
+    def drawString(self, t, locx, locy):
+        label =  pyglet.text.Label( text=t, font_name='Times New Roman', \
+                                   font_size=12, x=locx, y=locy )#, \
+                                   #anchor_x='center', anchor_y='center')
+        label.draw()
+    def fillOval(self, x,y,z,a):
+        return 1 #todo
+    def fillRect(self, x, y, w, h):
+        return 1 #todo
+    def scale(self, s):
+        return 1 #todo
 class HtApp:
     def __init__(self):
         #self.screen = HtWindow()

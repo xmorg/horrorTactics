@@ -76,30 +76,18 @@ class HorrorTactics: # extends BasicGame:
         self.lastframe = 0
         self.turn_count = 0
         self.currentTime = HtTime.getTime()
-        #self.screen = HtWindow()
-        
+        #self.screen = HtWindow()        
         self.window = pyglet.window.Window(fullscreen=True, visible=False)
         #platform = pyglet.window.get_platform()
         #display = platform.get_default_display()
         #screen = display.get_default_screen()
         #screen_width = screen.width
-        #screen_height = screen.height
-        
+        #screen_height = screen.height        
         self.screen_height = self.window.height #getScreenHeight()
         self.screen_width = self.window.width #getScreenWidth()
-
         self.draw_x = self.tiledmap.getIsoXToScreen(self.tiledmap.player.tilex, self.tiledmap.player.tiley) * -1 + self.screen_width / 2
         self.draw_y = self.tiledmap.getIsoYToScreen(self.tiledmap.player.tilex, self.tiledmap.player.tiley) * -1 + self.screen_height / 2
-
         self.lastframe = HtTime.getTime()
-        
-        #move these buttons to UI?
-        #Image button_endturn, button_menu, button_punch, button_items, button_profile, button_shadow
-        #Image effect_biff, effect_wiff, effect_shrack
-        #Image enemy_moving_message
-        #Image level_up_icon #level_up_icon.png
-        #Image prev_streets01,prev_apartment1, prev_tutorial01, prev_butcher_shop01
-        #InputStream inputStream	= ResourceLoader.getResourceAsStream("myfont.ttf")
         self.button_items = Image("data/button_items.png")
         self.button_profile = Image("data/button_profile.png")
         self.button_endturn = Image("data/button_endturn2.png")
@@ -124,7 +112,7 @@ class HorrorTactics: # extends BasicGame:
         self.playersave = Actor("data/player00", 218, 313) #to carry over the player.
         self.level_up_icon = Image("data/level_up_icon.png")
         self.music = HtSound("data/soundeffects/anxiety_backwards.wav")
-        self.app = HtApp()
+        self.app = HtApp() #pyglet.app.run()
 
         #try:
             #TODO: Fonts
@@ -540,18 +528,15 @@ class HorrorTactics: # extends BasicGame:
         self.tiledmap = MyTiledMap(newmap, 0, 0) #setup a new map
         self.tiledmap.actorself.tiledmap.getActorLocationFromTMX(self.tildmap) #get the actor info
         self.popup_window = "none" #bug with kaleb where popup window still up
-    
-    
     def translateToTile(self, tx, ty): #center tile x/y on the screen?
         self.draw_x -= self.tiledmap.getIsoXToScreen(tx, ty)-(self.screen_width/3)
         self.draw_y -= self.tiledmap.getIsoYToScreen(tx, ty)-(self.screen_height-200)
-    def main(self,args):
-        try:
-            HtApp.StartApp()
-            self.app.run_app()
-        except:
-            print("cant start app: some reason?")
-        
+    #def main(self,args): #depriciated?
+    #    try:
+    #        HtApp.StartApp()
+    #        self.app.run_app()
+    #    except:
+    #        print("cant start app: some reason?")   
 #pyglet.app.run()
 h = HorrorTactics()
 

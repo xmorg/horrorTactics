@@ -1,6 +1,6 @@
 #hello
 
-
+import math
 from files.techWrap import HtImage as Image
 #from files.techWrap import HtTiled
 from files.Trigger import Trigger
@@ -8,10 +8,10 @@ from files.Actor import Actor
 from files.ActorMap import ActorMap
 
 from files.tmx import TileMap #TilMap
-from files.tmx import Layer   #the layer on the tilemap
-from files.tmx import LayerTile #the tile on the layer
-from files.tmx import Tile
-import math
+#from files.tmx import Layer   #the layer on the tilemap
+#from files.tmx import LayerTile #the tile on the layer
+#from files.tmx import Tile
+#import math
 
 
 class MyTiledMap(): # extends TiledMap {
@@ -441,12 +441,9 @@ class MyTiledMap(): # extends TiledMap {
     def getDistanceOfActors2(self, a, b):
         xs = (a.tilex - b.tilex) * (a.tilex - b.tilex)
         ys = (a.tiley - b.tiley) * (a.tiley - b.tiley)
-
-        dsr = Math.sqrt(xs + ys)
+        dsr = math.sqrt(xs + ys)
         distance = dsr
         return distance
-    
-
     def getMaxFollowers(self):
         count = 0
         #if(player)#assume player is alive
@@ -500,12 +497,11 @@ class MyTiledMap(): # extends TiledMap {
                     else: # else {
                         self.monster[i].tiledestx = self.monster[i].tilex
                         self.monster[i].tiledesty = self.monster[i].tiley
-                    
                 elif(self.monster[i].directive_type.equalsIgnoreCase("random")): #randomly move around.
                     for count in range(0, 5): #(int count = 0 count < 6 count+=1):
                         #cast to int the floor of math.random
-                        proposed_y = Math.floor(Math.random()) - Math.floor(Math.random())
-                        proposed_x = Math.floor(Math.random()) - Math.floor(Math.random())
+                        proposed_y = math.floor(math.random()) - math.floor(math.random())
+                        proposed_x = math.floor(math.random()) - math.floor(math.random())
                         print("proposed_x: " ,  proposed_x, " proposed_y: " , proposed_y)
                         if (self.getPassableTile(self.monster[i], self.monster[i].tilex + proposed_x,
                                 self.monster[i].tiley + proposed_y) == True):
@@ -528,7 +524,6 @@ class MyTiledMap(): # extends TiledMap {
             self.player.attack_timer-=1
         elif(self.player.getAnimationFrame() == 4):
             self.player.setAnimationFrame(0)
-
     def whyDidMonsterStop(self, gc, ht):
         print("Monster stopped with remaining AP")
         if (self.monster[self.current_monster_moving].visible == False):
@@ -546,25 +541,19 @@ class MyTiledMap(): # extends TiledMap {
                 + self.monster[self.current_monster_moving].facing_x,
                 self.monster[self.current_monster_moving].tiley
                 + self.monster[self.current_monster_moving].facing_y) == False):
-            #see if monster can move around tiles
-            #set back to the original desination?
-            self.current_monster_moving+=1
+            self.current_monster_moving+=1 #see if monster can move around tiles #set back to the original desination?
         elif(self.monster[self.current_monster_moving].action_points <= 0):
             self.current_monster_moving+=1
         elif(self.monster[self.current_monster_moving].tilex == self.monster[self.current_monster_moving].tiledestx
                 and self.monster[self.current_monster_moving].tiley == self.monster[self.current_monster_moving].tiledesty):
             self.current_monster_moving+=1
         elif(self.monster[self.current_monster_moving].getActorMoving() == False):
-            #generic stop
-            self.current_monster_moving+=1
+            self.current_monster_moving+=1 #generic stop
         else: # {#you stopped and cant do anything anyways
             print("Monster had not enough points to attack")
             self.monster[self.current_monster_moving].action_points = 0
             self.current_monster_moving+=1
-        
         #allmonstersmoved = False
-    
-
     def set_party_min_renderables(self):
         current_min_y = self.player.tiley 
         current_min_x = self.player.tilex
@@ -572,41 +561,25 @@ class MyTiledMap(): # extends TiledMap {
         current_max_x = 0
         if (self.player.tiley < current_min_y):
             current_min_y = self.player.tiley
-        
         if (self.player.tilex < current_min_x):
             current_min_y = self.player.tilex
-        
         if (self.player.tiley > current_max_y):
             current_max_y = self.player.tiley
-        
         if (self.player.tilex > current_max_x):
             current_max_x = self.player.tilex
-        
         for i in range(0, self.follower_max): #(int i = 0 i < self.follower_max i+=1):
             if (self.follower[i].visible and self.follower[i].tiley < current_min_y):
                 current_min_y = self.follower[i].tiley
-            
             if (self.follower[i].visible and self.follower[i].tilex < current_min_x):
                 current_min_x = self.follower[i].tilex
-            
             if (self.follower[i].visible and self.follower[i].tiley > current_max_y):
                 current_max_y = self.follower[i].tiley
-            
             if (self.follower[i].visible and self.follower[i].tilex > current_max_x):
                 current_max_x = self.follower[i].tilex
-            
-        
         self.render_min_y = current_min_y
         self.render_min_x = current_min_x
         self.render_max_y = current_max_y
         self.render_max_x = current_max_x
-        #print(
-        #        "render_min_x:"+ self.render_min_x+ 
-        #        " render_min_y:"+self.render_min_y + 
-        #        " render_max_x:"+self.render_max_x+ 
-        #        " render_max_y:" +self.render_max_y  )
-    
-
     def mouse_over_actor(self, x, y):
         if (self.player.tilex == x and self.player.tiley == y):
             self.player.ismouse_over = True
