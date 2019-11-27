@@ -23,7 +23,7 @@ from files.TitleMenu import TitleMenu #        self.titlemenu = TitleMenu()
 from files.SaveMyFile import SaveMyFile #        self.playerfile = SaveMyFile()
 from files.Settings import Settings
 
-class HorrorTactics: # extends BasicGame: 
+class HorrorTactics(pyglet.window.Window): 
     def __init__(self):
         #self.input = Input() #input class    
         self.modpath = "../data/"
@@ -41,7 +41,7 @@ class HorrorTactics: # extends BasicGame:
         self.last_mouse_y = 0
         self.mouse_tile_x = 0
         self.mouse_tile_y = 0
-        self.fps = 0
+        self.fps = pyglet.clock.get_fps()
         self.delta =0
         self.actor_move_timer = 0
         self.currentTime = 0
@@ -70,7 +70,6 @@ class HorrorTactics: # extends BasicGame:
         self.titlemenu = TitleMenu(self)
         #input = new Input(gc.getHeight())
         self.tiledmap.actormap.getActorLocationFromTMX(self.tiledmap)
-        self.fps = HtTime.getFPS()
         self.actor_move_timer = 0
         self.lastTime = 0
         self.lastframe = 0
@@ -126,7 +125,12 @@ class HorrorTactics: # extends BasicGame:
         # catch (Exception e): 
         #    e.printStackTrace()
         #
-
+    def getScreenWidth(self):
+        s = self.get_size()
+        return s[0]
+    def getScreenHeight(self):
+        s = self.get_size()
+        return s[1]
     def update(self, gc, delta): # throws SlickException: 
         #self.input = gc.getInput()
         #game_window.push_handlers(player_ship.key_handler)
@@ -140,7 +144,7 @@ class HorrorTactics: # extends BasicGame:
         self.actor_move_timer = self.actor_move_timer+1
         self.tiledmap.resetAttackAniFrame()
         if (self.game_state == "exit"): #: 
-            gc.exit()
+            self.close()
         elif (self.game_state == "title start" or self.game_state == "title ingame"):
             if (self.music.playing() == False): #: 
                 self.music.play()
@@ -152,10 +156,10 @@ class HorrorTactics: # extends BasicGame:
         if (self.tiledmap.player.dead == True and self.game_state == "tactical"):
             self.tiledmap.turn_order = "game over"
             self.game_state = "game over"
-        if (self.tiledmap.turn_order == "game over"): #update
-            n = None
-        elif (self.tiledmap.turn_order == "planning"):  #update
-            n = None #why is self here?
+        #if (self.tiledmap.turn_order == "game over"): #update
+        #    n = None
+        #elif (self.tiledmap.turn_order == "planning"):  #update
+        #    n = None #why is self here?
             #planning phase.  Show a dialogue.
             #Accept clicks through the dialogue
             #after the last click, accept
@@ -204,7 +208,7 @@ class HorrorTactics: # extends BasicGame:
                         self.tiledmap.follower[i].expForGoal = True
         elif (self.tiledmap.turn_order == "player"):
             if (self.actor_move_timer == 0):
-                self.tiledmap.player.onMoveActor(self.tiledmap, gc.getFPS())#self.getMyDelta(gc))
+                self.tiledmap.player.onMoveActor(self.tiledmap, self.fps )#self.getMyDelta(gc))
                 self.tiledmap.onFollowerMoving(gc, self, delta)
                 if(self.tiledmap.player.action_points <= 0 and self.tiledmap.getFollowersCanMove() == False):
                     #make it the monster turn automatically
@@ -236,28 +240,28 @@ class HorrorTactics: # extends BasicGame:
                 self.tiledmap.onMonsterMoving(gc, self, delta) #wrapper for onMoveActor
         self.tiledmap.onUpdateActorActionText()
 
-    #def render(gc, g): # throws SlickException:
-    def render(self, gc, g): #what args do we need?
+    #def render(): # throws SlickException:
+    def render(self): #what args do we need?
         if (self.game_state == ("tactical")): 
-            self.render_tactical_base(gc, g)
+            self.render_tactical_base()
         elif (self.game_state == ("conversation")): 
-            g.scale(self.scale_x, self.scale_x) #scale the same
-            self.render_tactical_base(gc, g)
+            #g.scale(self.scale_x, self.scale_x) #scale the same
+            self.render_tactical_base()
         elif (self.game_state == ("cutscene")): 
-            self.render_cutscene(gc, g) #animations?
+            self.render_cutscene() #animations?
         elif (self.game_state == ("title start") or self.game_state == ("title ingame")): 
-            #self.render_title(gc, g)
+            #self.render_title()
             self.titlemenu.render(self, g)
         elif (self.game_state == ("game over")): 
-            self.render_game_over(gc, g)  #its game over for your kind
-    def render_tactical_base(self, gc, g):
-        g.scale(self.scale_x, self.scale_x) #scale the same
-        self.render_background_layer(gc, g) #render floor
-        self.render_walls_layer(gc, g)      #render walls (and actors!)
-        self.render_game_ui(gc, g)
-        self.render_character_busts(gc, g)
+            self.render_game_over()  #its game over for your kind
+    def render_tactical_base(self):
+        #g.scale(self.scale_x, self.scale_x) #scale the same
+        self.render_background_layer() #render floor
+        self.render_walls_layer()      #render walls (and actors!)
+        self.render_game_ui()
+        self.render_character_busts()
 
-    def render_background_layer(self, gc, g): 
+    def render_background_layer(self): 
         background_layer = self.tiledmap.getLayerIndex("background_layer")
         self.tiledmap.set_party_min_renderables()
         for y in range(self.tiledmap.render_min_y - 4, self.tiledmap.render_max_y):#(int y = self.tiledmap.render_min_y - 4 y < self.tiledmap.render_max_y + 4 y++): 
@@ -280,7 +284,7 @@ class HorrorTactics: # extends BasicGame:
                 except: # catch (ArrayIndexOutOfBoundsException e): 
                     print("Block the bug: try if(xi.draw)") # # block the bug.
 
-    def render_wall_by_wall(self, gc, g, x, y): 
+    def render_wall_by_wall(self, x, y): 
         walls_layer = self.tiledmap.getLayerIndex("walls_layer")
         try: 
             if (self.tiledmap.getTileImage(x, y, walls_layer) == False):
@@ -312,7 +316,7 @@ class HorrorTactics: # extends BasicGame:
                     self.tiledmap.selected_yellow.draw(self.screen_x + self.draw_x, self.screen_y + self.draw_y) 
         except: #
              print("ArrayIndexOutOfBoundsException e")
-    def render_walls_layer(self, gc, g): 
+    def render_walls_layer(self): 
         mw = self.tiledmap.getTileWidth()
         mh = self.tiledmap.getTileHeight()
         for y in range(self.tiledmap.render_min_y - 4, self.tiledmap.render_max_y + 4):#for (int y = self.tiledmap.render_min_y - 4 y < self.tiledmap.render_max_y + 4 y++): 
@@ -324,9 +328,9 @@ class HorrorTactics: # extends BasicGame:
                 self.screen_y = (x + y) * self.tiledmap.TILE_HEIGHT_HALF
                 if (x >= 0 and y >= 0 and x <= mw and y <= mh): 
                     #/*loop through tiles */
-                    self.mouse_x = gc.getInput().getMouseX()
+                    self.mouse_x = 0 #gc.getInput().getMouseX()
                     #/*get mouse coords*/
-                    self.mouse_y = gc.getInput().getMouseY()
+                    self.mouse_y = 0 #gc.getInput().getMouseY()
                     sx = self.screen_x + self.draw_x + 30
                     #/*screen x/y+drawing offset*/
                     sy = self.screen_y + self.draw_y + 30
@@ -340,7 +344,7 @@ class HorrorTactics: # extends BasicGame:
                         #self.tiledmap.tiles250x129.getSubImage(0, 0, 250, 130).draw(
                         #        screen_x + draw_x, screen_y + draw_y, scale_x)
                     
-                    self.tiledmap.player.drawPlayer(self, self.tiledmap, x, y, g)
+                    self.tiledmap.player.drawPlayer(self, self.tiledmap, x, y)
                     #/*Draw your player*/
                     self.tiledmap.drawMonsters(self, x, y, g)
                     #/*self.tiledmap.monster[0].drawActor(self, map, x, y)*/
@@ -358,8 +362,8 @@ class HorrorTactics: # extends BasicGame:
                         self.tiledmap.mission_goal.draw(pdx, pdy)
                     
                     if (self.getTileToBeRendered(x, y)): 
-                        self.render_wall_by_wall(gc, g, x, y) #ArrayIndexOutOfBoundsException
-    #def render_game_ui(gc, g, )
+                        self.render_wall_by_wall(x, y) #ArrayIndexOutOfBoundsException
+    #def render_game_ui(, )
     def getMouseOverBottomButtons(self, ht): 
         #if(ht.self.mapm)
         if( self.msa.menuButtonWasOver(ht) ): 
@@ -372,7 +376,7 @@ class HorrorTactics: # extends BasicGame:
             return 400
         else: 
             return -100
-    def render_game_ui(self,gc, g): 
+    def render_game_ui(self): 
         self.mouseovervar = self.getMouseOverBottomButtons(self)
         self.map.player.iconImage.draw(5, 50)
         if (self.map.player.newLevelUp == True):  #level_up_icon
@@ -389,11 +393,11 @@ class HorrorTactics: # extends BasicGame:
         g.setColor(self.myfilterd)
         g.fillOval(5, 50 + 75, 12, 14)
         g.setColor(self.myfilter)
-        self.button_items.draw(gc.getScreenWidth() - 400, gc.getScreenHeight() - 64 - 10)
-        self.button_profile.draw(gc.getScreenWidth() - 300, gc.getScreenHeight() - 64 - 10)
-        self.button_endturn.draw(gc.getScreenWidth() - 200, gc.getScreenHeight() - 64 - 10)
-        self.button_menu.draw(gc.getScreenWidth() - 100, gc.getScreenHeight() - 64 - 10)
-        self.button_shadow.draw(gc.getScreenWidth() -self.mouseovervar, gc.getScreenHeight() - 64 - 10) #button_shadow
+        self.button_items.draw(self.getScreenWidth() - 400, self.getScreenHeight() - 64 - 10)
+        self.button_profile.draw(self.getScreenWidth() - 300, self.getScreenHeight() - 64 - 10)
+        self.button_endturn.draw(self.getScreenWidth() - 200, self.getScreenHeight() - 64 - 10)
+        self.button_menu.draw(self.getScreenWidth() - 100, self.getScreenHeight() - 64 - 10)
+        self.button_shadow.draw(self.getScreenWidth() -self.mouseovervar, self.getScreenHeight() - 64 - 10) #button_shadow
         g.drawString("Player At:" + self.tiledmap.player.tilex + "X" + self.tiledmap.player.tiley + "mouse at:"
                 + self.tiledmap.mouse_over_tile_x + "x" + self.tiledmap.mouse_over_tile_y + " Turn: "
                 + self.tiledmap.turn_order + " mm: " + self.tiledmap.current_monster_moving + "/"
@@ -404,7 +408,7 @@ class HorrorTactics: # extends BasicGame:
         g.drawString(self.tiledmap.log_msg, 200, 10 + 14)
         #g.drawString("Trigger Check: " + self.tiledmap.trigger_check, 500, 100)
         if (self.tiledmap.turn_order == ("monster")): 
-            self.enemy_moving_message.draw(gc.getWidth() / 2 - 200, gc.getHeight() / 2)
+            self.enemy_moving_message.draw(self.getScreenWidth() / 2 - 200, self.getScreenHeight / 2)
             #The enemy is moving, show which enemy.(so people dont get bored)
             for mi in range(0, self.tiledmap.current_monster_moving):#for (int mi = 0 mi < self.tiledmap.current_monster_moving mi++): 
                 self.tiledmap.monster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92 * mi + 2), gc.getHeight() / 2 + 92)
@@ -417,7 +421,7 @@ class HorrorTactics: # extends BasicGame:
                 break
         if (foundselected == False): 
             self.tiledmap.player.drawPopupWindow(self, g) #who is currently selected?  
-    def render_character_busts(self, gc, g): 
+    def render_character_busts(self): 
         #render character busts while conversation is going on.
         black = Color(0, 0, 0, 180)
         white = Color(255, 255, 255, 255)
@@ -454,13 +458,13 @@ class HorrorTactics: # extends BasicGame:
             #uniFont.drawString(400, gc.getScreenHeight() - 100, self.tiledmap.EventExit_m, Color.white)
             g.drawString(self.tiledmap.EventExit_m, 400, gc.getScreenHeight() - 100)
 
-    def render_game_over(self, gc, g): #yoo dyied!
+    def render_game_over(self): #yoo dyied!
         #g.clear() #fade to black
         g.scale(self.scale_x, self.scale_x) #scale the same
-        self.render_background_layer(gc, g) #render floor
-        self.render_walls_layer(gc, g)      #render walls (and actors!)
-        self.render_game_ui(gc, g)
-        self.render_character_busts(gc, g) #bring up the busts, and talk
+        self.render_background_layer() #render floor
+        self.render_walls_layer()      #render walls (and actors!)
+        self.render_game_ui()
+        self.render_character_busts() #bring up the busts, and talk
         g.drawString("Game Over", gc.getScreenWidth()/2 - 100, gc.getScreenHeight()/2 - 12)
     
 
