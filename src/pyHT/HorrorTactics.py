@@ -14,6 +14,7 @@ from files.techWrap import HtTime
 #from files.techWrap import HtWindow
 from files.techWrap import HtSound
 from files.techWrap import HtApp
+from files.techWrap import Graphics
 
 from files.MyTiledMap import MyTiledMap
 from files.MouseActions import MouseActions
@@ -77,6 +78,7 @@ class HorrorTactics(pyglet.window.Window):
         self.currentTime = HtTime.getTime()
         #self.screen = HtWindow()        
         self.window = pyglet.window.Window(fullscreen=True, visible=False)
+        self.graphics = Graphics()
         #platform = pyglet.window.get_platform()
         #display = platform.get_default_display()
         #screen = display.get_default_screen()
@@ -251,7 +253,7 @@ class HorrorTactics(pyglet.window.Window):
             self.render_cutscene() #animations?
         elif (self.game_state == ("title start") or self.game_state == ("title ingame")): 
             #self.render_title()
-            self.titlemenu.render(self, g)
+            self.titlemenu.render(self)
         elif (self.game_state == ("game over")): 
             self.render_game_over()  #its game over for your kind
     def render_tactical_base(self):
@@ -346,9 +348,9 @@ class HorrorTactics(pyglet.window.Window):
                     
                     self.tiledmap.player.drawPlayer(self, self.tiledmap, x, y)
                     #/*Draw your player*/
-                    self.tiledmap.drawMonsters(self, x, y, g)
+                    self.tiledmap.drawMonsters(self, x, y)
                     #/*self.tiledmap.monster[0].drawActor(self, map, x, y)*/
-                    self.tiledmap.drawFollowers(self, x, y, g)
+                    self.tiledmap.drawFollowers(self, x, y)
                     #/*draw your followers*/
                     if (self.tiledmap.RequiresGoal == ("yes")
                             and self.tiledmap.EventGoal_ran == False
@@ -376,96 +378,94 @@ class HorrorTactics(pyglet.window.Window):
             return 400
         else: 
             return -100
-    def render_game_ui(self): 
+    def render_game_ui(self):
         self.mouseovervar = self.getMouseOverBottomButtons(self)
         self.map.player.iconImage.draw(5, 50)
         if (self.map.player.newLevelUp == True):  #level_up_icon
             self.level_up_icon.draw(5, 50)
         
-        g.drawString(("Action: " , self.map.player.action_points), 5, 50 + 75)
+        self.graphics.drawString(("Action: " , self.map.player.action_points), 5, 50 + 75)
         for i in range(0, ):#for (int i = 0 i < self.tiledmap.follower_max i++): 
             if (self.tiledmap.follower[i].visible == True): 
                 self.tiledmap.follower[i].iconImage.draw(5, 50 + (100 * (i + 1)))
                 if (self.tiledmap.follower[i].newLevelUp == True): 
                     self.level_up_icon.draw(5, 50 + (100 * (i + 1)))
                 
-                g.drawString(("Action: " , self.tiledmap.follower[i].action_points), 5, 50 + (100 * (i + 1)) + 75)
-        g.setColor(self.myfilterd)
-        g.fillOval(5, 50 + 75, 12, 14)
-        g.setColor(self.myfilter)
+                self.graphics.drawString(("Action: " , self.tiledmap.follower[i].action_points), 5, 50 + (100 * (i + 1)) + 75)
+        self.graphics.setColor(self.myfilterd)
+        self.graphics.fillOval(5, 50 + 75, 12, 14)
+        self.graphics.setColor(self.myfilter)
         self.button_items.draw(self.getScreenWidth() - 400, self.getScreenHeight() - 64 - 10)
         self.button_profile.draw(self.getScreenWidth() - 300, self.getScreenHeight() - 64 - 10)
         self.button_endturn.draw(self.getScreenWidth() - 200, self.getScreenHeight() - 64 - 10)
         self.button_menu.draw(self.getScreenWidth() - 100, self.getScreenHeight() - 64 - 10)
         self.button_shadow.draw(self.getScreenWidth() -self.mouseovervar, self.getScreenHeight() - 64 - 10) #button_shadow
-        g.drawString("Player At:" + self.tiledmap.player.tilex + "X" + self.tiledmap.player.tiley + "mouse at:"
+        self.graphics.drawString("Player At:" + self.tiledmap.player.tilex + "X" + self.tiledmap.player.tiley + "mouse at:"
                 + self.tiledmap.mouse_over_tile_x + "x" + self.tiledmap.mouse_over_tile_y + " Turn: "
                 + self.tiledmap.turn_order + " mm: " + self.tiledmap.current_monster_moving + "/"
                 + self.tiledmap.monster[self.tiledmap.current_monster_moving].action_points + " dst:"
                 + self.tiledmap.monster[self.tiledmap.current_monster_moving].tiledestx + ","
                 + self.tiledmap.monster[self.tiledmap.current_monster_moving].tiledesty,
                 200, 10)#might crash?
-        g.drawString(self.tiledmap.log_msg, 200, 10 + 14)
-        #g.drawString("Trigger Check: " + self.tiledmap.trigger_check, 500, 100)
+        self.graphics.drawString(self.tiledmap.log_msg, 200, 10 + 14)
         if (self.tiledmap.turn_order == ("monster")): 
             self.enemy_moving_message.draw(self.getScreenWidth() / 2 - 200, self.getScreenHeight / 2)
             #The enemy is moving, show which enemy.(so people dont get bored)
             for mi in range(0, self.tiledmap.current_monster_moving):#for (int mi = 0 mi < self.tiledmap.current_monster_moving mi++): 
-                self.tiledmap.monster[mi].iconImage.draw(gc.getWidth() / 2 - 200 + (92 * mi + 2), gc.getHeight() / 2 + 92)
+                self.tiledmap.monster[mi].iconImage.draw(self.getScreenWidth / 2 - 200 + (92 * mi + 2), self.getScreenHeight / 2 + 92)
         #check for a follower selected
         foundselected = False
         for i in range(0, self.tiledmap.follower_max): #for (int i = 0 i < self.tiledmap.follower_max i++): 
             if (self.tiledmap.follower[i].selected == True): 
                 foundselected = True
-                self.tiledmap.follower[i].drawPopupWindow(self, g)
+                self.tiledmap.follower[i].drawPopupWindow(self, self.graphics)
                 break
         if (foundselected == False): 
-            self.tiledmap.player.drawPopupWindow(self, g) #who is currently selected?  
+            self.tiledmap.player.drawPopupWindow(self, self.graphics) #who is currently selected?  
     def render_character_busts(self): 
         #render character busts while conversation is going on.
         black = Color(0, 0, 0, 180)
         white = Color(255, 255, 255, 255)
         if (self.tiledmap.turn_order == "planning"): 
-            self.tiledmap.charbusts[self.tiledmap.planevent].draw(-100, gc.getScreenHeight() - 600)
-            g.setColor(black)
-            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
-            g.setColor(white)
-            #self.uniFont.drawString(400, gc.getScreenHeight() - 100, self.tiledmap.planning[self.tiledmap.planevent], Color.white )
-            g.drawString(self.tiledmap.planning[self.tiledmap.planevent], 400, gc.getScreenHeight() - 100)
+            self.tiledmap.charbusts[self.tiledmap.planevent].draw(-100, self.getScreenHeight() - 600)
+            self.graphics.setColor(black)
+            self.graphics.fillRect(0, self.getScreenHeight() - 150, self.getScreenWidth(), 150)
+            self.graphics.setColor(white)
+            self.graphics.drawString(self.tiledmap.planning[self.tiledmap.planevent], 400, self.getScreenHeight() - 100)
         elif (self.tiledmap.turn_order == ("event spotted")): 
             #null pointer if there is no event spotted
-            self.tiledmap.EventSpotted_p.draw(-100, gc.getScreenHeight() - 600)
-            g.setColor(black)
-            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
-            g.setColor(white)
+            self.tiledmap.EventSpotted_p.draw(-100, self.getScreenHeight() - 600)
+            self.graphics.setColor(black)
+            self.graphics.fillRect(0, self.getScreenHeight() - 150, self.getScreenWidth(), 150)
+            self.graphics.setColor(white)
             #uniFont.drawString(400, gc.getScreenHeight() - 100, self.tiledmap.EventSpotted_m, Color.white)
             #set all monsters to spotted True (if False)
-            g.drawString(self.tiledmap.EventSpotted_m, 400, gc.getScreenHeight() - 100)
+            self.graphics.drawString(self.tiledmap.EventSpotted_m, 400, self.getScreenHeight() - 100)
             for i in range(0, self.tiledmap.monster_max): #for (int i = 0 i < self.tiledmap.monster_max i++): 
                 self.tiledmap.monster[i].spotted_enemy = True            
         elif (self.tiledmap.turn_order == ("goal reached")): 
-            self.tiledmap.EventGoal_p.draw(-100, gc.getScreenHeight() - 600)
-            g.setColor(black)
-            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
-            g.setColor(white)
+            self.tiledmap.EventGoal_p.draw(-100, self.getScreenHeight() - 600)
+            self.graphics.setColor(black)
+            self.graphics.fillRect(0, self.getScreenHeight() - 150, self.getScreenWidth(), 150)
+            self.graphics.setColor(white)
             #uniFont.drawString(400, gc.getScreenHeight() - 100, self.tiledmap.EventGoal_m, Color.white)
-            g.drawString(self.tiledmap.EventGoal_m, 400, gc.getScreenHeight() - 100)
+            self.graphics.drawString(self.tiledmap.EventGoal_m, 400, self.getScreenHeight() - 100)
         elif (self.tiledmap.turn_order == ("exit reached")): 
-            self.tiledmap.EventExit_p.draw(-100, gc.getScreenHeight() - 600)
-            g.setColor(black)
-            g.fillRect(0, gc.getScreenHeight() - 150, gc.getScreenWidth(), 150)
-            g.setColor(white)
+            self.tiledmap.EventExit_p.draw(-100, self.getScreenHeight() - 600)
+            self.graphics.setColor(black)
+            self.graphics.fillRect(0, self.getScreenHeight() - 150, self.getScreenWidth(), 150)
+            self.graphics.setColor(white)
             #uniFont.drawString(400, gc.getScreenHeight() - 100, self.tiledmap.EventExit_m, Color.white)
-            g.drawString(self.tiledmap.EventExit_m, 400, gc.getScreenHeight() - 100)
+            self.graphics.drawString(self.tiledmap.EventExit_m, 400, self.getScreenHeight() - 100)
 
     def render_game_over(self): #yoo dyied!
         #g.clear() #fade to black
-        g.scale(self.scale_x, self.scale_x) #scale the same
+        self.graphics.scale(self.scale_x, self.scale_x) #scale the same
         self.render_background_layer() #render floor
         self.render_walls_layer()      #render walls (and actors!)
         self.render_game_ui()
         self.render_character_busts() #bring up the busts, and talk
-        g.drawString("Game Over", gc.getScreenWidth()/2 - 100, gc.getScreenHeight()/2 - 12)
+        self.graphics.drawString("Game Over", self.getScreenWidth()/2 - 100, self.getScreenHeight()/2 - 12)
     
 
     def wall_intersect_player(self, x, y, screen_x, screen_y): 
