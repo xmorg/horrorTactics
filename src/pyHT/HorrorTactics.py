@@ -127,6 +127,12 @@ class HorrorTactics(pyglet.window.Window):
         # catch (Exception e): 
         #    e.printStackTrace()
         #
+    def on_mouse_motion(self,x,y,dx,dy):
+        self.msa.mouse_x = x
+        self.msa.mouse_y = y
+    def on_mouse_press(self,x,y,button, modifiers):
+        self.msa.mouse_x = x
+        self.msa.mouse_y = y
     def getScreenWidth(self):
         s = self.get_size()
         return s[0]
@@ -137,10 +143,9 @@ class HorrorTactics(pyglet.window.Window):
         #self.input = gc.getInput()
         #game_window.push_handlers(player_ship.key_handler)
         #self.ksa.kactions.handler.
-        self.mouse_x = input.getMouseX()
-        self.mouse_y = input.getMouseY()
-        self.msa.mouseWasClicked(self.input, self.tiledmap) #Do mouse actions
-        
+        #self.mouse_x = input.getMouseX()
+        #self.mouse_y = input.getMouseY()
+        #self.msa.mouseWasClicked(self.input, self.tiledmap) #Do mouse actions
         self.ksa.on_key_press(self, None) #Do keyboard actions
         self.tiledmap.updateMapXY(self.draw_x, self.draw_y)
         self.actor_move_timer = self.actor_move_timer+1

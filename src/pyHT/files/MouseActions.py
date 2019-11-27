@@ -16,9 +16,6 @@ class MouseActions: # {
         self.mouse_y = 0
         self.mouse_tile_x = 0
         self.mouse_tile_y = 0
-    def update_mouse(self, ht):
-        
-
     def getMSelectedActor(self, ht):
         foundselected = False
         for i in range(0, ht.tiledmap.follower_max): #(int i= 0 i < ht.tiledmap.follower_max i+=1):
