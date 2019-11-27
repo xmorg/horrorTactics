@@ -84,6 +84,7 @@ class TitleMenu:
         self.renderCredits(ht, g)
         self.renderLoadGame(ht, g)
         self.renderOptions(ht, g)
+        self.flip()
     def onMouseClick(self, ht, x, y):
         #running withing MouseActions.mouseWasClicked, so assuming mouse was 
         #Game,  28,42, 334x66

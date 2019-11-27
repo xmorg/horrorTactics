@@ -103,15 +103,15 @@ class HtTime:
         return 0
     def getTime():
         return 0
-class HtWindow:
-    def __init__(self):
-        self.window = pyglet.window.Window()
-        #self.screen = pyglet.window.Screen() #AttributeError: module 'pyglet.window' has no attribute 'Screen'
-        #self.window.set_fullscreen()
-    def getScreenHeight(self): #(self):
-        return self.screen.height
-    def getScreenWidth(self):
-        return self.screen.width
+#class HtWindow:
+#    def __init__(self):
+#        self.window = pyglet.window.Window()
+#        #self.screen = pyglet.window.Screen() #AttributeError: module 'pyglet.window' has no attribute 'Screen'
+#        #self.window.set_fullscreen()
+#    def getScreenHeight(self): #(self):
+#        return self.screen.height
+#    def getScreenWidth(self):
+#        return self.screen.width
 class Graphics:
     def __init__(self):
         self.current_color = Color(0,0,0,0)
@@ -132,6 +132,7 @@ class Graphics:
 class HtApp:
     def __init__(self):
         #self.screen = HtWindow()
-        self.screen = HtWindow()
+        #self.screen = HtWindow()
+        self.name = "horror tactics"
     def run_app(self):
         pyglet.app.run()

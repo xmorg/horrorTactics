@@ -58,7 +58,7 @@ class HorrorTactics(pyglet.window.Window):
         self.titlemenu = TitleMenu(self) #ht
         self.playerfile = SaveMyFile()
         #self.music = self.music()
-        self.game_state = "title start" #title start, title ingame, tactical,conversation,cutscene
+        self.game_state = "title start" #title start, title ingame, tactical,conversation,cutscene, exit
         self.fullscreen_toggle = "Yes"
         self.sound_toggle = "Yes"
         #self.tiledmap = MyTiledMap("../data/dojo01.tmx", 0, 0)
@@ -114,7 +114,7 @@ class HorrorTactics(pyglet.window.Window):
         self.level_up_icon = Image("data/level_up_icon.png")
         self.music = HtSound("data/soundeffects/anxiety_backwards.wav")
         self.app = HtApp() #pyglet.app.run()
-        self.app.run_app()
+        #self.app.run_app()
         #try:
             #TODO: Fonts
             #InputStream inputStream = ResourceLoader.getResourceAsStream("data/School_Writing.ttf")
@@ -133,7 +133,7 @@ class HorrorTactics(pyglet.window.Window):
     def getScreenHeight(self):
         s = self.get_size()
         return s[1]
-    def update(self, gc, delta): # throws SlickException: 
+    def update(self): # throws SlickException: 
         #self.input = gc.getInput()
         #game_window.push_handlers(player_ship.key_handler)
         #self.ksa.kactions.handler.
@@ -211,7 +211,7 @@ class HorrorTactics(pyglet.window.Window):
         elif (self.tiledmap.turn_order == "player"):
             if (self.actor_move_timer == 0):
                 self.tiledmap.player.onMoveActor(self.tiledmap, self.fps )#self.getMyDelta(gc))
-                self.tiledmap.onFollowerMoving(gc, self, delta)
+                self.tiledmap.onFollowerMoving(self)
                 if(self.tiledmap.player.action_points <= 0 and self.tiledmap.getFollowersCanMove() == False):
                     #make it the monster turn automatically
                     self.tiledmap.turn_order = "start monster"
@@ -239,7 +239,7 @@ class HorrorTactics(pyglet.window.Window):
         elif (self.tiledmap.turn_order == ("monster")): 
             if (self.actor_move_timer == 0): 
                 self.tiledmap.resetAttackAniFrame()
-                self.tiledmap.onMonsterMoving(gc, self, delta) #wrapper for onMoveActor
+                self.tiledmap.onMonsterMoving(self) #wrapper for onMoveActor
         self.tiledmap.onUpdateActorActionText()
 
     #def render(): # throws SlickException:
@@ -535,12 +535,15 @@ class HorrorTactics(pyglet.window.Window):
     def translateToTile(self, tx, ty): #center tile x/y on the screen?
         self.draw_x -= self.tiledmap.getIsoXToScreen(tx, ty)-(self.screen_width/3)
         self.draw_y -= self.tiledmap.getIsoYToScreen(tx, ty)-(self.screen_height-200)
-    #def main(self,args): #depriciated?
-    #    try:
-    #        HtApp.StartApp()
-    #        self.app.run_app()
-    #    except:
-    #        print("cant start app: some reason?")   
-#pyglet.app.run()
-h = HorrorTactics()
-
+    def on_draw(self):
+        print(" on_draw called")
+        self.render()
+    def run(self):
+        while self.game_state != "exit":
+            #event = self.dispatch_events()
+            self.update()
+            self.render()
+if __name__ == '__main__':
+    x = HorrorTactics()
+    #pyglet.clock.set_fps_limit(120)
+    x.run()
