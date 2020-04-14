@@ -3,53 +3,39 @@
 import pygame
 from pygame.locals import *
 
+from title import title
+from keyboard import keyboard
+from mouse import mouse
+
 class scene:
     def __init__(self):
         self.x = 0 #draw x/y
         self.y = 0 
-class title: #title screen
-    def __init__(self):
-        self.image = pygame.image.load('../data/title1_01.jpg')
-        self.menuimage = pygame.image.load('../data/title_text_load.jpg')
-    def draw(self,scr):
-        scr.blit(self.image, (0,0))
-        scr.blit(self.menuimage, (0,0))
-    def input(self):
-        #check for mouse
-        i = 1
-class button: #clickable buttons
-    def __init__(self, x, y, w, h):
-        self.x =x
-        self.y =y
-        self.w =w
-        self.h =h
-    def getclick(self, x, y):
-        if( x > self.x and x < self.x+self.w):
-            if (y > self.y and  y < self.y + self.w ):
-                return True
-            return False
 class myapp: #main app
     def __init__(self):
         self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
         self.gscreen = pygame.display.set_mode( (0,0), pygame.FULLSCREEN)
+        self.kb = keyboard()
+        self.ms = mouse()
+        self.current_scene = "title"
     def load(self):
         self.title = title()
     def draw(self):
         #pygame.draw.rect(surface, color, pygame.Rect(left, top, width, height))
-        self.title.draw(self.gscreen) #if gamestate = title
-        pygame.display.update()
+        if self.current_scene == "title":
+            self.title.draw(self.gscreen) #if gamestate = title
+        elif self.current_scene == "tactical":
+            self.current_scene = "tactical"
+        elif self.current_scene == "options":
+            self.current_scene = "options"
+        elif self.current_scene == "save":
+            self.current_scene = "save"
+        elif self.current_scene == "load":
+            self.current_scene = "load":
+            pygame.display.update()
     def input(self):
-        key = pygame.key.get_pressed()
-        if key[pygame.K_RIGHT]:
-            print("right")
-            return "playing"
-        elif key[pygame.K_LEFT]:
-            print("left")
-            return "playing"
-        elif key[pygame.K_ESCAPE]:
-            return "exit"
-        else:
-            return "playing"
+        r = self.kb.input()
+        return r
 def main():
     pygame.init()
     app = myapp()
@@ -62,6 +48,8 @@ def main():
                 pygame.quit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 game_state = "exit"
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                ms.input()
         game_state = app.input()
         app.draw()
     print("exit reached")
