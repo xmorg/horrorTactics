@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="left-down" width="30" height="30" tilewidth="250" tileheight="129" nextobjectid="1">
  <properties>
-  <property name="event_spotted" value="tutor_bully0"/>
-  <property name="event_spotted1" value="tutor_bully0"/>
+  <property name="event_spotted" value="mummy0"/>
+  <property name="event_spotted1" value="mummy0"/>
   <property name="event_spotted_m" value="(hallway bullies) Oh no, not Now..."/>
   <property name="event_spotted_m1" value="Takeshi: Go on ahead! ill take care of these losers!"/>
   <property name="event_spotted_p" value="prt_player_00.png"/>
@@ -55,7 +55,7 @@
   </tile>
   <tile id="9">
    <properties>
-    <property name="actor_name" value="tutor_bully0"/>
+    <property name="actor_name" value="mummy0"/>
     <property name="actor_spotted" value="false"/>
     <property name="hit_bonus" type="int" value="-1"/>
    </properties>
@@ -85,17 +85,17 @@
  </tileset>
  <layer name="background_layer" width="30" height="30" opacity="0.99">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3DAQ0AAAzDoGqbf1EXckhYNVVVVd89TPrWihAOAAA=
+   H4sIAAAAAAAAA+3DAQ0AAAzDoGqbf1EXckhYNVVVVd89TPrWihAOAAA=
   </data>
  </layer>
  <layer name="walls_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC92UUQ7DIAiGeXVX6MM8wW7Q+1+rfZiJoYA/iGtWEhKjwCcKFCIqN2k99UNXaWdt/RZsuL3HjgRuf0ZsjcSLciVbT7z9q6u42n6Ui+T3r9wKMjzckQ/3k/oM5Vr2kh3XDbCxVON68rGEz4iXw2+WG/XLzPeX3N7f+87Wn49qYaaPZmrVW9eZXOmPkbfb2H417iXF13JC76MJnyVIHHR+jLjI3RDJmll9LC93VvqayOKiNryGkP8dcZD+inClHquKHyoZ9byKu0Lu5Ebq5Kl6ALOpsJAQDgAA
+   H4sIAAAAAAAAA92UUQ7DIAiGeXVX6MM8wW7Q+1+rfZiJoYA/iGtWEhKjwCcKFCIqN2k99UNXaWdt/RZsuL3HjgRuf0ZsjcSLciVbT7z9q6u42n6Ui+T3r9wKMjzckQ/3k/oM5Vr2kh3XDbCxVON68rGEz4iXw2+WG/XLzPeX3N7f+87Wn49qYaaPZmrVW9eZXOmPkbfb2H417iXF13JC76MJnyVIHHR+jLjI3RDJmll9LC93VvqayOKiNryGkP8dcZD+inClHquKHyoZ9byKu0Lu5Ebq5Kl6ALOpsJAQDgAA
   </data>
  </layer>
  <layer name="actors_layer" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3NAQ0AIAwDsFkh5P4tXsZCaA00AXjHLb2n9E7pBQD+sPmwAtMQDgAA
+   H4sIAAAAAAAAA2NgGAWjYGCA1kA7YBQMSaA8QPYq0tBsfHlBlYb2joJRMFCAlvkJH1AaIHtxlVuj9eAooCcYTW+jABcAAFGLkIEQDgAA
   </data>
  </layer>
 </map>
