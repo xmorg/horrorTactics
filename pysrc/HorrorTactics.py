@@ -31,7 +31,7 @@ class myapp: #main app
         elif self.current_scene == "save":
             self.current_scene = "save"
         elif self.current_scene == "load":
-            self.current_scene = "load":
+            self.current_scene = "load"
             pygame.display.update()
     def input(self):
         r = self.kb.input()
