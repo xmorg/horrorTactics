@@ -13,7 +13,7 @@ class scene:
         self.y = 0 
 class myapp: #main app
     def __init__(self):
-        self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
+        #self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
         self.gscreen = pygame.display.set_mode( (0,0), pygame.FULLSCREEN)
         self.kb = keyboard()
         self.ms = mouse()

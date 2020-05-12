@@ -13,8 +13,7 @@ from button import button
 
 class mouse:
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x, self.y = pygame.mouse.get_pos()
     def input(self, state): #does get clicks
         self.pos = pygame.mouse.get_pos()
         #self.click = pygame.mouse.
