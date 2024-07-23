@@ -1,6 +1,12 @@
 # horrorTactics +
 Survive your worst fears! The player faces a seamingly endless array of spooky scenarios.  It all started on that first night, when she went back to the school to get her cell phone from her locker. The classrooms where crawling with shambling pear shaped monsters.  After surviving her first "encounter", the player returned to school the next day to find everything was normal, like it never happened.  Except her friends.  Any friend who dies, seems to have never existed!  The next night ...
 
+STATE
+This game was written in an older version of java (8?), using and older version of netbeans (8? 9?) and Slick2D (a no longer developed engine)  as such development has halted as pretty much all of its underlying tech is outdated.  It still runs, but to compile you need to recreate the netbeans environment.  Attempting to compile without netbeans creates circular dependancies.  I also attempted to use gradle and can get a jar executable but it wont run. So the game needs to be rewritten.  Hopefully a platform can emerge that allows me to use the tiled maps.  (which leads me to another issue!)  Currently the triggers and hacks i used on tiled to create encounters and logic, I cannot create on later versions of tiled!  adding extra data to objects appears to be read only, although you can still see it on the already created maps.  Some hacking can be done with a text editor, but it also seems that even the maps would need to be recreated.  So thats the long version of why development halted - technology is moving faster than I am able to develop.
+
+I have posted the assests of this game on opengameart, using their OGA license.  Feel free to reuse the art.
+https://opengameart.org/content/horrortactics-tiles-sprites
+
 TODO's [code]
 Dead monster sprites change direction in monster turn
 Actors can stll face away from the attack targets
